@@ -21,6 +21,14 @@ Route::get('/registro', function () {
     return view('welcome');
 })->middleware([ 'isRegistro']);
 
+Route::get('/subsistema/aforo', function () {
+    return view('welcome');
+})->middleware([ 'isAforo']);
+
+Route::get('/subsistema/oferta', function () {
+    return view('welcome');
+})->middleware([ 'isOferta']);
+
 Route::get('/redirect', function () {
     $query = http_build_query([
         'client_id'     => '3',
