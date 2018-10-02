@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/registro', function () {
+    return view('welcome');
+})->middleware([ 'isRegistro']);
+
 Route::get('/redirect', function () {
     $query = http_build_query([
         'client_id'     => '3',

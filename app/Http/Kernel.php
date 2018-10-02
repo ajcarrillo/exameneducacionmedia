@@ -2,6 +2,9 @@
 
 namespace ExamenEducacionMedia\Http;
 
+use ExamenEducacionMedia\Http\Middleware\CheckForAforoMode;
+use ExamenEducacionMedia\Http\Middleware\CheckForOfertaMode;
+use ExamenEducacionMedia\Http\Middleware\CheckForRegistroMode;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -51,14 +54,17 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \ExamenEducacionMedia\Http\Middleware\Authenticate::class,
-        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'auth'          => \ExamenEducacionMedia\Http\Middleware\Authenticate::class,
+        'auth.basic'    => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'bindings'      => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
-        'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest' => \ExamenEducacionMedia\Http\Middleware\RedirectIfAuthenticated::class,
-        'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'can'           => \Illuminate\Auth\Middleware\Authorize::class,
+        'guest'         => \ExamenEducacionMedia\Http\Middleware\RedirectIfAuthenticated::class,
+        'signed'        => \Illuminate\Routing\Middleware\ValidateSignature::class,
+        'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'verified'      => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'isAforo'       => CheckForAforoMode::class,
+        'isOferta'      => CheckForOfertaMode::class,
+        'isRegistro'    => CheckForRegistroMode::class,
     ];
 }
