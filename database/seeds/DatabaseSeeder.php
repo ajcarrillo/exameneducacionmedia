@@ -17,6 +17,9 @@ class DatabaseSeeder extends Seeder
         $files = [
             'database/queries/subsistemas.sql',
             'database/queries/planteles.sql',
+            'database/queries/especialidades.sql',
+            'database/queries/programas_estudio.sql',
+            'database/queries/ofertas_educativas.sql',
         ];
         foreach ($files as $path) {
             DB::unprepared(file_get_contents($path));
