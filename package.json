@@ -13,6 +13,8 @@
         "admin-lte": "https://github.com/almasaeed2010/AdminLTE#v3-dev",
         "axios": "^0.18",
         "bootstrap": "^4.0.0",
+        "browser-sync": "^2.24.7",
+        "browser-sync-webpack-plugin": "^2.2.2",
         "collect.js": "^4.0.28",
         "cross-env": "^5.1",
         "jquery": "^3.2",
@@ -28,5 +30,8 @@
         "vue-router": "^3.0.1",
         "vue-select": "^2.5.1",
         "vuex": "^3.0.1"
+    },
+    "dependencies": {
+        "ionicons": "^4.4.4"
     }
 }
