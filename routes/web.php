@@ -72,3 +72,7 @@ Route::get('/password', function (Request $request) {
 
     return json_decode((string)$response->getBody(), true);
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
