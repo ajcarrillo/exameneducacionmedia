@@ -20,13 +20,13 @@ class CreateSampleUsersTableSeeder extends Seeder
         factory(\ExamenEducacionMedia\User::class, 1)->create([
             'username' => 'subsistema',
         ])->each(function ($u) {
-            $u->roles()->attach(5);
+            $u->groups()->attach(5);
         });
 
         factory(\ExamenEducacionMedia\User::class, 1)->create([
             'username' => 'departamento',
         ])->each(function ($u) {
-            $u->roles()->attach(3);
+            $u->groups()->attach(3);
         });
     }
 }
