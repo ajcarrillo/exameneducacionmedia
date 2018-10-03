@@ -29,6 +29,12 @@ Route::get('/subsistema/oferta', function () {
     return view('welcome');
 })->middleware([ 'isOferta' ]);
 
+Route::group([ 'prefix' => '/planteles', 'middleware' => [ 'auth', 'role:plantel', 'hasPlantel' ] ], function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
+});
+
 Route::group([ 'prefix' => '/subsistemas', 'middleware' => [ 'auth', 'role:subsistema', 'hasSubsistema' ] ], function () {
     Route::get('/', function () {
         return view('welcome');
