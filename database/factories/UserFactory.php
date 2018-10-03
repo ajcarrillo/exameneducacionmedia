@@ -15,9 +15,14 @@ use Faker\Generator as Faker;
 
 $factory->define(ExamenEducacionMedia\User::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-        'remember_token' => str_random(10),
+        'uuid'             => $faker->uuid,
+        'nombre'           => $faker->name,
+        'primer_apellido'  => $faker->firstName,
+        'segundo_apellido' => $faker->lastName,
+        'email'            => $faker->unique()->safeEmail,
+        'username'         => $faker->unique()->userName,
+        'password'         => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+        'remember_token'   => str_random(10),
+        'active'           => 1,
     ];
 });

@@ -12,6 +12,7 @@
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.7",
+        "ramsey/uuid": "^3.8",
         "tightenco/ziggy": "v0.6.8.1"
     },
     "require-dev": {
