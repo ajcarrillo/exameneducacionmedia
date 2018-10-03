@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use Carbon\Carbon;
 use ExamenEducacionMedia\Models\EtapaProceso;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -25,7 +26,7 @@ class EtapaProcesoTest extends TestCase
     public function test_a_user_can_get_into_aforo_stage()
     {
 
-        $this->crearEtapa('AFORO', '2018-10-02', '2018-10-02');
+        $this->crearEtapa('AFORO', Carbon::now()->format('Y-m-d'), Carbon::now()->format('Y-m-d'));
         $result = EtapaProceso::isAforo();
 
         $this->assertEquals(true, $result);
@@ -33,7 +34,7 @@ class EtapaProcesoTest extends TestCase
 
     public function test_a_user_can_get_into_oferta_stage()
     {
-        $this->crearEtapa('OFERTA', '2018-10-02', '2018-10-02');
+        $this->crearEtapa('OFERTA', Carbon::now()->format('Y-m-d'), Carbon::now()->format('Y-m-d'));
         $result = EtapaProceso::isOferta();
 
         $this->assertEquals(true, $result);
@@ -41,7 +42,7 @@ class EtapaProcesoTest extends TestCase
 
     public function test_a_user_can_get_into_registro_stage()
     {
-        $this->crearEtapa('REGISTRO', '2018-10-02', '2018-10-02');
+        $this->crearEtapa('REGISTRO', Carbon::now()->format('Y-m-d'), Carbon::now()->format('Y-m-d'));
         $result = EtapaProceso::isRegistro();
 
         $this->assertEquals(true, $result);

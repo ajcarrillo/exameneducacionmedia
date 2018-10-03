@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Carbon\Carbon;
 use ExamenEducacionMedia\Models\EtapaProceso;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -16,8 +17,8 @@ class EnterRegistrarionPageTest extends TestCase
         factory(EtapaProceso::class)->create([
             'nombre'      => 'REGISTRO',
             'descripcion' => 'REGISTRO',
-            'apertura'    => '2018-10-02',
-            'cierre'      => '2018-10-02',
+            'apertura'    => Carbon::now()->format('Y-m-d'),
+            'cierre'      => Carbon::now()->format('Y-m-d'),
         ]);
 
         $this->get('/registro')
