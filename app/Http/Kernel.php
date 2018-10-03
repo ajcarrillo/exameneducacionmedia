@@ -5,6 +5,8 @@ namespace ExamenEducacionMedia\Http;
 use ExamenEducacionMedia\Http\Middleware\CheckForAforoMode;
 use ExamenEducacionMedia\Http\Middleware\CheckForOfertaMode;
 use ExamenEducacionMedia\Http\Middleware\CheckForRegistroMode;
+use ExamenEducacionMedia\Http\Middleware\CheckForSubsistema;
+use ExamenEducacionMedia\Http\Middleware\CheckRole;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -66,5 +68,7 @@ class Kernel extends HttpKernel
         'isAforo'       => CheckForAforoMode::class,
         'isOferta'      => CheckForOfertaMode::class,
         'isRegistro'    => CheckForRegistroMode::class,
+        'role'          => CheckRole::class,
+        'hasSubsistema' => CheckForSubsistema::class,
     ];
 }

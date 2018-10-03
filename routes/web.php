@@ -19,15 +19,21 @@ Route::get('/', function () {
 
 Route::get('/registro', function () {
     return view('welcome');
-})->middleware([ 'isRegistro']);
+})->middleware([ 'isRegistro' ]);
 
 Route::get('/subsistema/aforo', function () {
     return view('welcome');
-})->middleware([ 'isAforo']);
+})->middleware([ 'isAforo' ]);
 
 Route::get('/subsistema/oferta', function () {
     return view('welcome');
-})->middleware([ 'isOferta']);
+})->middleware([ 'isOferta' ]);
+
+Route::group([ 'prefix' => '/subsistemas', 'middleware' => [ 'auth', 'role:subsistema', 'hasSubsistema' ] ], function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
+});
 
 Route::get('/redirect', function () {
     $query = http_build_query([
