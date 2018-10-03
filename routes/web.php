@@ -36,9 +36,7 @@ Route::group([ 'prefix' => '/planteles', 'middleware' => [ 'auth', 'role:plantel
 });
 
 Route::group([ 'prefix' => '/subsistemas', 'middleware' => [ 'auth', 'role:subsistema', 'hasSubsistema' ] ], function () {
-    Route::get('/', function () {
-        return view('welcome');
-    });
+    Route::get('/', 'Subsistema\HomeController@index')->name('subsistema.home');
 });
 
 Route::get('/redirect', function () {
