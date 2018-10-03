@@ -2,6 +2,7 @@
 
 namespace ExamenEducacionMedia;
 
+use ExamenEducacionMedia\Models\Plantel;
 use ExamenEducacionMedia\Models\Subsistema;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -51,5 +52,10 @@ class User extends Authenticatable
     public function subsistema()
     {
         return $this->hasOne(Subsistema::class, 'responsable_id');
+    }
+
+    public function plantel()
+    {
+        return $this->hasOne(Plantel::class, 'responsable_id');
     }
 }
