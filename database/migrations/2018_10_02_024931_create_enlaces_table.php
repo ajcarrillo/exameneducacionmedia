@@ -15,7 +15,8 @@ class CreateEnlacesTable extends Migration
     {
         Schema::create('enlaces', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('municipio_id');
+            $table->string('cve_ent', 4);
+            $table->string('cve_mun', 4);
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
             $table->time('hora_inicio');

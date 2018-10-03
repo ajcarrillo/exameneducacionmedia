@@ -15,6 +15,9 @@ class CreateDomiciliosTable extends Migration
     {
         Schema::create('domicilios', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('cve_ent', 4);
+            $table->string('cve_mun', 4);
+            $table->string('cve_loc', 4);
             $table->string('colonia');
             $table->text('calle');
             $table->string('numero');
