@@ -2,6 +2,7 @@
 
 namespace ExamenEducacionMedia\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Blade::withDoubleEncoding();
     }
 
     /**
@@ -23,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+        if ($this->app->environment() !== 'production') {
+            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+        }
     }
 }
