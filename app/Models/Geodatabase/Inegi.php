@@ -30,6 +30,7 @@ class Inegi extends Model
     public static function getEntidades()
     {
         return Inegi::groupBy('CVE_ENT', 'NOM_ENT')
+            ->orderBy('NOM_ENT')
             ->get([ 'CVE_ENT', 'NOM_ENT' ]);
     }
 
@@ -37,6 +38,7 @@ class Inegi extends Model
     {
         return Inegi::byEntidad($cveEnt)
             ->groupBy('CVE_ENT', 'CVE_MUN', 'NOM_MUN')
+            ->orderBy('NOM_MUN')
             ->get([ 'CVE_ENT', 'CVE_MUN', 'NOM_MUN' ]);
     }
 
@@ -45,6 +47,7 @@ class Inegi extends Model
         return Inegi::byEntidad($cveEnt)
             ->byMunicipio($cveMun)
             ->groupBy('CVE_ENT', 'CVE_MUN', 'CVE_LOC', 'NOM_LOC')
+            ->orderBy('NOM_LOC')
             ->get([ 'CVE_ENT', 'CVE_MUN', 'CVE_LOC', 'NOM_LOC' ]);
     }
 }
