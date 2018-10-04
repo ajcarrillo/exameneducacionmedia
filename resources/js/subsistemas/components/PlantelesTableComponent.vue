@@ -10,7 +10,9 @@
             <td>{{ props.item.descripcion }}</td>
             <td>{{ props.item.active | estatus }}</td>
             <td v-if="props.item.domicilio">{{ props.item.domicilio.municipio.NOM_MUN }}</td>
-            <td v-else>Agregar domicilio</td>
+            <td v-else>
+                <router-link :to="{name:'subsistemas.plantel.domicilio', params:{plantel:props.item.id}}">Agregar domicilio</router-link>
+            </td>
             <td v-if="props.item.responsable">{{ props.item.responsable.username }}</td>
             <td v-else>Agregar responsable</td>
             <td class="layout align-center justify-center row fill-height">

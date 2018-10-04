@@ -17,13 +17,15 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 import Vuetify from 'vuetify'
 import VueRouter from 'vue-router'
+import VeeValidate from 'vee-validate'
 
 import Subsistemas from './views/Home';
+import Domicilio from './views/CreateDomicilio';
 import store from './store';
-
 
 Vue.use(Vuetify);
 Vue.use(VueRouter);
+Vue.use(VeeValidate);
 
 Vue.component('app', require('../components/AppComponent'));
 
@@ -35,6 +37,12 @@ const router = new VueRouter({
             path: '/subsistemas',
             component: Subsistemas,
             name: 'subsistemas.home',
+        },
+        {
+            path: '/subsistemas/plantel/:plantel/domicilio',
+            component: Domicilio,
+            name: 'subsistemas.plantel.domicilio',
+            props: true
         },
     ]
 });
