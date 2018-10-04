@@ -13,4 +13,14 @@ class Subsistema extends Model
     {
         return $this->belongsTo(User::class, 'responsable_id');
     }
+
+    public function planteles()
+    {
+        return $this->hasMany(Plantel::class, 'subsistema_id');
+    }
+
+    public function especialidades()
+    {
+        return $this->hasMany(Especialidad::class, 'subsistema_id');
+    }
 }

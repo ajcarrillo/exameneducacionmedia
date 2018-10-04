@@ -13,4 +13,14 @@ class Plantel extends Model
     {
         return $this->belongsTo(User::class, 'responsable_id');
     }
+
+    public function subsistema()
+    {
+        return $this->belongsTo(Subsistema::class, 'subsistema_id');
+    }
+
+    public function domicilio()
+    {
+        return $this->belongsTo(Domicilio::class, 'domicilio_id');
+    }
 }
