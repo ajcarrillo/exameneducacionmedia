@@ -35,9 +35,21 @@ Route::group([ 'prefix' => '/planteles', 'middleware' => [ 'auth', 'role:plantel
     });
 });
 
-Route::group([ 'prefix' => '/subsistemas', 'middleware' => [ 'auth', 'role:subsistema', 'hasSubsistema' ] ], function () {
-    Route::get('/', 'Subsistema\HomeController@index')->name('subsistema.home');
-});
+Route::middleware([ 'auth', 'role:plantel', 'hasPlantel' ])
+    ->prefix('/planteles')
+    ->group(function () {
+        Route::get('/{all?}', 'Plantel\HomeController@index')
+            ->where([ 'all' => '.*' ])
+            ->name('spa.planteles');
+    });
+
+Route::middleware([ 'auth', 'role:subsistema', 'hasSubsistema' ])
+    ->prefix('/subsistemas')
+    ->group(function () {
+        Route::get('/{all?}', 'Subsistema\HomeController@index')
+            ->where([ 'all' => '.*' ])
+            ->name('spa.subsistemas');
+    });
 
 Route::get('/redirect', function () {
     $query = http_build_query([
@@ -86,3 +98,7 @@ Route::get('/password', function (Request $request) {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/vuetify', function () {
+    return view('vuetify');
+});

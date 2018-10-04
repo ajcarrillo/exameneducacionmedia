@@ -11,6 +11,7 @@
 
         <!-- Scripts -->
         <script src="{{ mix('js/adminlte.js') }}" defer></script>
+    @yield('extra-scripts')
 
     {{--<!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -19,6 +20,8 @@
     <!-- Styles -->
         <link href="{{ mix('css/adminlte.css') }}" rel="stylesheet">
         <link href="{{ mix('css/base.css') }}" rel="stylesheet">
+        @yield('extra-css')
+        @yield('extra-head')
     </head>
     <body class="hold-transition sidebar-mini sidebar-collapse">
         <div class="wrapper">

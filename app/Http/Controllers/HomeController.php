@@ -24,7 +24,7 @@ class HomeController extends Controller
     public function index()
     {
         if(\Auth::user()->hasRole('subsistema')){
-            return redirect()->route('subsistema.home');
+            return redirect()->route('spa.subsistemas');
         }
         return view('home');
     }

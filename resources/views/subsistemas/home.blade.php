@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.vuetify')
 
-@section('page-title')
-    <h1>{{ Auth::user()->subsistema->referencia }}</h1>
+@section('extra-scripts')
+    <script src="{{ mix('js/app.js') }}" defer></script>
 @endsection
 
 @section('content')
-
+    <router-view></router-view>
 @endsection
