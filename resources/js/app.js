@@ -24,6 +24,8 @@ import Planteles from './planteles/views/Home';
 Vue.use(Vuetify);
 Vue.use(VueRouter);
 
+Vue.component('app', require('./components/AppComponent'));
+
 const router = new VueRouter({
     mode: 'history',
     linkExactActiveClass: "active",
@@ -44,12 +46,10 @@ const router = new VueRouter({
 const app = new Vue({
     el: '#app',
     data: {
-        drawer: true,
         items: [
             {title: 'Home', icon: 'dashboard'},
             {title: 'About', icon: 'question_answer'}
         ],
-        mini: true
     },
     router
 });
