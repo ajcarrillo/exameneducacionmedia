@@ -17,6 +17,7 @@
         "browser-sync-webpack-plugin": "^2.2.2",
         "collect.js": "^4.0.28",
         "cross-env": "^5.1",
+        "daemonite-material": "^4.1.1",
         "jquery": "^3.2",
         "laravel-mix": "^2.0",
         "lodash": "^4.17.5",
