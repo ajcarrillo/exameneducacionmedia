@@ -48,6 +48,7 @@ class Inegi extends Model
             ->byMunicipio($cveMun)
             ->groupBy('CVE_ENT', 'CVE_MUN', 'CVE_LOC', 'NOM_LOC')
             ->orderBy('NOM_LOC')
-            ->get([ 'CVE_ENT', 'CVE_MUN', 'CVE_LOC', 'NOM_LOC' ]);
+            ->selectRaw('CVE_ENT,CVE_MUN,CVE_LOC as value,NOM_LOC as label' )
+            ->get();
     }
 }
