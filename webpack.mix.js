@@ -12,13 +12,11 @@ const mix = require('laravel-mix');
  */
 
 mix.sass('resources/sass/adminlte.scss', 'public/css')
-    .sass('resources/sass/base.scss', 'public/css')
-    .sass('resources/sass/deamonite.scss', 'public/css');
+    .sass('resources/sass/base.scss', 'public/css');
 
 mix.js('resources/js/adminlte.js', 'public/js')
     .js('resources/js/app.js', 'public/js')
-    .js('resources/js/subsistemas/app.js', 'public/js/subsistemas')
-    .js('resources/js/deamonite.js', 'public/js');
+    .js('resources/js/subsistemas/app.js', 'public/js/subsistemas');
 
 if (mix.inProduction()) {
     mix.version();

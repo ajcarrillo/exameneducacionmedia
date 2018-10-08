@@ -10,6 +10,10 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
+        "@fortawesome/fontawesome-free": "^5.3.1",
+        "@fortawesome/fontawesome-svg-core": "^1.2.4",
+        "@fortawesome/free-solid-svg-icons": "^5.3.1",
+        "@fortawesome/vue-fontawesome": "^0.1.1",
         "admin-lte": "https://github.com/almasaeed2010/AdminLTE#v3-dev",
         "axios": "^0.18",
         "bootstrap": "^4.0.0",
@@ -17,11 +21,10 @@
         "browser-sync-webpack-plugin": "^2.2.2",
         "collect.js": "^4.0.28",
         "cross-env": "^5.1",
-        "daemonite-material": "^4.1.1",
+        "ionicons": "^4.4.4",
         "jquery": "^3.2",
         "laravel-mix": "^2.0",
         "lodash": "^4.17.5",
-        "material-design-icons-iconfont": "^3.0.3",
         "moment": "^2.22.2",
         "popper.js": "^1.12",
         "sweetalert2": "^7.28.4",
@@ -36,6 +39,5 @@
         "vuex-persistedstate": "^2.5.4"
     },
     "dependencies": {
-        "ionicons": "^4.4.4"
     }
 }
