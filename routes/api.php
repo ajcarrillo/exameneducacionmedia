@@ -25,6 +25,12 @@ Route::prefix('/v1')
             Route::get('/municipios', 'API\MunicipioController@index')->name('api.municipios.index');
         });
 
+        Route::group([
+            'prefix'=>'/subsistemas/plantel'
+        ], function () {
+            Route::post('/', 'API\SubsistemaPlantelController@store')->name('api.subsistema.plantel.store');
+        });
+
         Route::resource('subsistemas', 'API\SubsistemaController')
             ->parameter('subsistemas', 'subsistema')
             ->only([ 'show' ])

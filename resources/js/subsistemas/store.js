@@ -11,6 +11,11 @@ export default new Vuex.Store({
         planteles: [],
         especialidades: []
     },
+    getters: {
+        getPlantelById: (state) => (id) => {
+            return state.planteles.find(plantel => plantel.id === id);
+        }
+    },
     actions: {
         getData(context, payload) {
             return new Promise(function (resolve, reject) {
