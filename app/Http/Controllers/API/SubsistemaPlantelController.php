@@ -31,6 +31,20 @@ class SubsistemaPlantelController extends Controller
         }
     }
 
+    public function update(Request $request, Plantel $plantel)
+    {
+        $plantel->update($request->only([ 'descripcion', 'cct', 'pagina_web', 'telefono' ]));
+
+        if($plantel->domicilio){
+            $plantel->domicilio()->update($request->only([ 'cve_ent', 'cve_mun', 'cve_loc', 'colonia', 'calle', 'numero', 'codigo_postal' ]));
+        }else{
+            $this->createDomicilio($plantel, $request->only([ 'cve_ent', 'cve_mun', 'cve_loc', 'colonia', 'calle', 'numero', 'codigo_postal' ]));
+        }
+
+
+        return $this->respondWithArray(compact([ 'isValid' => true ]));
+    }
+
     protected function createPlantel(Subsistema $subsistema, array $data): Plantel
     {
         $plantel = new Plantel($data);

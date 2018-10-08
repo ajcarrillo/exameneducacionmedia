@@ -15,7 +15,7 @@
                         <planteles-table :items="planteles" :headers="headers">
                             <template slot="items" slot-scope="props">
                                 <td>
-                                    <router-link :to="{name:'subsistemas.plantel.edit', params:{id:props.item.id}}">
+                                    <router-link :to="{name:'subsistemas.plantel.edit', params:{plantelId:props.item.id}}">
                                         <a data-toggle="tooltip" data-placement="top" title="Click para editar"><i class="fa fa-pen"></i></a>
                                     </router-link>
                                 </td>
