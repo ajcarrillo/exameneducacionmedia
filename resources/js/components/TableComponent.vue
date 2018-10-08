@@ -6,8 +6,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="item in items" :key="item.key">
-                <slot name="items" :item="item">
+            <tr v-for="(item, index) in items" :key="index">
+                <slot name="items" :item="item" :index="index">
                     <td v-for="{text, value, index} in headers" :key="index">
                         {{ item[value] }}
                     </td>
