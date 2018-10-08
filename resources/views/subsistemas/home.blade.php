@@ -1,4 +1,4 @@
-@extends('layouts.vuetify')
+@extends('layouts.app')
 
 @section('extra-head')
     <meta name="subsistema" content="{{ Auth::user()->subsistema->id }}">
@@ -6,13 +6,13 @@
 
 @section('extra-scripts')
     @routes
-    <script src="{{ mix('js/subsistemas/app.js') }}" defer></script>
+    <script src="{{ mix('js/subsistemas/app.js')  }}" defer></script>
 @endsection
 
-@section('app')
-    <div id="app">
-        <app :title="{{ json_encode($subsistema) }}" :items="items" :user="{{ json_encode(Auth::user()) }}">
-            <router-view></router-view>
-        </app>
-    </div>
+@section('navbar-title')
+    {{ Auth::user()->subsistema->referencia }}
+@endsection
+
+@section('content')
+    <app></app>
 @endsection

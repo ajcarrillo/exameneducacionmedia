@@ -9,7 +9,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $subsistema = \Auth::user()->subsistema->referencia;
-        return view('subsistemas.home', compact('subsistema'));
+        return view('subsistemas.home');
     }
 }
