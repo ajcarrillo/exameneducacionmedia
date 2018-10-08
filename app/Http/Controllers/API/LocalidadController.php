@@ -11,9 +11,9 @@ class LocalidadController extends Controller
 {
     use ResponseTrait;
 
-    public function index(Request $request)
+    public function index()
     {
-        $localidades = Inegi::getLocalidadesPorMunicipio('23', request('municipio_id'));
+        $localidades = Inegi::getLocalidadesPorMunicipio(request('cve_ent'), request('cve_mun'));
 
         return $this->respondWithArray(compact('localidades'));
     }

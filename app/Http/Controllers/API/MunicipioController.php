@@ -13,7 +13,7 @@ class MunicipioController extends Controller
 
     public function index()
     {
-        $municipios = Inegi::getMunicipiosPorEntidad(request('municipio_id'));
+        $municipios = Inegi::getMunicipiosPorEntidad(request('cve_ent'));
 
         return $this->respondWithArray(compact('municipios'));
     }
