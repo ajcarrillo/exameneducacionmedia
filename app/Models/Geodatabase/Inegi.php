@@ -39,7 +39,8 @@ class Inegi extends Model
         return Inegi::byEntidad($cveEnt)
             ->groupBy('CVE_ENT', 'CVE_MUN', 'NOM_MUN')
             ->orderBy('NOM_MUN')
-            ->get([ 'CVE_ENT', 'CVE_MUN', 'NOM_MUN' ]);
+            ->selectRaw('CVE_ENT, CVE_MUN as value, NOM_MUN as label')
+            ->get();
     }
 
     public static function getLocalidadesPorMunicipio($cveEnt, $cveMun)
@@ -48,7 +49,7 @@ class Inegi extends Model
             ->byMunicipio($cveMun)
             ->groupBy('CVE_ENT', 'CVE_MUN', 'CVE_LOC', 'NOM_LOC')
             ->orderBy('NOM_LOC')
-            ->selectRaw('CVE_ENT,CVE_MUN,CVE_LOC as value,NOM_LOC as label' )
+            ->selectRaw('CVE_ENT,CVE_MUN,CVE_LOC as value,NOM_LOC as label')
             ->get();
     }
 }

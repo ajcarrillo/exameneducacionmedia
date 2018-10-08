@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Domicilio extends Model
 {
-    protected $table = 'domicilios';
-
+    protected $table   = 'domicilios';
+    protected $guarded = [];
     protected $appends = [ 'entidad', 'municipio', 'localidad' ];
 
     public function getEntidadAttribute(): Inegi

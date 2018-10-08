@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Plantel extends Model
 {
     protected $table = 'planteles';
+    protected $guarded = [];
 
     public function responsable()
     {
