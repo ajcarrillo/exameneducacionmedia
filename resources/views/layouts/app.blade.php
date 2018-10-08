@@ -136,7 +136,7 @@
                             <i class="fa fa-user" style="color: white" class="img-circle elevation-2"></i>
                         </div>
                         <div class="info pt-0">
-                            <a href="#" class="d-block">John doe</a>
+                            <a href="#" class="d-block">{{ Auth::user()->nombre_completo }}</a>
                         </div>
                     </div>
 
