@@ -4,5 +4,8 @@ require('admin-lte/dist/js/adminlte.min');
 
 (function () {
     //$('.sidebar-menu').tree();
-    $('div.alert').not('.alert-important').delay(5000).fadeOut(350);
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+        $('div.alert').not('.alert-important').delay(5000).fadeOut(350);
+    })
 })();

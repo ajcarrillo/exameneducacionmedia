@@ -16,15 +16,20 @@
                             <template slot="items" slot-scope="props">
                                 <td>
                                     <router-link :to="{name:'subsistemas.plantel.edit', params:{id:props.item.id}}">
-                                        <a><i class="fa fa-pen"></i></a>
+                                        <a data-toggle="tooltip" data-placement="top" title="Click para editar"><i class="fa fa-pen"></i></a>
                                     </router-link>
                                 </td>
                                 <td>{{ props.item.descripcion }}</td>
-                                <td>{{ props.item.active|sino }}</td>
+                                <td>
+                                    <button @click="updateStatus(props.item.id, props.item.active, props.index)" class="btn btn-link" data-toggle="tooltip" data-placement="top"
+                                            :title="props.item.active|buttonTitle">
+                                        <active-plantel :active="props.item.active"></active-plantel>
+                                    </button>
+                                </td>
                                 <td v-if="props.item.domicilio">{{ props.item.domicilio.municipio.NOM_MUN }}</td>
-                                <td v-else>Agregar domicilio</td>
+                                <td v-else>Sin especificar</td>
                                 <td v-if="props.item.responsable">{{ props.item.responsable.nombre_completo }}</td>
-                                <td v-else>Agregar responsable</td>
+                                <td v-else>Sin especificar</td>
                                 <td class="text-center">
                                     <button class="btn btn-primary btn-sm">Aforo</button>
                                     <button class="btn btn-primary btn-sm">Oferta</button>
@@ -40,9 +45,25 @@
 </template>
 
 <script>
-    import store from '../store';
+    import Vue from 'vue';
+    import store from '../store/store';
     import PlantelesTable from '../../components/TableComponent'
 
+    Vue.component('active-plantel', {
+        template: '<i :class="classObject"></i>',
+        props: ['active'],
+        data() {
+            return {}
+        },
+        computed: {
+            classObject() {
+                return {
+                    'fas fa-times text-danger': this.active,
+                    'fas fa-check text-success': !this.active,
+                }
+            }
+        }
+    });
     export default {
         components: {PlantelesTable},
         data() {
@@ -83,11 +104,35 @@
         filters: {
             sino(value) {
                 return value ? 'Activo' : 'Inactivo';
+            },
+            buttonTitle(value) {
+                return value ? 'Click para inhabilitar' : 'Click para habilitar';
             }
         },
         methods: {
             editar(plantelId) {
                 this.$router.push({name: 'subsistemas.plantel'});
+            },
+            updateStatus(plantelId, estatus, index) {
+                if (estatus) {
+                    //desactivar
+                    store.dispatch('desactivarPlantel', {plantel: plantelId, index: index})
+                        .then(res => {
+                            console.log(res);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                } else {
+                    //activar
+                    store.dispatch('activarPlantel', {plantel: plantelId, index: index})
+                        .then(res => {
+                            console.log(res);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                }
             }
         }
     }

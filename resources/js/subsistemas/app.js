@@ -8,7 +8,7 @@ import App from './views/App';
 import Subsistemas from './views/Home';
 import CreatePlantel from './views/CreatePlantel';
 
-import store from './store';
+import store from './store/store';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'

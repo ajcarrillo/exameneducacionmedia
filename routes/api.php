@@ -28,6 +28,8 @@ Route::prefix('/v1')
         Route::group([
             'prefix'=>'/subsistemas/plantel'
         ], function () {
+            Route::patch('/{plantel}/activar', 'API\ActivarPlantel@update')->name('api.plantel.activar');
+            Route::delete('/{plantel}/desactivar', 'API\ActivarPlantel@destroy')->name('api.plantel.desactivar');
             Route::post('/', 'API\SubsistemaPlantelController@store')->name('api.subsistema.plantel.store');
         });
 
