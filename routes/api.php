@@ -30,6 +30,7 @@ Route::prefix('/v1')
         ], function () {
             Route::patch('/{plantel}/activar', 'API\ActivarPlantel@update')->name('api.plantel.activar');
             Route::delete('/{plantel}/desactivar', 'API\ActivarPlantel@destroy')->name('api.plantel.desactivar');
+            Route::post('/{plantel}/responsable', 'API\PlantelResponsableController@store')->name('api.plantel.responsable');
             Route::patch('/{plantel}', 'API\SubsistemaPlantelController@update')->name('api.subsistema.plantel.update');
             Route::post('/', 'API\SubsistemaPlantelController@store')->name('api.subsistema.plantel.store');
         });

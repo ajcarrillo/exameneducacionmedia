@@ -12,7 +12,10 @@ export default {
     especialidades(state, especialidades) {
         state.especialidades = especialidades;
     },
-    updateStatusPlantel(state, payload){
+    updateStatusPlantel(state, payload) {
         state.planteles[payload.index].active = payload.active;
+    },
+    asignarResponsable(state, payload) {
+        state.planteles[payload.index].responsable = payload.responsable;
     }
 }
