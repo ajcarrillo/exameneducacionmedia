@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/registro', function () {
     return view('welcome');
@@ -98,6 +98,9 @@ Route::get('/password', function (Request $request) {
     return json_decode((string)$response->getBody(), true);
 });
 /*Login con jarvis*/
+
+Route::get('login/jarvis', 'Auth\LoginJarvisController@showLoginForm')->name('login.jarvis');
+Route::post('login/jarvis', 'Auth\LoginJarvisController@login')->name('login.jarvis');
 
 Auth::routes();
 

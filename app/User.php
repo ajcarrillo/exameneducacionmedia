@@ -19,9 +19,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nombre', 'primer_apellido', 'segundo_apellido',
         'nombre_completo', 'email', 'username', 'password',
-        'api_token', 'active', 'uuid',
+        'api_token', 'active', 'uuid', 'jarvis_user_access_token',
+        'provider', 'provider_id', 'jarvis_user_token_type', 'jarvis_user_token_expires_in',
+        'jarvis_user_refresh_token',
     ];
 
     /**
@@ -30,7 +31,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'api_token',
+        'password', 'remember_token', 'api_token', 'jarvis_user_access_token',
+        'jarvis_user_token_type', 'jarvis_user_token_expires_in', 'jarvis_user_refresh_token',
     ];
 
     public function groups()
@@ -65,20 +67,37 @@ class User extends Authenticatable
     public static function createUser(array $data, array $roles): User
     {
         $user = User::create([
-            'uuid'             => Uuid::uuid4()->toString(),
-            'nombre'           => $data['nombre'],
-            'primer_apellido'  => $data['primer_apellido'],
-            'segundo_apellido' => $data['segundo_apellido'],
-            'nombre_completo'  => "{$data['nombre']} {$data['primer_apellido']} {$data['segundo_apellido']}",
-            'email'            => $data['email'],
-            'username'         => $data['username'],
-            'password'         => bcrypt($data['password']),
-            'api_token'        => str_random(60),
-            'active'           => true,
+            'uuid'            => Uuid::uuid4()->toString(),
+            'nombre_completo' => $data['nombre_completo'],
+            'email'           => $data['email'],
+            'username'        => $data['username'],
+            'password'        => bcrypt($data['password']),
+            'api_token'       => str_random(60),
+            'active'          => true,
         ]);
 
         $user->groups()->sync($roles);
 
         return $user;
+    }
+
+    public static function findOrCreateJarvisUser(array $user, array $token): User
+    {
+        return User::updateOrCreate([
+            'provider_id' => $user['uuid'],
+        ], [
+            'uuid'                         => Uuid::uuid4()->toString(),
+            'nombre_completo'              => $user['persona']['nombre_completo'],
+            'email'                        => $user['email'],
+            'username'                     => $user['username'],
+            'api_token'                    => str_random(60),
+            'active'                       => true,
+            'provider_id'                  => $user['uuid'],
+            'provider'                     => 'jarvis',
+            'jarvis_user_access_token'     => $token['access_token'],
+            'jarvis_user_token_type'       => $token['token_type'],
+            'jarvis_user_token_expires_in' => $token['expires_in'],
+            'jarvis_user_refresh_token'    => $token['refresh_token'],
+        ]);
     }
 }
