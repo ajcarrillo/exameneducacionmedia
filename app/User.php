@@ -89,7 +89,7 @@ class User extends Authenticatable
             'uuid'                         => Uuid::uuid4()->toString(),
             'nombre_completo'              => $user['persona']['nombre_completo'],
             'email'                        => $user['email'],
-            'username'                     => $user['username'],
+            'username'                     => $user['email'],
             'api_token'                    => str_random(60),
             'active'                       => true,
             'provider_id'                  => $user['uuid'],

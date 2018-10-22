@@ -35,4 +35,12 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'jarvis' => [
+        'client_secret'         => env('JARVIS_SECRET', NULL),
+        'client_id'             => env('JARVIS_CLIENT_ID', NULL),
+        'jarvis_auth_url'       => env('JARVIS_AUTH_URL', NULL),
+        'jarvis_auth_url_token' => env('JARVIS_AUTH_URL_TOKEN', NULL),
+        'jarvis_api_url'        => env('JARVIS_API_URL', NULL),
+    ],
+
 ];

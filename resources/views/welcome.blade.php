@@ -74,6 +74,7 @@
                     @else
                         <a href="{{ route('login') }}">Login</a>
                         <a href="{{ route('login.jarvis') }}">Login SEQ</a>
+                        <a href="{{ route('login.oauth') }}">Login SIIE</a>
                         <a href="{{ route('register') }}">Register</a>
                     @endauth
                 </div>

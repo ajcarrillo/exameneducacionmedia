@@ -13,6 +13,8 @@
 
 use Illuminate\Http\Request;
 
+Route::view('/home', 'home')->middleware(['auth']);
+
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
@@ -52,32 +54,9 @@ Route::middleware([ 'auth', 'role:subsistema', 'hasSubsistema' ])
     });
 
 /* Login con jarvis*/
-Route::get('/login-seq', function () {
-    $query = http_build_query([
-        'client_id'     => env('JARVIS_CLIENT_ID'),
-        'redirect_uri'  => 'http://exameneducacionmedia.test/home',
-        'response_type' => 'code',
-        'scope'         => '',
-    ]);
+Route::get('/siie/oauth','Auth\LoginJarvisOatuhController@login' )->name('login.oauth');
 
-    return redirect('http://jarvis.test/oauth/authorize?' . $query);
-})->name('login.seq');
-
-Route::get('/home', function (Request $request) {
-    $http = new GuzzleHttp\Client;
-
-    $response = $http->post('http://jarvis.test/oauth/token', [
-        'form_params' => [
-            'grant_type'    => 'authorization_code',
-            'client_id'     => env('JARVIS_CLIENT_ID'),
-            'client_secret' => env('JARVIS_SECRET'),
-            'redirect_uri'  => 'http://exameneducacionmedia.test/home',
-            'code'          => $request->code,
-        ],
-    ]);
-
-    return json_decode((string)$response->getBody(), true);
-});
+Route::get('/callback', 'Auth\LoginJarvisOatuhController@callback');
 
 Route::get('/password', function (Request $request) {
     $http = new GuzzleHttp\Client;
