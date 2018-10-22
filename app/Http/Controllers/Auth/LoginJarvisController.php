@@ -2,6 +2,7 @@
 
 namespace ExamenEducacionMedia\Http\Controllers\Auth;
 
+use ExamenEducacionMedia\Jarvis\Jarvis;
 use ExamenEducacionMedia\User;
 use Illuminate\Http\Request;
 use ExamenEducacionMedia\Http\Controllers\Controller;
@@ -15,27 +16,11 @@ class LoginJarvisController extends Controller
 
     public function login(Request $request)
     {
-        $http = new \GuzzleHttp\Client;
+        $jarvis = Jarvis::login('password', $request)
+            ->getUserToken()
+            ->getUser();
 
-        $response = $http->post(env('JARVIS_AUTH_URL_TOKEN'), [
-            'form_params' => [
-                'grant_type'    => 'password',
-                'client_id'     => env('JARVIS_CLIENT_ID'),
-                'client_secret' => env('JARVIS_SECRET'),
-                'username'      => $request->input('username'),
-                'password'      => $request->input('password'),
-                'code'          => $request->code,
-            ],
-        ]);
-
-        //session()->put('token', json_decode((string)$response->getBody(), true));
-
-        $token = json_decode((string)$response->getBody(), true);
-
-        //Con el token hacer la llamada a la url de jarvis que te devuelve el usaurio
-        $user = $this->getJarvisUserInfo($token['access_token']);
-
-        $this->authenticate(User::findOrCreateJarvisUser($user, $token));
+        $this->authenticate(User::findOrCreateJarvisUser($jarvis->user, $jarvis->token));
 
         return redirect()->route('welcome');
     }

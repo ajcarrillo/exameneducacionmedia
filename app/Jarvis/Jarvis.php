@@ -20,7 +20,7 @@ class Jarvis
             return new AuthorizationGrantLogin($request);
         }
 
-        return new PasswordGrantLogin();
+        return new PasswordGrantLogin($request);
     }
 
     public function getUser()
