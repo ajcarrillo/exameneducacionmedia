@@ -16,11 +16,19 @@ class Jarvis
 
     public static function login($type, $request)
     {
-        if ($type == 'authorization') {
-            return new AuthorizationGrantLogin($request);
+        if (method_exists(__CLASS__, $type)) {
+            return self::$type($request);
         }
+    }
 
+    protected static function password($request)
+    {
         return new PasswordGrantLogin($request);
+    }
+
+    protected static function authorization($request)
+    {
+        return new AuthorizationGrantLogin($request);
     }
 
     public function getUser()
