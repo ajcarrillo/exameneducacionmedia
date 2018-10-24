@@ -81,23 +81,34 @@ class User extends Authenticatable
         return $user;
     }
 
-    public static function findOrCreateJarvisUser(array $user, array $token): User
+    protected static function extractJarvisUserInfo(array $data, array $token)
     {
-        return User::updateOrCreate([
-            'provider_id' => $user['uuid'],
-        ], [
+        return [
             'uuid'                         => Uuid::uuid4()->toString(),
-            'nombre_completo'              => $user['persona']['nombre_completo'],
-            'email'                        => $user['email'],
-            'username'                     => $user['email'],
+            'nombre_completo'              => $data['persona']['nombre_completo'],
+            'email'                        => $data['email'],
+            'username'                     => $data['email'],
             'api_token'                    => str_random(60),
             'active'                       => true,
-            'provider_id'                  => $user['uuid'],
+            'provider_id'                  => $data['uuid'],
             'provider'                     => 'jarvis',
             'jarvis_user_access_token'     => $token['access_token'],
             'jarvis_user_token_type'       => $token['token_type'],
             'jarvis_user_token_expires_in' => $token['expires_in'],
             'jarvis_user_refresh_token'    => $token['refresh_token'],
-        ]);
+        ];
+    }
+
+    public static function findOrCreateJarvisUser(array $data, array $token): User
+    {
+        try {
+            $user = User::where('provider_id', $data['uuid'])->firstOrFail();
+            $user->update(User::extractJarvisUserInfo($data, $token));
+        } catch (\Exception $e) {
+            $user = User::create(User::extractJarvisUserInfo($data, $token));
+            $user->groups()->sync([ 10 ]);
+        }
+
+        return $user;
     }
 }
