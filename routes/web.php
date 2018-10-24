@@ -13,7 +13,7 @@
 
 use Illuminate\Http\Request;
 
-Route::view('/home', 'home')->middleware(['auth']);
+Route::view('/home', 'home')->middleware([ 'auth' ]);
 
 Route::get('/', function () {
     return view('welcome');
@@ -54,7 +54,7 @@ Route::middleware([ 'auth', 'role:subsistema', 'hasSubsistema' ])
     });
 
 /* Login con jarvis*/
-Route::get('/siie/oauth','Auth\LoginJarvisOatuhController@login' )->name('login.oauth');
+Route::get('/siie/oauth', 'Auth\LoginJarvisOatuhController@login')->name('login.oauth');
 
 Route::get('/callback', 'Auth\LoginJarvisOatuhController@callback');
 
@@ -87,4 +87,14 @@ Auth::routes();
 
 Route::get('/vuetify', function () {
     return view('vuetify');
+});
+
+
+Route::get('/socialite', function (Request $request) {
+    return Socialite::with('siie')->redirect();
+});
+
+Route::get('/handle-callback', function () {
+    $user = Socialite::with('siie')->user();
+    dd($user);
 });

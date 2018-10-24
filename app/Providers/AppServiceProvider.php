@@ -2,6 +2,7 @@
 
 namespace ExamenEducacionMedia\Providers;
 
+use ExamenEducacionMedia\Jarvis\JarvisProvider;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,6 +16,15 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::withDoubleEncoding();
+
+        $socialite = $this->app->make('Laravel\Socialite\Contracts\Factory');
+        $socialite->extend(
+            'siie',
+            function ($app) use ($socialite) {
+                $config = $app['config']['services.siie'];
+                return $socialite->buildProvider(JarvisProvider::class, $config);
+            }
+        );
     }
 
     /**

@@ -20,7 +20,7 @@ return [
     ],
 
     'ses' => [
-        'key' => env('SES_KEY'),
+        'key'    => env('SES_KEY'),
         'secret' => env('SES_SECRET'),
         'region' => env('SES_REGION', 'us-east-1'),
     ],
@@ -30,8 +30,8 @@ return [
     ],
 
     'stripe' => [
-        'model' => ExamenEducacionMedia\User::class,
-        'key' => env('STRIPE_KEY'),
+        'model'  => ExamenEducacionMedia\User::class,
+        'key'    => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
 
@@ -41,6 +41,12 @@ return [
         'jarvis_auth_url'       => env('JARVIS_AUTH_URL', NULL),
         'jarvis_auth_url_token' => env('JARVIS_AUTH_URL_TOKEN', NULL),
         'jarvis_api_url'        => env('JARVIS_API_URL', NULL),
+    ],
+
+    'siie' => [
+        'client_id' => env('SIIE_CLIENT_ID'),
+        'client_secret' => env('SIIE_CLIENT_SECRET'),
+        'redirect' => 'http://exameneducacionmedia.test/handle-callback',
     ],
 
 ];
