@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->uuid('uuid')->unique();
             $table->string('nombre_completo', 765);
             $table->string('email');
-            $table->string('username');
+            $table->string('username')->unique();
             $table->string('password')->nullable();
             $table->string('api_token', 60)->unique();
             $table->string('session_id')->nullable();
