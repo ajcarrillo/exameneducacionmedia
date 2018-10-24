@@ -37,7 +37,7 @@ CREATE TABLE `groups` (
 
 LOCK TABLES `groups` WRITE;
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
-INSERT INTO `groups` VALUES (1,'alumno',NULL,NULL),(2,'plantel',NULL,NULL),(3,'departamento',NULL,NULL),(4,'finanzas',NULL,NULL),(5,'subsistema',NULL,NULL),(7,'capturista_extemporaneo',NULL,NULL),(8,'coordinador',NULL,NULL),(9,'apoyo',NULL,NULL);
+INSERT INTO `groups` VALUES (1,'alumno',NULL,NULL),(2,'plantel',NULL,NULL),(3,'departamento',NULL,NULL),(4,'finanzas',NULL,NULL),(5,'subsistema',NULL,NULL),(7,'capturista_extemporaneo',NULL,NULL),(8,'coordinador',NULL,NULL),(9,'apoyo',NULL,NULL),(10,'invitado',NULL,NULL);
 /*!40000 ALTER TABLE `groups` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
