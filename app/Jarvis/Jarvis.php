@@ -19,6 +19,8 @@ class Jarvis
         if (method_exists(__CLASS__, $type)) {
             return self::$type($request);
         }
+
+        throw new \Exception('El tipo de autenticación que intentas usar no existe');
     }
 
     protected static function password($request)
