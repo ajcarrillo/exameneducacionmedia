@@ -24,7 +24,7 @@ class JarvisProvider extends AbstractProvider implements ProviderInterface
      */
     protected function getAuthUrl($state)
     {
-        return $this->buildAuthUrlFromBase('http://siie.test/oauth/authorize', $state);
+        return $this->buildAuthUrlFromBase(env('JARVIS_AUTHORIZE_URL'), $state);
     }
 
     /**
@@ -34,7 +34,7 @@ class JarvisProvider extends AbstractProvider implements ProviderInterface
      */
     protected function getTokenUrl()
     {
-        return 'http://siie.test/oauth/token';
+        return env('JARVIS_AUTH_URL_TOKEN');
     }
 
     public function getAccessTokenResponse($code)
@@ -46,7 +46,7 @@ class JarvisProvider extends AbstractProvider implements ProviderInterface
                 'grant_type'    => 'authorization_code',
                 'client_id'     => $this->clientId,
                 'client_secret' => $this->clientSecret,
-                'redirect_uri'  => 'http://exameneducacionmedia.test/handle-callback',
+                'redirect_uri'  => env('CALLBACK_URL'),
                 'code'          => $code,
             ],
         ]);
@@ -67,7 +67,7 @@ class JarvisProvider extends AbstractProvider implements ProviderInterface
             'Accept'        => 'application/json',
         ];
 
-        $http = new \GuzzleHttp\Client([ 'base_uri' => 'http://jarvis.test/api/' ]);
+        $http = new \GuzzleHttp\Client([ 'base_uri' => env('JARVIS_API_URL') ]);
 
         $response = $http->get('me', [
             'headers' => $headers,

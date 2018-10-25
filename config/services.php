@@ -44,9 +44,9 @@ return [
     ],
 
     'siie' => [
-        'client_id' => env('SIIE_CLIENT_ID'),
-        'client_secret' => env('SIIE_CLIENT_SECRET'),
-        'redirect' => 'http://exameneducacionmedia.test/handle-callback',
+        'client_id'     => env('JARVIS_CLIENT_ID'),
+        'client_secret' => env('JARVIS_SECRET'),
+        'redirect'      => env('CALLBACK_URL'),
     ],
 
 ];
