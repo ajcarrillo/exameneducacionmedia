@@ -69,7 +69,7 @@ class JarvisProvider extends AbstractProvider implements ProviderInterface
 
         $http = new \GuzzleHttp\Client([ 'base_uri' => 'http://jarvis.test/api/' ]);
 
-        $response = $http->get('user', [
+        $response = $http->get('me', [
             'headers' => $headers,
         ]);
 
