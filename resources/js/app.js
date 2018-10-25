@@ -7,7 +7,6 @@
 require('./bootstrap');
 window.Vue = require('vue');
 import 'vuetify/dist/vuetify.min.css'
-import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
