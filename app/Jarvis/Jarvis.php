@@ -28,11 +28,6 @@ class Jarvis
         return new PasswordGrantLogin($request);
     }
 
-    protected static function authorization($request)
-    {
-        return new AuthorizationGrantLogin($request);
-    }
-
     public function getUser()
     {
         $headers = [
@@ -40,9 +35,9 @@ class Jarvis
             'Accept'        => 'application/json',
         ];
 
-        $http = new \GuzzleHttp\Client([ 'base_uri' => config('services.jarvis.jarvis_api_url') ]);
+        $http = new \GuzzleHttp\Client([ 'base_uri' => env('JARVIS_API_URL') ]);
 
-        $response = $http->get('user', [
+        $response = $http->get('me', [
             'headers' => $headers,
         ]);
 

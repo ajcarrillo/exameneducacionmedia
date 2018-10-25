@@ -56,33 +56,9 @@ Route::middleware([ 'auth', 'role:subsistema', 'hasSubsistema' ])
 /* Login con jarvis*/
 Route::get('/loging/oauth', 'Auth\LoginController@redirectToProvider')->name('login.oauth');
 Route::get('/callback', 'Auth\LoginController@handleProviderCallback')->name('login.oauth.callback');
-Route::get('/password', function (Request $request) {
-    $http = new GuzzleHttp\Client;
 
-    $response = $http->post('http://jarvis.test/oauth/token', [
-        'form_params' => [
-            'grant_type'    => 'password',
-            'client_id'     => env('JARVIS_CLIENT_ID'),
-            'client_secret' => env('JARVIS_SECRET'),
-            'username'      => 'ajcarrillo',
-            'password'      => 'secret',
-            'code'          => $request->code,
-        ],
-    ]);
-
-    //session()->put('token', json_decode((string) $response->getBody(), true));
-
-    return json_decode((string)$response->getBody(), true);
-});
+Route::get('login/oauth-password', 'Auth\LoginJarvisController@showLoginForm')->name('login.jarvis');
+Route::post('login/oauth-password', 'Auth\LoginJarvisController@login')->name('login.jarvis');
 /*Login con jarvis*/
 
-Route::get('login/jarvis', 'Auth\LoginJarvisController@showLoginForm')->name('login.jarvis');
-Route::post('login/jarvis', 'Auth\LoginJarvisController@login')->name('login.jarvis');
-
 Auth::routes();
-
-//Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/vuetify', function () {
-    return view('vuetify');
-});
