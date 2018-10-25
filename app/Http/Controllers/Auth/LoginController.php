@@ -109,12 +109,12 @@ class LoginController extends Controller
 
     public function redirectToProvider()
     {
-        return Socialite::with('siie')->redirect();
+        return Socialite::driver('siie')->redirect();
     }
 
     public function handleProviderCallback()
     {
-        $user = Socialite::with('siie')->user();
+        $user = Socialite::driver('siie')->user();
 
         try {
             $u    = User::where('provider_id', $user->id)->firstOrFail();
