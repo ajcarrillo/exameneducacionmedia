@@ -111,4 +111,19 @@ class User extends Authenticatable
 
         return $user;
     }
+
+    public static function crearUsuario(array $data)
+    {
+        $user = User::create($data);
+        $user->groups()->sync([ 10 ]);
+
+        return $user;
+    }
+
+    public static function actualizarUsuario(User $user, array $data)
+    {
+        $user->update($data);
+
+        return $user;
+    }
 }

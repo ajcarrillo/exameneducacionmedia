@@ -3,8 +3,11 @@
 namespace ExamenEducacionMedia\Http\Controllers\Auth;
 
 use ExamenEducacionMedia\Http\Controllers\Controller;
+use ExamenEducacionMedia\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
+use Socialite;
 
 class LoginController extends Controller
 {
@@ -102,5 +105,49 @@ class LoginController extends Controller
         $request->session()->invalidate();
 
         return redirect('/login');
+    }
+
+    public function redirectToProvider()
+    {
+        return Socialite::with('siie')->redirect();
+    }
+
+    public function handleProviderCallback()
+    {
+        $user = Socialite::with('siie')->user();
+
+        try {
+            $u    = User::where('provider_id', $user->id)->firstOrFail();
+            $data = [
+                'nombre_completo'              => $user->user['persona']['nombre_completo'],
+                'email'                        => $user->email,
+                'username'                     => $user->nickname,
+                'jarvis_user_access_token'     => $user->token,
+                'jarvis_user_token_expires_in' => $user->expiresIn,
+                'jarvis_user_refresh_token'    => $user->refreshToken,
+            ];
+            User::actualizarUsuario($u, $data);
+        } catch (\Exception $e) {
+            $data = [
+                'uuid'                         => Uuid::uuid4()->toString(),
+                'nombre_completo'              => $user->user['persona']['nombre_completo'],
+                'email'                        => $user->email,
+                'username'                     => $user->nickname,
+                'api_token'                    => str_random(60),
+                'active'                       => $user->user['active'],
+                'provider_id'                  => $user->id,
+                'provider'                     => 'jarvis',
+                'jarvis_user_access_token'     => $user->token,
+                'jarvis_user_token_type'       => 'Bearer',
+                'jarvis_user_token_expires_in' => $user->expiresIn,
+                'jarvis_user_refresh_token'    => $user->refreshToken,
+            ];
+
+            $u = User::crearUsuario($data);
+        }
+
+        \Auth::login($u, true);
+
+        return redirect()->route('welcome');
     }
 }
