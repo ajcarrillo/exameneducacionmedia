@@ -15,15 +15,28 @@ class CreatePlantelesTable extends Migration
     {
         Schema::create('planteles', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('centro_trabajo_id')->nullable()->comment('Id del centro de trabajo de la base de datos de centros de trabajo o bien de estadistica');
+            $table->unsignedInteger('uuid')->nullable()->comment('uuid del centro de trabajo de la base de datos de centros de trabajo o bien de estadistica');
             $table->string('descripcion');
             $table->string('cct', 10);
-            $table->string('referencia')->nullable();
+            $table->string('referencia');
+            $table->string('cve_ent', 2);
+            $table->string('cve_mun', 3);
+            $table->string('cve_loc', 4);
+            $table->string('entidad');
+            $table->string('municipio');
+            $table->string('localidad');
+            $table->string('calle_principal')->nullable();
+            $table->string('calle_derecha')->nullable();
+            $table->string('calle_posterior')->nullable();
+            $table->string('calle_izquierda')->nullable();
+            $table->string('colonia')->nullable();
+            $table->integer('codigo_postal')->nullable();
+            $table->decimal('latitud', 10, 8)->nullable();
+            $table->decimal('longitud', 11, 8)->nullable();
+
             $table->unsignedTinyInteger('nivel_demanda_id')->nullable();
             $table->foreign('nivel_demanda_id')->references('id')->on('niveles_demanda');
             $table->unsignedInteger('sede_ceneval')->nullable();
-            $table->unsignedInteger('domicilio_id')->nullable();
-            $table->foreign('domicilio_id')->references('id')->on('domicilios');
             $table->unsignedInteger('responsable_id')->nullable();
             $table->foreign('responsable_id')->references('id')->on('users');
             $table->unsignedTinyInteger('subsistema_id');
@@ -32,6 +45,14 @@ class CreatePlantelesTable extends Migration
             $table->string('pagina_web')->default('https://qroo.gob.mx/seq');
             $table->string('telefono', 30)->nullable();
             $table->boolean('active')->default(0);
+
+            $table->index('uuid');
+            $table->index('cve_ent');
+            $table->index('cve_mun');
+            $table->index('cve_loc');
+            $table->index('entidad');
+            $table->index('municipio');
+            $table->index('localidad');
             $table->timestamps();
         });
     }
