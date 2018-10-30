@@ -159,6 +159,7 @@ return [
         // ExamenEducacionMedia\Providers\BroadcastServiceProvider::class,
         ExamenEducacionMedia\Providers\EventServiceProvider::class,
         ExamenEducacionMedia\Providers\RouteServiceProvider::class,
+        ExamenEducacionMedia\Providers\ComposerServiceProvider::class,
 
     ],
 
