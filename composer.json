@@ -32,6 +32,9 @@
             "database/seeds",
             "database/factories"
         ],
+        "files":[
+            "app/Helpers/responses.php"
+        ],
         "psr-4": {
             "ExamenEducacionMedia\\": "app/"
         }
