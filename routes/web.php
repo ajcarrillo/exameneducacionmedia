@@ -11,7 +11,20 @@
 |
 */
 
-use Illuminate\Http\Request;
+Route::middleware([ 'auth', 'role:departamento' ])
+    ->prefix('/administracion')
+    ->as('administracion.')
+    ->group(function () {
+        Route::view('/', 'administracion.home')->name('home');
+
+        Route::prefix('/planteles')
+            ->as('planteles.')
+            ->group(function () {
+                Route::view('/{all?}', 'administracion.planteles.home')
+                    ->where([ 'all' => '.*' ])
+                    ->name('spa');
+            });
+    });
 
 Route::view('/home', 'home')->middleware([ 'auth' ]);
 

@@ -17,6 +17,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware('auth:api')
+    ->get('/me', function (Request $request) {
+        $user = $request->user();
+        $accessToken = $user->jarvis_user_access_token;
+
+        return ok(compact('user', 'accessToken'));
+
+    })->name('me');
+
 Route::prefix('/v1')
     ->group(function () {
 
@@ -26,7 +35,7 @@ Route::prefix('/v1')
         });
 
         Route::group([
-            'prefix'=>'/subsistemas/plantel'
+            'prefix' => '/subsistemas/plantel',
         ], function () {
             Route::patch('/{plantel}/activar', 'API\ActivarPlantel@update')->name('api.plantel.activar');
             Route::delete('/{plantel}/desactivar', 'API\ActivarPlantel@destroy')->name('api.plantel.desactivar');
