@@ -16,7 +16,8 @@ mix.sass('resources/sass/adminlte.scss', 'public/css')
 
 mix.js('resources/js/adminlte.js', 'public/js')
     .js('resources/js/app.js', 'public/js')
-    .js('resources/js/subsistemas/app.js', 'public/js/subsistemas');
+    .js('resources/js/subsistemas/app.js', 'public/js/subsistemas')
+    .js('resources/js/administracion/planteles/app.js', 'public/js/administracion/planteles');
 
 if (mix.inProduction()) {
     mix.version();

@@ -1,4 +1,3 @@
-
 window._ = require('lodash');
 window.Popper = require('popper.js').default;
 
@@ -33,11 +32,26 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  */
 
 let token = document.head.querySelector('meta[name="csrf-token"]');
+let apiToken = document.head.querySelector('meta[name="api-token"]');
+let jarvisToken = document.head.querySelector('meta[name="token"]');
 
 if (token) {
     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
+
+if (apiToken) {
+    window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + apiToken.content;
+} else {
+    console.error('Check api token');
+}
+
+if (jarvisToken) {
+    let t = jarvisToken.content;
+    localStorage.setItem('user-token', t);
+} else {
+    console.log('Check access token');
 }
 
 /**

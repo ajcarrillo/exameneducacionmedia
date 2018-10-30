@@ -8,6 +8,7 @@
         <title>SIEM</title>
         @auth
             <meta name="api-token" content="{{ Auth::user()->api_token }}">
+            <meta name="token" content="{{ Auth::user()->jarvis_user_access_token }}">
         @endauth
         <title>{{ config('app.name', 'Laravel') }}</title>
         @yield('extra-head')
