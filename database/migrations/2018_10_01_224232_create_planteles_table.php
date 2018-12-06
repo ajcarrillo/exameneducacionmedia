@@ -35,7 +35,7 @@ class CreatePlantelesTable extends Migration
             $table->decimal('latitud', 10, 8)->nullable();
             $table->decimal('longitud', 11, 8)->nullable();
             $table->unsignedInteger('subsistema_id');
-            $table->string('subsistema');
+            $table->foreign('subsistema_id')->references('id')->on('centrostrabajo.subsistemas');
             $table->unsignedInteger('sede_ceneval')->nullable();
             $table->unsignedInteger('responsable_id')->nullable();
             $table->foreign('responsable_id')->references('id')->on('users');
@@ -51,8 +51,6 @@ class CreatePlantelesTable extends Migration
             $table->index('entidad');
             $table->index('municipio');
             $table->index('localidad');
-            $table->index('subsistema_id');
-            $table->index('subsistema');
             $table->timestamps();
         });
     }
