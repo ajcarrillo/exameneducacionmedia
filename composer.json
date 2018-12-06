@@ -15,12 +15,14 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.7",
         "ramsey/uuid": "^3.8",
+        "spatie/laravel-permission": "^2.28",
         "tightenco/ziggy": "v0.6.8.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
         "barryvdh/laravel-ide-helper": "^2.5",
         "beyondcode/laravel-dump-server": "^1.0",
+        "beyondcode/laravel-query-detector": "^0.6.0",
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
