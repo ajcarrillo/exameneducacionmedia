@@ -15,16 +15,21 @@ use Faker\Generator as Faker;
 
 $factory->define(ExamenEducacionMedia\User::class, function (Faker $faker) {
     return [
-        'uuid'             => $faker->uuid,
-        'nombre'           => $faker->name,
-        'primer_apellido'  => $faker->firstName,
-        'segundo_apellido' => $faker->lastName,
-        'nombre_completo'  => $faker->name,
-        'email'            => $faker->unique()->safeEmail,
-        'username'         => $faker->unique()->userName,
-        'password'         => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-        'api_token'        => str_random(50), // secret
-        'remember_token'   => str_random(10),
-        'active'           => 1,
+        'uuid'                         => $faker->uuid,
+        'nombre_completo'              => $faker->name,
+        'email'                        => $faker->unique()->email,
+        'username'                     => $faker->unique()->userName,
+        'password'                     => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm',
+        'api_token'                    => str_random(60),
+        'active'                       => true,
+        'session_id'                   => NULL,
+        'email_verified_at'            => NULL,
+        'provider_id'                  => NULL,
+        'provider'                     => NULL,
+        'jarvis_user_access_token'     => NULL,
+        'jarvis_user_token_type'       => NULL,
+        'jarvis_user_token_expires_in' => NULL,
+        'jarvis_user_refresh_token'    => NULL,
+        'remember_token'               => NULL,
     ];
 });

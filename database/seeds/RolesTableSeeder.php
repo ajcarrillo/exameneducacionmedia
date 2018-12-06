@@ -11,6 +11,18 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $roles = [
+            'supermario',
+            'cordinador',
+            'departamento',
+            'subsistema',
+            'plantel',
+            'alumno',
+            'invitado',
+        ];
+
+        foreach ($roles as $role) {
+            \Spatie\Permission\Models\Role::create([ 'name' => $role ]);
+        }
     }
 }

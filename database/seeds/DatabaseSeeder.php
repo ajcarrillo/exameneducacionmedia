@@ -13,8 +13,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(EtapaProcesoTableSeeder::class);
-
-        $files = [
+        $this->call(RolesTableSeeder::class);
+        $this->call(PermissionsTableSeeder::class);
+        $this->call(CreateSampleUsersTableSeeder::class);
+        /*$files = [
             'database/queries/subsistemas.sql',
             'database/queries/planteles.sql',
             'database/queries/especialidades.sql',
@@ -25,6 +27,6 @@ class DatabaseSeeder extends Seeder
         foreach ($files as $path) {
             DB::unprepared(file_get_contents($path));
             $this->command->info("{$path} has been run");
-        }
+        }*/
     }
 }

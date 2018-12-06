@@ -15,20 +15,20 @@ class EtapaProcesoTableSeeder extends Seeder
             [
                 'nombre'      => 'AFORO',
                 'descripcion' => 'AFORO',
-                'apertura'    => '2018-10-01',
-                'cierre'      => '2018-10-07',
+                'apertura'    => '2018-01-01',
+                'cierre'      => '2018-12-31',
             ],
             [
                 'nombre'      => 'OFERTA',
                 'descripcion' => 'OFERTA',
-                'apertura'    => '2018-10-01',
-                'cierre'      => '2018-10-07',
+                'apertura'    => '2018-01-01',
+                'cierre'      => '2018-12-31',
             ],
             [
                 'nombre'      => 'REGISTRO',
                 'descripcion' => 'REGISTRO',
-                'apertura'    => '2018-10-01',
-                'cierre'      => '2018-10-07',
+                'apertura'    => '2018-01-01',
+                'cierre'      => '2018-12-31',
             ],
         ];
 

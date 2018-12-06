@@ -11,6 +11,15 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $permissions = [
+            'guardar.planteles',
+            'editar.planteles',
+            'eliminar.planteles',
+            'desactivar.planteles',
+        ];
+
+        foreach ($permissions as $permission) {
+            \Spatie\Permission\Models\Permission::create([ 'name' => $permission ]);
+        }
     }
 }
