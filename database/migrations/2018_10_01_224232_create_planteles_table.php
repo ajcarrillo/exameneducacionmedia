@@ -14,11 +14,12 @@ class CreatePlantelesTable extends Migration
     public function up()
     {
         Schema::create('planteles', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('uuid')->nullable()->comment('uuid del centro de trabajo de la base de datos de centros de trabajo o bien de estadistica');
+            $table->increments('id')
+                ->comment('id del centro de trabajo en la tabla centros_trabajo de la base de datos de centrostrabajo');
+            $table->unsignedInteger('uuid')
+                ->comment('uuid del centro de trabajo en la tabla centros_trabajo de la base de datos de centrostrabajo');
             $table->string('descripcion');
-            $table->string('cct', 10);
-            $table->string('referencia');
+            $table->string('clave', 10);
             $table->string('cve_ent', 2);
             $table->string('cve_mun', 3);
             $table->string('cve_loc', 4);
@@ -33,14 +34,11 @@ class CreatePlantelesTable extends Migration
             $table->integer('codigo_postal')->nullable();
             $table->decimal('latitud', 10, 8)->nullable();
             $table->decimal('longitud', 11, 8)->nullable();
-
-            $table->unsignedTinyInteger('nivel_demanda_id')->nullable();
-            $table->foreign('nivel_demanda_id')->references('id')->on('niveles_demanda');
+            $table->unsignedInteger('subsistema_id');
+            $table->string('subsistema');
             $table->unsignedInteger('sede_ceneval')->nullable();
             $table->unsignedInteger('responsable_id')->nullable();
             $table->foreign('responsable_id')->references('id')->on('users');
-            $table->unsignedTinyInteger('subsistema_id');
-            $table->foreign('subsistema_id')->references('id')->on('subsistemas');
             $table->unsignedTinyInteger('descuento')->default(0);
             $table->string('pagina_web')->default('https://qroo.gob.mx/seq');
             $table->string('telefono', 30)->nullable();
@@ -53,6 +51,8 @@ class CreatePlantelesTable extends Migration
             $table->index('entidad');
             $table->index('municipio');
             $table->index('localidad');
+            $table->index('subsistema_id');
+            $table->index('subsistema');
             $table->timestamps();
         });
     }
