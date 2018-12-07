@@ -34,8 +34,10 @@
         },
         watch: {
             selected() {
-                if(this.selected){
+                if (this.selected) {
                     store.dispatch('seleccionarPlantel', this.plantel);
+                } else {
+                    store.dispatch('desSelecionarPlantel', this.plantel.id);
                 }
             }
         }

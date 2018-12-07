@@ -80,5 +80,8 @@ export default {
     },
     selecionarTodos(context, payload) {
         context.commit('selecionarTodos', payload);
+    },
+    desSelecionarPlantel(context, payload) {
+        context.commit('desSelecionarPlantel', payload);
     }
 }
