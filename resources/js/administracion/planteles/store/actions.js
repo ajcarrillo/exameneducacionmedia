@@ -78,8 +78,8 @@ export default {
     seleccionarPlantel(context, payload) {
         context.commit('seleccionarPlantel', payload);
     },
-    selecionarTodos(context, payload) {
-        context.commit('selecionarTodos', payload);
+    seleccionarTodos(context, payload) {
+        context.commit('seleccionarTodos', payload);
     },
     desSelecionarPlantel(context, payload) {
         context.commit('desSelecionarPlantel', payload);

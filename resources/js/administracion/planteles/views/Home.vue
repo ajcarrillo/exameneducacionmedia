@@ -57,6 +57,7 @@
                         <input type="text" v-model="filters.search" class="form-control form-control-sm mr-sm-2" data-toggle="tooltip" title="Buscar por clave o nombre" placeholder="Introduce nombre o clave de centro de trabajo">
                     </div>
                     <button class="btn btn-primary btn-sm" type="submit">Buscar</button>
+                    <button class="btn btn-success btn-sm" type="button" @click="selectAll = !selectAll">Selecionar todos</button>
                 </form>
             </div>
         </div>
@@ -111,7 +112,8 @@
                     tipoCentroTrabajo: 9,
                     page: 1,
                 },
-                loading: false
+                loading: false,
+                selectAll: false
             }
         },
         created() {
@@ -153,6 +155,9 @@
             },
             nivelEducativoSelected(val) {
                 this.filters.subNivel = [];
+            },
+            selectAll() {
+                store.commit('seleccionarTodos', this.selectAll)
             }
         },
         methods: {

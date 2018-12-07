@@ -18,8 +18,8 @@ export default {
     seleccionarPlantel(state, payload) {
         state.plantelesSelecionados.push(payload);
     },
-    selecionarTodos(state, payload) {
-
+    seleccionarTodos(state, payload) {
+        state.selectAll = payload;
     },
     desSelecionarPlantel(state, payload) {
         let index = state.plantelesSelecionados.findIndex(function (p) {

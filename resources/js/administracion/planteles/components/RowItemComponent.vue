@@ -30,6 +30,9 @@
             },
             subsistema() {
                 return this.plantel.subsistema == undefined ? 'SIN SUBSISTEMA' : this.plantel.subsistema.referencia;
+            },
+            selectAll(){
+                return store.state.selectAll;
             }
         },
         watch: {
@@ -39,6 +42,9 @@
                 } else {
                     store.dispatch('desSelecionarPlantel', this.plantel.id);
                 }
+            },
+            selectAll(){
+                this.selected = this.selectAll;
             }
         }
     }
