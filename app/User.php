@@ -93,7 +93,7 @@ class User extends Authenticatable
             $user->update(User::extractJarvisUserInfo($data, $token));
         } catch (\Exception $e) {
             $user = User::create(User::extractJarvisUserInfo($data, $token));
-            $user->groups()->sync([ 10 ]);
+            $user->assignRole('invitado');
         }
 
         return $user;
@@ -102,7 +102,7 @@ class User extends Authenticatable
     public static function crearUsuario(array $data)
     {
         $user = User::create($data);
-        $user->groups()->sync([ 10 ]);
+        $user->assignRole('invitado');
 
         return $user;
     }
