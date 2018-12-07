@@ -1,6 +1,6 @@
 <template>
-    <div class="plantel-row">
-        <button class="btn btn-link btn-block card-btn p-3">
+    <div class="plantel-row" :class="{'bg-info': selected}">
+        <button class="btn btn-link btn-block card-btn p-3" @click="selected = !selected">
             <span class="row">
                 <span class="col-12 col-md-6">{{ nombreCompleto }}</span>
                 <span class="col-12 col-md-2">{{ subsistema }}</span>
@@ -11,9 +11,16 @@
 </template>
 
 <script>
+    import store from '../store/store';
+
     export default {
         name: "RowItem",
         props: ['plantel'],
+        data() {
+            return {
+                selected: false,
+            }
+        },
         computed: {
             nombreCompleto() {
                 return `${this.plantel.clave} ${this.plantel.nombre}`
@@ -23,6 +30,13 @@
             },
             subsistema() {
                 return this.plantel.subsistema == undefined ? 'SIN SUBSISTEMA' : this.plantel.subsistema.referencia;
+            }
+        },
+        watch: {
+            selected() {
+                if(this.selected){
+                    store.dispatch('seleccionarPlantel', this.plantel);
+                }
             }
         }
     }
@@ -34,6 +48,10 @@
         text-align: left;
         white-space: inherit;
         font-size: 0.9375rem;
+    }
+
+    .bg-info > .card-btn, .bg-info > .card-btn:hover {
+        color: white;
     }
 
     .card-btn:not(:disabled):not(.disabled).active, .card-btn:not(:disabled):not(.disabled):active {

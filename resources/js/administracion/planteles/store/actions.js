@@ -13,7 +13,6 @@ const ax = axios.create({
 
 export default {
     getCentros(context, payload) {
-        console.log(payload);
         return new Promise(function (resolve, reject) {
             ax.get('/v1/centros-trabajo', {
                 params: payload
@@ -64,7 +63,7 @@ export default {
                 })
         })
     },
-    getSubniveles(context, payload){
+    getSubniveles(context, payload) {
         return new Promise(function (resolve, reject) {
             ax.get('/v1/centros-trabajo/catalogos?get=subniveles')
                 .then(res => {
@@ -75,5 +74,11 @@ export default {
                     console.log(reject);
                 })
         })
+    },
+    seleccionarPlantel(context, payload) {
+        context.commit('seleccionarPlantel', payload);
+    },
+    selecionarTodos(context, payload) {
+        context.commit('selecionarTodos', payload);
     }
 }

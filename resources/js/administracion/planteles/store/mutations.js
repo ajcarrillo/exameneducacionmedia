@@ -14,5 +14,11 @@ export default {
     },
     subNiveles(state, payload){
         state.subNiveles = payload;
+    },
+    seleccionarPlantel(state, payload) {
+        state.plantelesSelecionados.push(payload);
+    },
+    selecionarTodos(state, payload) {
+        
     }
 }
