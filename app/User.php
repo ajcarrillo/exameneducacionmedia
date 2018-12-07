@@ -41,20 +41,6 @@ class User extends Authenticatable
         return $this->belongsToMany(Groups::class, 'group_user', 'user_id', 'group_id');
     }
 
-    public function hasRole($role)
-    {
-        if ( ! is_array($role)) {
-            return $this->groups()->where('descripcion', $role)->count();
-        }
-        $rolesDelUsuario = $this->groups->pluck('descripcion')->toArray();
-
-        if (count(array_intersect($rolesDelUsuario, $role))) {
-            return true;
-        }
-
-        return false;
-    }
-
     public function subsistema()
     {
         return $this->hasOne(Subsistema::class, 'responsable_id');
@@ -127,4 +113,5 @@ class User extends Authenticatable
 
         return $user;
     }
+
 }

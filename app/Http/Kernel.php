@@ -7,7 +7,6 @@ use ExamenEducacionMedia\Http\Middleware\CheckForOfertaMode;
 use ExamenEducacionMedia\Http\Middleware\CheckForPlantel;
 use ExamenEducacionMedia\Http\Middleware\CheckForRegistroMode;
 use ExamenEducacionMedia\Http\Middleware\CheckForSubsistema;
-use ExamenEducacionMedia\Http\Middleware\CheckRole;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -57,20 +56,22 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'          => \ExamenEducacionMedia\Http\Middleware\Authenticate::class,
-        'auth.basic'    => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'bindings'      => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
-        'can'           => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest'         => \ExamenEducacionMedia\Http\Middleware\RedirectIfAuthenticated::class,
-        'signed'        => \Illuminate\Routing\Middleware\ValidateSignature::class,
-        'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified'      => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'isAforo'       => CheckForAforoMode::class,
-        'isOferta'      => CheckForOfertaMode::class,
-        'isRegistro'    => CheckForRegistroMode::class,
-        'role'          => CheckRole::class,
-        'hasSubsistema' => CheckForSubsistema::class,
-        'hasPlantel'    => CheckForPlantel::class,
+        'auth'               => \ExamenEducacionMedia\Http\Middleware\Authenticate::class,
+        'auth.basic'         => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'bindings'           => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'cache.headers'      => \Illuminate\Http\Middleware\SetCacheHeaders::class,
+        'can'                => \Illuminate\Auth\Middleware\Authorize::class,
+        'guest'              => \ExamenEducacionMedia\Http\Middleware\RedirectIfAuthenticated::class,
+        'signed'             => \Illuminate\Routing\Middleware\ValidateSignature::class,
+        'throttle'           => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'verified'           => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'isAforo'            => CheckForAforoMode::class,
+        'isOferta'           => CheckForOfertaMode::class,
+        'isRegistro'         => CheckForRegistroMode::class,
+        'hasSubsistema'      => CheckForSubsistema::class,
+        'hasPlantel'         => CheckForPlantel::class,
+        'role'               => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        'permission'         => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
     ];
 }
