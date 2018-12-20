@@ -3,7 +3,7 @@
 namespace Subsistema\Http\Controllers\API;
 
 use DB;
-use ExamenEducacionMedia\Models\Plantel;
+use Subsistema\Models\Plantel;
 use ExamenEducacionMedia\Traits\ResponseTrait;
 use ExamenEducacionMedia\User;
 use Illuminate\Http\Request;

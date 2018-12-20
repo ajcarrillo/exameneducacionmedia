@@ -4,8 +4,8 @@ namespace Subsistema\Http\Controllers\API;
 
 use DB;
 use ExamenEducacionMedia\Models\Domicilio;
-use ExamenEducacionMedia\Models\Plantel;
-use ExamenEducacionMedia\Models\Subsistema;
+use Subsistema\Models\Plantel;
+use Subsistema\Models\Subsistema;
 use ExamenEducacionMedia\Traits\ResponseTrait;
 use ExamenEducacionMedia\User;
 use Illuminate\Http\Request;
