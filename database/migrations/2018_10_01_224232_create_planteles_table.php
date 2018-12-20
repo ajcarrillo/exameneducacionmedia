@@ -22,9 +22,9 @@ class CreatePlantelesTable extends Migration
             $table->string('cve_ent', 2)->nullable();
             $table->string('cve_mun', 3)->nullable();
             $table->string('cve_loc', 4)->nullable();
-            $table->string('entidad')->nullable();
-            $table->string('municipio')->nullable();
-            $table->string('localidad')->nullable();
+            $table->string('nombre_entidad')->nullable();
+            $table->string('nombre_municipio')->nullable();
+            $table->string('nombre_localidad')->nullable();
             $table->string('calle_principal')->nullable();
             $table->string('calle_derecha')->nullable();
             $table->string('calle_posterior')->nullable();
@@ -48,9 +48,9 @@ class CreatePlantelesTable extends Migration
             $table->index('cve_ent');
             $table->index('cve_mun');
             $table->index('cve_loc');
-            $table->index('entidad');
-            $table->index('municipio');
-            $table->index('localidad');
+            $table->index('nombre_entidad');
+            $table->index('nombre_municipio');
+            $table->index('nombre_localidad');
             $table->timestamps();
         });
     }
