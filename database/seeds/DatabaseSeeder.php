@@ -16,17 +16,16 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesTableSeeder::class);
         $this->call(PermissionsTableSeeder::class);
         $this->call(CreateSampleUsersTableSeeder::class);
-        /*$files = [
+
+        $files = [
             'database/queries/subsistemas.sql',
-            'database/queries/planteles.sql',
             'database/queries/especialidades.sql',
             'database/queries/programas_estudio.sql',
-            'database/queries/ofertas_educativas.sql',
-            'database/queries/groups.sql',
+            'database/queries/planteles.sql',
         ];
         foreach ($files as $path) {
             DB::unprepared(file_get_contents($path));
             $this->command->info("{$path} has been run");
-        }*/
+        }
     }
 }

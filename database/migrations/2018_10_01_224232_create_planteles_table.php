@@ -14,19 +14,17 @@ class CreatePlantelesTable extends Migration
     public function up()
     {
         Schema::create('planteles', function (Blueprint $table) {
-            $table->increments('id')
-                ->comment('id del centro de trabajo en la tabla centros_trabajo de la base de datos de centrostrabajo');
-            $table->unsignedInteger('uuid')
+            $table->increments('id');
+            $table->uuid('uuid')
                 ->comment('uuid del centro de trabajo en la tabla centros_trabajo de la base de datos de centrostrabajo');
             $table->string('descripcion');
             $table->string('clave', 10);
-
-            $table->string('cve_ent', 2);
-            $table->string('cve_mun', 3);
-            $table->string('cve_loc', 4);
-            $table->string('entidad');
-            $table->string('municipio');
-            $table->string('localidad');
+            $table->string('cve_ent', 2)->nullable();
+            $table->string('cve_mun', 3)->nullable();
+            $table->string('cve_loc', 4)->nullable();
+            $table->string('entidad')->nullable();
+            $table->string('municipio')->nullable();
+            $table->string('localidad')->nullable();
             $table->string('calle_principal')->nullable();
             $table->string('calle_derecha')->nullable();
             $table->string('calle_posterior')->nullable();
