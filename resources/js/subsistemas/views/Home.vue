@@ -26,8 +26,9 @@
                                         <active-plantel :active="props.item.active"></active-plantel>
                                     </button>
                                 </td>
-                                <td v-if="props.item.domicilio">{{ props.item.domicilio.municipio.NOM_MUN }}</td>
-                                <td v-else>Sin especificar</td>
+                                <td>
+                                    {{ props.item.municipio.NOM_MUN }}
+                                </td>
                                 <td v-if="props.item.responsable">{{ props.item.responsable.nombre_completo }}</td>
                                 <td v-else>
                                     <button class="btn btn-primary btn-sm" @click="showFormAsignarRes(props.item, props.index)">Asignar</button>
