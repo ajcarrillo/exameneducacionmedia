@@ -58,14 +58,6 @@ Route::middleware([ 'auth', 'role:plantel', 'hasPlantel' ])
             ->name('spa.planteles');
     });
 
-Route::middleware([ 'auth', 'role:subsistema', 'hasSubsistema' ])
-    ->prefix('/subsistemas')
-    ->group(function () {
-        Route::get('/{all?}', 'Subsistema\HomeController@index')
-            ->where([ 'all' => '.*' ])
-            ->name('spa.subsistemas');
-    });
-
 /* Login con jarvis*/
 Route::get('/loging/oauth', 'Auth\LoginController@redirectToProvider')->name('login.oauth');
 Route::get('/callback', 'Auth\LoginController@handleProviderCallback')->name('login.oauth.callback');

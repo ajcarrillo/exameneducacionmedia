@@ -1,6 +1,6 @@
 <?php
 
-namespace ExamenEducacionMedia\Http\Controllers\API;
+namespace Subsistema\Http\Controllers\API;
 
 use ExamenEducacionMedia\Models\Domicilio;
 use ExamenEducacionMedia\Models\Plantel;

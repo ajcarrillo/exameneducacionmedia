@@ -1,6 +1,6 @@
 <?php
 
-namespace ExamenEducacionMedia\Http\Controllers\API;
+namespace Subsistema\Http\Controllers\API;
 
 use ExamenEducacionMedia\Models\Subsistema;
 use ExamenEducacionMedia\Traits\ResponseTrait;

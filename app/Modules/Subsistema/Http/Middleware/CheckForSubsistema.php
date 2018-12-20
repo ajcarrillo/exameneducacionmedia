@@ -1,6 +1,6 @@
 <?php
 
-namespace ExamenEducacionMedia\Http\Middleware;
+namespace Subsistema\Http\Middleware;
 
 use Closure;
 

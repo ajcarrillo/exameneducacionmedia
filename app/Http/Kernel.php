@@ -6,7 +6,7 @@ use ExamenEducacionMedia\Http\Middleware\CheckForAforoMode;
 use ExamenEducacionMedia\Http\Middleware\CheckForOfertaMode;
 use ExamenEducacionMedia\Http\Middleware\CheckForPlantel;
 use ExamenEducacionMedia\Http\Middleware\CheckForRegistroMode;
-use ExamenEducacionMedia\Http\Middleware\CheckForSubsistema;
+use Subsistema\Http\Middleware\CheckForSubsistema;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
