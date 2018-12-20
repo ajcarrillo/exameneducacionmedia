@@ -9,11 +9,14 @@
 namespace Subsistema\Models;
 
 
+use Awobaz\Compoships\Compoships;
 use ExamenEducacionMedia\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Subsistema extends Model
 {
+    use Compoships;
+
     protected $table = 'subsistemas';
 
     public function responsable()

@@ -9,14 +9,19 @@
 namespace Subsistema\Models;
 
 
-use ExamenEducacionMedia\Models\Domicilio;
+use Awobaz\Compoships\Compoships;
+use ExamenEducacionMedia\Models\Geodatabase\Localidad;
+use ExamenEducacionMedia\Models\Geodatabase\MunicipioView;
 use ExamenEducacionMedia\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Plantel extends Model
 {
-    protected $table   = 'planteles';
-    protected $guarded = [];
+    use Compoships;
+
+    protected $connection = 'mysql';
+    protected $table      = 'planteles';
+    protected $guarded    = [];
 
     public function responsable()
     {
@@ -28,8 +33,13 @@ class Plantel extends Model
         return $this->belongsTo(Subsistema::class, 'subsistema_id');
     }
 
-    public function domicilio()
+    public function municipio()
     {
-        return $this->belongsTo(Domicilio::class, 'domicilio_id');
+        return $this->belongsTo(MunicipioView::class, [ 'cve_ent', 'cve_mun' ], [ 'CVE_ENT', 'CVE_MUN' ]);
+    }
+
+    public function localidad()
+    {
+        return $this->belongsTo(Localidad::class, [ 'cve_ent', 'cve_mun', 'cve_loc' ], [ 'CVE_ENT', 'CVE_MUN', 'CVE_LOC' ]);
     }
 }

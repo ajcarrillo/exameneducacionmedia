@@ -2,8 +2,9 @@
 
 namespace ExamenEducacionMedia;
 
-use ExamenEducacionMedia\Models\Plantel;
-use ExamenEducacionMedia\Models\Subsistema;
+use Awobaz\Compoships\Compoships;
+use Subsistema\Models\Plantel;
+use Subsistema\Models\Subsistema;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -12,7 +13,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasRoles;
+    use Notifiable, HasRoles, Compoships;
 
     /**
      * The attributes that are mass assignable.

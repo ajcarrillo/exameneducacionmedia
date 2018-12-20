@@ -9,10 +9,13 @@
 namespace Subsistema\Models;
 
 
+use Awobaz\Compoships\Compoships;
 use Illuminate\Database\Eloquent\Model;
 
 class Especialidad extends Model
 {
+    use Compoships;
+
     protected $table = 'especialidades';
 
     public function subsistema()
