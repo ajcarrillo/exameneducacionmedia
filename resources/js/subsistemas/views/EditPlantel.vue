@@ -40,7 +40,7 @@
                     <div class="card-body">
                         <div class="form-group" v-if="isMunicipiosReady">
                             <label for="">Municipio</label>
-                            <select name="cve_mun" class="form-control" v-model="plantel.domicilio.cve_mun" @change="onChangeMunicipio">
+                            <select @change="onChangeMunicipio" class="form-control" name="cve_mun" v-model="plantel.municipio.CVE_MUN">
                                 <option value="">Seleccione</option>
                                 <option v-for="municipio in municipios" :value="municipio.value" :key="municipio.value">{{ municipio.label }}</option>
                             </select>
@@ -53,22 +53,22 @@
                         </div>
                         <div class="form-group">
                             <label for="">Calle</label>
-                            <input type="text" class="form-control" v-model="plantel.domicilio.calle" name="calle" :class="{input:true, 'has-error':errors.has('calle')}" v-validate="'required'">
+                            <input :class="{input:true, 'has-error':errors.has('calle')}" class="form-control" name="calle" type="text" v-model="plantel.calle" v-validate="'required'">
                             <div class="input-has-error">{{ errors.first('calle') }}</div>
                         </div>
                         <div class="form-group">
                             <label for="">Número</label>
-                            <input type="text" class="form-control" v-model="plantel.domicilio.numero" name="numero" :class="{input:true, 'has-error':errors.has('numero')}" v-validate="'required'">
+                            <input :class="{input:true, 'has-error':errors.has('numero')}" class="form-control" name="numero" type="text" v-model="plantel.numero" v-validate="'required'">
                             <div class="input-has-error">{{ errors.first('numero') }}</div>
                         </div>
                         <div class="form-group">
                             <label for="">Colonia</label>
-                            <input type="text" class="form-control" v-model="plantel.domicilio.colonia" name="colonia" :class="{input:true, 'has-error':errors.has('colonia')}" v-validate="'required'">
+                            <input :class="{input:true, 'has-error':errors.has('colonia')}" class="form-control" name="colonia" type="text" v-model="plantel.colonia" v-validate="'required'">
                             <div class="input-has-error">{{ errors.first('colonia') }}</div>
                         </div>
                         <div class="form-group">
                             <label for="">Código postal</label>
-                            <input type="text" class="form-control" v-model="plantel.domicilio.codigo_postal">
+                            <input class="form-control" type="text" v-model="plantel.codigo_postal">
                         </div>
                     </div>
                 </div>
@@ -130,12 +130,9 @@
         },
         created() {
             let plantelId = this.$route.params.plantelId;
-            let payload = store.getters.getPlantelById(plantelId);
+            let payload = store.getters['home/getPlantelById'](plantelId);
             this.plantel = payload.plantel;
             this.plantelIndex = payload.index;
-            if(_.isEmpty(this.plantel.domicilio)){
-                this.plantel.domicilio = {};
-            }
 
             this.getMunicipios();
 
@@ -184,22 +181,18 @@
             },
             getLocalidades() {
                 this.isLocalidadesReady = false;
-                if(this.hasDomicilio){
-                    axios.get(route('api.localidad.index', {cve_ent: this.plantel.domicilio.cve_ent, cve_mun: this.cve_mun}))
-                        .then(res => {
-                            this.localidades = res.data.localidades;
-                            this.isLocalidadesReady = true;
-                            this.cveLocSelect2 = {
-                                label: this.plantel.domicilio.localidad.NOM_LOC,
-                                value: this.plantel.domicilio.cve_loc
-                            }
-                        })
-                        .catch(err => {
-                            console.log(err.response);
-                        })
-                }else{
-                    this.isLocalidadesReady = true
-                }
+                axios.get(route('api.localidad.index', {cve_ent: 23, cve_mun: this.cve_mun}))
+                    .then(res => {
+                        this.localidades = res.data.localidades;
+                        this.isLocalidadesReady = true;
+                        this.cveLocSelect2 = {
+                            label: this.plantel.localidad.NOM_LOC,
+                            value: this.plantel.localidad.CVE_LOC
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err.response);
+                    })
             },
             onChangeMunicipio() {
                 this.getLocalidades();
@@ -223,25 +216,13 @@
                 return this.plantel.pagina_web;
             },
             cve_ent() {
-                if (this.plantel.domicilio) {
-                    return this.plantel.domicilio.cve_ent;
-                } else {
-                    return null
-                }
+                return 23
             },
             cve_mun() {
-                if (this.plantel.domicilio) {
-                    return this.plantel.domicilio.cve_mun;
-                } else {
-                    return null
-                }
+                return this.plantel.municipio.CVE_MUN
             },
             cve_loc() {
-                if (this.plantel.domicilio) {
-                    return this.plantel.domicilio.cve_loc;
-                } else {
-                    return null
-                }
+                return this.plantel.localidad.CVE_LOC
             },
             colonia() {
                 if (this.plantel.domicilio) {
