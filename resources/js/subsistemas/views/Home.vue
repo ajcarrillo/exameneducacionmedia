@@ -156,21 +156,21 @@
         },
         computed: {
             totalPlanteles() {
-                return store.state.planteles.length;
+                return store.state.home.planteles.length;
             },
             totalEspecialidades() {
-                return store.state.especialidades.length;
+                return store.state.home.especialidades.length;
             },
             planteles() {
-                return store.state.planteles;
+                return store.state.home.planteles;
             },
             especialidades() {
-                return store.state.especialidades;
+                return store.state.home.especialidades;
             }
         },
         created() {
             let subsistema = document.head.querySelector('meta[name="subsistema"]');
-            store.dispatch('getData', subsistema.content)
+            store.dispatch('home/getData', subsistema.content)
                 .then(res => {
                     this.loadingData = false;
                 });
@@ -189,7 +189,7 @@
                 this.$validator.validate()
                     .then(isValid => {
                         if (isValid) {
-                            store.dispatch('asignarResponsable', {responsable: this.responsable})
+                            store.dispatch('home/asignarResponsable', {responsable: this.responsable})
                                 .then(res => {
                                     this.closeFormAsignarRes();
                                 })
@@ -220,7 +220,7 @@
             updateStatus(plantelId, estatus, index) {
                 if (estatus) {
                     //desactivar
-                    store.dispatch('desactivarPlantel', {plantel: plantelId, index: index})
+                    store.dispatch('home/desactivarPlantel', {plantel: plantelId, index: index})
                         .then(res => {
                             console.log(res);
                         })
@@ -229,7 +229,7 @@
                         })
                 } else {
                     //activar
-                    store.dispatch('activarPlantel', {plantel: plantelId, index: index})
+                    store.dispatch('home/activarPlantel', {plantel: plantelId, index: index})
                         .then(res => {
                             console.log(res);
                         })
