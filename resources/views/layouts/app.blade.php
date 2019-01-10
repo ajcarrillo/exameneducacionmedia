@@ -212,6 +212,12 @@
 
         <script src="{{ mix('js/adminlte.js') }}"></script>
 
+        <script type="text/javascript">
+            window.clone = function (obj) {
+                return JSON.parse(JSON.stringify(obj));
+            }
+        </script>
+
         @yield('extra-scripts')
     </body>
 </html>
