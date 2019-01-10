@@ -12,6 +12,7 @@ Route::group([
     'prefix' => '/planteles',
 ], function () {
     Route::patch('/{plantel}/activar', 'API\ActivarPlantel@update')->name('api.plantel.activar');
+    Route::patch('/{plantel}/actulizar-nombre', 'API\ActualizaNombrePlantelController@update')->name('api.plantel.actulizar.nombre');
     Route::delete('/{plantel}/desactivar', 'API\ActivarPlantel@destroy')->name('api.plantel.desactivar');
     Route::post('/{plantel}/domicilio', 'API\PlantelDomicilioController@store')->name('api.plantel.domicilio.store');
     Route::patch('/{plantel}/domicilio', 'API\PlantelDomicilioController@update')->name('api.plantel.domicilio.store');

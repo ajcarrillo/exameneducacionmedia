@@ -69,5 +69,8 @@ export default {
                 reject(err);
             })
         })
+    },
+    actualizaNombre(context, payload) {
+        context.commit('actualizaNombre', payload);
     }
 }

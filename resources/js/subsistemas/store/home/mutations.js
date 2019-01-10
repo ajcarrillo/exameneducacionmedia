@@ -17,5 +17,8 @@ export default {
     },
     asignarResponsable(state, payload) {
         state.planteles[payload.index].responsable = payload.responsable;
+    },
+    actualizaNombre(state, payload) {
+        state.planteles[payload.index].descripcion = payload.draft;
     }
 }

@@ -7,8 +7,6 @@ import Notifications from 'vue-notification'
 
 import App from './views/App';
 import Subsistemas from './views/Home';
-import CreatePlantel from './views/CreatePlantel';
-import EditPlantel from './views/EditPlantel';
 
 import store from './store/store';
 
@@ -32,18 +30,6 @@ const router = new VueRouter({
             path: '/subsistemas',
             component: Subsistemas,
             name: 'subsistemas.home',
-        },
-        {
-            path: '/subsistemas/plantel/:plantelId',
-            component: EditPlantel,
-            name: 'subsistemas.plantel.edit',
-            props: true
-        },
-        {
-            path: '/subsistemas/plantel',
-            component: CreatePlantel,
-            name: 'subsistemas.plantel',
-            props: true
         },
     ]
 });

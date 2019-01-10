@@ -6,22 +6,18 @@
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
                             <h3 class="card-title">Plantel</h3>
-                            <router-link :to="{name:'subsistemas.plantel'}">
-                                <a>Nuevo plantel</a>
-                            </router-link>
                         </div>
                     </div>
                     <div class="card-body p-0 table-responsive">
                         <planteles-table :items="planteles" :headers="headers">
                             <template slot="items" slot-scope="props">
-                                <td>
-                                    <router-link :to="{name:'subsistemas.plantel.edit', params:{plantelId:props.item.id}}">
-                                        <a v-tooltip:right="'Click para editar'">
-                                            <i class="fa fa-pen"></i>
-                                        </a>
-                                    </router-link>
+                                <td colspan="2">
+                                    <edit-name-form
+                                        :plantelid="props.item.id"
+                                        :plantelname="props.item.descripcion"
+                                        @submit="updateName"
+                                    ></edit-name-form>
                                 </td>
-                                <td>{{ props.item.descripcion }}</td>
                                 <td>
                                     <button :data-tooltip-title="props.item.active|buttonTitle" @click="updateStatus(props.item.id, props.item.active, props.index)"
                                             class="btn btn-link" v-tooltip:top="">
@@ -103,6 +99,7 @@
     import PlantelesTable from '../../components/TableComponent'
     import {Expo, TimelineLite} from 'gsap';
     import MyTooltip from '../../directives/TooltipDirective'
+    import EditNameForm from '../components/EditPlantelNameFormComponent';
 
     Vue.directive('tooltip', MyTooltip);
 
@@ -121,8 +118,12 @@
             }
         }
     });
+
     export default {
-        components: {PlantelesTable},
+        components: {
+            PlantelesTable,
+            EditNameForm
+        },
         data() {
             return {
                 message: 'subsistema',
@@ -242,6 +243,20 @@
                             console.log(err);
                         })
                 }
+            },
+            updateName(payload) {
+                let index = this.planteles.findIndex(function (el) {
+                    return el.id == payload.id
+                });
+
+                store.dispatch('home/actualizaNombre', {index: index, draft: payload.draft})
+
+                this.$notify({
+                    group: 'notify',
+                    title: 'Notificaciones',
+                    text: 'El nombre del plantel se actualizó correctamente',
+                    type: 'success'
+                });
             }
         }
     }
