@@ -16,13 +16,15 @@
                             <template slot="items" slot-scope="props">
                                 <td>
                                     <router-link :to="{name:'subsistemas.plantel.edit', params:{plantelId:props.item.id}}">
-                                        <a data-toggle="tooltip" data-placement="top" title="Click para editar"><i class="fa fa-pen"></i></a>
+                                        <a v-tooltip:right="'Click para editar'">
+                                            <i class="fa fa-pen"></i>
+                                        </a>
                                     </router-link>
                                 </td>
                                 <td>{{ props.item.descripcion }}</td>
                                 <td>
-                                    <button @click="updateStatus(props.item.id, props.item.active, props.index)" class="btn btn-link" data-toggle="tooltip" data-placement="top"
-                                            :title="props.item.active|buttonTitle">
+                                    <button :data-tooltip-title="props.item.active|buttonTitle" @click="updateStatus(props.item.id, props.item.active, props.index)"
+                                            class="btn btn-link" v-tooltip:top="">
                                         <active-plantel :active="props.item.active"></active-plantel>
                                     </button>
                                 </td>
@@ -99,7 +101,10 @@
     import Vue from 'vue';
     import store from '../store/store';
     import PlantelesTable from '../../components/TableComponent'
-    import {TimelineLite, Elastic, Circ, Expo} from 'gsap';
+    import {Expo, TimelineLite} from 'gsap';
+    import MyTooltip from '../../directives/TooltipDirective'
+
+    Vue.directive('tooltip', MyTooltip);
 
     Vue.component('active-plantel', {
         template: '<i :class="classObject"></i>',
