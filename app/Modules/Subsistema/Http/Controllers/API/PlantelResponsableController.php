@@ -3,27 +3,28 @@
 namespace Subsistema\Http\Controllers\API;
 
 use DB;
-use Subsistema\Models\Plantel;
+use ExamenEducacionMedia\Http\Controllers\Controller;
 use ExamenEducacionMedia\Traits\ResponseTrait;
 use ExamenEducacionMedia\User;
 use Illuminate\Http\Request;
-use ExamenEducacionMedia\Http\Controllers\Controller;
+use Subsistema\Models\Plantel;
 
 class PlantelResponsableController extends Controller
 {
     use ResponseTrait;
 
-    public function store(Request $request, Plantel $plantel)
+    public function store(Request $request, $plantel)
     {
         try {
-            $responsable = DB::transaction(function () use ($request, $plantel) {
-                $user = User::createUser($request->only([ 'nombre', 'primer_apellido', 'segundo_apellido', 'username', 'email', 'password' ]), [ 2 ]);
-                $plantel->responsable()->associate($user)->save();
+            $p = Plantel::where('uuid', $plantel)->firstOrFail();
+            $responsable = DB::transaction(function () use ($request, $p) {
+                $user = User::createUser($request->only([ 'nombre_completo', 'email', 'password' ]), [ 'plantel' ]);
+                $p->responsable()->associate($user)->save();
 
-                return $plantel->responsable;
+                return $p->responsable;
             });
 
-            return $this->respondWithArray([ 'isValid' => true, 'responsable' => $responsable ]);
+            return ok([ 'responsable' => $responsable ]);
         } catch (\Throwable $e) {
             return $this->setException($e)->respondeWithErrorsException();
         }

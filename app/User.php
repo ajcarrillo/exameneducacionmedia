@@ -3,13 +3,12 @@
 namespace ExamenEducacionMedia;
 
 use Awobaz\Compoships\Compoships;
-use Subsistema\Models\Plantel;
-use Subsistema\Models\Subsistema;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Ramsey\Uuid\Uuid;
 use Spatie\Permission\Traits\HasRoles;
+use Subsistema\Models\Plantel;
+use Subsistema\Models\Subsistema;
 
 class User extends Authenticatable
 {
@@ -58,13 +57,13 @@ class User extends Authenticatable
             'uuid'            => Uuid::uuid4()->toString(),
             'nombre_completo' => $data['nombre_completo'],
             'email'           => $data['email'],
-            'username'        => $data['username'],
+            'username'        => $data['email'],
             'password'        => bcrypt($data['password']),
             'api_token'       => str_random(60),
             'active'          => true,
         ]);
 
-        $user->groups()->sync($roles);
+        $user->assignRole($roles);
 
         return $user;
     }

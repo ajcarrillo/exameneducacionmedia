@@ -2,11 +2,11 @@ require('../bootstrap');
 window.Vue = require('vue');
 
 import VueRouter from 'vue-router'
-import VeeValidate from 'vee-validate'
 import Notifications from 'vue-notification'
 
 import App from './views/App';
 import Subsistemas from './views/Home';
+import Responsable from './views/Responsable';
 
 import store from './store/store';
 
@@ -19,7 +19,6 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
-Vue.use(VeeValidate);
 Vue.use(Notifications);
 
 const router = new VueRouter({
@@ -31,6 +30,11 @@ const router = new VueRouter({
             component: Subsistemas,
             name: 'subsistemas.home',
         },
+        {
+            path: '/subsistemas/plantel/:plantelid/responsable',
+            component: Responsable,
+            name: 'subsistema.plantel.responsable'
+        }
     ]
 });
 

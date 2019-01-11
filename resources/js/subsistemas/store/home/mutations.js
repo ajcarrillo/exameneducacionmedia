@@ -16,7 +16,11 @@ export default {
         state.planteles[payload.index].active = payload.active;
     },
     asignarResponsable(state, payload) {
-        state.planteles[payload.index].responsable = payload.responsable;
+        let index = state.planteles.findIndex(function (el) {
+            return el.uuid == payload.uuid
+        });
+        state.planteles[index].responsable = payload.responsable;
+        state.planteles[index].responsable_id = payload.responsable.id;
     },
     actualizaNombre(state, payload) {
         state.planteles[payload.index].descripcion = payload.draft;
