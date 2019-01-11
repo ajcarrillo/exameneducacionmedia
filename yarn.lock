@@ -7276,6 +7276,11 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
+vue-form-generator@^2.3.3:
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/vue-form-generator/-/vue-form-generator-2.3.3.tgz#8d8b5b115deaa43ac604f6835e33dbc2a62054ed"
+  integrity sha512-yH+OspwjHQPrNe1W+6dzLcS/QRJbkXPmAWmplcDVhQgGyZ0b2BWJDJ66OJfdjc3S042Fc1qTML1vnVuNiRj+iw==
+
 vue-hot-reload-api@^2.2.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.1.tgz#b2d3d95402a811602380783ea4f566eb875569a2"
