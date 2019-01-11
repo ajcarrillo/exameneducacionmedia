@@ -7,6 +7,7 @@ import Notifications from 'vue-notification'
 import App from './views/App';
 import Subsistemas from './views/Home';
 import Responsable from './views/Responsable';
+import OfertaEducativa from './views/OfertaEducativa';
 
 import store from './store/store';
 
@@ -29,6 +30,11 @@ const router = new VueRouter({
             path: '/subsistemas',
             component: Subsistemas,
             name: 'subsistemas.home',
+        },
+        {
+            path: '/subsistemas/plantel/:plantelid/ofert',
+            component: OfertaEducativa,
+            name: 'subsistema.plantel.oferta'
         },
         {
             path: '/subsistemas/plantel/:plantelid/responsable',
