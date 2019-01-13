@@ -33,13 +33,13 @@ if ( ! function_exists('error_json_response')) {
      */
     function error_json_response($message = '', $errors = [], $code = 400)
     {
-        $meta = [
+        $data['meta'] = [
             'status'  => 'error',
             'message' => $message,
             'code'    => $code,
         ];
 
-        return json_response(compact('meta'), $code);
+        return new \Illuminate\Http\JsonResponse($data, $code, [], 0);
     }
 }
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace ExamenEducacionMedia\Http\Controllers\API;
+namespace Subsistema\Http\Controllers\API;
 
-use ExamenEducacionMedia\Models\Plantel;
+use Subsistema\Models\Plantel;
 use ExamenEducacionMedia\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 use ExamenEducacionMedia\Http\Controllers\Controller;

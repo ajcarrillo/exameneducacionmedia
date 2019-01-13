@@ -2,16 +2,17 @@
 
 namespace ExamenEducacionMedia;
 
-use ExamenEducacionMedia\Models\Plantel;
-use ExamenEducacionMedia\Models\Subsistema;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Awobaz\Compoships\Compoships;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Ramsey\Uuid\Uuid;
+use Spatie\Permission\Traits\HasRoles;
+use Subsistema\Models\Plantel;
+use Subsistema\Models\Subsistema;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasRoles, Compoships;
 
     /**
      * The attributes that are mass assignable.
@@ -40,20 +41,6 @@ class User extends Authenticatable
         return $this->belongsToMany(Groups::class, 'group_user', 'user_id', 'group_id');
     }
 
-    public function hasRole($role)
-    {
-        if ( ! is_array($role)) {
-            return $this->groups()->where('descripcion', $role)->count();
-        }
-        $rolesDelUsuario = $this->groups->pluck('descripcion')->toArray();
-
-        if (count(array_intersect($rolesDelUsuario, $role))) {
-            return true;
-        }
-
-        return false;
-    }
-
     public function subsistema()
     {
         return $this->hasOne(Subsistema::class, 'responsable_id');
@@ -70,13 +57,13 @@ class User extends Authenticatable
             'uuid'            => Uuid::uuid4()->toString(),
             'nombre_completo' => $data['nombre_completo'],
             'email'           => $data['email'],
-            'username'        => $data['username'],
+            'username'        => $data['email'],
             'password'        => bcrypt($data['password']),
             'api_token'       => str_random(60),
             'active'          => true,
         ]);
 
-        $user->groups()->sync($roles);
+        $user->assignRole($roles);
 
         return $user;
     }
@@ -106,7 +93,7 @@ class User extends Authenticatable
             $user->update(User::extractJarvisUserInfo($data, $token));
         } catch (\Exception $e) {
             $user = User::create(User::extractJarvisUserInfo($data, $token));
-            $user->groups()->sync([ 10 ]);
+            $user->assignRole('invitado');
         }
 
         return $user;
@@ -115,7 +102,7 @@ class User extends Authenticatable
     public static function crearUsuario(array $data)
     {
         $user = User::create($data);
-        $user->groups()->sync([ 10 ]);
+        $user->assignRole('invitado');
 
         return $user;
     }
@@ -126,4 +113,5 @@ class User extends Authenticatable
 
         return $user;
     }
+
 }

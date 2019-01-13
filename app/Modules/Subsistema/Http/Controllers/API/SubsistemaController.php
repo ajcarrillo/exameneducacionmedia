@@ -1,11 +1,11 @@
 <?php
 
-namespace ExamenEducacionMedia\Http\Controllers\API;
+namespace Subsistema\Http\Controllers\API;
 
-use ExamenEducacionMedia\Models\Subsistema;
 use ExamenEducacionMedia\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 use ExamenEducacionMedia\Http\Controllers\Controller;
+use Subsistema\Models\Subsistema;
 
 class SubsistemaController extends Controller
 {
@@ -13,7 +13,13 @@ class SubsistemaController extends Controller
 
     public function show(Subsistema $subsistema)
     {
-        $subsistema->loadMissing('planteles', 'planteles.responsable', 'planteles.domicilio', 'especialidades');
+        $subsistema->loadMissing(
+            'planteles',
+            'planteles.responsable',
+            'planteles.municipio',
+            'planteles.localidad',
+            'especialidades'
+        );
 
         return $this->respondWithArray(compact('subsistema'));
     }

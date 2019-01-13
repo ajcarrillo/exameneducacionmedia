@@ -18,7 +18,9 @@ export default new Vuex.Store({
         tiposEducativos: [],
         nivelesEducativos: [],
         subNiveles: [],
-        estatus: ['activo', 'inactivo']
+        estatus: ['activo', 'inactivo'],
+        plantelesSelecionados: [],
+        selectAll: false
     },
     getters,
     actions,

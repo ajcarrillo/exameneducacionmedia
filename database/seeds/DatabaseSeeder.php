@@ -13,14 +13,15 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(EtapaProcesoTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
+        $this->call(PermissionsTableSeeder::class);
+        $this->call(CreateSampleUsersTableSeeder::class);
 
         $files = [
             'database/queries/subsistemas.sql',
-            'database/queries/planteles.sql',
             'database/queries/especialidades.sql',
             'database/queries/programas_estudio.sql',
-            'database/queries/ofertas_educativas.sql',
-            'database/queries/groups.sql',
+            'database/queries/planteles.sql',
         ];
         foreach ($files as $path) {
             DB::unprepared(file_get_contents($path));

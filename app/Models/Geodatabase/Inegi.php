@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Inegi extends Model
 {
-    protected $connection = 'geodatabase';
+    protected $connection = 'geo_db';
     protected $table      = 'estados_municipios_localidades';
 
     public function scopeByEntidad($query, $cveEnt)

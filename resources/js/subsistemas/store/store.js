@@ -1,20 +1,17 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate'
-import actions from './actions';
-import mutations from './mutations';
-import getters from './getters';
+import home from './home/store'
+import oferta from './oferta/store';
+import especialidad from './especialidades/store';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-    plugins: [createPersistedState()],
-    state: {
-        subsistema: null,
-        planteles: [],
-        especialidades: []
-    },
-    getters,
-    actions,
-    mutations
+    /*plugins: [createPersistedState()],*/
+    modules: {
+        home: home,
+        oferta: oferta,
+        especialidad: especialidad
+    }
 })

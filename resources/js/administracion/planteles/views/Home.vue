@@ -57,6 +57,7 @@
                         <input type="text" v-model="filters.search" class="form-control form-control-sm mr-sm-2" data-toggle="tooltip" title="Buscar por clave o nombre" placeholder="Introduce nombre o clave de centro de trabajo">
                     </div>
                     <button class="btn btn-primary btn-sm" type="submit">Buscar</button>
+                    <button class="btn btn-success btn-sm" type="button" @click="selectAll = !selectAll">Selecionar todos</button>
                 </form>
             </div>
         </div>
@@ -66,11 +67,10 @@
                     <div class="card-header">
                         <h1 class="card-title">Centros de Trabajo</h1>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body bg-light">
                         <div class="row">
                             <div class="col">
-                                <p><strong>Planteles</strong>: {{planteles.pagination.total }}</p>
-
+                                <p class="mb-0"><strong>Planteles</strong>: {{planteles.pagination.total }}</p>
                             </div>
                             <div class="col">
                                 <div class="btn-group btn-group-sm pull-right" role="group" aria-label="Basic example">
@@ -79,52 +79,12 @@
                                     <button :disabled="planteles.pagination.nextPageUrl == null || loading" type="button" @click="next" class="btn btn-secondary">Siguiente
                                     </button>
                                 </div>
-                                <p><strong>Página</strong>: {{planteles.pagination.currentPage }} <strong>de</strong>: {{planteles.pagination.lastPage}}</p>
+                                <p class="mb-0"><strong>Página</strong>: {{planteles.pagination.currentPage }} <strong>de</strong>: {{planteles.pagination.lastPage}}</p>
                             </div>
                         </div>
-
                     </div>
-                    <div class="card-body p-0 table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Clave</th>
-                                    <th>Nombre</th>
-                                    <th>Municipio</th>
-                                    <th>Localidad</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <template v-if="loading">
-                                    <tr>
-                                        <td colspan="2">Cargando datos...</td>
-                                    </tr>
-                                </template>
-                                <template v-else>
-                                    <template v-for="plantel in planteles.items">
-                                        <tr>
-                                            <td>{{ plantel.clave}}</td>
-                                            <td>{{ plantel.nombre}}</td>
-                                            <td>{{ plantel.inmueble.municipio.NOM_MUN}}</td>
-                                            <td>{{ plantel.inmueble.localidad.NOM_LOC}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="4" class="border-0 pt-0">
-                                                <ul class="list-unstyled" style="font-size: 0.9rem">
-                                                    <li class="d-xs-table-row d-lg-table-cell pr-3"><span>{{ plantel.control.descripcion}}</span></li>
-                                                    <li class="d-xs-table-row d-lg-table-cell pr-3"><span>{{ plantel.sub_control.descripcion}}</span></li>
-                                                    <li class="d-xs-table-row d-lg-table-cell pr-3"><span>{{ plantel.tipo_educativo.descripcion}}</span></li>
-                                                    <li class="d-xs-table-row d-lg-table-cell pr-3"><span>{{ plantel.nivel_educativo.descripcion}}</span></li>
-                                                    <li class="d-xs-table-row d-lg-table-cell pr-3"><span>{{ plantel.sub_nivel.descripcion}}</span></li>
-                                                    <li class="d-xs-table-row d-lg-table-cell pr-3"><span>{{ plantel.tipo_centro_trabajo.descripcion}}</span></li>
-                                                    <li class="d-xs-table-row d-lg-table-cell pr-3"><span>{{ plantel.clasificador.descripcion}}</span></li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                    </template>
-                                </template>
-                            </tbody>
-                        </table>
+                    <div class="card-body p-0">
+                        <row-item v-for="plantel in planteles.items" :key="plantel.id" :plantel="plantel"></row-item>
                     </div>
                 </div>
             </div>
@@ -134,9 +94,11 @@
 
 <script>
     import store from '../store/store';
+    import RowItem from '../components/RowItemComponent';
 
     export default {
         name: "Home",
+        components: {RowItem},
         data() {
             return {
                 filters: {
@@ -150,7 +112,8 @@
                     tipoCentroTrabajo: 9,
                     page: 1,
                 },
-                loading: false
+                loading: false,
+                selectAll: false
             }
         },
         created() {
@@ -192,6 +155,9 @@
             },
             nivelEducativoSelected(val) {
                 this.filters.subNivel = [];
+            },
+            selectAll() {
+                store.commit('seleccionarTodos', this.selectAll)
             }
         },
         methods: {
