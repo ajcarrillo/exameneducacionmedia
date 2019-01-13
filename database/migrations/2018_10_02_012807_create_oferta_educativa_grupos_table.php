@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateOfertaEducativaGruposTable extends Migration
 {
@@ -15,7 +15,6 @@ class CreateOfertaEducativaGruposTable extends Migration
     {
         Schema::create('oferta_educativa_grupos', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedTinyInteger('semestre')->default(1);
             $table->unsignedTinyInteger('grupos');
             $table->unsignedInteger('alumnos');
             $table->unsignedInteger('oferta_educativa_id');
