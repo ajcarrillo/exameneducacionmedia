@@ -8,6 +8,16 @@
  * path: api/subsistemas
  */
 
+Route::resource('especialidades', 'API\EspecialidadController')
+    ->parameter('especialidades', 'especialidad')
+    ->only([ 'index', 'show', 'store', 'update', 'destroy' ])
+    ->names([
+        'index'   => 'api.subsistema.especialidades.index',
+        'store'   => 'api.subsistema.especialidades.store',
+        'update'  => 'api.subsistema.especialidades.update',
+        'destroy' => 'api.subsistema.especialidades.destroy',
+    ]);
+
 Route::group([
     'prefix' => '/planteles',
 ], function () {

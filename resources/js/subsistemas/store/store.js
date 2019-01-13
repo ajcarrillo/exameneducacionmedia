@@ -3,13 +3,15 @@ import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate'
 import home from './home/store'
 import oferta from './oferta/store';
+import especialidad from './especialidades/store';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-    plugins: [createPersistedState()],
+    /*plugins: [createPersistedState()],*/
     modules: {
         home: home,
-        oferta: oferta
+        oferta: oferta,
+        especialidad: especialidad
     }
 })

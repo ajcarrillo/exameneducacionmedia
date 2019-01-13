@@ -7,7 +7,6 @@ export default {
     state: {
         subsistema: null,
         planteles: [],
-        especialidades: []
     },
     getters,
     actions,

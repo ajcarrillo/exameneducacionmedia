@@ -16,7 +16,8 @@ class Especialidad extends Model
 {
     use Compoships;
 
-    protected $table = 'especialidades';
+    protected $table    = 'especialidades';
+    protected $fillable = [ 'referencia', 'descripcion' ];
 
     public function subsistema()
     {
