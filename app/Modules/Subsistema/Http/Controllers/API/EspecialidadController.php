@@ -12,7 +12,6 @@ namespace Subsistema\Http\Controllers\API;
 use ExamenEducacionMedia\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Subsistema\Models\Especialidad;
-use Subsistema\Models\Subsistema;
 
 class EspecialidadController extends Controller
 {
@@ -48,6 +47,7 @@ class EspecialidadController extends Controller
 
     public function update(Request $request, Especialidad $especialidad)
     {
+        //TODO: Verificar que no el nuevo nombre no exista en la base de datos
         $especialidad->update($request->input());
 
         return ok(compact('especialidad'));
