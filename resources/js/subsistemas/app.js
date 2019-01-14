@@ -43,7 +43,7 @@ const router = new VueRouter({
             name: 'subsistema.especialidades'
         },
         {
-            path: '/subsistemas/plantel/:plantelid/ofert',
+            path: '/subsistemas/plantel/:plantelid/oferta',
             component: OfertaEducativa,
             name: 'subsistema.plantel.oferta'
         },
