@@ -31,6 +31,15 @@ Route::group([
     Route::post('/', 'API\SubsistemaPlantelController@store')->name('api.subsistema.plantel.store');
 });
 
+Route::group([ 'prefix' => '/planteles', 'as' => 'api.subsistema.planteles.' ], function () {
+    Route::group([ 'prefix' => '/{plantel}/oferta', 'as' => 'oferta.' ], function () {
+        Route::get('/', 'API\OfertaEducativaController@index')->name('index');
+        Route::post('/', 'API\OfertaEducativaController@store')->name('store');
+    });
+});
+
+Route::get('/programas-estudio', 'API\ProgramaController')->name('api.programas');
+
 Route::resource('subsistemas', 'API\SubsistemaController')
     ->parameter('subsistemas', 'subsistema')
     ->only([ 'show' ])
