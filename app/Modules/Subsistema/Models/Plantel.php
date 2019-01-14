@@ -42,4 +42,9 @@ class Plantel extends Model
     {
         return $this->belongsTo(Localidad::class, [ 'cve_ent', 'cve_mun', 'cve_loc' ], [ 'CVE_ENT', 'CVE_MUN', 'CVE_LOC' ]);
     }
+
+    public function ofertaEducativa()
+    {
+        return $this->hasMany(OfertaEducativa::class, 'plantel_id');
+    }
 }
