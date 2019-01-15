@@ -45,6 +45,8 @@
 </template>
 
 <script>
+    import store from '../../store/store'
+
     export default {
         name: "OfertaForm",
         props: ['oferta', 'especialidades', 'programas'],
@@ -55,7 +57,28 @@
         },
         methods: {
             save() {
-                this.$emit('save', this.draft);
+                store.dispatch('oferta/storeOferta', {id: this.draft.plantel_id, draft: this.draft})
+                    .then(res => {
+                        store.dispatch('oferta/getOferta');
+
+                        this.draft.especialidad_id = '';
+                        this.draft.clave = '';
+                        this.draft.programa_estudio_id = '';
+
+                        this.$notify({
+                            group: 'notify',
+                            title: 'Notificaciones',
+                            text: 'La oferta ha sido guardado correctamente',
+                            type: 'success'
+                        });
+                    })
+                    .catch(err => {
+                        swal({
+                            type: 'error',
+                            title: 'Oops...',
+                            text: err.response.data.meta.message[0],
+                        })
+                    })
             }
         }
     }
