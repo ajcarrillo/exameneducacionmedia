@@ -22,7 +22,8 @@ class OfertaEducativaController extends BaseController
         $this->setSubsistema();
         $plantel = $this->getPlantel($uuid);
         $plantel->loadMissing(
-            'ofertaEducativa'
+            'ofertaEducativa', 'ofertaEducativa.especialidad:id,referencia,descripcion',
+            'ofertaEducativa.programaEstudio:id,descripcion', 'ofertaEducativa.grupos'
         );
 
         return ok(compact('plantel'));

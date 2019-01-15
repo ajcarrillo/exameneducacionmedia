@@ -9,11 +9,14 @@
 namespace ExamenEducacionMedia\Modules\Subsistema\Models;
 
 
+use Awobaz\Compoships\Compoships;
 use Illuminate\Database\Eloquent\Model;
 use Subsistema\Models\OfertaEducativa;
 
 class ProgramaEstudio extends Model
 {
+    use Compoships;
+
     protected $table   = 'programas_estudio';
     protected $guarded = [];
 

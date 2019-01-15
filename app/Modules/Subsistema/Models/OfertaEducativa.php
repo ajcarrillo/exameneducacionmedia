@@ -40,6 +40,6 @@ class OfertaEducativa extends Model
 
     public function grupos()
     {
-        return $this->hasMany(Grupo::class, 'oferta_educativa_id');
+        return $this->hasOne(Grupo::class, 'oferta_educativa_id');
     }
 }

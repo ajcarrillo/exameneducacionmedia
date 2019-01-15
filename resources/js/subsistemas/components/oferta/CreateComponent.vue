@@ -4,6 +4,7 @@
            classes="v--modal rounded-0"
            height="auto"
            width="100%"
+           transition="overlay-fade"
     >
         <div class="container">
             <div class="row">
@@ -74,6 +75,9 @@
         methods: {
             save(draft) {
                 store.dispatch('oferta/storeOferta', {id: this.plantelid, draft})
+                    .then(res=>{
+                        store.dispatch('oferta/getOferta')
+                    })
                     .catch(err=>{
                         swal({
                             type: 'error',
@@ -87,5 +91,21 @@
 </script>
 
 <style scoped>
-
+    .overlay-fade-enter-active,
+    .overlay-fade-leave-active {
+        transition: all 0.2s;
+    }
+    .overlay-fade-enter,
+    .overlay-fade-leave-active {
+        opacity: 0;
+    }
+    .nice-modal-fade-enter-active,
+    .nice-modal-fade-leave-active {
+        transition: all 0.4s;
+    }
+    .nice-modal-fade-enter,
+    .nice-modal-fade-leave-active {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
 </style>
