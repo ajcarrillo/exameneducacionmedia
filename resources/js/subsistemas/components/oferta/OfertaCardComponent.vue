@@ -8,7 +8,8 @@
                         <button @click="activar(oferta.id)" class="btn btn-sm btn-danger" v-else>{{ oferta.active|tagEstatus }}</button>
                     </div>
                     <div class="pr-3 d-inline-flex">
-                        <button class="btn btn-primary btn-sm">Agregar grupo</button>
+                        <button @click="$modal.show('grupos-'+oferta.id)" class="btn btn-primary btn-sm">Agregar grupo</button>
+                        <grupos-form :ofertaid="oferta.id" :uuid="uuid"></grupos-form>
                     </div>
                     <div class="pr-3 d-inline-flex">
                         <button @click="eliminarOferta(oferta.id)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
@@ -45,10 +46,13 @@
 
 <script>
     import store from '../../store/store';
+    import GruposForm from './GrupoComponent';
 
     export default {
         name: "OfertaCardComponent",
-        components: {},
+        components: {
+            GruposForm
+        },
         props: ['oferta'],
         data() {
             return {

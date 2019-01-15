@@ -36,6 +36,7 @@ Route::group([ 'prefix' => '/planteles', 'as' => 'api.subsistema.planteles.' ], 
 
         Route::delete('/{ofertaId}/desactivar', 'API\ActivarOfertaEducativaController@destroy')->name('desactivar');
         Route::delete('/{ofertaId}/eliminar', 'API\OfertaEducativaController@destroy')->name('eliminar');
+        Route::post('/{ofertaId}/grupos', 'API\OfertaEducativaGrupoController@store')->name('grupos');
         Route::post('/activar', 'API\ActivarOfertaEducativaController@store')->name('activar');
 
         Route::get('/', 'API\OfertaEducativaController@index')->name('index');

@@ -69,5 +69,21 @@ export default {
                     reject(err);
                 })
         })
+    },
+    storeGrupo(context, payload) {
+        return new Promise(function (resolve, reject) {
+            axios.post(route('api.subsistema.planteles.oferta.grupos', {plantel: payload.uuid, ofertaId: payload.ofertaId}), {
+                grupos: payload.grupo.grupos,
+                alumnos: payload.grupo.alumnos
+            })
+                .then(res => {
+                    console.log(res);
+                    resolve(res);
+                })
+                .catch(err => {
+                    console.log(err.response);
+                    reject(err);
+                })
+        })
     }
 }
