@@ -1,18 +1,14 @@
 <template>
     <section>
         <div class="container-fluid">
-            <div class="row">
-                <div class="col">
-                    <button @click="$modal.show('create-oferta')" class="btn btn-primary">
-                        <i class="fa fa-plus"></i>&nbsp;Agregar
-                    </button>
-                </div>
-            </div>
             <div class="row mt-3">
                 <div class="col">
                     <div class="card">
-                        <div class="card-header">
-                            <h1 class="card-title">Oferta educativa</h1>
+                        <div class="card-header d-flex align-items-center">
+                            <h1 class="card-title w-100">Oferta educativa</h1>
+                            <button @click="$modal.show('create-oferta')" class="btn btn-primary flex-shrink-1">
+                                <i class="fa fa-plus"></i>&nbsp;Agregar
+                            </button>
                         </div>
                         <div class="card-body p-0">
                             <ul class="list-unstyled" id="ofertas-list">
