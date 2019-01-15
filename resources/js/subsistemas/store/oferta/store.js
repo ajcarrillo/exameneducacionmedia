@@ -4,7 +4,7 @@ import mutations from './mutations'
 export default {
     namespaced: true,
     state: {
-        ofertas: [],
+        oferta: [],
     },
     actions,
     mutations

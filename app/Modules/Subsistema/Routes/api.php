@@ -31,6 +31,22 @@ Route::group([
     Route::post('/', 'API\SubsistemaPlantelController@store')->name('api.subsistema.plantel.store');
 });
 
+Route::group([ 'prefix' => '/planteles', 'as' => 'api.subsistema.planteles.' ], function () {
+    Route::group([ 'prefix' => '/{plantel}/oferta', 'as' => 'oferta.' ], function () {
+
+        Route::delete('/{ofertaId}/desactivar', 'API\ActivarOfertaEducativaController@destroy')->name('desactivar');
+        Route::delete('/{ofertaId}/eliminar', 'API\OfertaEducativaController@destroy')->name('eliminar');
+        Route::post('/{ofertaId}/grupos', 'API\OfertaEducativaGrupoController@store')->name('grupos');
+        Route::post('/activar', 'API\ActivarOfertaEducativaController@store')->name('activar');
+
+        Route::get('/', 'API\OfertaEducativaController@index')->name('index');
+        Route::post('/', 'API\OfertaEducativaController@store')->name('store');
+    });
+});
+
+
+Route::get('/programas-estudio', 'API\ProgramaController')->name('api.programas');
+
 Route::resource('subsistemas', 'API\SubsistemaController')
     ->parameter('subsistemas', 'subsistema')
     ->only([ 'show' ])

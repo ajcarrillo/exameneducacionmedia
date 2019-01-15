@@ -9,21 +9,14 @@
 namespace Subsistema\Http\Controllers\API;
 
 
-use ExamenEducacionMedia\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Subsistema\Models\Especialidad;
 
-class EspecialidadController extends Controller
+class EspecialidadController extends BaseController
 {
-    protected $subsistema;
-
-    public function __construct()
-    {
-        $this->subsistema = \Auth::guard('api')->user()->subsistema;
-    }
-
     public function index()
     {
+        $this->setSubsistema();
         $especialidades = Especialidad::where('subsistema_id', $this->subsistema->id)
             ->orderBy('referencia')
             ->get();
@@ -33,6 +26,7 @@ class EspecialidadController extends Controller
 
     public function store(Request $request)
     {
+        $this->setSubsistema();
         if ( ! Especialidad::where('referencia', trim($request->input('referencia')))->where('subsistema_id', $this->subsistema->id)->exists()) {
 
             $especialidad = new Especialidad($request->input());

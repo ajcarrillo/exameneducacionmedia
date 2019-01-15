@@ -34,8 +34,11 @@
                                     </router-link>
                                 </td>
                                 <td class="text-center">
+                                    <router-link :to="{name:'subsistema.plantel.oferta', params:{plantelid: props.item.uuid}}">
+                                        <button class="btn btn-primary btn-sm">Oferta</button>
+                                    </router-link>
                                     <button class="btn btn-primary btn-sm">Aforo</button>
-                                    <button class="btn btn-primary btn-sm">Oferta</button>
+
                                 </td>
                             </template>
                         </planteles-table>
