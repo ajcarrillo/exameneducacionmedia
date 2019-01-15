@@ -42,4 +42,14 @@ class OfertaEducativa extends Model
     {
         return $this->hasOne(Grupo::class, 'oferta_educativa_id');
     }
+
+    public function activar()
+    {
+        $this->update([ 'active' => true ]);
+    }
+
+    public function desactivar()
+    {
+        $this->update([ 'active' => false ]);
+    }
 }

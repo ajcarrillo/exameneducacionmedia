@@ -31,5 +31,31 @@ export default {
                 })
         });
 
+    },
+    activarOferta(context, payload) {
+        return new Promise(function (resolve, reject) {
+            axios.post(route('api.subsistema.planteles.oferta.activar', payload.uuid), {
+                oferta_id: payload.ofertaId
+            })
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(err => {
+                    console.log(err.response);
+                    reject(err);
+                })
+        })
+    },
+    desactivarOferta(context, payload) {
+        return new Promise(function (resolve, reject) {
+            axios.delete(route('api.subsistema.planteles.oferta.desactivar', {plantel: payload.uuid, ofertaId: payload.ofertaId}))
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(err => {
+                    console.log(err.response);
+                    reject(err);
+                })
+        })
     }
 }
