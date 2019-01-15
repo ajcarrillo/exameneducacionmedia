@@ -57,5 +57,17 @@ export default {
                     reject(err);
                 })
         })
+    },
+    eliminarOferta(context, payload) {
+        return new Promise(function (resolve, reject) {
+            axios.delete(route('api.subsistema.planteles.oferta.eliminar', {plantel: payload.uuid, ofertaId: payload.ofertaId}))
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(err => {
+                    console.log(err.response);
+                    reject(err);
+                })
+        })
     }
 }

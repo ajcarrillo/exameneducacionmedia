@@ -66,6 +66,25 @@ class OfertaEducativaController extends BaseController
         }
     }
 
+    public function destroy($plantel, $ofertaId)
+    {
+        $this->setSubsistema();
+        $plantel = $this->getPlantel($plantel);
+
+        $oferta = $plantel->ofertaEducativa()->findOrFail($ofertaId);
+
+        try {
+            DB::transaction(function () use ($oferta) {
+                $oferta->grupos()->delete();
+                $oferta->delete();
+            });
+
+            return ok();
+        } catch (\Throwable $e) {
+            return not_acceptable($e->getTraceAsString(), $e->getMessage());
+        }
+    }
+
     protected function existsOferta(Plantel $plantel, $especialidadId)
     {
         if ($plantel->ofertaEducativa()->where('especialidad_id', $especialidadId)->exists()) {

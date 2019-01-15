@@ -11,7 +11,7 @@
                         <button class="btn btn-primary btn-sm">Agregar grupo</button>
                     </div>
                     <div class="pr-3 d-inline-flex">
-                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                        <button @click="eliminarOferta(oferta.id)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                     </div>
                     <div class="pr-3 pt-3 pt-sm-0">
                         <span style="font-size: 18px; font-weight: bold;">{{ oferta.especialidad.referencia}}</span>
@@ -119,6 +119,40 @@
                             text: 'Lo sentimos, algo ha salido mal intenta de nuevo',
                         })
                     })
+            },
+            eliminarOferta(ofertaId) {
+                let uuid = this.uuid;
+
+                swal({
+                    title: '¿Estás seguro?',
+                    text: "¡Esta acción no se pude deshacer!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, estoy seguro!',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.value) {
+                        store.dispatch('oferta/eliminarOferta', {uuid, ofertaId})
+                            .then(res => {
+                                store.dispatch('oferta/getOferta');
+                                this.$notify({
+                                    group: 'notify',
+                                    title: 'Notificaciones',
+                                    text: 'La oferta ha sido eliminada',
+                                    type: 'success'
+                                });
+                            })
+                            .catch(err => {
+                                swal({
+                                    type: 'error',
+                                    title: 'Oops...',
+                                    text: 'Lo sentimos, algo ha salido mal intenta de nuevo',
+                                })
+                            })
+                    }
+                })
             }
         }
     }
