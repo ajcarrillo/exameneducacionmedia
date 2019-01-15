@@ -13,7 +13,6 @@
                         :especialidades="especialidades"
                         :oferta="oferta"
                         :programas="programas"
-                        @save="save"
                     ></oferta-form>
                 </div>
             </div>
