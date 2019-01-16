@@ -3,6 +3,7 @@
 namespace ExamenEducacionMedia;
 
 use Awobaz\Compoships\Compoships;
+use function GuzzleHttp\Psr7\str;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Ramsey\Uuid\Uuid;
@@ -116,6 +117,21 @@ class User extends Authenticatable
         $user->update($data);
 
         return $user;
+    }
+
+    public function setNombreAttribute($value)
+    {
+        $this->attributes['nombre'] = mb_strtoupper($value, 'UTF-8');
+    }
+
+    public function setPrimerApellidoAttribute($value)
+    {
+        $this->attributes['primer_apellido'] = mb_strtoupper($value, 'UTF-8');
+    }
+
+    public function setSegundoApellidoAttribute($value)
+    {
+        $this->attributes['segundo_apellido'] = mb_strtoupper($value, 'UTF-8');
     }
 
 }

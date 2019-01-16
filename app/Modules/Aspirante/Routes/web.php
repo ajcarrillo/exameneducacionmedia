@@ -8,6 +8,7 @@
  * path: /aspirantes
  */
 
-Route::get('/registro-externo', 'RegistroExternoController')->name('registro.externo');
+Route::get('/registro-externo', 'RegistroExternoController@index')->name('registro.externo');
+Route::post('/registro-externo', 'RegistroExternoController@store')->name('registro.externo');
 
 
