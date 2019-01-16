@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nombre_completo', 'email', 'username', 'password',
+        'nombre', 'primer_apellido', 'segundo_apellido', 'email', 'username', 'password',
         'api_token', 'active', 'uuid', 'jarvis_user_access_token',
         'provider', 'provider_id', 'jarvis_user_token_type', 'jarvis_user_token_expires_in',
         'jarvis_user_refresh_token',
@@ -54,13 +54,15 @@ class User extends Authenticatable
     public static function createUser(array $data, array $roles): User
     {
         $user = User::create([
-            'uuid'            => Uuid::uuid4()->toString(),
-            'nombre_completo' => $data['nombre_completo'],
-            'email'           => $data['email'],
-            'username'        => $data['email'],
-            'password'        => bcrypt($data['password']),
-            'api_token'       => str_random(60),
-            'active'          => true,
+            'uuid'             => Uuid::uuid4()->toString(),
+            'nombre'           => $data['nombre'],
+            'primer_apellido'  => $data['primer_apellido'],
+            'segundo_apellido' => $data['segundo_apellido'],
+            'email'            => $data['email'],
+            'username'         => $data['email'],
+            'password'         => bcrypt($data['password']),
+            'api_token'        => str_random(60),
+            'active'           => true,
         ]);
 
         $user->assignRole($roles);
@@ -72,7 +74,9 @@ class User extends Authenticatable
     {
         return [
             'uuid'                         => Uuid::uuid4()->toString(),
-            'nombre_completo'              => $data['persona']['nombre_completo'],
+            'nombre'                       => $data['persona']['nombre'],
+            'primer_apellido'              => $data['persona']['primer_apellido'],
+            'segundo_apellido'             => $data['persona']['segundo_apellido'],
             'email'                        => $data['email'],
             'username'                     => $data['email'],
             'api_token'                    => str_random(60),
