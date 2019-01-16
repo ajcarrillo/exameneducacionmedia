@@ -42,6 +42,12 @@ Route::group([ 'prefix' => '/planteles', 'as' => 'api.subsistema.planteles.' ], 
         Route::get('/', 'API\OfertaEducativaController@index')->name('index');
         Route::post('/', 'API\OfertaEducativaController@store')->name('store');
     });
+
+    Route::group([ 'prefix' => '/{plantel}/aforo', 'as' => 'aforo.' ], function () {
+        Route::delete('/{aulaId}', 'API\AforoController@destroy')->name('destroy');
+        Route::post('/', 'API\AforoController@store')->name('store');
+        Route::get('/', 'API\AforoController@index')->name('index');
+    });
 });
 
 

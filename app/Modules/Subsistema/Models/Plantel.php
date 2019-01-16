@@ -47,4 +47,9 @@ class Plantel extends Model
     {
         return $this->hasMany(OfertaEducativa::class, 'plantel_id');
     }
+
+    public function aulas()
+    {
+        return $this->morphMany(Aula::class, 'edificio');
+    }
 }

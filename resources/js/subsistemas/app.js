@@ -9,6 +9,7 @@ import Subsistemas from './views/Home';
 import Responsable from './views/Responsable';
 import OfertaEducativa from './views/OfertaEducativa';
 import Especialidad from './views/Especialidad';
+import Aforo from './views/Aforo';
 
 import store from './store/store';
 
@@ -41,6 +42,11 @@ const router = new VueRouter({
             path: '/subsistemas/especialidades',
             component: Especialidad,
             name: 'subsistema.especialidades'
+        },
+        {
+            path: '/subsistemas/plantel/:plantelid/aforo',
+            component: Aforo,
+            name: 'subsistema.plantel.aforo'
         },
         {
             path: '/subsistemas/plantel/:plantelid/oferta',
