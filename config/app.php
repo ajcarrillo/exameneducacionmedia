@@ -161,6 +161,7 @@ return [
         ExamenEducacionMedia\Providers\RouteServiceProvider::class,
         ExamenEducacionMedia\Providers\ComposerServiceProvider::class,
 
+        Aspirante\Providers\RouteServiceProvider::class,
         Subsistema\Providers\RouteServiceProvider::class,
         Subsistema\Providers\SubsistemaServiceProvider::class,
 
