@@ -14,7 +14,7 @@ class EtapaController extends Controller
      */
     public function index()
     {
-        return view('media_superior.administracion.etapas_proceso');
+        return view('media_superior.administracion.index');
     }
 
     /**
