@@ -3,7 +3,6 @@
 namespace ExamenEducacionMedia;
 
 use Awobaz\Compoships\Compoships;
-use function GuzzleHttp\Psr7\str;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Ramsey\Uuid\Uuid;
@@ -36,6 +35,11 @@ class User extends Authenticatable
         'password', 'remember_token', 'api_token', 'jarvis_user_access_token',
         'jarvis_user_token_type', 'jarvis_user_token_expires_in', 'jarvis_user_refresh_token',
     ];
+
+    public function aspirante()
+    {
+        return $this->hasOne(User::class, 'user_id');
+    }
 
     public function groups()
     {
