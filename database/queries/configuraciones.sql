@@ -1,0 +1,17 @@
+set FOREIGN_KEY_CHECKS = 0;
+TRUNCATE educacionmedia.configuracion;
+INSERT INTO educacionmedia.configuracion (id, descripcion, valor, obligatorio) VALUES (1, 'Nombre del reponsable del proceso', 'SECRETARÍA DE EDUCACIÓN DE QUINTANA ROO', 0);
+INSERT INTO educacionmedia.configuracion (id, descripcion, valor, obligatorio) VALUES (2, 'Cargo del reponsable del proceso', 'PROCESO DE ASIGNACIÓN DE ESPACIOS AL NIVEL MEDIO SUPERIOR', 0);
+INSERT INTO educacionmedia.configuracion (id, descripcion, valor, obligatorio) VALUES (3, 'Área', 'Departamento de Educación Media', 0);
+INSERT INTO educacionmedia.configuracion (id, descripcion, valor, obligatorio) VALUES (4, 'Teléfono', '(983) 835 0770', 0);
+INSERT INTO educacionmedia.configuracion (id, descripcion, valor, obligatorio) VALUES (5, 'Extensión', '5006 Y 5004', 0);
+INSERT INTO educacionmedia.configuracion (id, descripcion, valor, obligatorio) VALUES (6, 'Correo', 'paenms.media@gmail.com', 0);
+INSERT INTO educacionmedia.configuracion (id, descripcion, valor, obligatorio) VALUES (7, 'Facebook', 'https://www.facebook.com/paenmsqroo', 0);
+INSERT INTO educacionmedia.configuracion (id, descripcion, valor, obligatorio) VALUES (8, 'Fecha de aplicación del examen', '16 de Junio de 2018', 1);
+INSERT INTO educacionmedia.configuracion (id, descripcion, valor, obligatorio) VALUES (9, 'Hora del examen', '8:00 a.m.', 1);
+INSERT INTO educacionmedia.configuracion (id, descripcion, valor, obligatorio) VALUES (10, 'Mensaje para alumnos externos', 'Si provienes del sistema abierto o estudias en otro estado y estudiaste algún grado escolar en el estado de Quintana Roo, comunícate al teléfono (983) 835 0770, extensión 5006 o 5004 para que se te proporcione tu matrícula.', 0);
+INSERT INTO educacionmedia.configuracion (id, descripcion, valor, obligatorio) VALUES (11, 'Mensaje para público en login', 'Estudio o estudié algún grado escolar de preescolar, primaria o secundaria en Quintana Roo', 1);
+INSERT INTO educacionmedia.configuracion (id, descripcion, valor, obligatorio) VALUES (12, 'Mensaje para alumnos dentro del sistema', 'Es obligatorio presentar tu FICHA DE REGISTRO (pase al examen con No. de Folio Ceneval) para poder presentar el examen', 0);
+INSERT INTO educacionmedia.configuracion (id, descripcion, valor, obligatorio) VALUES (13, 'Edad minima', '13', 1);
+INSERT INTO educacionmedia.configuracion (id, descripcion, valor, obligatorio) VALUES (14, 'Edad maxima', '25', 1);
+set FOREIGN_KEY_CHECKS = 1;
