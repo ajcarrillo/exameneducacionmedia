@@ -78,7 +78,10 @@ const app = new Vue({
                 segundo_apellido: this.form.segundo_apellido,
                 fecha_nacimiento: this.persona.fecha_nacimiento,
                 pais_nacimiento_id: this.persona.pais_nacimiento,
-                entidad_nacimiento_id: this.persona.entidad_nacimiento
+                entidad_nacimiento_id: this.persona.entidad_nacimiento,
+                clave_centro_trabajo: this.estudiante.centro_trabajo.clave,
+                nombre_centro_trabajo: this.estudiante.centro_trabajo.nombre,
+                turno_id: this.estudiante.turno_id
             })
                 .then(res => {
                     window.location.replace("/aspirantes");

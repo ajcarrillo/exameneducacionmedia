@@ -11,6 +11,7 @@ namespace Aspirante\Http\Controllers;
 
 use Aspirante\Http\Requests\StoreAspiranteConMatricula;
 use Aspirante\Models\Aspirante;
+use Aspirante\Models\InformacionProcedencia;
 use Auth;
 use DB;
 use ExamenEducacionMedia\Http\Controllers\Controller;
@@ -43,6 +44,12 @@ class RegistroMatriculaController extends Controller
                 $aspirante        = new Aspirante($request->input());
                 $aspirante->folio = $folio->id;
                 $folio->desactivar();
+
+                $informacionProcedencia = new InformacionProcedencia($request->only('clave_centro_trabajo', 'nombre_centro_trabajo', 'turno_id'));
+
+                $informacionProcedencia->save();
+
+                $aspirante->informacionProcedencia()->associate($informacionProcedencia)->save();
 
                 $aspirante->user()->associate($user)->save();
 

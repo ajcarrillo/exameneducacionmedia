@@ -75,10 +75,3 @@
     @routes
     <script src="{{ mix('js/aspirante/registro_matricula.js') }}"></script>
 @endsection
-<script>
-    import FormErrors from "../../js/components/FormErrors";
-
-    export default {
-        components: {FormErrors}
-    }
-</script>
