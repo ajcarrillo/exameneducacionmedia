@@ -14,6 +14,7 @@ use Auth;
 use ExamenEducacionMedia\Http\Controllers\Controller;
 use ExamenEducacionMedia\Http\Requests\StoreUser;
 use ExamenEducacionMedia\Models\Geodatabase\Pais;
+use ExamenEducacionMedia\Modules\MediaSuperior\Models\Folio;
 use ExamenEducacionMedia\User;
 
 class RegistroExternoController extends Controller
@@ -32,7 +33,11 @@ class RegistroExternoController extends Controller
 
         $user = User::createUser($request->input(), [ 'aspirante' ]);
 
-        $aspirante = new Aspirante($request->only('fecha_nacimiento'));
+        $folio = Folio::getFolio();
+
+        $aspirante        = new Aspirante($request->only('fecha_nacimiento'));
+        $aspirante->folio = $folio->folio;
+        $folio->desactivar();
 
         $aspirante->user()->associate($user)->save();
 
