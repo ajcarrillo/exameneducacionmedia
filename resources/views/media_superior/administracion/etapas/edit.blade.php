@@ -17,6 +17,11 @@
 @section('content')
     <div class="container">
         <div class="row">
+            <div class="col-md-12">
+                @include('flash::message')
+            </div>
+        </div>
+        <div class="row">
             <div class="col-sm-12">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
@@ -41,14 +46,15 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $etapa->nombre }}</td>
                                             <td>
-                                                <input type="text" class="form-control" name="{{ $etapa->nombre . '|descripcion' }}" value="{{ $etapa->descripcion }}" title="Descripcion" required>
+                                                <input type="text" class="form-control" name="{{ $etapa->nombre . "['descripcion']" }}" value="{{ $etapa->descripcion }}" title="Descripcion" required>
                                             </td>
                                             <td>
-                                                <input type="date" class="form-control" name="{{ $etapa->nombre . '|apertura' }}" value="{{ $etapa->apertura }}" title="Apertura" required>
+                                                <input type="date" class="form-control" name="{{ $etapa->nombre . "['apertura']" }}" value="{{ $etapa->apertura }}" title="Apertura" required>
                                             </td>
                                             <td>
-                                                <input type="date" class="form-control" name="{{ $etapa->nombre . '|cierre' }}" value="{{ $etapa->cierre }}" title="Cierre" required>
+                                                <input type="date" class="form-control" name="{{ $etapa->nombre . "['cierre']" }}" value="{{ $etapa->cierre }}" title="Cierre" required>
                                             </td>
+
                                         </tr>
                                     @endforeach
                                     </tbody>

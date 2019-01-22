@@ -28,6 +28,7 @@ class EtapaController extends Controller
 
     public function update(Request $request)
     {
-        dd($request);
+        flash('Los datos fueron guardados correctamente')->success();
+        return redirect()->back();
     }
 }
