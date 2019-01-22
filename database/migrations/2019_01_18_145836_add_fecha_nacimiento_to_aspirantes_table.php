@@ -15,7 +15,7 @@ class AddFechaNacimientoToAspirantesTable extends Migration
     {
         Schema::table('aspirantes', function (Blueprint $table) {
             $table->string('curp', 18)
-                ->after('informacion_procedencia')
+                ->after('informacion_procedencia_id')
                 ->nullable();
         });
     }

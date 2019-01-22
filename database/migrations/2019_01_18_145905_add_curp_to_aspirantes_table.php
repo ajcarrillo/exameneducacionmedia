@@ -15,7 +15,7 @@ class AddCurpToAspirantesTable extends Migration
     {
         Schema::table('aspirantes', function (Blueprint $table) {
             $table->date('fecha_nacimiento')
-                ->after('informacion_procedencia')
+                ->after('informacion_procedencia_id')
                 ->nullable();
         });
     }
