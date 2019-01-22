@@ -20,12 +20,23 @@
                                 <label for="">Segundo apellido</label>
                                 <input type="text" class="form-control" value="{{ old('segundo_apellido') }}" name="segundo_apellido">
                             </div>
+
+                            <div class="form-group">
+                                <label for="">Fecha nacimiento</label>
+                                <input type="date" class="form-control{{ $errors->has('fecha_nacimiento') ? ' is-invalid' : '' }}" value="{{ old('fecha_nacimiento') }}" name="fecha_nacimiento">
+                                @if ($errors->has('fecha_nacimiento'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('fecha_nacimiento') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
                             <div class="row mb-3">
                                 <div class="col">
                                     <label for="">Correo electrónico</label>
                                     <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" name="email" required>
                                     <small class="text-muted">
-                                        Escribe una dirección de correo electrónico al que tengas acceso
+                                        Escribe una dirección de correo electrónico a la que tengas acceso
                                     </small>
                                     @if ($errors->has('email'))
                                         <span class="invalid-feedback" role="alert">

@@ -2,6 +2,7 @@
 
 namespace ExamenEducacionMedia\Http\Requests;
 
+use Aspirante\Rules\FechaNacimiento;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUser extends FormRequest
@@ -24,9 +25,10 @@ class StoreUser extends FormRequest
     public function rules()
     {
         return [
-            'nombre'          => 'required',
-            'primer_apellido' => 'required',
-            'email'           => 'required|email|unique:users',
+            'nombre'           => 'required',
+            'primer_apellido'  => 'required',
+            'email'            => 'required|email|unique:users',
+            'fecha_nacimiento' => [ 'required', new FechaNacimiento ],
         ];
     }
 }

@@ -9,12 +9,12 @@
 namespace Aspirante\Http\Controllers;
 
 
+use Aspirante\Models\Aspirante;
 use Auth;
 use ExamenEducacionMedia\Http\Controllers\Controller;
 use ExamenEducacionMedia\Http\Requests\StoreUser;
 use ExamenEducacionMedia\Models\Geodatabase\Pais;
 use ExamenEducacionMedia\User;
-use Illuminate\Http\Request;
 
 class RegistroExternoController extends Controller
 {
@@ -30,16 +30,15 @@ class RegistroExternoController extends Controller
     {
         $request->validated();
 
-        $user = User::createUser($request->input(), [ 'alumno' ]);
+        $user = User::createUser($request->input(), [ 'aspirante' ]);
+
+        $aspirante = new Aspirante($request->only('fecha_nacimiento'));
+
+        $aspirante->user()->associate($user)->save();
 
         $this->guard()->login($user);
 
-        return redirect('/home');
-    }
-
-    protected function checkEmail($email)
-    {
-        return User::whereEmail($email)->exists();
+        return redirect('/aspirantes');
     }
 
     protected function guard()
