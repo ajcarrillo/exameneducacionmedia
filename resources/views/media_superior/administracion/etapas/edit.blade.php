@@ -25,7 +25,7 @@
             <div class="col-sm-12">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <div class="card-title">Editar etapas del proceso</div>
+                        <div class="card-title">Configuración de etapas del proceso</div>
                     </div>
                     {!! Form::open(['class'=>'', 'route'=>['media.administracion.etapasProceso.update'], 'name'=>'form-etapas']) !!}
                         <div class="card-body">

@@ -20,7 +20,7 @@
             <div class="col-md-12">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <div class="card-title">Configuración de etapas del proceso</div>
+                        <div class="card-title">Etapas del proceso</div>
                         <a class="btn btn-primary pull-right" title="Editar" href="{{ route('media.administracion.etapasProceso.edit') }}">Editar</a>
                     </div>
                     <div class="card-body">
@@ -29,7 +29,7 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Nombre</th>
+                                    <th>Etapa</th>
                                     <th>Descripción</th>
                                     <th>Apertura</th>
                                     <th>Cierre</th>
