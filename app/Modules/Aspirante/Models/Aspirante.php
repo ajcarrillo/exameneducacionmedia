@@ -18,7 +18,7 @@ class Aspirante extends Model
     protected $fillable = [
         'alumno_id', 'user_id', 'telefono', 'sexo', 'folio',
         'pais_nacimiento_id', 'entidad_nacimiento_id', 'domicilio_id',
-        'informacion_procedencia',
+        'informacion_procedencia', 'curp', 'fecha_nacimiento'
     ];
 
     public function user()
