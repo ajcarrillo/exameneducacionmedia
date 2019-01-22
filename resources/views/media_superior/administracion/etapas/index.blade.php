@@ -18,32 +18,33 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                @include('flash::message')
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <div class="card-title">Fechas</div>
-                        <div class="pull-right">
-                            <a class="btn btn-primary" title="Nuevo ciclo escolar"
-                               href="#">Nuevo</a>
-                        </div>
+                        <div class="card-title">Configuración de etapas del proceso</div>
+                        <a class="btn btn-primary pull-right" title="Editar" href="{{ route('media.administracion.etapasProceso.edit') }}">Editar</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive-sm">
-                            <table class="table table-bordered table-striped table-hover" id="ciclosEscolaresTable">
+                            <table class="table table-bordered table-striped table-hover">
                                 <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Nombre</th>
+                                    <th>Descripción</th>
+                                    <th>Apertura</th>
+                                    <th>Cierre</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($etapas as $etapa)
                                     <tr>
-                                        <td>---</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $etapa->nombre }}</td>
+                                        <td>{{ $etapa->descripcion }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($etapa->apertura)->format('d/m/Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($etapa->cierre)->format('d/m/Y') }}</td>
                                     </tr>
-
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>

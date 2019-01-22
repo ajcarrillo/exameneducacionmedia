@@ -11,6 +11,8 @@ Route::middleware([ 'auth' ])
             ->name('etapasProceso.')
             ->group(function () {
                 Route::get('/', 'Administracion\EtapaController@index')->name('index');
+                Route::get('/edit', 'Administracion\EtapaController@edit')->name('edit');
+                Route::post('/update', 'Administracion\EtapaController@update')->name('update');
             });
 
         Route::prefix('/revisiones')
