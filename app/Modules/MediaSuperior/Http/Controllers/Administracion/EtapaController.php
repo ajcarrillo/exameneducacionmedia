@@ -2,8 +2,10 @@
 
 namespace MediaSuperior\Http\Controllers\Administracion;
 
+use ExamenEducacionMedia\Models\EtapaProceso;
 use Illuminate\Http\Request;
 use ExamenEducacionMedia\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class EtapaController extends Controller
 {
@@ -14,72 +16,18 @@ class EtapaController extends Controller
      */
     public function index()
     {
-        return view('media_superior.administracion.etapas.index');
+        $etapas = EtapaProceso::get();
+        return view('media_superior.administracion.etapas.index', compact('etapas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function edit()
     {
-        //
+        $etapas = EtapaProceso::get();
+        return view('media_superior.administracion.etapas.edit', compact('etapas'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function update(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        dd($request);
     }
 }
