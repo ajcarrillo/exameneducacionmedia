@@ -9,11 +9,14 @@
 namespace Aspirante\Models;
 
 
+use Awobaz\Compoships\Compoships;
 use ExamenEducacionMedia\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Aspirante extends Model
 {
+    use Compoships;
+
     protected $table    = 'aspirantes';
     protected $fillable = [
         'alumno_id', 'user_id', 'telefono', 'sexo', 'folio',
