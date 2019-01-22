@@ -36,7 +36,7 @@ class RegistroMatriculaController extends Controller
         try {
 
             $user = DB::transaction(function () use ($request) {
-                $user = User::createUser($request->input(), [ 'alumno' ]);
+                $user = User::createUser($request->input(), [ 'aspirante' ]);
 
                 $folio = Folio::getFolio();
 

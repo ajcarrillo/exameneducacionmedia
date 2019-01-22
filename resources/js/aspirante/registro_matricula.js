@@ -1,8 +1,13 @@
 require('../bootstrap');
 window.Vue = require('vue');
 
+import FormErrors from '../components/FormErrors';
+
 const app = new Vue({
     el: '#app',
+    components: {
+        FormErrors
+    },
     data: {
         matricula: '',
         form: {
@@ -12,6 +17,7 @@ const app = new Vue({
             primer_apellido: '',
             segundo_apellido: ''
         },
+        formErrors: [],
         estudiante: {},
         isSearching: false
     },
@@ -34,6 +40,7 @@ const app = new Vue({
             this.primer_apellido = '';
             this.segundo_apellido = '';
             this.estudiante = {};
+            this.formErrors = [];
         },
         buscarMatricula() {
             this.isSearching = true;
@@ -61,27 +68,34 @@ const app = new Vue({
         },
         register() {
             axios.post(route('registro.matricula'), {
-                nombre: this.form.nombre,
-                primer_apellido: this.form.primer_apellido,
-                segundo_apellido: this.form.segundo_apellido,
                 email: this.form.email,
+                curp: this.persona.curp,
+                sexo: this.persona.sexo,
+                nombre: this.form.nombre,
                 password: this.form.password,
                 alumno_id: this.estudiante.id,
-                sexo: this.persona.sexo,
+                primer_apellido: this.form.primer_apellido,
+                segundo_apellido: this.form.segundo_apellido,
+                fecha_nacimiento: this.persona.fecha_nacimiento,
                 pais_nacimiento_id: this.persona.pais_nacimiento,
-                entidad_nacimiento_id: this.persona.entidad_nacimiento,
-
+                entidad_nacimiento_id: this.persona.entidad_nacimiento
             })
                 .then(res => {
                     window.location.replace("/aspirantes");
                 })
                 .catch(err => {
-                    console.log(err.response);
-                    swal({
-                        type: 'error',
-                        title: 'Oops...',
-                        text: 'Lo sentimos, algo ha salido mal intenta de nuevo',
-                    })
+                    console.log(err.response.data);
+                    let response = err.response;
+
+                    if (response.status === 422) {
+                        this.formErrors = response.data.errors;
+                    } else {
+                        swal({
+                            type: 'error',
+                            title: 'Oops...',
+                            text: 'Lo sentimos, algo ha salido mal intenta de nuevo',
+                        })
+                    }
                 });
         }
     }

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div id="app" class="container">
+    <div class="container">
         <div class="row">
             <div class="col-12 col-md-8 offset-md-2">
                 <div class="card">
@@ -45,11 +45,20 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Correo electrónico</label>
-                                <input type="text" class="form-control" name="email" v-model="form.email" required>
+                                <input type="text" class="form-control" :class="{'is-invalid': formErrors.email}" name="email" v-model="form.email" required>
+                                <form-errors v-if="formErrors.email" :errors="formErrors">
+                                    <strong>@{{ formErrors.email[0] }}</strong>
+                                </form-errors>
                             </div>
                             <div class="form-group">
                                 <label for="">Contraseña</label>
-                                <input type="text" class="form-control" name="password" v-model="form.password" required>
+                                <input type="password" class="form-control" name="password" v-model="form.password" required>
+                            </div>
+                            <div class="form-group" v-if="formErrors.alumno_id || formErrors.fecha_nacimiento">
+                                <div class="alert alert-danger pb-0" role="alert">
+                                    <p v-if="formErrors.alumno_id">@{{ formErrors.alumno_id[0] }}</p>
+                                    <p v-if="formErrors.fecha_nacimiento">@{{ formErrors.fecha_nacimiento[0] }}</p>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-block btn-success">Guardar</button>
@@ -66,3 +75,10 @@
     @routes
     <script src="{{ mix('js/aspirante/registro_matricula.js') }}"></script>
 @endsection
+<script>
+    import FormErrors from "../../js/components/FormErrors";
+
+    export default {
+        components: {FormErrors}
+    }
+</script>
