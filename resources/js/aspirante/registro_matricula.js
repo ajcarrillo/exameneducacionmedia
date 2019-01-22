@@ -15,7 +15,8 @@ const app = new Vue({
             password: null,
             nombre: '',
             primer_apellido: '',
-            segundo_apellido: ''
+            segundo_apellido: '',
+            fecha_nacimiento: ''
         },
         formErrors: [],
         estudiante: {},
@@ -30,6 +31,9 @@ const app = new Vue({
         },
         isEstudianteEmpty() {
             return _.isEmpty(this.estudiante);
+        },
+        hasFechaNacimiento(){
+            return this.persona.fecha_nacimiento !== '0000-00-00';
         }
     },
     methods: {
@@ -54,6 +58,7 @@ const app = new Vue({
                     this.form.nombre = this.persona.nombre;
                     this.form.primer_apellido = this.persona.primer_apellido;
                     this.form.segundo_apellido = this.persona.segundo_apellido;
+                    this.form.fecha_nacimiento = this.persona.fecha_nacimiento;
                     this.isSearching = false;
                 })
                 .catch(err => {
@@ -76,7 +81,7 @@ const app = new Vue({
                 alumno_id: this.estudiante.id,
                 primer_apellido: this.form.primer_apellido,
                 segundo_apellido: this.form.segundo_apellido,
-                fecha_nacimiento: this.persona.fecha_nacimiento,
+                fecha_nacimiento: this.form.fecha_nacimiento,
                 pais_nacimiento_id: this.persona.pais_nacimiento,
                 entidad_nacimiento_id: this.persona.entidad_nacimiento,
                 clave_centro_trabajo: this.estudiante.centro_trabajo.clave,

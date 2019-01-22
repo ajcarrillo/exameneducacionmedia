@@ -43,6 +43,18 @@
                                     <span v-text="centroTrabajo"></span>
                                 </div>
                             </div>
+                            <div class="row mb-3">
+                                <div class="col col-md-3"><label for="">Fecha nacimiento</label></div>
+                                <div class="col" v-if="hasFechaNacimiento">
+                                    <span v-text="persona.fecha_nacimiento"></span>
+                                </div>
+                                <div class="col" v-else>
+                                    <input type="date" class="form-control" :class="{'is-invalid': formErrors.fecha_nacimiento}" name="fecha_nacimiento" v-model="form.fecha_nacimiento" required>
+                                    <form-errors v-if="formErrors.fecha_nacimiento" :errors="formErrors">
+                                        <strong>@{{ formErrors.fecha_nacimiento[0] }}</strong>
+                                    </form-errors>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="">Correo electrónico</label>
                                 <input type="text" class="form-control" :class="{'is-invalid': formErrors.email}" name="email" v-model="form.email" required>
