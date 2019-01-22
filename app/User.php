@@ -36,6 +36,11 @@ class User extends Authenticatable
         'jarvis_user_token_type', 'jarvis_user_token_expires_in', 'jarvis_user_refresh_token',
     ];
 
+    public function aspirante()
+    {
+        return $this->hasOne(User::class, 'user_id');
+    }
+
     public function groups()
     {
         return $this->belongsToMany(Groups::class, 'group_user', 'user_id', 'group_id');
@@ -116,6 +121,21 @@ class User extends Authenticatable
         $user->update($data);
 
         return $user;
+    }
+
+    public function setNombreAttribute($value)
+    {
+        $this->attributes['nombre'] = mb_strtoupper($value, 'UTF-8');
+    }
+
+    public function setPrimerApellidoAttribute($value)
+    {
+        $this->attributes['primer_apellido'] = mb_strtoupper($value, 'UTF-8');
+    }
+
+    public function setSegundoApellidoAttribute($value)
+    {
+        $this->attributes['segundo_apellido'] = mb_strtoupper($value, 'UTF-8');
     }
 
 }

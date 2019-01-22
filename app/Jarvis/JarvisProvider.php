@@ -85,10 +85,12 @@ class JarvisProvider extends AbstractProvider implements ProviderInterface
     protected function mapUserToObject(array $user)
     {
         return (new User)->setRaw($user)->map([
-            'id'       => $user['uuid'],
-            'nickname' => $user['username'],
-            'name'     => $user['persona']['nombre_completo'],
-            'email'    => $user['email'],
+            'id'               => $user['uuid'],
+            'nickname'         => $user['username'],
+            'nombre'           => $user['persona']['nombre'],
+            'primer_apellido'  => $user['persona']['primer_apellido'],
+            'segundo_apellido' => $user['persona']['segundo_apellido'],
+            'email'            => $user['email'],
         ]);
     }
 }
