@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             'database/queries/especialidades.sql',
             'database/queries/programas_estudio.sql',
             'database/queries/planteles.sql',
+            'database/queries/configuraciones.sql',
         ];
         foreach ($files as $path) {
             DB::unprepared(file_get_contents($path));
