@@ -46,8 +46,8 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $etapa->nombre }}</td>
                                             <td>
-                                                <input type="hidden" class="form-control" name="{{ $etapa->nombre . '[id]' }}" value="{{ $etapa->id }}">
-                                                <input type="text" class="form-control" name="{{ $etapa->nombre . '[descripcion]' }}" value="{{ $etapa->descripcion }}" title="Descripcion" required>
+                                                {{ $etapa->descripcion }}
+                                                <input type="hidden" name="{{ $etapa->nombre . '[id]' }}" value="{{ $etapa->id }}">
                                             </td>
                                             <td>
                                                 <input type="date" class="form-control" name="{{ $etapa->nombre . '[apertura]' }}" value="{{ $etapa->apertura }}" title="Apertura" required>
@@ -55,7 +55,6 @@
                                             <td>
                                                 <input type="date" class="form-control" name="{{ $etapa->nombre . '[cierre]' }}" value="{{ $etapa->cierre }}" title="Cierre" required>
                                             </td>
-
                                         </tr>
                                     @endforeach
                                     </tbody>

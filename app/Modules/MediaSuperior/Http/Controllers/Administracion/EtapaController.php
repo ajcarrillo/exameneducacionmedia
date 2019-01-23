@@ -46,31 +46,29 @@ class EtapaController extends Controller
             $registroCierre = $etapas['REGISTRO']['cierre'];
 
             if ($ofertaCierre >= $ofertaApertura) {
-                if ($aforoApertura > $ofertaCierre) {
-                } else {
-                    throw new Exception("El AFORO debe comenzar después de la Oferta y antes del REGISTRO");
-                }
-                if ($aforoCierre >= $aforoApertura) {
-                } else {
-                    throw new Exception("Etapa AFORO: El cierre debe ser mayor o igual a la apertura");
-                }
-                if ($registroApertura > $aforoCierre) {
-                } else {
-                    throw new Exception("El REGISTRO Debe comenzar después de la OFERTA y del AFORO");
-                }
-                if ($registroCierre >= $registroApertura) {
-
-                } else {
-                    throw new Exception("Etapa REGISTRO: El cierre debe ser mayor o igual a la apertura");
-                }
             } else {
                 throw new Exception("Etapa OFERTA: El cierre debe ser mayor o igual a la apertura");
+            }
+            if ($aforoApertura > $ofertaCierre) {
+            } else {
+                throw new Exception("El AFORO debe comenzar después de la OFERTA y antes del REGISTRO");
+            }
+            if ($aforoCierre >= $aforoApertura) {
+            } else {
+                throw new Exception("Etapa AFORO: El cierre debe ser mayor o igual a la apertura");
+            }
+            if ($registroApertura > $aforoCierre) {
+            } else {
+                throw new Exception("El REGISTRO Debe comenzar después de la OFERTA y del AFORO");
+            }
+            if ($registroCierre >= $registroApertura) {
+            } else {
+                throw new Exception("Etapa REGISTRO: El cierre debe ser mayor o igual a la apertura");
             }
 
             foreach ($etapas as $etapa) {
                 $proceso = EtapaProceso::find($etapa['id']);
                 $proceso->update([
-                    'descripcion' => $etapa['descripcion'],
                     'apertura' => $etapa['apertura'],
                     'cierre' => $etapa['cierre']
                 ]);
