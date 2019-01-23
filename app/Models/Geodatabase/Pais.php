@@ -9,14 +9,17 @@
 namespace ExamenEducacionMedia\Models\Geodatabase;
 
 
+use Awobaz\Compoships\Compoships;
 use Illuminate\Database\Eloquent\Model;
 
 class Pais extends Model
 {
+    use Compoships;
+
     protected $connection   = 'geo_db';
     protected $table        = 'paises';
-    protected $primaryKey   = NULL;
-    public    $incrementing = NULL;
+    protected $primaryKey   = 'id';
+    public    $incrementing = false;
 
     public static function selectPaises()
     {

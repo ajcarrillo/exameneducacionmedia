@@ -10,6 +10,8 @@ namespace Aspirante\Models;
 
 
 use Awobaz\Compoships\Compoships;
+use ExamenEducacionMedia\Models\Entidad;
+use ExamenEducacionMedia\Models\Geodatabase\Pais;
 use ExamenEducacionMedia\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,8 +23,26 @@ class Aspirante extends Model
     protected $fillable = [
         'alumno_id', 'user_id', 'telefono', 'sexo', 'folio',
         'pais_nacimiento_id', 'entidad_nacimiento_id', 'domicilio_id',
-        'informacion_procedencia_id', 'curp', 'fecha_nacimiento'
+        'informacion_procedencia_id', 'curp', 'fecha_nacimiento',
     ];
+    protected $casts    = [
+        'curp_historica'   => 'boolean',
+        'curp_valida'      => 'boolean',
+        'fecha_nacimiento' => 'date',
+    ];
+    protected $appends  = [
+        'is_aspirante_externo',
+    ];
+
+    public function paisNacimiento()
+    {
+        return $this->belongsTo(Pais::class, 'pais_nacimiento_id');
+    }
+
+    public function entidadNacimiento()
+    {
+        return $this->belongsTo(Entidad::class, 'entidad_nacimiento_id');
+    }
 
     public function user()
     {
@@ -32,5 +52,15 @@ class Aspirante extends Model
     public function informacionProcedencia()
     {
         return $this->belongsTo(InformacionProcedencia::class, 'informacion_procedencia_id');
+    }
+
+    public function domicilio()
+    {
+        return $this->belongsTo(Domicilio::class, 'domicilio_id');
+    }
+
+    public function getIsAspiranteExternoAttribute()
+    {
+        return $this->alumno_id ? false : true;
     }
 }
