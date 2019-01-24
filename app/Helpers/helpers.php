@@ -15,7 +15,7 @@ if ( ! function_exists('get_user_full_name')) {
 }
 
 if ( ! function_exists('get_aspirante')) {
-    function get_aspirante()
+    function get_aspirante() : \Aspirante\Models\Aspirante
     {
         return Auth::user()->aspirante;
     }
