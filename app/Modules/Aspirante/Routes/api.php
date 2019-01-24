@@ -13,6 +13,7 @@
 Route::middleware([ 'auth:api', 'role:aspirante' ])
     ->name('aspirante.')
     ->group(function () {
+        Route::post('/informacion-procedencia/{aspirante}', 'API\InformacionProcedenciaController@store')->name('informacion.store');
         Route::patch('/{id}', 'API\UpdateAspiranteController@update')->name('update');
     });
 

@@ -27,27 +27,38 @@
                     </div>
                 </div>
             </div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 col-lg-8">
+                        <create-informacion-procedencia
+                            :aspiranteid="aspirante.id"
+                        ></create-informacion-procedencia>
+                    </div>
+                </div>
+            </div>
         </section>
     </div>
 </template>
 
 <script>
     import DatosGeneralesForm from './DatosGeneralesComponent';
+    import CreateInformacionProcedencia from './informacion_procedencia/CreateComponent';
 
     export default {
         name: "App",
         components: {
-            DatosGeneralesForm
+            DatosGeneralesForm,
+            CreateInformacionProcedencia
         },
         props: ['aspirante', 'paises', 'municipios', 'entidades'],
         computed: {
             isExterno() {
                 return this.aspirante.is_aspirante_externo;
             },
-            isQroo(){
+            isQroo() {
                 return this.aspirante.entidad_nacimiento_id === '23';
             },
-            hasPaisNacimiento(){
+            hasPaisNacimiento() {
                 return this.aspirante.pais_nacimiento_id !== null;
             }
         }
