@@ -32,6 +32,7 @@
                     <div class="col-md-10 col-lg-8">
                         <create-informacion-procedencia
                             v-if="!hasInformacionProcedencia"
+                            @update="updateInfoProcedencia"
                             :aspiranteid="aspirante.id"
                         ></create-informacion-procedencia>
                         <edit-informacion-procedencia
@@ -58,7 +59,12 @@
             CreateInformacionProcedencia,
             EditInformacionProcedencia
         },
-        props: ['aspirante', 'paises', 'municipios', 'entidades'],
+        props: ['asp', 'paises', 'municipios', 'entidades'],
+        data() {
+            return {
+                aspirante: this.asp,
+            }
+        },
         computed: {
             isExterno() {
                 return this.aspirante.is_aspirante_externo;
@@ -71,6 +77,12 @@
             },
             hasInformacionProcedencia() {
                 return this.aspirante.informacion_procedencia_id !== null;
+            }
+        },
+        methods: {
+            updateInfoProcedencia(informacion) {
+                this.aspirante.informacion_procedencia_id = informacion.id;
+                this.aspirante.informacion_procedencia = informacion;
             }
         }
     }

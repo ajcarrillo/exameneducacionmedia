@@ -43,7 +43,8 @@
                         swal({
                             type: 'success',
                             text: 'La información ha sido guardada correctamente',
-                        })
+                        });
+                        this.$emit('update', res.data.informacion);
                     })
                     .catch(err => {
                         console.log(err.response);

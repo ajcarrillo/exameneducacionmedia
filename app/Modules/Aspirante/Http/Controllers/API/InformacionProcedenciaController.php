@@ -22,15 +22,17 @@ class InformacionProcedenciaController extends Controller
         $request->validated();
 
         try {
-            DB::transaction(function () use ($request, $aspirante) {
+            $informacion = DB::transaction(function () use ($request, $aspirante) {
                 $informacion = new InformacionProcedencia($request->input());
 
                 $informacion->save();
 
                 $aspirante->informacionProcedencia()->associate($informacion)->save();
+
+                return $informacion;
             });
 
-            return ok();
+            return ok(compact('informacion'));
         } catch (\Throwable $e) {
             return unprocessable_entity(
                 [ $e->getMessage(), $e->getTraceAsString() ],

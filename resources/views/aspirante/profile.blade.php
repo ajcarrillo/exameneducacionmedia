@@ -2,7 +2,7 @@
 
 @section('content')
     <app
-        :aspirante="{{ json_encode($aspirante) }}"
+        :asp="{{ json_encode($aspirante) }}"
         :paises="{{ json_encode($paises) }}"
         :entidades="{{ json_encode($entidades) }}"
         :municipios="{{ json_encode($municipios) }}"
