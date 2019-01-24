@@ -24,11 +24,12 @@ class Aspirante extends Model
         'alumno_id', 'user_id', 'telefono', 'sexo', 'folio',
         'pais_nacimiento_id', 'entidad_nacimiento_id', 'domicilio_id',
         'informacion_procedencia_id', 'curp', 'fecha_nacimiento',
+        'curp_historica', 'curp_valida',
     ];
     protected $casts    = [
         'curp_historica'   => 'boolean',
         'curp_valida'      => 'boolean',
-        'fecha_nacimiento' => 'date',
+        'fecha_nacimiento' => 'datetime:Y-m-d',
     ];
     protected $appends  = [
         'is_aspirante_externo',

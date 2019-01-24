@@ -23,7 +23,7 @@ class Pais extends Model
 
     public static function selectPaises()
     {
-        return Pais::select('id', 'descripcion')
+        return Pais::selectRaw("id, upper(descripcion) as descripcion")
             ->orderBy('descripcion')
             ->get();
     }
