@@ -32,7 +32,27 @@
         },
         methods: {
             save(draft) {
-                console.log(draft);
+                axios.post(route('aspirante.informacion.store', this.aspiranteid), {
+                    clave_centro_trabajo: draft.clave_centro_trabajo,
+                    nombre_centro_trabajo: draft.nombre_centro_trabajo,
+                    turno_id: draft.turno_id,
+                    fecha_egreso: draft.fecha_egreso,
+                    primera_vez: draft.primera_vez,
+                })
+                    .then(res => {
+                        swal({
+                            type: 'success',
+                            text: 'La información ha sido guardada correctamente',
+                        })
+                    })
+                    .catch(err => {
+                        console.log(err.response);
+                        swal({
+                            type: 'error',
+                            title: 'Oops...',
+                            text: 'Lo sentimos, algo ha salido mal intenta de nuevo',
+                        })
+                    })
             }
         }
     }

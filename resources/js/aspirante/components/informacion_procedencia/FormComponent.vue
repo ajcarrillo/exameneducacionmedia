@@ -53,20 +53,7 @@
         },
         methods: {
             save() {
-                //this.$emit('save', this.draft);
-                axios.post(route('aspirante.informacion.store', this.aspiranteid), {
-                    clave_centro_trabajo: this.draft.clave_centro_trabajo,
-                    nombre_centro_trabajo: this.draft.nombre_centro_trabajo,
-                    turno_id: this.draft.turno_id,
-                    fecha_egreso: this.draft.fecha_egreso,
-                    primera_vez: this.draft.primera_vez,
-                })
-                    .then(res => {
-                        console.log(res);
-                    })
-                    .catch(err => {
-                        console.log(err.response);
-                    })
+                this.$emit('save', this.draft);
             }
         }
     }
