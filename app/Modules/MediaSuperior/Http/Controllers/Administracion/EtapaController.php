@@ -5,7 +5,6 @@ namespace MediaSuperior\Http\Controllers\Administracion;
 use ExamenEducacionMedia\Models\EtapaProceso;
 use Illuminate\Http\Request;
 use ExamenEducacionMedia\Http\Controllers\Controller;
-use Carbon\Carbon;
 use Exception;
 
 class EtapaController extends Controller
@@ -44,6 +43,12 @@ class EtapaController extends Controller
             $aforoCierre = $etapas['AFORO']['cierre'];
             $registroApertura = $etapas['REGISTRO']['apertura'];
             $registroCierre = $etapas['REGISTRO']['cierre'];
+
+            foreach ($etapas as $etapa) {
+                if (empty($etapa['apertura']) or empty($etapa['cierre'])) {
+                    throw new Exception("Debe indicar todas las fechas en los campos");
+                }
+            }
 
             if ($ofertaCierre >= $ofertaApertura) {
             } else {

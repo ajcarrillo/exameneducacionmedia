@@ -21,13 +21,14 @@
                 @include('flash::message')
             </div>
         </div>
+        <div id="avisoUsuario" class="alert alert-warning" role="alert" style="display: none"></div>
         <div class="row">
             <div class="col-sm-12">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
                         <div class="card-title">Configuración de etapas del proceso</div>
                     </div>
-                    {!! Form::open(['class'=>'', 'route'=>['media.administracion.etapasProceso.update'], 'name'=>'form-etapas']) !!}
+                    {!! Form::open(['class'=>'', 'route'=>['media.administracion.etapasProceso.update'], 'name'=>'form-etapas', 'id'=>'form-etapas']) !!}
                         <div class="card-body">
                             <div class="table-responsive-sm">
                                 <table class="table table-bordered table-striped table-hover">
@@ -50,10 +51,10 @@
                                                 <input type="hidden" name="{{ $etapa->nombre . '[id]' }}" value="{{ $etapa->id }}">
                                             </td>
                                             <td>
-                                                <input type="date" class="form-control" name="{{ $etapa->nombre . '[apertura]' }}" value="{{ $etapa->apertura }}" title="Apertura" required>
+                                                <input type="date" id="{{ $etapa->nombre . '-apertura'}}" name="{{ $etapa->nombre . '[apertura]' }}" value="{{ $etapa->apertura }}" class="form-control" title="Apertura" required>
                                             </td>
                                             <td>
-                                                <input type="date" class="form-control" name="{{ $etapa->nombre . '[cierre]' }}" value="{{ $etapa->cierre }}" title="Cierre" required>
+                                                <input type="date" id="{{ $etapa->nombre . '-cierre'}}" name="{{ $etapa->nombre . '[cierre]' }}" value="{{ $etapa->cierre }}" class="form-control" title="Cierre" required>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -62,7 +63,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-success">Guardar</button>
+                            <button id="btnGuardar" type="button" class="btn btn-success">Guardar</button>
                             <a href="{{ route('media.administracion.etapasProceso.index') }}" class="btn btn-default float-right" title="Regresar">Cancelar</a>
                         </div>
                     {!! Form::close() !!}
@@ -73,5 +74,6 @@
 @endsection
 
 @section('extra-scripts')
+    <script src="{{ mix('js/media/administracion/etapas/edit.js') }}"></script>
 @endsection
 
