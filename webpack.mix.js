@@ -33,3 +33,6 @@ if (mix.inProduction()) {
     });
 }
 
+//Igna
+mix.js('resources/js/media/administracion/etapas/edit.js', 'public/js/media/administracion/etapas/edit.js');
+//endIgna
