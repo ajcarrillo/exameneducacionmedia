@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFoliosTable extends Migration
+class CreateEntidadesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateFoliosTable extends Migration
      */
     public function up()
     {
-        Schema::create('folios', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('folio');
-            $table->boolean('active')->default(1);
+        Schema::create('entidades', function (Blueprint $table) {
+            $table->string('id', 2)->primary();
+            $table->string('descripcion');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateFoliosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('folios');
+        Schema::dropIfExists('entidades');
     }
 }

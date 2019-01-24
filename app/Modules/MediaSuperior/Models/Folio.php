@@ -25,6 +25,6 @@ class Folio extends Model
 
     public function desactivar()
     {
-        $this->update([ 'active', 0 ]);
+        $this->update([ 'active' => 0 ]);
     }
 }

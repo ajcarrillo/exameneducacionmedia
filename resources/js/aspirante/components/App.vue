@@ -1,0 +1,93 @@
+<template>
+    <div class="">
+        <section class="p-0 bg-light" id="intro">
+            <div class="container">
+                <div class="row justify-content-center mb-5">
+                    <div class="col col-md-10 col-lg-8">
+                        <div class="row align-items-center">
+                            <div class="col-4 col-lg-3">x</div>
+                            <div class="col">x</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="p-0 bg-light" id="forms">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 col-lg-8">
+                        <datos-generales-form
+                            :aspirante="aspirante"
+                            :entidades="entidades"
+                            :externo="isExterno"
+                            :municipios="municipios"
+                            :paises="paises"
+                        >
+                        </datos-generales-form>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 col-lg-8">
+                        <create-informacion-procedencia
+                            v-if="!hasInformacionProcedencia"
+                            @update="updateInfoProcedencia"
+                            :aspiranteid="aspirante.id"
+                        ></create-informacion-procedencia>
+                        <edit-informacion-procedencia
+                            :aspiranteid="aspirante.id"
+                            :informacion="aspirante.informacion_procedencia"
+                            v-else
+                        ></edit-informacion-procedencia>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</template>
+
+<script>
+    import DatosGeneralesForm from './DatosGeneralesComponent';
+    import CreateInformacionProcedencia from './informacion_procedencia/CreateComponent';
+    import EditInformacionProcedencia from './informacion_procedencia/EditComponent';
+
+    export default {
+        name: "App",
+        components: {
+            DatosGeneralesForm,
+            CreateInformacionProcedencia,
+            EditInformacionProcedencia
+        },
+        props: ['asp', 'paises', 'municipios', 'entidades'],
+        data() {
+            return {
+                aspirante: this.asp,
+            }
+        },
+        computed: {
+            isExterno() {
+                return this.aspirante.is_aspirante_externo;
+            },
+            isQroo() {
+                return this.aspirante.entidad_nacimiento_id === '23';
+            },
+            hasPaisNacimiento() {
+                return this.aspirante.pais_nacimiento_id !== null;
+            },
+            hasInformacionProcedencia() {
+                return this.aspirante.informacion_procedencia_id !== null;
+            }
+        },
+        methods: {
+            updateInfoProcedencia(informacion) {
+                this.aspirante.informacion_procedencia_id = informacion.id;
+                this.aspirante.informacion_procedencia = informacion;
+            }
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>
