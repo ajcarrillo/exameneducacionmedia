@@ -31,8 +31,14 @@
                 <div class="row justify-content-center">
                     <div class="col-md-10 col-lg-8">
                         <create-informacion-procedencia
+                            v-if="!hasInformacionProcedencia"
                             :aspiranteid="aspirante.id"
                         ></create-informacion-procedencia>
+                        <edit-informacion-procedencia
+                            :aspiranteid="aspirante.id"
+                            :informacion="aspirante.informacion_procedencia"
+                            v-else
+                        ></edit-informacion-procedencia>
                     </div>
                 </div>
             </div>
@@ -43,12 +49,14 @@
 <script>
     import DatosGeneralesForm from './DatosGeneralesComponent';
     import CreateInformacionProcedencia from './informacion_procedencia/CreateComponent';
+    import EditInformacionProcedencia from './informacion_procedencia/EditComponent';
 
     export default {
         name: "App",
         components: {
             DatosGeneralesForm,
-            CreateInformacionProcedencia
+            CreateInformacionProcedencia,
+            EditInformacionProcedencia
         },
         props: ['aspirante', 'paises', 'municipios', 'entidades'],
         computed: {
@@ -60,6 +68,9 @@
             },
             hasPaisNacimiento() {
                 return this.aspirante.pais_nacimiento_id !== null;
+            },
+            hasInformacionProcedencia() {
+                return this.aspirante.informacion_procedencia_id !== null;
             }
         }
     }

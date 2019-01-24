@@ -39,8 +39,16 @@ class InformacionProcedenciaController extends Controller
         }
     }
 
-    public function update()
+    public function update(StoreInformacionProcedencia $request, $id)
     {
+        $request->validated();
 
+        $aspirante = get_aspirante();
+
+        $informacion = $aspirante->informacionProcedencia()->findOrFail($id);
+
+        $informacion->update($request->input());
+
+        return ok();
     }
 }
