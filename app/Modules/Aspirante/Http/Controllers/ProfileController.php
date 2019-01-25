@@ -25,7 +25,7 @@ class ProfileController
         );
 
         $municipios = $this->getMunicipios();
-        $entidades = $this->getEntidades();
+        $entidades  = $this->getEntidades();
         $paises     = $this->getPaises();
 
 
@@ -36,7 +36,9 @@ class ProfileController
 
     protected function getMunicipios()
     {
-        return MunicipioView::orderBy('NOM_MUN')->get();
+        return MunicipioView::orderBy('NOM_MUN')
+            ->where('cve_ent', 23)
+            ->get();
     }
 
     protected function getEntidades()

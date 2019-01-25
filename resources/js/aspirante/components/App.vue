@@ -43,6 +43,21 @@
                     </div>
                 </div>
             </div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 col-lg-8">
+                        <div class="card shadow-none border">
+                            <div class="card-body">
+                                <create-domicilio :aspiranteid="aspirante.id"
+                                    :municipios="municipios"
+                                    @update="updateDomicilio"
+                                    v-if="!hasDomicilio"
+                                ></create-domicilio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </div>
 </template>
@@ -51,13 +66,15 @@
     import DatosGeneralesForm from './DatosGeneralesComponent';
     import CreateInformacionProcedencia from './informacion_procedencia/CreateComponent';
     import EditInformacionProcedencia from './informacion_procedencia/EditComponent';
+    import CreateDomicilio from './domicilio/CreateComponent';
 
     export default {
         name: "App",
         components: {
             DatosGeneralesForm,
             CreateInformacionProcedencia,
-            EditInformacionProcedencia
+            EditInformacionProcedencia,
+            CreateDomicilio
         },
         props: ['asp', 'paises', 'municipios', 'entidades'],
         data() {
@@ -77,12 +94,19 @@
             },
             hasInformacionProcedencia() {
                 return this.aspirante.informacion_procedencia_id !== null;
+            },
+            hasDomicilio() {
+                return this.aspirante.domicilio_id !== null;
             }
         },
         methods: {
             updateInfoProcedencia(informacion) {
                 this.aspirante.informacion_procedencia_id = informacion.id;
                 this.aspirante.informacion_procedencia = informacion;
+            },
+            updateDomicilio(domicilio) {
+                this.aspirante.domicilio_id = domicilio.id;
+                this.aspirante.domicilio = domicilio;
             }
         }
     }
