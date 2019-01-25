@@ -10,7 +10,6 @@ namespace ExamenEducacionMedia\Models\Geodatabase;
 
 
 use Awobaz\Compoships\Compoships;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Subsistema\Models\Plantel;
 
@@ -24,7 +23,12 @@ class MunicipioView extends Model
 
     public function planteles()
     {
-        return $this->hasMany(Plantel::class, ['cve_ent', 'cve_mun'], ['CVE_ENT', 'CVE_MUN']);
+        return $this->hasMany(Plantel::class, [ 'cve_ent', 'cve_mun' ], [ 'CVE_ENT', 'CVE_MUN' ]);
+    }
+
+    public function localidades()
+    {
+        return $this->hasMany(Localidad::class, [ 'CVE_ENT', 'CVE_MUN' ], [ 'CVE_ENT', 'CVE_MUN' ]);
     }
 
 }

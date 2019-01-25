@@ -2,19 +2,30 @@
 
 namespace ExamenEducacionMedia\Http\Controllers\API;
 
-use ExamenEducacionMedia\Models\Geodatabase\Inegi;
-use ExamenEducacionMedia\Traits\ResponseTrait;
-use Illuminate\Http\Request;
 use ExamenEducacionMedia\Http\Controllers\Controller;
+use ExamenEducacionMedia\Models\Geodatabase\Localidad;
 
 class LocalidadController extends Controller
 {
-    use ResponseTrait;
 
     public function index()
     {
-        $localidades = Inegi::getLocalidadesPorMunicipio(request('cve_ent'), request('cve_mun'));
+        $localidades = Localidad::where('CVE_ENT', 23)
+            ->where('CVE_MUN', request('cve_mun'))
+            ->selectRaw('CVE_ENT,CVE_MUN,CVE_LOC as value,NOM_LOC as label')
+            ->get();
 
-        return $this->respondWithArray(compact('localidades'));
+        return ok(compact('localidades'));
+    }
+
+    public function show()
+    {
+        $localidad = Localidad::where('CVE_ENT', 23)
+            ->where('CVE_MUN', request('cve_mun'))
+            ->where('CVE_LOC', request('cve_loc'))
+            ->selectRaw('CVE_ENT,CVE_MUN,CVE_LOC as value,NOM_LOC as label')
+            ->firstOrFail();
+
+        return ok(compact('localidad'));
     }
 }
