@@ -12,7 +12,7 @@
                 </div>
                 <div class="form-group">
                     <label for="segundo_apellido">Segundo apellido</label>
-                    <input :disabled="!externo" class="form-control" name="segundo_apellido" required type="text" v-model="datos.segundo_apellido">
+                    <input :disabled="!externo" class="form-control" name="segundo_apellido" type="text" v-model="datos.segundo_apellido">
                 </div>
                 <div class="row mb-3">
                     <div class="col">
@@ -125,7 +125,10 @@
                     curp_valida: false,
                 })
                     .then(res => {
-                        console.log(res);
+                        swal({
+                            type: 'success',
+                            text: 'Los datos generales se guardaron correctamente',
+                        })
                     })
                     .catch(err => {
                         console.log(err.response)

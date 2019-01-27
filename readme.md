@@ -4,7 +4,7 @@
 
 :+1: :tada: Primero que nada gracias por tomarte el tiempo para contribuir a este proyecto :+1: :tada:
 
-### Antes de hacer tu contribución por favor lee la guía de estilo del código [Guía de estilo del código](https://gitlab.com/ajcarrillo/guia_desarrollo/).
+### Antes de hacer tu contribución por favor lee la guía de estilo del código [Guía de estilo del código](https://gitlab.com/ajcarrillo/guia_desarrollo/) y el [Wiki](https://gitlab.com/ajcarrillo/paenms/wikis/home) del proyecto. En el wiki encontraras información importante acerca de dónde colocar la funcionalidad del proyecto.
 El estilo del código es especialmente importante si estamos en un equipo de desarrollo o si nuestro proyecto lo van a usar en algún momento otros desarrolladores. Pero, cuando trabajamos en un proyecto propio, también es una buena costumbre usar un estilo de código claro y optimizado. Nos ayudará a revisar mejor el código y a entenderlo si en algún momento tenemos que modificarlo o queremos reutilizarlo.
 
 Para contribuir a este proyecto sigue los siguientes pasos:
