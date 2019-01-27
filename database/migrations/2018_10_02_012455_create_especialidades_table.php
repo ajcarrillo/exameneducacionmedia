@@ -17,8 +17,8 @@ class CreateEspecialidadesTable extends Migration
             $table->increments('id');
             $table->string('referencia', 50);
             $table->text('descripcion')->nullable();
-            $table->unsignedInteger('subsistema_id');
-            $table->foreign('subsistema_id')->references('id')->on('centrostrabajo.subsistemas');
+            $table->unsignedTinyInteger('subsistema_id');
+            $table->foreign('subsistema_id')->references('id')->on('subsistemas');
             $table->string('etiqueta', 50)->nullable();
             $table->timestamps();
         });
