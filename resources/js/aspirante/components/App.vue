@@ -2,7 +2,14 @@
     <div class="">
         <section class="p-0 bg-light" id="intro">
             <div class="container">
-                <div class="row justify-content-center py-5">
+                <div class="row justify-content-center py-3">
+                    <div class="col col-md-10 col-lg-8">
+                        <a href="/aspirantes" style="font-size: 2rem">
+                            <i class="far fa-arrow-alt-circle-left"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row justify-content-center pb-5">
                     <div class="col col-md-10 col-lg-8">
                         <div class="row align-items-center">
                             <div class="col-4 col-lg-3">
