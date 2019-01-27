@@ -70,6 +70,25 @@
                 localidadSelected: ''
             }
         },
+        created() {
+            if (this.draft.id) {
+                axios.get(route('api.localidad.index'), {
+                    params: {
+                        'cve_mun': this.draft.cve_mun
+                    }
+                })
+                    .then(res => {
+                        this.localidades = res.data.localidades;
+                        let that = this;
+                        this.localidadSelected = _.find(this.localidades, function (el) {
+                            return el.CVE_ENT === '23' && el.CVE_MUN === that.draft.cve_mun && el.value === that.draft.cve_loc;
+                        })
+                    })
+                    .catch(err => {
+                        console.log(err.response)
+                    })
+            }
+        },
         methods: {
             save() {
                 this.draft.cve_loc = this.cveLoc;
@@ -80,12 +99,13 @@
             cveMun() {
                 return this.draft.cve_mun;
             },
-            cveLoc(){
+            cveLoc() {
                 return this.localidadSelected.value;
             }
         },
         watch: {
             cveMun() {
+                this.localidadSelected = '';
                 axios.get(route('api.localidad.index'), {
                     params: {
                         'cve_mun': this.draft.cve_mun

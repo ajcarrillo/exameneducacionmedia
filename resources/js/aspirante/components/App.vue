@@ -49,10 +49,15 @@
                         <div class="card shadow-none border">
                             <div class="card-body">
                                 <create-domicilio :aspiranteid="aspirante.id"
-                                    :municipios="municipios"
-                                    @update="updateDomicilio"
-                                    v-if="!hasDomicilio"
+                                                  :municipios="municipios"
+                                                  @update="updateDomicilio"
+                                                  v-if="!hasDomicilio"
                                 ></create-domicilio>
+                                <edit-domicilio :aspiranteid="aspirante.id"
+                                                :domicilio="aspirante.domicilio"
+                                                :municipios="municipios"
+                                                v-else
+                                ></edit-domicilio>
                             </div>
                         </div>
                     </div>
@@ -67,6 +72,7 @@
     import CreateInformacionProcedencia from './informacion_procedencia/CreateComponent';
     import EditInformacionProcedencia from './informacion_procedencia/EditComponent';
     import CreateDomicilio from './domicilio/CreateComponent';
+    import EditDomicilio from './domicilio/EditComponent';
 
     export default {
         name: "App",
@@ -74,7 +80,8 @@
             DatosGeneralesForm,
             CreateInformacionProcedencia,
             EditInformacionProcedencia,
-            CreateDomicilio
+            CreateDomicilio,
+            EditDomicilio
         },
         props: ['asp', 'paises', 'municipios', 'entidades'],
         data() {

@@ -40,4 +40,15 @@ class DomicilioController extends Controller
             );
         }
     }
+
+    public function update(StoreDomicilio $request, Aspirante $aspirante, $id)
+    {
+        $request->validated();
+
+        $domicilio = $aspirante->domicilio()->findOrFail($id);
+
+        $domicilio->update($request->input());
+
+        return $domicilio;
+    }
 }

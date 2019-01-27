@@ -16,6 +16,8 @@ Route::middleware([ 'auth:api', 'role:aspirante' ])
         Route::prefix('/domicilio')
             ->name('domicilio.')
             ->group(function () {
+                Route::patch('/{aspirante}/{id}', 'API\DomicilioController@update')
+                    ->name('update');
                 Route::post('/{aspirante}', 'API\DomicilioController@store')
                     ->name('store');
             });
