@@ -33,4 +33,9 @@ class Subsistema extends Model
     {
         return $this->hasMany(Especialidad::class, 'subsistema_id');
     }
+
+    public function revisiones()
+    {
+        return$this->hasMany(RevisionOferta::class,'subsistema_id');
+    }
 }
