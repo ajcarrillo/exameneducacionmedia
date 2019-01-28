@@ -22,9 +22,22 @@ class Enlace extends Model
         'cve_ent', 'cve_mun', 'fecha_inicio', 'fecha_fin',
         'hora_inicio', 'hora_fin', 'domicilio', 'telefono',
     ];
+    protected $appends  = [
+        'fechas', 'horarios',
+    ];
 
     public function municipio()
     {
         return $this->belongsTo(MunicipioView::class, [ 'cve_ent', 'cve_mun' ], [ 'CVE_ENT', 'CVE_MUN' ]);
+    }
+
+    public function getFechasAttribute()
+    {
+        return "Del {$this->fecha_inicio} al {$this->fecha_fin}";
+    }
+
+    public function getHorariosAttribute()
+    {
+        return "De {$this->hora_inicio} a {$this->hora_fin}";
     }
 }

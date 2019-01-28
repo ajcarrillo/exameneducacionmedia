@@ -17,6 +17,13 @@ use MediaSuperior\Models\Enlace;
 
 class EnlaceController extends Controller
 {
+    protected $home;
+
+    public function __construct()
+    {
+        $this->home = route('media.administracion.enlaces.index');
+    }
+
     public function index()
     {
         $enlaces = Enlace::with('municipio')->get();
@@ -32,18 +39,6 @@ class EnlaceController extends Controller
         return view('administracion.enlaces.create', compact('municipios', 'registro'));
     }
 
-    protected function getMunicipios()
-    {
-        return MunicipioView::where('CVE_ENT', 23)
-            ->orderBy('NOM_MUN')
-            ->pluck('NOM_MUN', 'CVE_MUN');
-    }
-
-    protected function getEtapaRegistro()
-    {
-        return EtapaProceso::whereNombre('REGISTRO')->first();
-    }
-
     public function store(Request $request)
     {
         $this->validated($request);
@@ -56,7 +51,30 @@ class EnlaceController extends Controller
             return back();
         }
 
-        return redirect()->route('media.administracion.enlaces.index');
+        return redirect()->to($this->home);
+    }
+
+    public function edit(Enlace $enlace)
+    {
+        $municipios = $this->getMunicipios();
+        $registro   = $this->getEtapaRegistro();
+
+        return view('administracion.enlaces.edit', compact('municipios', 'registro', 'enlace'));
+    }
+
+    public function update(Request $request, Enlace $enlace)
+    {
+        $this->validated($request);
+
+        $enlace->update($request->input());
+
+        flash('El enlace se guardó correctamente')->success();
+
+        if ($request->has('continue')) {
+            return back();
+        }
+
+        return redirect()->to($this->home);
     }
 
     protected function validated($request)
@@ -74,16 +92,15 @@ class EnlaceController extends Controller
         ]);
     }
 
-    public function edit(Enlace $enlace)
+    protected function getMunicipios()
     {
-        $municipios = $this->getMunicipios();
-        $registro   = $this->getEtapaRegistro();
-
-        return view('administracion.enlaces.edit', compact('municipios', 'registro', 'enlace'));
+        return MunicipioView::where('CVE_ENT', 23)
+            ->orderBy('NOM_MUN')
+            ->pluck('NOM_MUN', 'CVE_MUN');
     }
 
-    public function update(Request $request, Enlace $enlace)
+    protected function getEtapaRegistro()
     {
-
+        return EtapaProceso::whereNombre('REGISTRO')->first();
     }
 }
