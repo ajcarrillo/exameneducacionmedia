@@ -3,10 +3,21 @@
  * Created by PhpStorm.
  * User: Igna
  */
-Route::middleware([ 'auth' ])
+Route::middleware([ 'auth', 'role:departamento' ])
     ->prefix('/administracion')
     ->name('administracion.')
     ->group(function () {
+
+        Route::prefix('/enlaces')
+            ->name('enlaces.')
+            ->group(function () {
+                Route::get('/{enlace}/editar', 'EnlaceController@edit')->name('edit');
+                Route::patch('/{enlace}', 'EnlaceController@update')->name('update');
+                Route::get('/nuevo', 'EnlaceController@create')->name('create');
+                Route::post('/', 'EnlaceController@store')->name('store');
+                Route::get('/', 'EnlaceController@index')->name('index');
+            });
+
         Route::prefix('/etapasProceso')
             ->name('etapasProceso.')
             ->group(function () {
