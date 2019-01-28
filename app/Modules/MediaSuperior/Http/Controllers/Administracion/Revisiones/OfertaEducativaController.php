@@ -4,6 +4,11 @@ namespace MediaSuperior\Http\Controllers\Administracion\Revisiones;
 
 
 use ExamenEducacionMedia\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Subsistema\Models\OfertaEducativa;
+use Subsistema\Models\RevisionOferta;
+use Subsistema\Models\Subsistema;
+
 
 class OfertaEducativaController extends Controller
 {
@@ -14,7 +19,22 @@ class OfertaEducativaController extends Controller
      */
     public function index()
     {
-        return view('media_superior.administracion.ofertaEducativa.index');
+        $revisiones = array();
+        $subsistemas = Subsistema::get();
+        return view('media_superior.administracion.ofertaEducativa.index', compact('subsistemas', 'revisiones'));
+    }
+
+    public function oferta(Request $request)
+    {
+        //$estado = $request['estado'];
+
+        $revisiones = RevisionOferta::with(['review'=>function($query) use ($request) {
+            return $query->where('estado', $request->get('estado'));
+        }, 'subsistema','review.usuario'])->get();
+
+        $subsistemas = Subsistema::get();
+
+        return view('media_superior.administracion.ofertaEducativa.index', compact('subsistemas', 'revisiones'));
     }
 
     /**

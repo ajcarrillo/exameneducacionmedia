@@ -22,6 +22,7 @@ Route::middleware([ 'auth' ])
                     ->name('ofertaEducativa.')
                     ->group(function (){
                         Route::get('/','Administracion\Revisiones\OfertaEducativaController@index')->name('index');
+                        Route::get('/oferta','Administracion\Revisiones\OfertaEducativaController@oferta')->name('oferta');
                     });
             });
     });

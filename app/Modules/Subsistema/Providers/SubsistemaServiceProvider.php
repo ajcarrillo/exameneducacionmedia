@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 use Subsistema\Models\OfertaEducativa;
 use Subsistema\Models\Plantel;
+use Subsistema\Models\RevisionOferta;
 use Subsistema\Models\SedeAlterna;
 
 class SubsistemaServiceProvider extends ServiceProvider
@@ -24,6 +25,7 @@ class SubsistemaServiceProvider extends ServiceProvider
             'plantel'      => Plantel::class,
             'sede_alterna' => SedeAlterna::class,
             'oferta_educativa' => OfertaEducativa::class,
+            'ofertas' => RevisionOferta::class,
         ]);
     }
 
