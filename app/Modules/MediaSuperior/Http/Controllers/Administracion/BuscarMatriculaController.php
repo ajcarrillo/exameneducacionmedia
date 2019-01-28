@@ -10,10 +10,16 @@ class BuscarMatriculaController extends Controller
 {
     public function index()
     {
-        $estudiantes = collect();
-        return view('media_superior.administracion.buscar_matricula.index', compact('estudiantes'));
+        $estudiantes = [];
+        return view('media_superior.administracion.buscar_matricula.index', ['estudiantes' => $estudiantes, 'buscar' => false]);
     }
 
+    /**
+     * BUSCAR ESTUDIANTE
+     * Solicita un token de autorizacion a la API jarvis
+     * Envia los parametros de nombre completo y curp
+     * Devuelve una json con los estudiantes y meta (información de la solicitud)
+     */
     public function buscarEstudiante()
     {
         $guzzle = new Client;
@@ -44,6 +50,6 @@ class BuscarMatriculaController extends Controller
 
         $estudiantes = json_decode((string)$response->getBody(), true);
 
-        return view('media_superior.administracion.buscar_matricula.index', $estudiantes);
+        return view('media_superior.administracion.buscar_matricula.index', ['estudiantes' => $estudiantes['estudiantes'], 'buscar' => true]);
     }
 }

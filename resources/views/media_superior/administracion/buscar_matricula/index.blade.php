@@ -39,34 +39,37 @@
 	                    </p>
                     </div>
                     <div class="card-body">
-	                    <p class="text-right">
-	                        <button type="button" class="btn btn-primary btn-sm">
-	                            Resultados <span class="badge badge-light"> {{ count($estudiantes) }} </span>
-	                        </button>
-	                    </p>
-
-	                    <div class="table-responsive">
-		                    <table class="table table-bordered table-striped table-hover">
-			                    <thead>
-				                    <tr>
-					                    <th>#</th>
-					                    <th>Nombre completo</th>
-					                    <th>Matrícula</th>
-					                    <th>Curp</th>
-				                    </tr>
-			                    </thead>
-			                    <tbody>
-				                    @foreach($estudiantes as $estudiante)
+	                    @if($buscar)
+		                    <p class="text-right">
+		                        <button type="button" class="btn btn-primary btn-sm">
+		                            Resultados <span class="badge badge-light"> {{ count($estudiantes) }} </span>
+		                        </button>
+		                    </p>
+		                    <div class="table-responsive">
+			                    <table class="table table-bordered table-striped table-hover">
+				                    <thead>
 					                    <tr>
-						                    <td>{{ $loop->iteration }}</td>
-											<td>{{ $estudiante['nombre_completo'] }}</td>
-						                    <td>{{ $estudiante['matricula'] }}</td>
-						                    <td>{{ $estudiante['curp'] }}</td>
+						                    <th>#</th>
+						                    <th>Nombre completo</th>
+						                    <th>Matrícula</th>
+						                    <th>Curp</th>
 					                    </tr>
-				                    @endforeach
-			                    </tbody>
-		                    </table>
-	                    </div>
+				                    </thead>
+				                    <tbody>
+					                    @forelse($estudiantes as $estudiante)
+						                    <tr>
+							                    <td>{{ $loop->iteration }}</td>
+												<td>{{ $estudiante['nombre_completo'] }}</td>
+							                    <td>{{ $estudiante['matricula'] }}</td>
+							                    <td>{{ $estudiante['curp'] }}</td>
+						                    </tr>
+					                    @empty
+						                    <div class="alert alert-primary" role="alert">No se encontraron datos.</div>
+					                    @endforelse
+				                    </tbody>
+			                    </table>
+		                    </div>
+	                    @endif
                     </div>
                     <div class="card-footer">
                     </div>
