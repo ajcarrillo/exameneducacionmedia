@@ -7,8 +7,8 @@
 namespace MediaSuperior\Providers;
 
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -26,8 +26,7 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapWebRoutes()
     {
-        Route::prefix('media')
-            ->middleware('web')
+        Route::middleware('web')
             ->name('media.')
             ->namespace($this->namespace)
             ->group(base_path('app/Modules/MediaSuperior/Routes/web.php'));
