@@ -33,9 +33,14 @@
                         @slot('tbody')
                             @forelse($enlaces as $enlace)
                                 <tr>
-                                    <td>{{ $enlace->municipio->NOM_MUN }}</td>
-                                    <td>{{ $enlace->fecha_inicio }}</td>
-                                    <td>{{ $enlace->hora_inicio }}</td>
+                                    <td>
+                                        <a href="{{ route('media.administracion.enlaces.edit', $enlace->id) }}">
+                                            <i class="far fa-edit mr-1"></i>
+                                            {{ $enlace->municipio->NOM_MUN }}
+                                        </a>
+                                    </td>
+                                    <td>{{ $enlace->fechas }}</td>
+                                    <td>{{ $enlace->horarios }}</td>
                                     <td>{{ $enlace->domicilio }}</td>
                                     <td>{{ $enlace->telefono }}</td>
                                     <td>{{ $enlace->extension }}</td>
