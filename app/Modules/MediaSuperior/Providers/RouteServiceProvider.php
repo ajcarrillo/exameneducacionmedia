@@ -28,6 +28,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix('media')
             ->middleware('web')
+            ->name('media.')
             ->namespace($this->namespace)
             ->group(base_path('app/Modules/MediaSuperior/Routes/web.php'));
     }

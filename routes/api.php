@@ -19,20 +19,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::middleware('auth:api')
     ->get('/me', function (Request $request) {
-        $user = $request->user();
+        $user        = $request->user();
         $accessToken = $user->jarvis_user_access_token;
 
         return ok(compact('user', 'accessToken'));
-
     })->name('me');
 
 Route::prefix('/v1')
     ->group(function () {
-
         Route::group([ 'prefix' => '/geodatabase' ], function () {
+            Route::get('/localidad', 'API\LocalidadController@show')->name('api.localidad.show');
             Route::get('/localidades', 'API\LocalidadController@index')->name('api.localidad.index');
             Route::get('/municipios', 'API\MunicipioController@index')->name('api.municipios.index');
         });
-
-
     });

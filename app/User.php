@@ -2,6 +2,7 @@
 
 namespace ExamenEducacionMedia;
 
+use Aspirante\Models\Aspirante;
 use Awobaz\Compoships\Compoships;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -35,6 +36,11 @@ class User extends Authenticatable
         'password', 'remember_token', 'api_token', 'jarvis_user_access_token',
         'jarvis_user_token_type', 'jarvis_user_token_expires_in', 'jarvis_user_refresh_token',
     ];
+
+    public function aspirante()
+    {
+        return $this->hasOne(Aspirante::class, 'user_id');
+    }
 
     public function groups()
     {
@@ -116,6 +122,21 @@ class User extends Authenticatable
         $user->update($data);
 
         return $user;
+    }
+
+    public function setNombreAttribute($value)
+    {
+        $this->attributes['nombre'] = mb_strtoupper($value, 'UTF-8');
+    }
+
+    public function setPrimerApellidoAttribute($value)
+    {
+        $this->attributes['primer_apellido'] = mb_strtoupper($value, 'UTF-8');
+    }
+
+    public function setSegundoApellidoAttribute($value)
+    {
+        $this->attributes['segundo_apellido'] = mb_strtoupper($value, 'UTF-8');
     }
 
 }

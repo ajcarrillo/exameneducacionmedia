@@ -17,7 +17,7 @@ class RolesTableSeeder extends Seeder
             'departamento',
             'subsistema',
             'plantel',
-            'alumno',
+            'aspirante',
             'invitado',
         ];
 

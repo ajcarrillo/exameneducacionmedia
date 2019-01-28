@@ -16,8 +16,8 @@ class CreateInformacionProcedenciasTable extends Migration
         Schema::create('informacion_procedencias', function (Blueprint $table) {
             $table->increments('id');
             $table->string('clave_centro_trabajo')->nullable();
-            $table->text('nombre_centro_trabajo');
-            $table->year('fecha_egreso');
+            $table->text('nombre_centro_trabajo')->nullable();
+            $table->year('fecha_egreso')->nullable();
             $table->boolean('primera_vez')->default(1);
             $table->timestamps();
         });
