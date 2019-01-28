@@ -1,7 +1,7 @@
 export default {
     getOferta(context, payload) {
         return new Promise(function (resolve, reject) {
-            axios.get(route('api.subsistema.planteles.oferta.index', '85083746-d3fe-11e8-b8a5-0242ac110002'))
+            axios.get(route('api.subsistema.planteles.oferta.index', payload))
                 .then(res => {
                     context.commit('getOferta', res.data.plantel.oferta_educativa);
                     resolve(res);
