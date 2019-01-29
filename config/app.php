@@ -165,7 +165,6 @@ return [
         Aspirante\Providers\RouteServiceProvider::class,
         Subsistema\Providers\RouteServiceProvider::class,
         Subsistema\Providers\SubsistemaServiceProvider::class,
-
         MediaSuperior\Providers\RouteServiceProvider::class,
     ],
 
@@ -217,6 +216,8 @@ return [
         'View'         => Illuminate\Support\Facades\View::class,
         'Debugbar'     => Barryvdh\Debugbar\Facade::class,
         'Date'         => Jenssegers\Date\Date::class,
+        'Form'         => Collective\Html\FormFacade::class,
+        'Html'         => Collective\Html\HtmlFacade::class,
     ],
 
 ];
