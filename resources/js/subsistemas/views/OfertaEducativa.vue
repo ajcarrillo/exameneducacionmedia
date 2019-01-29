@@ -51,13 +51,14 @@
             }
         },
         beforeRouteEnter(to, from, next) {
-            store.dispatch('oferta/getOferta')
+
+            store.dispatch('oferta/getOferta', to.params.plantelid)
                 .then(res => {
                     next();
                 });
         },
         beforeRouteUpdate(to, from, next) {
-            store.dispatch('oferta/getOferta')
+            store.dispatch('oferta/getOferta',to.params.plantelid)
                 .then(res => {
                     next();
                 });

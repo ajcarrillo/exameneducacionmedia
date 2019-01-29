@@ -9,10 +9,13 @@
 namespace Aspirante\Models;
 
 
+use Awobaz\Compoships\Compoships;
 use Illuminate\Database\Eloquent\Model;
 
 class InformacionProcedencia extends Model
 {
+    use Compoships;
+
     protected $table    = 'informacion_procedencias';
     protected $fillable = [
         'clave_centro_trabajo', 'nombre_centro_trabajo', 'turno_id',
@@ -21,6 +24,6 @@ class InformacionProcedencia extends Model
 
     public function aspirante()
     {
-        return $this->hasOne(InformacionProcedencia::class, 'informacion_procedencia_id');
+        return $this->hasOne(Aspirante::class, 'informacion_procedencia_id');
     }
 }

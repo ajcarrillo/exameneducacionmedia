@@ -39,7 +39,8 @@
             "database/factories"
         ],
         "files": [
-            "app/Helpers/responses.php"
+            "app/Helpers/responses.php",
+            "app/Helpers/helpers.php"
         ],
         "psr-4": {
             "ExamenEducacionMedia\\": "app/",

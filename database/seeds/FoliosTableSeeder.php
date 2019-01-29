@@ -11,9 +11,9 @@ class FoliosTableSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 1; $i < 100; $i++) {
+        for ($i = 300000000; $i < 300000100; $i++) {
             $folio = new \ExamenEducacionMedia\Modules\MediaSuperior\Models\Folio([
-                'folio'  => str_pad($i, '10', '0', STR_PAD_LEFT),
+                'folio'  => $i,
                 'active' => true,
             ]);
             $folio->save();

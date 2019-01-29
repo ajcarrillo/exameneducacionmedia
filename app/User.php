@@ -2,6 +2,7 @@
 
 namespace ExamenEducacionMedia;
 
+use Aspirante\Models\Aspirante;
 use Awobaz\Compoships\Compoships;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -38,7 +39,7 @@ class User extends Authenticatable
 
     public function aspirante()
     {
-        return $this->hasOne(User::class, 'user_id');
+        return $this->hasOne(Aspirante::class, 'user_id');
     }
 
     public function groups()

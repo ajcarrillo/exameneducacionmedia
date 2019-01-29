@@ -42,7 +42,7 @@ class RegistroMatriculaController extends Controller
                 $folio = Folio::getFolio();
 
                 $aspirante        = new Aspirante($request->input());
-                $aspirante->folio = $folio->id;
+                $aspirante->folio = $folio->folio;
                 $folio->desactivar();
 
                 $informacionProcedencia = new InformacionProcedencia($request->only('clave_centro_trabajo', 'nombre_centro_trabajo', 'turno_id'));

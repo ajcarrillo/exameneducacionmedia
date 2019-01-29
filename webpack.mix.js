@@ -18,7 +18,8 @@ mix.js('resources/js/adminlte.js', 'public/js')
     .js('resources/js/app.js', 'public/js')
     .js('resources/js/subsistemas/app.js', 'public/js/subsistemas')
     .js('resources/js/administracion/planteles/app.js', 'public/js/administracion/planteles')
-    .js('resources/js/aspirante/registro_matricula.js','public/js/aspirante');
+    .js('resources/js/aspirante/registro_matricula.js','public/js/aspirante')
+    .js('resources/js/aspirante/profile.js','public/js/aspirante');
 
 if (mix.inProduction()) {
     mix.version();
@@ -29,7 +30,8 @@ if (mix.inProduction()) {
             'app/**/*',
             'resources/**/*',
             'routes/**/*'
-        ]
+        ],
+        browser: ['vivaldi']
     });
 }
 

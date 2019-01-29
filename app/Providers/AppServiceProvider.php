@@ -16,6 +16,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::withDoubleEncoding();
+        Blade::component('components.table', 'table');
+        Blade::component('components.form_errors', 'errors');
 
         $socialite = $this->app->make('Laravel\Socialite\Contracts\Factory');
         $socialite->extend(
