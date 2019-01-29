@@ -69,7 +69,10 @@
 															Opciones
 														</button>
 														<div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-															<a class="dropdown-item" href="#">Rechazar oferta</a>
+															<a data-toggle="modal" data-target="#modalConfirmar"
+															   class="dropdown-item" href="#"
+															   id="btn_motivo_rechazo" data-id="{{$revision->id}}">Motivo
+																rechazo</a>
 															<a class="dropdown-item" href="#">Imprimir</a>
 														</div>
 													</div>
@@ -90,7 +93,32 @@
 			</div>
 		</div>
 	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="modalConfirmar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Motivo rechazo</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">{!! Form::label('observacion','Comentario:') !!}
+							{!! Form::textarea('comentario',NULL,['class'=>'form-control','rows'=>3,'required','id'=>'comentario']) !!}
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					<a href="{{  route('media.administracion.revisiones.ofertaEducativa.guardarComentario') }}" class="btn btn-primary" data-button="btnAceptaConfirmacion">Aceptar</a>
+				</div>
+			</div>
+		</div>
+	</div>
 @endsection
 
 @section('extra-scripts')
+	<script src="{{ mix('js/media/administracion/oferta_educativa/index.js') }}"></script>
 @endsection

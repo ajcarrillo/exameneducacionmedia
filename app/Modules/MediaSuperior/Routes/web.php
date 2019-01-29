@@ -46,6 +46,7 @@ Route::middleware([ 'auth', 'role:departamento' ])
                     ->group(function (){
                         Route::get('/','Administracion\Revisiones\OfertaEducativaController@index')->name('index');
                         Route::get('/oferta','Administracion\Revisiones\OfertaEducativaController@oferta')->name('oferta');
+                        Route::get('/guardarComentario','Administracion\Revisiones\OfertaEducativaController@guardarComentario')->name('guardarComentario');
                     });
             });
     });

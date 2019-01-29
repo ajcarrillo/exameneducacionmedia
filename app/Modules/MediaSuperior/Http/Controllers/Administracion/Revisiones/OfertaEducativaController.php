@@ -52,6 +52,17 @@ class OfertaEducativaController extends Controller
         return view('media_superior.administracion.ofertaEducativa.index', compact('subsistemas', 'revisiones'));
     }
 
+    public function guardarComentario(Request $request)
+    {
+
+        //dd($request->get('comentario'));
+        $revisiones = array();
+        $subsistemas = Subsistema::select('id',DB::raw('referencia'))
+            ->orderBy('id', 'asc')
+            ->get()->pluck('referencia', 'id');
+        return view('media_superior.administracion.ofertaEducativa.index', compact('subsistemas', 'revisiones'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
