@@ -18,8 +18,12 @@ class SubsistemaController extends Controller
             'planteles.responsable',
             'planteles.municipio',
             'planteles.localidad',
-            'especialidades'
+            'especialidades',
+            'planteles.aulas',
+            'revisionAforos',
+            'revisionAforos.revision'
         );
+
 
         return $this->respondWithArray(compact('subsistema'));
     }

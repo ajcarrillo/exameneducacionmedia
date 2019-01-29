@@ -7,6 +7,9 @@
                         <div class="d-flex justify-content-between">
                             <h3 class="card-title">Plantel</h3>
                         </div>
+                        <div class="card-tools">
+                            <button class="btn btn-primary" v-if="hasActivePlanteles() && hasActivePlantelAulaCapacidad()" @click="enviarAforo()">Enviar aforo</button>
+                        </div>
                     </div>
                     <div class="card-body p-0 table-responsive">
                         <planteles-table :items="planteles" :headers="headers">
@@ -59,6 +62,7 @@
     import PlantelesTable from '../../components/TableComponent'
     import MyTooltip from '../../directives/TooltipDirective'
     import EditNameForm from '../components/EditPlantelNameFormComponent';
+    import Swal from 'sweetalert2';
 
     Vue.directive('tooltip', MyTooltip);
 
@@ -161,6 +165,54 @@
                     text: 'El nombre del plantel se actualizó correctamente',
                     type: 'success'
                 });
+            },
+            hasActivePlanteles() {
+                let planteles = store.state.home.planteles,
+                    activePlanteles = planteles.filter(plantel => plantel.active === 1);
+
+                if (activePlanteles.length === 0) {
+                    return 0;//sin planteles activos no podemos enviar el aforo
+                }
+
+                return true;//n planteles activos
+            },
+            hasActivePlantelAulaCapacidad() {
+                let planteles = store.state.home.planteles,
+                    activePlanteles = planteles.filter(plantel => plantel.active === 1),
+                    aulaPlantel = activePlanteles.filter(plantel=>plantel.aulas.length > 0),
+                    hasAulasCapacidad = activePlanteles.filter(plantel=> {
+                        let hasAulasCapacidad = plantel.aulas.filter(aula=>aula.capacidad>0);
+
+                        if (hasAulasCapacidad.length > 0) {
+                            return plantel;
+                        }
+                    });
+
+                if (activePlanteles.length !== aulaPlantel.length) {
+                    return 0; //cada plantel activo debe tener un aula por lo menos
+                }
+
+                if (activePlanteles.length !== hasAulasCapacidad.length) {
+                    return 0; //cada plantel activo con aulas, debe tener minimo un aula con capacidad
+                }
+
+                return true;
+            },
+            enviarAforo() {
+                console.log(store.state.home.planteles);
+                Swal.fire({
+                    title: '¿Deseas enviar el aforo?',
+                    text: "",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.value) {
+                    }
+                })
             }
         }
     }
