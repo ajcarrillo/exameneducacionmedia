@@ -6,6 +6,8 @@ $(document).ready(function () {
             curp = $("#curp").val(),
             mensaje = "",
             avisoUsuario = $("#avisoUsuario"),
+            loading = $("#barLoading"),
+            tableEstudiantes = $("#tableEstudiantes"),
             form = $("#form-buscar");
 
         if ($.trim(nombre).length === 0 && $.trim(curp).length === 0) {
@@ -17,6 +19,9 @@ $(document).ready(function () {
 
         if (mensaje.length === 0) {
             avisoUsuario.css("display", "none");
+            loading.css("display", "block");
+            tableEstudiantes.css("display", "none");
+            $(this).prop('disabled', true);
             form.submit();
         }
     });

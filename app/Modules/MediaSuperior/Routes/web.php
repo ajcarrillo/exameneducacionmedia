@@ -33,5 +33,8 @@ Route::middleware([ 'auth', 'role:departamento' ])
             ->group(function () {
                 Route::get('/', 'Administracion\BuscarMatriculaController@index')->name('index');
                 Route::post('/buscar', 'Administracion\BuscarMatriculaController@buscarEstudiante')->name('buscar');
+                Route::get('/buscar', function() {
+                    return redirect()->route('media.administracion.estudiante.index');
+                });
             });
     });
