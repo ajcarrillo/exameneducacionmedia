@@ -22,9 +22,14 @@ class Revision extends Model
         return $this->morphTo();
     }
 
-    public function usuario()
+    public function usuarioApertura()
     {
-        return $this->hasOne(User::class, 'id','usuario_apertura');
+        return $this->belongsTo(User::class, 'usuario_apertura');
+    }
+
+    public function usuarioRevision()
+    {
+        return $this->belongsTo(User::class,'usuario_revision');
     }
 
 }
