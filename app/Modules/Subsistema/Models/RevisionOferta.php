@@ -19,7 +19,7 @@ class RevisionOferta extends Model
 
     public function review()
     {
-        return $this->morphMany(Revision::class,'revision');
+        return $this->morphOne(Revision::class,'revision');
     }
 
     public function subsistema()

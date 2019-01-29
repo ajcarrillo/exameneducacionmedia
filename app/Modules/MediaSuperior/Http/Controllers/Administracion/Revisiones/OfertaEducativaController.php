@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Subsistema\Models\OfertaEducativa;
 use Subsistema\Models\RevisionOferta;
 use Subsistema\Models\Subsistema;
+use DB;
 
 
 class OfertaEducativaController extends Controller
@@ -20,19 +21,33 @@ class OfertaEducativaController extends Controller
     public function index()
     {
         $revisiones = array();
-        $subsistemas = Subsistema::get();
+        $subsistemas = Subsistema::select('id',DB::raw('referencia'))
+            ->orderBy('id', 'asc')
+            ->get()->pluck('referencia', 'id');
         return view('media_superior.administracion.ofertaEducativa.index', compact('subsistemas', 'revisiones'));
     }
 
     public function oferta(Request $request)
     {
-        //$estado = $request['estado'];
+        $estado = $request->get('estado') ?? '';
+        $subsistema_id = $request->get('subsistema_id') ?? '';
+        $revisiones = array();
 
-        $revisiones = RevisionOferta::with(['review'=>function($query) use ($request) {
-            return $query->where('estado', $request->get('estado'));
-        }, 'subsistema','review.usuario'])->get();
+        if(!empty($estado)){
+            $revisiones = RevisionOferta::with(['review'=>function($query) use ($request) {
+                return $query->where('estado', $request->get('estado'));
+            }, 'subsistema','review.usuarioApertura','review.usuarioRevision'])->get();
+        }
 
-        $subsistemas = Subsistema::get();
+        if(!empty($subsistema_id)){
+            $revisiones = RevisionOferta::with(['review','subsistema','review.usuarioApertura','review.usuarioRevision'])
+                ->where('revision_ofertas.subsistema_id','=',$subsistema_id)
+                ->get();
+        }
+
+        $subsistemas = Subsistema::select('id',DB::raw('referencia'))
+            ->orderBy('id', 'asc')
+            ->get()->pluck('referencia', 'id');
 
         return view('media_superior.administracion.ofertaEducativa.index', compact('subsistemas', 'revisiones'));
     }
