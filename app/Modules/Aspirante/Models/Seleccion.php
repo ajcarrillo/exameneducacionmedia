@@ -9,11 +9,14 @@
 namespace Aspirante\Models;
 
 
+use Awobaz\Compoships\Compoships;
 use Illuminate\Database\Eloquent\Model;
 use Subsistema\Models\OfertaEducativa;
 
 class Seleccion extends Model
 {
+    use Compoships;
+
     protected $table    = 'seleccion_ofertas_educativas';
     protected $fillable = [
         'preferencia', 'aspirante_id', 'oferta_educativa_id',

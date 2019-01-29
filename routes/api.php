@@ -32,4 +32,10 @@ Route::prefix('/v1')
             Route::get('/localidades', 'API\LocalidadController@index')->name('api.localidad.index');
             Route::get('/municipios', 'API\MunicipioController@index')->name('api.municipios.index');
         });
+
+        Route::prefix('/planteles')
+            ->name('planteles.')
+            ->group(function () {
+                Route::get('/', 'API\PlantelController@index')->name('index');
+            });
     });
