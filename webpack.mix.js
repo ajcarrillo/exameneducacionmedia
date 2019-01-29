@@ -39,3 +39,4 @@ if (mix.inProduction()) {
 mix.js('resources/js/media/administracion/etapas/edit.js', 'public/js/media/administracion/etapas/edit.js');
 mix.js('resources/js/media/administracion/buscar_matricula/index.js', 'public/js/media/administracion/buscar_matricula/index.js');
 //endIgna
+mix.js('resources/js/media/administracion/responsable_plantel/eliminar.js', 'public/js/media/administracion/responsable_plantel/eliminar.js');
