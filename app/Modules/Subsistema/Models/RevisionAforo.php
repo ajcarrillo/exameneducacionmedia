@@ -4,6 +4,7 @@ namespace ExamenEducacionMedia\Modules\Subsistema\Models;
 
 use Awobaz\Compoships\Compoships;
 use Illuminate\Database\Eloquent\Model;
+use MediaSuperior\Models\Revision;
 
 class RevisionAforo extends Model
 {
