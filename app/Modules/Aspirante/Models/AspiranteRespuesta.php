@@ -1,8 +1,7 @@
 <?php
 
-namespace ExamenEducacionMedia\Models;
+namespace Aspirante\Models;
 
-use Aspirante\Models\Aspirante;
 use Illuminate\Database\Eloquent\Model;
 
 class AspiranteRespuesta extends Model

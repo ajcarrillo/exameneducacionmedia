@@ -1,6 +1,6 @@
 <?php
 
-namespace ExamenEducacionMedia\Models;
+namespace Aspirante\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
