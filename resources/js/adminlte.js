@@ -6,6 +6,6 @@ require('admin-lte/dist/js/adminlte.min');
     //$('.sidebar-menu').tree();
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
-        $('div.alert').not('.alert-important').delay(5000).fadeOut(350);
+        //$('div.alert').not('.alert-important').delay(5000).fadeOut(350);
     })
 })();

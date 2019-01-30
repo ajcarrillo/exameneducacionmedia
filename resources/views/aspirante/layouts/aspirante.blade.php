@@ -25,7 +25,7 @@
     </head>
     <body>
 
-        <div class="wrapper" id="app">
+        <div class="wrapper bg-light" id="app">
             @yield('content')
         </div>
         @routes

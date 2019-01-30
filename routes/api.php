@@ -27,6 +27,12 @@ Route::middleware('auth:api')
 
 Route::prefix('/v1')
     ->group(function () {
+        Route::prefix('/especialidades')
+            ->name('especialidades.')
+            ->group(function () {
+                Route::get('/', 'API\EspecialidadController@index')->name('index');
+            });
+
         Route::group([ 'prefix' => '/geodatabase' ], function () {
             Route::get('/localidad', 'API\LocalidadController@show')->name('api.localidad.show');
             Route::get('/localidades', 'API\LocalidadController@index')->name('api.localidad.index');

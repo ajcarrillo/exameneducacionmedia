@@ -1,18 +1,24 @@
 <template>
     <div class="container-fluid">
-        <div class="row">
+        <div class="row pt-5">
             <div class="col">
-                <label for="">Municipio</label>
-                <select v-model="municipioSelected" class="form-control" required>
-                    <option value="">Seleccione...</option>
-                    <option v-for="municipio in municipios"
-                            :value="municipio.CVE_MUN"
-                            :key="municipio.CVE_MUN"
-                    >{{ municipio.NOM_MUN }}
-                    </option>
-                </select>
+                <p class="text-center"><b>Selecciona un municipio</b></p>
+                <div class="d-flex flex-row flex-wrap justify-content-center bd-highlight mb-3">
+                    <template v-for="municipio in municipios">
+                        <div class="mb-3 pr-1">
+                            <button
+                                class="btn btn-sm"
+                                @click="selectMunicipio(municipio.CVE_MUN)"
+                                :class="{'btn-primary': municipioSelected == municipio.CVE_MUN, 'btn-default': municipioSelected != municipio.CVE_MUN}"
+                            >{{ municipio.NOM_MUN }}
+                            </button>
+                        </div>
+                    </template>
+                </div>
             </div>
-            <div class="col">
+        </div>
+        <div class="row">
+            <div class="col-12 mb-3">
                 <label for="">Localidad</label>
                 <multiselect
                     :close-on-select="true"
@@ -29,7 +35,7 @@
                 >
                 </multiselect>
             </div>
-            <div class="col">
+            <div class="col-12 mb-3">
                 <label for="">Plantel</label>
                 <multiselect
                     :close-on-select="true"
@@ -46,7 +52,19 @@
                 >
                 </multiselect>
             </div>
-            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="">Especialidades</label>
+                <select class="form-control" v-model="especialidadSelected">
+                    <option value="">Selecciona...</option>
+                    <option v-for="especialidad in especialidades"
+                            :value="especialidad.id"
+                    >
+                        {{ especialidad.especialidad.referencia }}
+                    </option>
+                </select>
+            </div>
         </div>
     </div>
 </template>
@@ -68,9 +86,11 @@
                 },
                 seleccion: [],
                 localidades: [],
+                especialidades: [],
                 municipioSelected: '',
                 localidadSelected: '',
-                plantelSelected: ''
+                plantelSelected: '',
+                especialidadSelected: ''
             }
         },
         computed: {
@@ -89,6 +109,11 @@
         },
         watch: {
             municipioSelected() {
+                this.localidadSelected = {};
+                this.plantelSelected = {};
+                this.especialidadSelected = '';
+                this.localidades = [];
+                this.especialidades=[];
                 axios.get(route('api.localidad.index'), {
                     params: {
                         'cve_mun': this.municipioSelected
@@ -105,6 +130,29 @@
                             text: 'Lo sentimos, algo ha salido mal intenta de nuevo',
                         })
                     })
+            },
+            localidadSelected(){
+                this.plantelSelected = {};
+                this.especialidades = [];
+                this.especialidadSelected = '';
+            },
+            plantelSelected() {
+                axios.get(route('especialidades.index'), {
+                    params: {
+                        'plantel_id': this.plantelSelected.id
+                    }
+                })
+                    .then(res => {
+                        this.especialidades = res.data.especialidades;
+                    })
+                    .catch(err => {
+                        console.log(err.response);
+                    })
+            }
+        },
+        methods: {
+            selectMunicipio(value) {
+                this.municipioSelected = value;
             }
         }
     }
