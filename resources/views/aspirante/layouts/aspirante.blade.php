@@ -17,13 +17,18 @@
 
         <link rel="stylesheet" href="{{ mix('css/adminlte.css') }}">
         @yield('extra-css')
+        <style>
+            body{
+                height: 100vh!important;
+            }
+        </style>
     </head>
     <body>
 
         <div class="wrapper" id="app">
             @yield('content')
         </div>
-
+        @routes
         <script src="{{ mix('js/adminlte.js') }}"></script>
         <script type="text/javascript">
             window.clone = function (obj) {
