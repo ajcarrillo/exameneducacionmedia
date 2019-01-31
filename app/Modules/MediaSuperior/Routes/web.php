@@ -44,7 +44,7 @@ Route::middleware([ 'auth', 'role:departamento' ])
                 Route::get('/', 'Administracion\SedeAlternaController@index')->name('index');
                 Route::get('/create', 'Administracion\SedeAlternaController@create')->name('create');
                 Route::post('/store', 'Administracion\SedeAlternaController@store')->name('store');
-                Route::get('/edit', 'Administracion\SedeAlternaController@edit')->name('edit');
+                Route::get('{sede}/edit', 'Administracion\SedeAlternaController@edit')->name('edit');
                 Route::post('/update', 'Administracion\SedeAlternaController@update')->name('update');
                 //Route:get('{cveMunicipio}/localidades', 'Administracion\SedeAlternaController@getLocalidades')->name('localidades') )
             });

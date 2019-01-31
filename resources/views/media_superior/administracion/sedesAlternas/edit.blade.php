@@ -46,22 +46,22 @@
                         <div class="form-row pb-3">
                             <div class="col">
                                 <label for="">Calle</label>
-                                <input class="form-control" name="calle" value=$domicilio->calle required type="text" >
+                                <input class="form-control" name="calle" value={{ $domicilio->calle }} required type="text" >
                             </div>
                             <div class="col">
                                 <label for="numero">Número</label>
-                                <input class="form-control" name="numero" value=$domicilio->numero required type="text" >
+                                <input class="form-control" name="numero" value= {{ $domicilio->numero }} type="text" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="">Colonia</label>
-                            <input class="form-control" name="colonia" value=$domicilio->colonia required type="text" >
+                            <input class="form-control" name="colonia" value={{ $domicilio->colonia }} required type="text" >
                         </div>
                         <div class="form-group">
                             <label for="">Código postal</label>
-                            <input class="form-control" name="codigo_postal" value=$domicilio->codigo_postal type="text" >
+                            <input class="form-control" name="codigo_postal" value={{ $domicilio->codigo_postal }} type="text" >
                         </div>
-                        <input type="hidden" name="domicilio_id" value=$domicilio->id>
+                        <input type="hidden" name="domicilio_id" value={{  $domicilio->id }}>
 
                         <div class="form-group">
                             <button class="btn btn-success" name="save">Guardar</button>
