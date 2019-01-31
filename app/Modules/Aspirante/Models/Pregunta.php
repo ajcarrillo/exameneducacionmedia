@@ -18,7 +18,7 @@ class Pregunta extends Model
         return $this->belongsTo(Pregunta::class, 'padre_id');
     }
 
-    public function preguntas()
+    public function hijos()
     {
         return $this->hasMany(Pregunta::class, 'padre_id');
     }
