@@ -14,6 +14,7 @@ use ExamenEducacionMedia\Models\Entidad;
 use ExamenEducacionMedia\Models\Geodatabase\Pais;
 use ExamenEducacionMedia\User;
 use Illuminate\Database\Eloquent\Model;
+use Subsistema\Models\SedeAlterna;
 
 class Aspirante extends Model
 {
@@ -34,6 +35,16 @@ class Aspirante extends Model
     protected $appends  = [
         'is_aspirante_externo',
     ];
+
+    public function paseExamen()
+    {
+        return $this->hasOne(Pase::class, 'aspirante_id');
+    }
+
+    public function opcionesEducativas()
+    {
+        return $this->hasMany(Seleccion::class, 'aspirante_id');
+    }
 
     public function paisNacimiento()
     {
@@ -63,5 +74,61 @@ class Aspirante extends Model
     public function getIsAspiranteExternoAttribute()
     {
         return $this->alumno_id ? false : true;
+    }
+
+    public function asignarPase()
+    {
+        $primerOpcion = $this->opcionesEducativas()->where('preferencia', 1)->firstOrFail();
+        $plantel      = $primerOpcion->ofertaEducativa->plantel;
+        $aulas        = $plantel->aulas;
+        $asignado     = $this->distribuirPase($aulas);
+
+        if ( ! $asignado) {
+            $sedesAlternas = SedeAlterna::where('plantel_id', $plantel->id)->get();
+            foreach ($sedesAlternas as $sede) {
+                $aulas = $sede->aulas;
+                if ($this->distribuirPase($aulas)) {
+                    $asignado = true;
+                    break;
+                }
+            }
+        }
+
+        return $asignado;
+    }
+
+    protected function distribuirPase($aulas)
+    {
+        $asignado = false;
+
+        foreach ($aulas as $aula) {
+            $pase            = Pase::where('aula_id', $aula->id);
+            $lugaresOcupados = $pase->count();
+
+            if ( ! $pase->exists()) {
+                $maximoNumeroLista = 0;
+            } else {
+                $maximoNumeroLista = $pase->max('numero_lista');
+            }
+
+            if ($lugaresOcupados == $aula->capacidad) {
+                break;
+            }
+
+            $nuevoPase               = new Pase();
+            $nuevoPase->numero_lista = $maximoNumeroLista + 1;
+            $nuevoPase->automatico   = false;
+            $nuevoPase->aula_id      = $aula->id;
+
+            try {
+                $nuevoPase->aspirante()->associate($this)->save();
+                $asignado = true;
+                break;
+            } catch (\Exception $e) {
+
+            }
+        }
+
+        return $asignado;
     }
 }
