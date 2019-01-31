@@ -8,7 +8,7 @@
                             <h3 class="card-title">Plantel</h3>
                         </div>
                         <div class="card-tools">
-                            <button class="btn btn-primary" v-if="hasActivePlanteles() && hasActivePlantelAulaCapacidad()" @click="enviarAforo()">Enviar aforo</button>
+                            <button class="btn btn-primary" v-if="rules()" @click="enviarAforo()">Enviar aforo</button>
                         </div>
                     </div>
                     <div class="card-body p-0 table-responsive">
@@ -166,9 +166,26 @@
                     type: 'success'
                 });
             },
+            rules() {
+                let home = store.state.home;
+
+                if (!home.isAforo) {
+                    return 0;
+                }
+
+                if (!this.hasActivePlanteles()) {
+                    return 0;
+                }
+
+                if (!this.hasActivePlantelAulaCapacidad()) {
+                    return 0;
+                }
+
+                return true;
+            },
             hasActivePlanteles() {
                 let planteles = store.state.home.planteles,
-                    activePlanteles = planteles.filter(plantel => plantel.active === 1);
+                    activePlanteles = planteles.filter(plantel => plantel.active || plantel.active === 1);
 
                 if (activePlanteles.length === 0) {
                     return 0;//sin planteles activos no podemos enviar el aforo
@@ -178,7 +195,7 @@
             },
             hasActivePlantelAulaCapacidad() {
                 let planteles = store.state.home.planteles,
-                    activePlanteles = planteles.filter(plantel => plantel.active === 1),
+                    activePlanteles = planteles.filter(plantel => plantel.active === 1 || plantel.active),
                     aulaPlantel = activePlanteles.filter(plantel=>plantel.aulas.length > 0),
                     hasAulasCapacidad = activePlanteles.filter(plantel=> {
                         let hasAulasCapacidad = plantel.aulas.filter(aula=>aula.capacidad>0);
@@ -197,6 +214,26 @@
                 }
 
                 return true;
+            },
+            getState() {
+                let review = null,
+                    revision_aforos = store.state.home.revision_aforos;
+
+                if ( revision_aforos === undefined) {
+                    review = {estado: 'undefined'};
+                }
+
+                if (typeof (revision_aforos) === 'object') {
+                    if (revision_aforos.length === 0) {
+                        review = {estado: 'sr'};
+                    }
+
+                    if (revision_aforos.length > 0) {
+                        review = revision_aforos[0].review.estado;
+                    }
+                }
+
+                return review.estado;
             },
             enviarAforo() {
                 console.log(store.state.home.planteles);

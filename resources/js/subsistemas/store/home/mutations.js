@@ -12,6 +12,15 @@ export default {
     especialidades(state, especialidades) {
         state.especialidades = especialidades;
     },
+    revision_aforos(state, revision_aforos) {
+        state.revision_aforos = revision_aforos;
+    },
+    isAforo(state, isAforo) {
+        state.isAforo = isAforo;
+    },
+    estado(state, estado) {
+        state.estado = estado;
+    },
     updateStatusPlantel(state, payload) {
         state.planteles[payload.index].active = payload.active;
     },

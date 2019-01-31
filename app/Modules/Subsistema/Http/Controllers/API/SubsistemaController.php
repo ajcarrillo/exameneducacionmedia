@@ -2,9 +2,9 @@
 
 namespace Subsistema\Http\Controllers\API;
 
-use ExamenEducacionMedia\Traits\ResponseTrait;
-use Illuminate\Http\Request;
 use ExamenEducacionMedia\Http\Controllers\Controller;
+use ExamenEducacionMedia\Models\EtapaProceso;
+use ExamenEducacionMedia\Traits\ResponseTrait;
 use Subsistema\Models\Subsistema;
 
 class SubsistemaController extends Controller
@@ -14,17 +14,23 @@ class SubsistemaController extends Controller
     public function show(Subsistema $subsistema)
     {
         $subsistema->loadMissing(
-            'planteles',
-            'planteles.responsable',
-            'planteles.municipio',
-            'planteles.localidad',
-            'especialidades',
-            'planteles.aulas',
-            'revisionAforos',
-            'revisionAforos.revision'
+            [
+                'planteles',
+                'planteles.responsable',
+                'planteles.municipio',
+                'planteles.localidad',
+                'especialidades',
+                'planteles.aulas',
+                'revisionAforos' => function ($query) {
+                    return $query->orderBy('id', 'desc')->first();
+                },
+                'revisionAforos.review'
+            ]
         );
 
+        $isAforo = EtapaProceso::isAforo();
+        $estado = is_null($subsistema->revisionAforos->first()) ? 'sr' : $subsistema->revisionAforos->first()->review->estado;
 
-        return $this->respondWithArray(compact('subsistema'));
+        return $this->respondWithArray(compact('subsistema', 'isAforo', 'estado'));
     }
 }

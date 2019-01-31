@@ -9,6 +9,7 @@
 namespace Subsistema\Providers;
 
 
+use ExamenEducacionMedia\Modules\Subsistema\Models\RevisionAforo;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 use Subsistema\Models\OfertaEducativa;
@@ -26,11 +27,12 @@ class SubsistemaServiceProvider extends ServiceProvider
             'sede_alterna' => SedeAlterna::class,
             'oferta_educativa' => OfertaEducativa::class,
             'ofertas' => RevisionOferta::class,
+            'aforos' => RevisionAforo::class,
         ]);
     }
 
     public function register()
     {
-        
+
     }
 }
