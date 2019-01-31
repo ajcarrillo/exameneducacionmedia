@@ -38,6 +38,16 @@ Route::middleware([ 'auth', 'role:departamento' ])
                 });
             });
 
+        Route::prefix('/sedes-alternas')
+            ->name('sedesAlternas.')
+            ->group(function () {
+                Route::get('/', 'Administracion\SedeAlternaController@index')->name('index');
+                Route::get('/create', 'Administracion\SedeAlternaController@create')->name('create');
+                Route::post('/store', 'Administracion\SedeAlternaController@store')->name('store');
+                //Route::get('/edit', 'Administracion\EtapaController@edit')->name('edit');
+                //Route::post('/update', 'Administracion\EtapaController@update')->name('update');
+            });
+
         Route::prefix('/responsablePlantel')
             ->name('responsablePlantel.')
             ->group(function () {
@@ -52,3 +62,4 @@ Route::middleware([ 'auth', 'role:departamento' ])
                 Route::post('/update/{id}','Administracion\ResponsablePlantelController@updatedesc')->name('plantel.descuentosupd');
             });
     });
+
