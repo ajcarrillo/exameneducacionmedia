@@ -7,8 +7,20 @@
                         <div class="d-flex justify-content-between">
                             <h3 class="card-title">Plantel</h3>
                         </div>
-                        <div class="card-tools">
-                            <button class="btn btn-primary" v-if="rules()" @click="enviarAforo()">Enviar aforo</button>
+                        <div class="card-tools col-sm-4">
+                            <div class="row">
+                            <div class="col-sm-6">
+                                <p v-if="getState()==='C'" class="badge badge-info">El aforo fue rechazado</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <button class="btn btn-success" v-if="rules() && getState()==='sr'" @click="enviarAforo()">
+                                    Enviar aforo
+                                </button>
+                                <p v-if="getState()==='A'" class="badge badge-info">El aforo ha sido aceptado</p>
+                                <p v-if="getState()==='R'" class="badge badge-info">El aforo esta en revisión</p>
+                                <button v-if="getState()==='C'" class="btn btn-danger" @click="motivoRechazo">Ver motivo de rechazo</button>
+                            </div>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body p-0 table-responsive">
@@ -22,7 +34,8 @@
                                     ></edit-name-form>
                                 </td>
                                 <td>
-                                    <button :data-tooltip-title="props.item.active|buttonTitle" @click="updateStatus(props.item.id, props.item.active, props.index)"
+                                    <button :data-tooltip-title="props.item.active|buttonTitle"
+                                            @click="updateStatus(props.item.id, props.item.active, props.index)"
                                             class="btn btn-link" v-tooltip:top="">
                                         <active-plantel :active="props.item.active"></active-plantel>
                                     </button>
@@ -32,18 +45,23 @@
                                 </td>
                                 <td v-if="props.item.responsable">{{ props.item.responsable.nombre_completo }}</td>
                                 <td v-else>
-                                    <router-link :to="{name:'subsistema.plantel.responsable', params:{plantelid: props.item.uuid}}">
+                                    <router-link
+                                        :to="{name:'subsistema.plantel.responsable', params:{plantelid: props.item.uuid}}">
                                         <button class="btn btn-primary btn-sm">Asignar</button>
                                     </router-link>
                                 </td>
                                 <td class="text-center">
-                                    <router-link :to="{name:'subsistema.plantel.oferta', params:{plantelid: props.item.uuid}}">
+                                    <router-link
+                                        :to="{name:'subsistema.plantel.oferta', params:{plantelid: props.item.uuid}}">
                                         <button class="btn btn-primary btn-sm">Oferta</button>
                                     </router-link>
 
-                                    <router-link :to="{name:'subsistema.plantel.aforo', params: {plantelid: props.item.uuid}}">
+                                    <router-link v-if="getState()==='sr'"
+                                        :to="{name:'subsistema.plantel.aforo', params: {plantelid: props.item.uuid}}">
                                         <button class="btn btn-primary btn-sm">Aforo</button>
                                     </router-link>
+
+                                    <button v-if="getState()==='R' || getState()==='A'" @click="mensaje(getState())" class="btn btn-primary btn-sm">Aforo</button>
 
                                 </td>
                             </template>
@@ -132,6 +150,12 @@
         },
         methods: {
             updateStatus(plantelId, estatus, index) {
+
+                if (this.getState()==='R' || this.getState()==='A') {
+                    this.mensaje(this.getState());
+                    return true;
+                }
+
                 if (estatus) {
                     //desactivar
                     store.dispatch('home/desactivarPlantel', {plantel: plantelId, index: index})
@@ -153,6 +177,11 @@
                 }
             },
             updateName(payload) {
+                if (this.getState()==='R' || this.getState()==='A') {
+                    this.mensaje(this.getState());
+                    return true;
+                }
+
                 let index = this.planteles.findIndex(function (el) {
                     return el.id == payload.id
                 });
@@ -196,9 +225,9 @@
             hasActivePlantelAulaCapacidad() {
                 let planteles = store.state.home.planteles,
                     activePlanteles = planteles.filter(plantel => plantel.active === 1 || plantel.active),
-                    aulaPlantel = activePlanteles.filter(plantel=>plantel.aulas.length > 0),
-                    hasAulasCapacidad = activePlanteles.filter(plantel=> {
-                        let hasAulasCapacidad = plantel.aulas.filter(aula=>aula.capacidad>0);
+                    aulaPlantel = activePlanteles.filter(plantel => plantel.aulas.length > 0),
+                    hasAulasCapacidad = activePlanteles.filter(plantel => {
+                        let hasAulasCapacidad = plantel.aulas.filter(aula => aula.capacidad > 0);
 
                         if (hasAulasCapacidad.length > 0) {
                             return plantel;
@@ -216,24 +245,7 @@
                 return true;
             },
             getState() {
-                let review = null,
-                    revision_aforos = store.state.home.revision_aforos;
-
-                if ( revision_aforos === undefined) {
-                    review = {estado: 'undefined'};
-                }
-
-                if (typeof (revision_aforos) === 'object') {
-                    if (revision_aforos.length === 0) {
-                        review = {estado: 'sr'};
-                    }
-
-                    if (revision_aforos.length > 0) {
-                        review = revision_aforos[0].review.estado;
-                    }
-                }
-
-                return review.estado;
+                return store.state.home.estado;
             },
             enviarAforo() {
                 console.log(store.state.home.planteles);
@@ -249,6 +261,35 @@
                 }).then((result) => {
                     if (result.value) {
                     }
+                })
+            },
+            motivoRechazo() {
+                Swal.fire({
+                    type: 'info',
+                    title: 'Motivo de rechazo.',
+                    text: store.state.home.revision_aforos[0].review.comentario,
+                    footer: ''
+                })
+            },
+            mensaje(tipo) {
+                let mensaje="";
+                switch (tipo) {
+                    case 'R':
+                    mensaje = "El aforo esta en revisión";
+                    break;
+                    case 'A':
+                        mensaje = "El aforo ha sido aceptado";
+                        break;
+                    default:
+                        mensaje= " ";
+
+                }
+
+                Swal.fire({
+                    type: 'info',
+                    title: '',
+                    text: mensaje,
+                    footer: ''
                 })
             }
         }
