@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('navbar-title')
-    Enlaces - Nuevo
+    Sedes alternas - Nuevo
 @endsection
 
 @section('content')
@@ -29,4 +29,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('extra-scripts')
+
 @endsection

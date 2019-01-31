@@ -20,7 +20,7 @@
             <div class="col-md-12">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <div class="card-title">Etapas del proceso</div>
+                        <div class="card-title">Sedes alternas</div>
                         <a class="btn btn-primary pull-right" title="Nueva sede alterna" href="{{ route('media.administracion.sedesAlternas.create') }}">Agregar</a>
                     </div>
                     <div class="card-body">

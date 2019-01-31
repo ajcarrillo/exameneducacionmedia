@@ -6,7 +6,7 @@
  * Time: 13:10
  */
 
-namespace Aspirante\Models;
+namespace MediaSuperior\Models;
 
 
 use Awobaz\Compoships\Compoships;
@@ -22,6 +22,11 @@ class Domicilio extends Model
     protected $connection = 'mysql';
     protected $table      = 'domicilios';
     protected $guarded    = [];
+
+    protected $fillable = [
+        'cve_ent', 'cve_mun', 'cve_loc', 'colonia', 'calle', 'numero', 'codigo_postal'
+    ];
+
 
     public function sedeAlterna()
     {

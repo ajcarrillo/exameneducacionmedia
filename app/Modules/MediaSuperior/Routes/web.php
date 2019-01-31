@@ -46,6 +46,7 @@ Route::middleware([ 'auth', 'role:departamento' ])
                 Route::post('/store', 'Administracion\SedeAlternaController@store')->name('store');
                 //Route::get('/edit', 'Administracion\EtapaController@edit')->name('edit');
                 //Route::post('/update', 'Administracion\EtapaController@update')->name('update');
+                //Route:get('{cveMunicipio}/localidades', 'Administracion\SedeAlternaController@getLocalidades')->name('localidades') )
             });
 
         Route::prefix('/responsablePlantel')

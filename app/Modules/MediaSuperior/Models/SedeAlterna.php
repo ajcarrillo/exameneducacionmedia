@@ -6,16 +6,16 @@
  * Time: 11:28 AM
  */
 
-namespace ExamenEducacionMedia\Modules\MediaSuperior\Models;
+namespace MediaSuperior\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
 
 class SedeAlterna extends Model
 {
-    protected $table    = 'enlaces';
+    protected $table    = 'sedes_alternas';
     protected $fillable = [
-        'descripcion', 'domicilio_id', 'plantel_id'
+        'descripcion', 'domicilio_id', 'plantel_id', 'sede_ceneval'
     ];
 
     public function domicilio()

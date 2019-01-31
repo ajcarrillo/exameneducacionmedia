@@ -8,13 +8,15 @@
 
 namespace MediaSuperior\Http\Controllers\Administracion;
 
-
 use ExamenEducacionMedia\Http\Controllers\Controller;
 
 use ExamenEducacionMedia\Models\Geodatabase\MunicipioView;
-use ExamenEducacionMedia\Modules\MediaSuperior\Models\SedeAlterna;
+
+use Illuminate\Http\Request;
+use MediaSuperior\Models\Domicilio;
 use MediaSuperior\Models\Plantel;
 use MediaSuperior\Models\Localidad;
+use MediaSuperior\Models\SedeAlterna;
 
 class SedeAlternaController extends Controller
 {
@@ -29,10 +31,37 @@ class SedeAlternaController extends Controller
     {
         $planteles = Plantel::pluck('descripcion', 'id');
         $municipios = $this->getMunicipios();
-        $localidades   = $this->getLocalidades();
+        $localidades   = $this->getLocalidades('004');
 
         return view('media_superior.administracion.sedesAlternas.create', compact('planteles', 'municipios', 'localidades'));
     }
+
+    public function store(Request $request)
+    {
+        //$this->validated($request);
+
+        $domicilio = new Domicilio($request->input());
+        $domicilio->save();
+
+        $sedeAlterna = SedeAlterna::create([
+            'descripcion' => $request->get('descripcion'),
+            'sede_ceneval' => $request->get('sede_ceneval'),
+            'domicilio_id' => $domicilio->id,
+            'plantel_id' => $request->get('plantel_id'),
+        ]);
+
+
+        $sedeAlterna = new SedeAlterna($request->input());
+        $sedeAlterna->save();
+
+        flash('La sede alterna se guardó correctamente')->success();
+        if ($request->has('addanother')) {
+            return back();
+        }
+
+        return redirect()->to($this->home);
+    }
+
 
     protected function getMunicipios()
     {
@@ -41,9 +70,9 @@ class SedeAlternaController extends Controller
             ->pluck('NOM_MUN', 'CVE_MUN');
     }
 
-    protected function getLocalidades()
+    protected function getLocalidades($cve_mun)
     {
-        return Localidad::where('CVE_ENT', 23)->where('CVE_MUN', '004')
+        return Localidad::where('CVE_ENT', 23)->where('CVE_MUN', $cve_mun)
                 ->pluck('NOM_LOC', 'CVE_LOC');
     }
 

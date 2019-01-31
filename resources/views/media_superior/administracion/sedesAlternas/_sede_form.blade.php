@@ -42,4 +42,6 @@
     <label for="">Código postal</label>
     <input class="form-control" name="codigo_postal" type="text" >
 </div>
+<input type="hidden" name="cve_ent" value="23">
+
 <input type="hidden" name="sede_ceneval" value="00">
