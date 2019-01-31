@@ -13,14 +13,14 @@
 
 <div class="form-group">
     {!! Form::label('cve_mun', 'Municipio', ['class'=>'control-label']) !!}
-    {!! Form::select('cve_mun', $municipios, NULL, ['class'=>'form-control '.($errors->has('cve_mun') ? ' is-invalid' : ''), 'required', 'placeholder'=>'Seleccione...']) !!}
+    {!! Form::select('cve_mun', $municipios, NULL, ['id'=>'cve_mun','class'=>'form-control '.($errors->has('cve_mun') ? ' is-invalid' : ''), 'required', 'placeholder'=>'Seleccione...']) !!}
     @errors(['errors'=>$errors, 'field'=>'cve_mun'])
     @enderrors
 </div>
 
 <div class="form-group">
     {!! Form::label('cve_loc', 'Localidad', ['class'=>'control-label']) !!}
-    {!! Form::select('cve_loc', $localidades, NULL, ['class'=>'form-control '.($errors->has('cve_loc') ? ' is-invalid' : ''), 'required', 'placeholder'=>'Seleccione...']) !!}
+    {!! Form::select('cve_loc', $localidades, NULL, ['id'=>'cve_loc','class'=>'form-control '.($errors->has('cve_loc') ? ' is-invalid' : ''), 'required', 'placeholder'=>'Seleccione...']) !!}
     @errors(['errors'=>$errors, 'field'=>'cve_loc'])
     @enderrors
 </div>

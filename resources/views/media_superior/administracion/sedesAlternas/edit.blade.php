@@ -32,36 +32,47 @@
 
                         <div class="form-group">
                             {!! Form::label('cve_mun', 'Municipio', ['class'=>'control-label']) !!}
-                            {!! Form::select('cve_mun', $municipios, $domicilio->cve_mun, ['class'=>'form-control '.($errors->has('cve_mun') ? ' is-invalid' : ''), 'required', 'placeholder'=>'Seleccione...']) !!}
+                            {!! Form::select('cve_mun', $municipios, $sedeAlterna->domicilio->cve_mun, ['id'=>'cve_mun', 'class'=>'form-control '.($errors->has('cve_mun') ? ' is-invalid' : ''), 'required', 'placeholder'=>'Seleccione...']) !!}
                             @errors(['errors'=>$errors, 'field'=>'cve_mun'])
                             @enderrors
                         </div>
 
                         <div class="form-group">
                             {!! Form::label('cve_loc', 'Localidad', ['class'=>'control-label']) !!}
-                            {!! Form::select('cve_loc', $localidades, $domicilio->cve_loc, ['class'=>'form-control '.($errors->has('cve_loc') ? ' is-invalid' : ''), 'required', 'placeholder'=>'Seleccione...']) !!}
+                            {!! Form::select('cve_loc', $localidades, $sedeAlterna->domicilio->cve_loc, ['id'=>'cve_loc', 'class'=>'form-control '.($errors->has('cve_loc') ? ' is-invalid' : ''), 'required', 'placeholder'=>'Seleccione...']) !!}
                             @errors(['errors'=>$errors, 'field'=>'cve_loc'])
                             @enderrors
                         </div>
+
                         <div class="form-row pb-3">
-                            <div class="col">
-                                <label for="">Calle</label>
-                                <input class="form-control" name="calle" value={{ $domicilio->calle }} required type="text" >
+                            <div class="form-group col">
+                                {!! Form::label('calle', 'Calle', ['class'=>'control-label']) !!}
+                                {!! Form::text('calle', $sedeAlterna->domicilio->calle, ['class'=>'form-control '.($errors->has('calle') ? ' is-invalid' : ''), 'required']) !!}
+                                @errors(['errors'=>$errors, 'field'=>'calle'])
+                                @enderrors
                             </div>
-                            <div class="col">
-                                <label for="numero">Número</label>
-                                <input class="form-control" name="numero" value= {{ $domicilio->numero }} type="text" >
+                            <div class="form-group col">
+                                {!! Form::label('numero', 'Numero', ['class'=>'control-label']) !!}
+                                {!! Form::text('numero', $sedeAlterna->domicilio->numero, ['class'=>'form-control '.($errors->has('numero') ? ' is-invalid' : ''), 'required']) !!}
+                                @errors(['errors'=>$errors, 'field'=>'calle'])
+                                @enderrors
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="">Colonia</label>
-                            <input class="form-control" name="colonia" value={{ $domicilio->colonia }} required type="text" >
+                            {!! Form::label('colonia', 'Colonia', ['class'=>'control-label']) !!}
+                            {!! Form::text('colonia', $sedeAlterna->domicilio->colonia, ['class'=>'form-control '.($errors->has('numero') ? ' is-invalid' : ''), 'required']) !!}
+                            @errors(['errors'=>$errors, 'field'=>'calle'])
+                            @enderrors
                         </div>
                         <div class="form-group">
-                            <label for="">Código postal</label>
-                            <input class="form-control" name="codigo_postal" value={{ $domicilio->codigo_postal }} type="text" >
+                            {!! Form::label('codigo_postal', 'Codigo Postal', ['class'=>'control-label']) !!}
+                            {!! Form::text('codigo_postal', $sedeAlterna->domicilio->codigo_postal, ['class'=>'form-control '.($errors->has('numero') ? ' is-invalid' : ''), 'required']) !!}
+                            @errors(['errors'=>$errors, 'field'=>'calle'])
+                            @enderrors
                         </div>
-                        <input type="hidden" name="domicilio_id" value={{  $domicilio->id }}>
+
+                        <input type="hidden" name="id" value={{  $sedeAlterna->id }}>
+                        <input type="hidden" name="domicilio_id" value={{  $sedeAlterna->domicilio_id }}>
 
                         <div class="form-group">
                             <button class="btn btn-success" name="save">Guardar</button>
@@ -73,4 +84,7 @@
             </div>
         </div>
     </div>
+@endsection
+@section('extra-scripts')
+    <script src="{{ mix('js/media/administracion/sedes_alternas/edit.js') }}"></script>
 @endsection

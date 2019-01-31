@@ -32,5 +32,5 @@
 @endsection
 
 @section('extra-scripts')
-
+    <script src="{{ mix('js/media/administracion/sedes_alternas/create.js') }}"></script>
 @endsection

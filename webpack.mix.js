@@ -40,3 +40,5 @@ mix.js('resources/js/media/administracion/etapas/edit.js', 'public/js/media/admi
 mix.js('resources/js/media/administracion/buscar_matricula/index.js', 'public/js/media/administracion/buscar_matricula/index.js');
 //endIgna
 mix.js('resources/js/media/administracion/responsable_plantel/eliminar.js', 'public/js/media/administracion/responsable_plantel/eliminar.js');
+mix.js('resources/js/media/administracion/sedes_alternas/create.js', 'public/js/media/administracion/sedes_alternas/create.js');
+mix.js('resources/js/media/administracion/sedes_alternas/edit.js', 'public/js/media/administracion/sedes_alternas/edit.js');
