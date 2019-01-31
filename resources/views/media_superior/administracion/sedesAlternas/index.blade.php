@@ -42,7 +42,12 @@
                                         <td>{{ $sede->descripcion }}</td>
                                         <td>{{ $sede->plantel->descripcion }}</td>
                                         <td>{{ $sede->domicilio->municipio->nombre }} </td>
-                                        <td></td>
+                                        <td>
+                                            <a href="{{ route('media.administracion.sedesAlternas.edit', $sede->id) }}">
+                                                <i class="far fa-edit mr-1"></i>
+                                            </a>
+
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

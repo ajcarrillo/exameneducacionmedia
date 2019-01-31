@@ -62,6 +62,21 @@ class SedeAlternaController extends Controller
         return redirect()->to($this->home);
     }
 
+    public function edit(SedeAlterna $sedeAlterna)
+    {
+        $domicilio = Domicilio::find($sedeAlterna->domicilio_id);
+        $planteles = Plantel::pluck('descripcion', 'id');
+        $municipios = $this->getMunicipios();
+        $localidades   = $this->getLocalidades('004');
+
+        dd($domicilio);
+        return view('media_superior.administracion.sedesAlternas.edit', compact('sedeAlterna', 'domicilio','planteles', 'municipios', 'localidades'));
+    }
+
+
+    public function update(Request $request)
+    {
+    }
 
     protected function getMunicipios()
     {
