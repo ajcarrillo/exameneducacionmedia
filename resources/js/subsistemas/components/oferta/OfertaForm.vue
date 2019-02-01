@@ -59,7 +59,7 @@
             save() {
                 store.dispatch('oferta/storeOferta', {id: this.draft.plantel_id, draft: this.draft})
                     .then(res => {
-                        store.dispatch('oferta/getOferta');
+                        store.dispatch('oferta/getOferta', this.draft.plantel_id);
 
                         this.draft.especialidad_id = '';
                         this.draft.clave = '';

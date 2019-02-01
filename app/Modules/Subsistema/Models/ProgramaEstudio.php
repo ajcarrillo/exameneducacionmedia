@@ -6,12 +6,11 @@
  * Time: 13:08
  */
 
-namespace ExamenEducacionMedia\Modules\Subsistema\Models;
+namespace Subsistema\Models;
 
 
 use Awobaz\Compoships\Compoships;
 use Illuminate\Database\Eloquent\Model;
-use Subsistema\Models\OfertaEducativa;
 
 class ProgramaEstudio extends Model
 {

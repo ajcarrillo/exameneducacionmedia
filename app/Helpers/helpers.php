@@ -15,8 +15,15 @@ if ( ! function_exists('get_user_full_name')) {
 }
 
 if ( ! function_exists('get_aspirante')) {
-    function get_aspirante() : \Aspirante\Models\Aspirante
+    function get_aspirante(): \Aspirante\Models\Aspirante
     {
         return Auth::user()->aspirante;
+    }
+}
+
+if ( ! function_exists('get_full_name_from_user')) {
+    function get_full_name_from_user($user)
+    {
+        return "{$user->nombre} {$user->primer_apellido} {$user->segundo_apellido}";
     }
 }
