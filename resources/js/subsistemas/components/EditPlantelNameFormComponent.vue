@@ -78,7 +78,7 @@
 
                 }
 
-                Swal.fire({
+                swal.fire({
                     type: 'info',
                     title: '',
                     text: mensaje,

@@ -258,7 +258,7 @@
                     return 0;
                 }
 
-                Swal.fire({
+                swal.fire({
                     title: '¿Deseas enviar el aforo?',
                     text: "",
                     type: 'warning',
@@ -281,7 +281,7 @@
                 })
             },
             motivoRechazo() {
-                Swal.fire({
+                swal.fire({
                     type: 'info',
                     title: 'Motivo de rechazo.',
                     text: store.state.home.revision_aforos[0].review.comentario,
@@ -317,7 +317,7 @@
 
                 }
 
-                Swal.fire({
+                swal.fire({
                     type: type,
                     title: '',
                     text: mensaje,
