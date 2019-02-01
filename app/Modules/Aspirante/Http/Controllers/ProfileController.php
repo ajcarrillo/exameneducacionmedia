@@ -44,7 +44,7 @@ class ProfileController
                     ->get();
 
         return view('aspirante.dashboard', compact('ofertas'));
-        //return "jajaja";
+        
     }
 
     protected function getMunicipios()
