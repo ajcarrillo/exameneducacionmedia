@@ -11,6 +11,14 @@
 |
 */
 
+Route::post('/login-as-user', 'Auth\LoginAsController@loginAsUser')
+    ->middleware([ 'auth', 'role:departamento,admin' ])
+    ->name('login.as.user');
+
+Route::post('/logout-as-user', 'Auth\LoginAsController@logout')
+    ->middleware([ 'auth' ])
+    ->name('logout.as.user');
+
 Route::middleware([ 'auth', 'role:departamento' ])
     ->prefix('/administracion')
     ->as('administracion.')
