@@ -18,7 +18,7 @@ class CuestionarioController extends Controller
     {
         $preguntas = Pregunta::with('hijos','hijos.diccionario','hijos.diccionario.respuestas')
             ->whereNull('padre_id')
-            ->get();
+            ->paginate(7);
         return view('aspirante.cuestionario.captura_cuestionario', compact('preguntas'));
     }
 }

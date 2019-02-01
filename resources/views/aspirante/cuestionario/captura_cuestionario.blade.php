@@ -11,7 +11,7 @@
 @endsection
 
 @section('navbar-title')
-Aspirante - Capturar cuestionario
+	Aspirante - Capturar cuestionario
 @endsection
 
 @section('content')
@@ -24,33 +24,34 @@ Aspirante - Capturar cuestionario
 					</div>
 					<div class="card-body">
 						{!! Form::open(['class'=>'', 'method'=>'post', 'name'=>'form-cuestionario', 'id' => 'form-cuestionario']) !!}
-							@foreach($preguntas as $pregunta)
-								<div class="card card-info">
-									<div class="card-header">
-										{{ $pregunta->nombre }}
-									</div>
-
-									<div class="card-body">
-										<ul class="list-group">
-											@foreach($pregunta->hijos as $hijo)
-												<li class="list-group-item list-group-item-action">
-													<b>{{ $hijo->nombre }}</b>
-
-													<select name="respuesta" id="" class="form-control col-md-6" required>
-														<option value="">Seleccione...</option>
-														@foreach($hijo->diccionario->respuestas  as $respuesta)
-															<option value="{{ $respuesta->id }}">{{ $respuesta->etiqueta }}</option>
-														@endforeach
-													</select>
-												</li>
-											@endforeach
-										</ul>
-									</div>
+						@foreach($preguntas as $pregunta)
+							<div class="card card-info">
+								<div class="card-header">
+									{{ $pregunta->nombre }}
 								</div>
-							@endforeach
+
+								<div class="card-body">
+									<ul class="list-group">
+										@foreach($pregunta->hijos as $hijo)
+											<li class="list-group-item list-group-item-action">
+												<b>{{ $hijo->nombre }}</b>
+
+												<select name="respuesta" id="" class="form-control col-md-6" required>
+													<option value="">Seleccione...</option>
+													@foreach($hijo->diccionario->respuestas  as $respuesta)
+														<option value="{{ $respuesta->id }}">{{ $respuesta->etiqueta }}</option>
+													@endforeach
+												</select>
+											</li>
+										@endforeach
+									</ul>
+								</div>
+							</div>
+						@endforeach
 						{!! Form::close() !!}
 					</div>
 					<div class="card-footer">
+						{{$preguntas->links()}}
 					</div>
 				</div>
 			</div>
