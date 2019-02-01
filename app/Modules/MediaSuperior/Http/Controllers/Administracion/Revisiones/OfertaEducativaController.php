@@ -3,12 +3,15 @@
 namespace MediaSuperior\Http\Controllers\Administracion\Revisiones;
 
 
+use ExamenEducacionMedia\Exports\UsersExport;
 use ExamenEducacionMedia\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use MediaSuperior\Models\Revision;
 use Subsistema\Models\OfertaEducativa;
 use Subsistema\Models\RevisionOferta;
 use Subsistema\Models\Subsistema;
 use DB;
+use Maatwebsite\Excel;
 
 
 class OfertaEducativaController extends Controller
@@ -20,11 +23,12 @@ class OfertaEducativaController extends Controller
      */
     public function index()
     {
+        $estado = '';
         $revisiones = array();
         $subsistemas = Subsistema::select('id',DB::raw('referencia'))
             ->orderBy('id', 'asc')
             ->get()->pluck('referencia', 'id');
-        return view('media_superior.administracion.ofertaEducativa.index', compact('subsistemas', 'revisiones'));
+        return view('media_superior.administracion.ofertaEducativa.index', compact('subsistemas', 'revisiones', 'estado'));
     }
 
     public function oferta(Request $request)
@@ -34,9 +38,11 @@ class OfertaEducativaController extends Controller
         $revisiones = array();
 
         if(!empty($estado)){
-            $revisiones = RevisionOferta::with(['review'=>function($query) use ($request) {
+            /*$revisiones = RevisionOferta::with(['review'=>function($query) use ($request) {
                 return $query->where('estado', $request->get('estado'));
-            }, 'subsistema','review.usuarioApertura','review.usuarioRevision'])->get();
+            }, 'subsistema','review.usuarioApertura','review.usuarioRevision'])->get();*/
+
+            $revisiones = Revision::where('estado',$request->get('estado'))->with('revision','revision.subsistema','usuarioApertura','usuarioRevision')->get();
         }
 
         if(!empty($subsistema_id)){
@@ -49,84 +55,24 @@ class OfertaEducativaController extends Controller
             ->orderBy('id', 'asc')
             ->get()->pluck('referencia', 'id');
 
-        return view('media_superior.administracion.ofertaEducativa.index', compact('subsistemas', 'revisiones'));
+        return view('media_superior.administracion.ofertaEducativa.index', compact('subsistemas', 'revisiones', 'estado'));
     }
 
     public function guardarComentario(Request $request)
     {
-
-        //dd($request->get('comentario'));
-        $revisiones = array();
-        $subsistemas = Subsistema::select('id',DB::raw('referencia'))
-            ->orderBy('id', 'asc')
-            ->get()->pluck('referencia', 'id');
-        return view('media_superior.administracion.ofertaEducativa.index', compact('subsistemas', 'revisiones'));
+        $id = $request->get('id');
+        Revision::find($id)->update(
+            [
+                'estado' => 'C',
+                'comentario' => $request->get('comentario'),
+            ]
+        );
+        flash('Se rechazo la oferta educativa exitosamente')->success();
+        return redirect()->back();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function imprimir(Request $request)
     {
-        //
+        return  \Excel::download( new UsersExport($request->get('subsistema_id')), 'ofertaEducativa.csv');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
 }

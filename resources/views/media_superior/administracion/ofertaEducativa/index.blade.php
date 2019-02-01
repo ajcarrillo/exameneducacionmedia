@@ -10,7 +10,15 @@
 @section('content')
 	<div class="container">
 		<div class="row">
+			<div class="row">
+				<div class="col-md-12">
+					@include('flash::message')
+				</div>
+			</div>
 			<div class="col-md-12">
+				<div class="overlay overlay-oferta" style="display: none">
+					<i class="fa fa-refresh fa-spin"></i>
+				</div>
 				<div class="card card-primary card-outline">
 					<div class="card-header">
 						<div class="card-title">Revisión<small> Oferta educativa</small></div>
@@ -31,7 +39,6 @@
 								@endforeach
 							</div>
 						</div>
-						<!--<a class="btn btn-primary pull-right" title="Editar" href="{{ route('media.administracion.etapasProceso.edit') }}">Editar</a>-->
 					</div>
 					<div class="card-body">
 						<div class="table-responsive-sm">
@@ -49,11 +56,42 @@
 								</thead>
 								<tbody>
 									@foreach($revisiones as $revision)
-										@if(!empty($revision->review))
+										@if(!empty($estado))
+											<tr>
+												<td>{{$loop->iteration}}</td>
+												<td>{{$revision->revision->subsistema->referencia}}</td>
+												<td>{{Jenssegers\Date\Date::parse($revision->fecha_apertura)->format('j \\d\\e F Y')}}</td>
+												<td>{{$revision->usuarioApertura->nombre.' '.$revision->usuarioApertura->primer_apellido.' '.$revision->usuarioApertura->segundo_apellido}}</td>
+												@if($revision->estado == 'A')
+													<td>{{'Aceptado'}}</td>
+												@elseif($revision->estado == 'R')
+													<td>{{'En revisión'}}</td>
+												@elseif($revision->estado = 'C')
+													<td>{{'Cancelado'}}</td>
+												@endif
+												<td>{{$revision->usuarioRevision->nombre.' '.$revision->usuarioRevision->primer_apellido.' '.$revision->usuarioRevision->segundo_apellido}}</td>
+												<td>
+													<div class="dropdown">
+														<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+															Opciones
+														</button>
+														<div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+															@if($revision->estado <> 'C')
+																<a data-toggle="modal" data-target="#modalConfirmar"
+																   class="dropdown-item" href="#"
+																   id="btn_motivo_rechazo" data-id="{{$revision->id}}">Motivo
+																	rechazo</a>
+															@endif
+															<a class="dropdown-item" href="{{route('media.administracion.revisiones.ofertaEducativa.imprimir', ['subsistema_id'=>$revision->revision->subsistema_id])}}" id="btn_imprimir" data-id="{{$revision->subsistema_id}}">Descargar CSV</a>
+														</div>
+													</div>
+												</td>
+											</tr>
+											@else
 											<tr>
 												<td>{{$loop->iteration}}</td>
 												<td>{{$revision->subsistema->referencia}}</td>
-												<td>{{Jenssegers\Date\Date::parse($revision->fecha_apertura)->format('j \\d\\e F Y')}}</td>
+												<td>{{Jenssegers\Date\Date::parse($revision->review->fecha_apertura)->format('j \\d\\e F Y')}}</td>
 												<td>{{$revision->review->usuarioApertura->nombre.' '.$revision->review->usuarioApertura->primer_apellido.' '.$revision->review->usuarioApertura->segundo_apellido}}</td>
 												@if($revision->review->estado == 'A')
 													<td>{{'Aceptado'}}</td>
@@ -69,18 +107,16 @@
 															Opciones
 														</button>
 														<div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-															<a data-toggle="modal" data-target="#modalConfirmar"
-															   class="dropdown-item" href="#"
-															   id="btn_motivo_rechazo" data-id="{{$revision->id}}">Motivo
-																rechazo</a>
-															<a class="dropdown-item" href="#">Imprimir</a>
+															@if($revision->review->estado <> 'C')
+																<a data-toggle="modal" data-target="#modalConfirmar"
+																   class="dropdown-item" href="#"
+																   id="btn_motivo_rechazo" data-id="{{$revision->review->id}}">Motivo
+																	rechazo</a>
+															@endif
+															<a class="dropdown-item" href="{{route('media.administracion.revisiones.ofertaEducativa.imprimir', ['subsistema_id'=>$revision->subsistema_id])}}" id="btn_imprimir" data-id="{{$revision->subsistema_id}}">Descargar CSV</a>
 														</div>
 													</div>
 												</td>
-											</tr>
-										@else
-											<tr>
-												<td colspan="7"><p class="text-center">Sin resultados.</p></td>
 											</tr>
 										@endif
 									@endforeach
@@ -108,6 +144,7 @@
 						<div class="form-group">{!! Form::label('observacion','Comentario:') !!}
 							{!! Form::textarea('comentario',NULL,['class'=>'form-control','rows'=>3,'required','id'=>'comentario']) !!}
 						</div>
+						<div id="mensajeUsuario"></div>
 					</form>
 				</div>
 				<div class="modal-footer">
