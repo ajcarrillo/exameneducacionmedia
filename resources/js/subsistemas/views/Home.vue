@@ -84,7 +84,6 @@
     import PlantelesTable from '../../components/TableComponent'
     import MyTooltip from '../../directives/TooltipDirective'
     import EditNameForm from '../components/EditPlantelNameFormComponent';
-    import Swal from 'sweetalert2';
 
     Vue.directive('tooltip', MyTooltip);
 

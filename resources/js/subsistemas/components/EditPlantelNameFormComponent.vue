@@ -24,7 +24,6 @@
 
 <script>
     import store from '../store/store';
-    import Swal from 'sweetalert2';
 
     export default {
         name: "EditPlantelNameFormComponent",
