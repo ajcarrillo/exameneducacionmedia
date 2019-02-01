@@ -10,7 +10,6 @@ namespace Subsistema\Models;
 
 
 use Awobaz\Compoships\Compoships;
-use ExamenEducacionMedia\Modules\Subsistema\Models\ProgramaEstudio;
 use Illuminate\Database\Eloquent\Model;
 
 class OfertaEducativa extends Model

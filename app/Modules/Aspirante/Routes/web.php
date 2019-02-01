@@ -16,11 +16,18 @@ Route::post('/registro-externo', 'RegistroExternoController@store')->name('regis
 Route::get('/registro-matricula', 'RegistroMatriculaController@index')->name('registro.matricula');
 Route::post('/registro-matricula', 'RegistroMatriculaController@store')->name('registro.matricula');
 
-Route::middleware(['auth', 'role:aspirante'])
+Route::middleware([ 'auth', 'role:aspirante' ])
     ->name('aspirante.profile')
     ->get('/datos-generales', 'ProfileController');
+
+Route::middleware([ 'auth', 'role:aspirante' ])
+    ->name('aspirantes.seleccion.oferta')
+    ->get('/opciones-educativas', 'SeleccionOfertaController');
 
 Route::view('/', 'aspirante.dashboard')
     ->middleware([ 'auth', 'role:aspirante' ])
     ->name('aspirantes.dashboard');
 
+//-- Rutas Igna
+Route::get('/captura-cuestionario', 'CuestionarioController@index')->name('captura.cuestionario');
+//-- End Igna

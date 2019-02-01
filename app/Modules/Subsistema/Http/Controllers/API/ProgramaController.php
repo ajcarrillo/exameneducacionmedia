@@ -9,7 +9,7 @@
 namespace Subsistema\Http\Controllers\API;
 
 
-use ExamenEducacionMedia\Modules\Subsistema\Models\ProgramaEstudio;
+use Subsistema\Models\ProgramaEstudio;
 
 class ProgramaController
 {

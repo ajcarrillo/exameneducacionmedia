@@ -25,6 +25,9 @@ class DatabaseSeeder extends Seeder
             'database/queries/planteles.sql',
             'database/queries/configuraciones.sql',
             'database/queries/entidades.sql',
+            'database/queries/ceneval_diccionarios.sql',
+            'database/queries/ceneval_preguntas.sql',
+            'database/queries/ceneval_respuestas.sql'
         ];
         foreach ($files as $path) {
             DB::unprepared(file_get_contents($path));
