@@ -22,7 +22,6 @@ export default {
                 programa_estudio_id: payload.draft.programa_estudio_id,
             })
                 .then(res => {
-                    context.commit('storeOferta', res);
                     resolve(res);
                 })
                 .catch(err => {

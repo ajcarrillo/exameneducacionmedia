@@ -33,9 +33,29 @@ Route::middleware([ 'auth', 'role:departamento' ])
             ->group(function () {
                 Route::get('/', 'Administracion\BuscarMatriculaController@index')->name('index');
                 Route::post('/buscar', 'Administracion\BuscarMatriculaController@buscarEstudiante')->name('buscar');
-                Route::get('/buscar', function() {
+                Route::get('/buscar', function () {
                     return redirect()->route('media.administracion.estudiante.index');
                 });
+            });
+
+        Route::prefix('/responsablePlantel')
+            ->name('responsablePlantel.')
+            ->group(function () {
+                Route::get('/', 'Administracion\ResponsablePlantelController@index')->name('index');
+                Route::get('/edit/{plantel}', 'Administracion\ResponsablePlantelController@edit')->name('plantel.edit');
+                Route::post('/store{plantel}', 'Administracion\ResponsablePlantelController@store')->name('plantel.store');
+                Route::get('/edit/{Plantel}', 'Administracion\ResponsablePlantelController@edit')->name('plantel.edit');
+                Route::get('/actualiza-responsable/{plantel}', 'Administracion\ResponsablePlantelController@Actualiza_responsable')->name('plantel.Actualiza_responsable ');
+                Route::post('/set_responsable/{plantel}', 'Administracion\ResponsablePlantelController@set_responsable')->name('plantel.set_responsable');
+                Route::get('/delete/{plantel}', 'Administracion\ResponsablePlantelController@delete_responsable')->name('plantel.delete_responsable');
+                Route::get('/descuentos/{Plantel}', 'Administracion\ResponsablePlantelController@descuentos')->name('plantel.descuentos');
+                Route::post('/update/{id}', 'Administracion\ResponsablePlantelController@updatedesc')->name('plantel.descuentosupd');
+            });
+
+        Route::prefix('/usuarios')
+            ->name('usuarios.')
+            ->group(function () {
+                Route::get('/', 'UserController')->name('index');
             });
 
         Route::prefix('/revisiones')
