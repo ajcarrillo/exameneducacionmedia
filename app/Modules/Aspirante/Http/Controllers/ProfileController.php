@@ -12,7 +12,7 @@ namespace Aspirante\Http\Controllers;
 use ExamenEducacionMedia\Models\Entidad;
 use ExamenEducacionMedia\Models\Geodatabase\MunicipioView;
 use ExamenEducacionMedia\Models\Geodatabase\Pais;
-use Subsistema\Models\SeleccionOfertaEducativa;
+use Aspirante\Models\Seleccion;
 
 class ProfileController
 {
@@ -38,7 +38,7 @@ class ProfileController
     public function index()
     {
         $aspirante = get_aspirante();
-        $ofertas = SeleccionOfertaEducativa::with('ofertaEducativa')
+        $ofertas = Seleccion::with('ofertaEducativa')
                     ->where('aspirante_id', $aspirante->id)
                     ->orderBy('preferencia', 'asc')
                     ->get();

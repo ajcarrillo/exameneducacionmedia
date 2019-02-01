@@ -63,11 +63,13 @@
                                     <h6 class="font-weight-medium mb-0">{{ get_user_full_name() }}</h6>
                                     <small>Folio CENEVAL: {{ get_aspirante()->folio }}</small>
                                 </div>
-                                <div class="mb-3"></div>
+
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-9 card">
+
+
+                    <div class=" card ">
 
                         <div class="row" >
 
@@ -83,39 +85,47 @@
 
 
 
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 ">
 
-                                <div class="card" style="text-align: center">
+                                    <div class="card text-center">
 
-                                    <gmap-map
-                                            ref="gmap"
-                                            :center="google && new google.maps.LatLng({{ $oferta->ofertaEducativa->plantel->latitud}}, {{ $oferta->ofertaEducativa->plantel->longitud}})"
-                                            :zoom="10"
-                                            style="width:100%;  height: 300px;"
-                                    >
-
-                                        <gmap-marker
-                                                :position="google && new google.maps.LatLng({{ $oferta->ofertaEducativa->plantel->latitud}}, {{ $oferta->ofertaEducativa->plantel->longitud}})"
-                                        ></gmap-marker>
-
-                                        <gmap-info-window
-                                                :options="infoOptions"
-                                                :position="infoWindowPos"
-                                                :opened="infoWinOpen"
-                                                @closeclick="infoWinOpen=false"
+                                        <gmap-map
+                                                ref="gmap"
+                                                :center="google && new google.maps.LatLng({{ $oferta->ofertaEducativa->plantel->latitud}}, {{ $oferta->ofertaEducativa->plantel->longitud}})"
+                                                :zoom="15"
+                                                style="width:100%;  height: 300px;"
                                         >
-                                            <div v-html="infoContent"></div>
-                                        </gmap-info-window>
 
-                                    </gmap-map>
+                                            <gmap-marker
+                                                    :position="google && new google.maps.LatLng({{ $oferta->ofertaEducativa->plantel->latitud}}, {{ $oferta->ofertaEducativa->plantel->longitud}})"
+                                            ></gmap-marker>
 
-                                    <div class="card-body" style="height: 11cm">
-                                        <p class="card-title text-primary"><b>{{ $oferta->ofertaEducativa->especialidad->referencia }}</b></p>
-                                        <p class="card-text">{{ $oferta->ofertaEducativa->plantel->descripcion }}</p>
-                                        <hr>
-                                        <p class="card-text" style="text-align: justify" ><b>Descripcion:</b><br>{{ $oferta->ofertaEducativa->especialidad->descripcion}}</p>
+                                            <gmap-info-window
+                                                    :options="infoOptions"
+                                                    :position="infoWindowPos"
+                                                    :opened="infoWinOpen"
+                                                    @closeclick="infoWinOpen=false"
+                                            >
+                                                <div v-html="infoContent"></div>
+                                            </gmap-info-window>
+
+                                        </gmap-map>
+
+                                        <div class="card-body" style="height: 14cm">
+                                            <h2><span class="badge badge-pill badge-success">{{$oferta->preferencia}}</span></h2>
+                                            <div style="height: 140px;">
+                                                <p class="card-title text-primary"><b>{{ $oferta->ofertaEducativa->especialidad->referencia }}</b></p>
+                                                <p class="card-text">{{ $oferta->ofertaEducativa->plantel->descripcion }}</p>
+                                            </div>
+
+
+                                            <hr>
+                                            <p class="card-text" style="text-align: justify; "  ><b>Descripcion:</b><br>{{ $oferta->ofertaEducativa->especialidad->descripcion}}</p>
+
+                                        </div>
                                     </div>
-                                </div>
+
+
                             </div>
                             @endforeach
                         </div>

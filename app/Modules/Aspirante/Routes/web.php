@@ -21,10 +21,14 @@ Route::middleware([ 'auth', 'role:aspirante' ])
     ->get('/datos-generales', 'ProfileController');
 
 Route::middleware([ 'auth', 'role:aspirante' ])
+    ->name('aspirantes.seleccion.oferta')
+    ->get('/opciones-educativas', 'SeleccionOfertaController');
+
+Route::middleware([ 'auth', 'role:aspirante' ])
     ->prefix('/')
     ->name('aspirante.')
     ->group(function () {
-        //Route::view('/', 'aspirante.dashboard');
+
         Route::prefix('/')
             ->name('dashboard.')
             ->group(function () {
