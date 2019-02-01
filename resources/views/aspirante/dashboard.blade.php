@@ -9,6 +9,13 @@
             padding-bottom: 50px;
             padding-left: 30px;
         }
+        #crd:hover {
+            transform: translateY(-5px);
+            border: none;
+            border-bottom: 7px solid #2196fe;
+            transition: all 0.25s ease-in;
+        }
+
 
     </style>
 
@@ -87,7 +94,7 @@
 
                             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 ">
 
-                                    <div class="card text-center">
+                                    <div id="crd" class="card text-center">
 
                                         <gmap-map
                                                 ref="gmap"
