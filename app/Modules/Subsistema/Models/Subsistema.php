@@ -9,13 +9,14 @@
 namespace Subsistema\Models;
 
 
-use Awobaz\Compoships\Compoships;
+
+use ExamenEducacionMedia\Modules\Subsistema\Models\RevisionAforo;
 use ExamenEducacionMedia\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Subsistema extends Model
 {
-    use Compoships;
+
 
     protected $table = 'subsistemas';
 
@@ -33,4 +34,16 @@ class Subsistema extends Model
     {
         return $this->hasMany(Especialidad::class, 'subsistema_id');
     }
+
+    public function revisionAforos()
+    {
+        return $this->hasMany(RevisionAforo::class, 'subsistema_id');
+    }
+
+    public function revisiones()
+    {
+        return $this->hasMany(RevisionOferta::class,'subsistema_id');
+    }
+
+
 }
