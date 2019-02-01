@@ -22,7 +22,7 @@ Route::middleware([ 'auth', 'role:aspirante' ])
 
 Route::middleware([ 'auth', 'role:aspirante' ])
     ->prefix('/')
-    ->name('aspirantes.')
+    ->name('aspirante.')
     ->group(function () {
         //Route::view('/', 'aspirante.dashboard');
         Route::prefix('/')

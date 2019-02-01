@@ -70,11 +70,23 @@
                     <div class="col-lg-9 card">
 
                         <div class="row" >
+
+                            @if(count($ofertas) == 0)
+                                <div class="col-md-12">
+                                    <div class="alert alert-warning" >
+                                       <strong>Error!</strong> No cuenta con ofertas educativas.
+                                    </div>
+                                </div>
+                            @endif
+
                             @foreach($ofertas as $oferta)
 
+
+
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+
                                 <div class="card" style="text-align: center">
-                                    {{--<img class="card-img-top" src="{{asset('icono-card.jpg')}}" alt="Card image cap">--}}
+
                                     <gmap-map
                                             ref="gmap"
                                             :center="google && new google.maps.LatLng({{ $oferta->ofertaEducativa->plantel->latitud}}, {{ $oferta->ofertaEducativa->plantel->longitud}})"
