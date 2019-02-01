@@ -151,6 +151,7 @@ return [
          * Package Service Providers...
          */
         Jenssegers\Date\DateServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -218,6 +219,7 @@ return [
         'Date'         => Jenssegers\Date\Date::class,
         'Form'         => Collective\Html\FormFacade::class,
         'Html'         => Collective\Html\HtmlFacade::class,
+        'Excel'        => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];
