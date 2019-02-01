@@ -12,7 +12,7 @@ class LoginAsController extends Controller
     public function loginAsUser(Request $request)
     {
         $originalUserId = $request->user()->id;
-        $loginAsUserId  = 2;
+        $loginAsUserId  = request('userId');
 
         session()->put('imporsonate.has_impersonated', true);
         session()->put($this->sessionKey, $originalUserId);
@@ -39,7 +39,7 @@ class LoginAsController extends Controller
         session()->forget($this->sessionKey);
         session()->forget('imporsonate.has_impersonated');
 
-        return back();
+        return redirect()->route('media.administracion.usuarios.index');
     }
 
     protected function hasImpersonated()

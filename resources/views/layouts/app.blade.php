@@ -99,15 +99,7 @@
                             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                                 <span class="dropdown-header">Opciones</span>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item dropdown-footer" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    Salir
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
+                                @include('partials.login_as_user')
                             </div>
                         </li>
                     </ul>
