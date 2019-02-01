@@ -28,3 +28,6 @@ Route::view('/', 'aspirante.dashboard')
     ->middleware([ 'auth', 'role:aspirante' ])
     ->name('aspirantes.dashboard');
 
+//-- Rutas Igna
+Route::get('/captura-cuestionario', 'CuestionarioController@index')->name('captura.cuestionario');
+//-- End Igna

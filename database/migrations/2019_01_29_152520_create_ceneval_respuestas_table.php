@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRevisionAforosTable extends Migration
+class CreateCenevalRespuestasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateRevisionAforosTable extends Migration
      */
     public function up()
     {
-        Schema::create('revision_aforos', function (Blueprint $table) {
+        Schema::create('ceneval_respuestas', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedTinyInteger('subsistema_id');
-            $table->foreign('subsistema_id')->references('id')->on('subsistemas');
+            $table->string('valor', 4);
+            $table->string('etiqueta', 250);
+            $table->unsignedInteger('diccionario_id');
             $table->timestamps();
+
+            $table->foreign('diccionario_id')->references('id')->on('ceneval_diccionarios');
         });
     }
 
@@ -28,6 +31,6 @@ class CreateRevisionAforosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('revision_aforos');
+        Schema::dropIfExists('ceneval_respuestas');
     }
 }
