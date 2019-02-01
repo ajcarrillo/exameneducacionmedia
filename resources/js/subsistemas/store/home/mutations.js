@@ -33,5 +33,24 @@ export default {
     },
     actualizaNombre(state, payload) {
         state.planteles[payload.index].descripcion = payload.draft;
+    },
+    reloadData: function (state, res) {
+        let subsistema = res.data.subsistema,
+            planteles = res.data.subsistema.planteles,
+            especialidades = res.data.subsistema.especialidades,
+            revision_aforos = res.data.subsistema.revision_aforos,
+            isAforo = res.data.isAforo,
+            estado = res.data.estado;
+
+        state.subsistema = {
+            id: subsistema.id,
+            referencia: subsistema.referencia,
+            descripcion: subsistema.descripcion
+        };
+        state.planteles = planteles;
+        state.especialidades = especialidades;
+        state.revision_aforos = revision_aforos;
+        state.isAforo = isAforo;
+        state.estado = estado;
     }
-}
+};

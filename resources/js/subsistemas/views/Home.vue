@@ -7,20 +7,24 @@
                         <div class="d-flex justify-content-between">
                             <h3 class="card-title">Plantel</h3>
                         </div>
-                        <div class="card-tools col-sm-4">
-                            <div class="row">
-                            <div class="col-sm-6">
-                                <p v-if="getState()==='C'" class="badge badge-info">El aforo fue rechazado</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <button class="btn btn-success" v-if="rules() && getState()==='sr'" @click="enviarAforo()">
-                                    Enviar aforo
-                                </button>
-                                <p v-if="getState()==='A'" class="badge badge-info">El aforo ha sido aceptado</p>
-                                <p v-if="getState()==='R'" class="badge badge-info">El aforo esta en revisión</p>
-                                <button v-if="getState()==='C'" class="btn btn-danger" @click="motivoRechazo">Ver motivo de rechazo</button>
-                            </div>
-                            </div>
+                        <div class="card-tools col-sm-5">
+                            <button type="button" class="btn btn-sm btn-success float-right ml-1" v-if="getState()==='sr' || getState()==='C'" @click="enviarAforo()">
+                                <i class="fa fa-arrow-right"></i>
+                                Enviar aforo
+                            </button>
+                            <button type="button" class="btn btn-sm btn-danger float-right ml-1" v-if="getState()==='C'" @click="motivoRechazo">
+                                <i class="fa fa-eye"></i>
+                                Ver motivo de rechazo
+                            </button>
+                            <button type="button" class="btn btn-sm btn-info float-right disabled ml-1" v-if="getState()==='C'">
+                                El aforo fue rechazado
+                            </button>
+                            <button type="button" class="btn btn-sm btn-info float-right disabled ml-1" v-if="getState()==='A'">
+                                El aforo ha sido aceptado
+                            </button>
+                            <button type="button" class="btn btn-sm btn-info float-right disabled ml-1" v-if="getState()==='R'">
+                                El aforo esta en revisión
+                            </button>
                         </div>
                     </div>
                     <div class="card-body p-0 table-responsive">
@@ -56,7 +60,7 @@
                                         <button class="btn btn-primary btn-sm">Oferta</button>
                                     </router-link>
 
-                                    <router-link v-if="getState()==='sr'"
+                                    <router-link v-if="getState()==='sr' || getState()==='C'"
                                         :to="{name:'subsistema.plantel.aforo', params: {plantelid: props.item.uuid}}">
                                         <button class="btn btn-primary btn-sm">Aforo</button>
                                     </router-link>
@@ -131,6 +135,9 @@
             },
             especialidades() {
                 return store.state.home.especialidades;
+            },
+            estado() {
+                return store.state.home.estado;
             }
         },
         created() {
@@ -177,10 +184,6 @@
                 }
             },
             updateName(payload) {
-                if (this.getState()==='R' || this.getState()==='A') {
-                    this.mensaje(this.getState());
-                    return true;
-                }
 
                 let index = this.planteles.findIndex(function (el) {
                     return el.id == payload.id
@@ -199,14 +202,17 @@
                 let home = store.state.home;
 
                 if (!home.isAforo) {
+                    this.mensaje('aforo');
                     return 0;
                 }
 
                 if (!this.hasActivePlanteles()) {
+                    this.mensaje('plantel')
                     return 0;
                 }
 
                 if (!this.hasActivePlantelAulaCapacidad()) {
+                    this.mensaje('capacidad');
                     return 0;
                 }
 
@@ -248,7 +254,11 @@
                 return store.state.home.estado;
             },
             enviarAforo() {
-                console.log(store.state.home.planteles);
+
+                if (!this.rules()) {
+                    return 0;
+                }
+
                 Swal.fire({
                     title: '¿Deseas enviar el aforo?',
                     text: "",
@@ -260,6 +270,14 @@
                     cancelButtonText: 'Cancelar'
                 }).then((result) => {
                     if (result.value) {
+                        store.dispatch('home/storeRevision')
+                            .then(res => {
+                                console.log(res);
+                            })
+                            .catch(err => {
+                                this.mensaje('error', 'Lo sentimos, algo ha salido mal intenta de nuevo.')
+                                console.log(err);
+                            })
                     }
                 })
             },
@@ -271,14 +289,29 @@
                     footer: ''
                 })
             },
-            mensaje(tipo) {
-                let mensaje="";
+            mensaje(tipo, msj) {
+                let mensaje = "",
+                    type = "info";
+
                 switch (tipo) {
                     case 'R':
-                    mensaje = "El aforo esta en revisión";
+                    mensaje = "El aforo esta en revisión.";
                     break;
                     case 'A':
-                        mensaje = "El aforo ha sido aceptado";
+                        mensaje = "El aforo ha sido aceptado.";
+                        break;
+                    case 'plantel':
+                        mensaje = "El aforo no tiene planteles activos.";
+                        break;
+                    case 'aforo':
+                        mensaje = "La etapa de aforo no esta aperturada.";
+                        break;
+                    case 'capacidad':
+                        mensaje = "El aforo tiene planteles activos sin capacidad";
+                        break;
+                    case 'error':
+                        mensaje = msj;
+                        type = "error";
                         break;
                     default:
                         mensaje= " ";
@@ -286,7 +319,7 @@
                 }
 
                 Swal.fire({
-                    type: 'info',
+                    type: type,
                     title: '',
                     text: mensaje,
                     footer: ''

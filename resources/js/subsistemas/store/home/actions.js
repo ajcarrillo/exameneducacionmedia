@@ -73,5 +73,18 @@ export default {
     },
     actualizaNombre(context, payload) {
         context.commit('actualizaNombre', payload);
+    },
+    storeRevision: function (context) {
+        return new Promise(function (resolve, reject) {
+            axios.post(route("api.revision.store"))
+                .then(res => {
+                    context.commit("reloadData", res);
+                    resolve(res);
+                })
+                .catch(err => {
+                    console.log(err.response);
+                    reject(err);
+                });
+        });
     }
-}
+};
