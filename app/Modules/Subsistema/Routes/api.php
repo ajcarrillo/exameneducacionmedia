@@ -59,3 +59,9 @@ Route::resource('subsistemas', 'API\SubsistemaController')
     ->names([
         'show' => 'api.subsistemas.show',
     ]);
+
+Route::group([
+    'prefix' => '/subsistemas'
+], function () {
+    Route::post('/revision', 'API\AforoController@storeRevision')->name('api.revision.store');
+});

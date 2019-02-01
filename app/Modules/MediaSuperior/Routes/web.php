@@ -33,7 +33,7 @@ Route::middleware([ 'auth', 'role:departamento' ])
             ->group(function () {
                 Route::get('/', 'Administracion\BuscarMatriculaController@index')->name('index');
                 Route::post('/buscar', 'Administracion\BuscarMatriculaController@buscarEstudiante')->name('buscar');
-                Route::get('/buscar', function () {
+                Route::get('/buscar', function() {
                     return redirect()->route('media.administracion.estudiante.index');
                 });
             });
@@ -67,7 +67,7 @@ Route::middleware([ 'auth', 'role:departamento' ])
                         Route::get('/','Administracion\Revisiones\OfertaEducativaController@index')->name('index');
                         Route::get('/oferta','Administracion\Revisiones\OfertaEducativaController@oferta')->name('oferta');
                         Route::get('/guardarComentario','Administracion\Revisiones\OfertaEducativaController@guardarComentario')->name('guardarComentario');
-                        Route::get('/imprimir','Administracion\Revisiones\OfertaEducativaController@imprimir')->name('imprimir');
                     });
             });
     });
+

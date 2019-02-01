@@ -45,3 +45,4 @@ mix.js('resources/js/media/administracion/responsable_plantel/eliminar.js', 'pub
 //alvaro
 mix.js('resources/js/media/administracion/oferta_educativa/index.js', 'public/js/media/administracion/oferta_educativa/index.js');
 //endAlvaro
+
