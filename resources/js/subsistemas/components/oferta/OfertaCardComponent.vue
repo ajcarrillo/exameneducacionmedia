@@ -87,7 +87,7 @@
 
                 store.dispatch('oferta/activarOferta', {uuid, ofertaId})
                     .then(res => {
-                        store.dispatch('oferta/getOferta');
+                        store.dispatch('oferta/getOferta', uuid);
                         this.$notify({
                             group: 'notify',
                             title: 'Notificaciones',
@@ -108,7 +108,7 @@
 
                 store.dispatch('oferta/desactivarOferta', {uuid, ofertaId})
                     .then(res => {
-                        store.dispatch('oferta/getOferta');
+                        store.dispatch('oferta/getOferta', uuid);
                         this.$notify({
                             group: 'notify',
                             title: 'Notificaciones',
@@ -140,7 +140,7 @@
                     if (result.value) {
                         store.dispatch('oferta/eliminarOferta', {uuid, ofertaId})
                             .then(res => {
-                                store.dispatch('oferta/getOferta');
+                                store.dispatch('oferta/getOferta', uuid);
                                 this.$notify({
                                     group: 'notify',
                                     title: 'Notificaciones',

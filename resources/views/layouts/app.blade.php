@@ -99,15 +99,7 @@
                             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                                 <span class="dropdown-header">Opciones</span>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item dropdown-footer" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    Salir
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
+                                @include('partials.login_as_user')
                             </div>
                         </li>
                     </ul>
@@ -130,49 +122,12 @@
                                 <i class="fa fa-user" style="color: white" class="img-circle elevation-2"></i>
                             </div>
                             <div class="info pt-0">
-                                <a href="#" class="d-block">{{ Auth::user()->nombre_completo }}</a>
+                                <a href="#" class="d-block">{{ (auth()->user()->nombre).' '.(auth()->user()->primer_apellido).' '.(auth()->user()->segundo_apellido)}} </a>
                             </div>
                         </div>
 
-                        <!-- Sidebar Menu -->
-                        <nav class="mt-2">
-                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                                <!-- Add icons to the links using the .nav-icon class
-									 with font-awesome or any other icon font library -->
-                                <li class="nav-item has-treeview menu-open">
-                                    <a href="#" class="nav-link active">
-                                        <i class="nav-icon fa fa-tachometer-alt"></i>
-                                        <p>
-                                            Starter Pages
-                                            <i class="right fa fa-angle-left"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link active">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Active Page</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Inactive Page</p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon fa fa-th"></i>
-                                        <p>
-                                            Simple Link
-                                            <span class="right badge badge-danger">New</span>
-                                        </p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                        <!------------------------------------- Sidebar Menu -->
+                        @include('partials.menu')
                         <!-- /.sidebar-menu -->
                     </div>
                     <!-- /.sidebar -->
@@ -187,6 +142,7 @@
                 <!-- /.content-header -->
 
                 <!-- Main content -->
+
                 <div class="content">
                     @yield('content')
                 </div>

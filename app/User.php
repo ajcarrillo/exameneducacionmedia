@@ -37,6 +37,11 @@ class User extends Authenticatable
         'jarvis_user_token_type', 'jarvis_user_token_expires_in', 'jarvis_user_refresh_token',
     ];
 
+    public function scopeFilterBy($query, QueryFilter $filters, array $data)
+    {
+        return $filters->applyTo($query, $data);
+    }
+
     public function aspirante()
     {
         return $this->hasOne(Aspirante::class, 'user_id');
