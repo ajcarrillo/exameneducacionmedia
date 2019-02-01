@@ -60,5 +60,8 @@ Route::resource('subsistemas', 'API\SubsistemaController')
         'show' => 'api.subsistemas.show',
     ]);
 
-Route::post('/enviar-oferta', 'API\EnviarOfertaController@store')->name('api.enviar.oferta.store');
-
+Route::group([
+    'prefix' => '/subsistemas'
+], function () {
+    Route::post('/revision', 'API\AforoController@storeRevision')->name('api.revision.store');
+});

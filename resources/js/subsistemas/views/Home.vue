@@ -6,9 +6,25 @@
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
                             <h3 class="card-title">Plantel</h3>
-                            <router-link :to="{name:'subsistemas.enviar.oferta'}">
-                                <button class="btn btn-primary btn-sm">Enviar oferta educativa</button>
-                            </router-link>
+                        </div>
+                        <div class="card-tools col-sm-5">
+                            <button type="button" class="btn btn-sm btn-success float-right ml-1" v-if="getState()==='sr' || getState()==='C'" @click="enviarAforo()">
+                                <i class="fa fa-arrow-right"></i>
+                                Enviar aforo
+                            </button>
+                            <button type="button" class="btn btn-sm btn-danger float-right ml-1" v-if="getState()==='C'" @click="motivoRechazo">
+                                <i class="fa fa-eye"></i>
+                                Ver motivo de rechazo
+                            </button>
+                            <button type="button" class="btn btn-sm btn-info float-right disabled ml-1" v-if="getState()==='C'">
+                                El aforo fue rechazado
+                            </button>
+                            <button type="button" class="btn btn-sm btn-info float-right disabled ml-1" v-if="getState()==='A'">
+                                El aforo ha sido aceptado
+                            </button>
+                            <button type="button" class="btn btn-sm btn-info float-right disabled ml-1" v-if="getState()==='R'">
+                                El aforo esta en revisión
+                            </button>
                         </div>
                     </div>
                     <div class="card-body p-0 table-responsive">
@@ -22,7 +38,8 @@
                                     ></edit-name-form>
                                 </td>
                                 <td>
-                                    <button :data-tooltip-title="props.item.active|buttonTitle" @click="updateStatus(props.item.id, props.item.active, props.index)"
+                                    <button :data-tooltip-title="props.item.active|buttonTitle"
+                                            @click="updateStatus(props.item.id, props.item.active, props.index)"
                                             class="btn btn-link" v-tooltip:top="">
                                         <active-plantel :active="props.item.active"></active-plantel>
                                     </button>
@@ -32,18 +49,23 @@
                                 </td>
                                 <td v-if="props.item.responsable">{{ props.item.responsable.nombre_completo }}</td>
                                 <td v-else>
-                                    <router-link :to="{name:'subsistema.plantel.responsable', params:{plantelid: props.item.uuid}}">
+                                    <router-link
+                                        :to="{name:'subsistema.plantel.responsable', params:{plantelid: props.item.uuid}}">
                                         <button class="btn btn-primary btn-sm">Asignar</button>
                                     </router-link>
                                 </td>
                                 <td class="text-center">
-                                    <router-link :to="{name:'subsistema.plantel.oferta', params:{plantelid: props.item.uuid}}">
+                                    <router-link
+                                        :to="{name:'subsistema.plantel.oferta', params:{plantelid: props.item.uuid}}">
                                         <button class="btn btn-primary btn-sm">Oferta</button>
                                     </router-link>
 
-                                    <router-link :to="{name:'subsistema.plantel.aforo', params: {plantelid: props.item.uuid}}">
+                                    <router-link v-if="getState()==='sr' || getState()==='C'"
+                                        :to="{name:'subsistema.plantel.aforo', params: {plantelid: props.item.uuid}}">
                                         <button class="btn btn-primary btn-sm">Aforo</button>
                                     </router-link>
+
+                                    <button v-if="getState()==='R' || getState()==='A'" @click="mensaje(getState())" class="btn btn-primary btn-sm">Aforo</button>
 
                                 </td>
                             </template>
@@ -112,6 +134,9 @@
             },
             especialidades() {
                 return store.state.home.especialidades;
+            },
+            estado() {
+                return store.state.home.estado;
             }
         },
         created() {
@@ -131,6 +156,12 @@
         },
         methods: {
             updateStatus(plantelId, estatus, index) {
+
+                if (this.getState()==='R' || this.getState()==='A') {
+                    this.mensaje(this.getState());
+                    return true;
+                }
+
                 if (estatus) {
                     //desactivar
                     store.dispatch('home/desactivarPlantel', {plantel: plantelId, index: index})
@@ -152,6 +183,7 @@
                 }
             },
             updateName(payload) {
+
                 let index = this.planteles.findIndex(function (el) {
                     return el.id == payload.id
                 });
@@ -164,6 +196,133 @@
                     text: 'El nombre del plantel se actualizó correctamente',
                     type: 'success'
                 });
+            },
+            rules() {
+                let home = store.state.home;
+
+                if (!home.isAforo) {
+                    this.mensaje('aforo');
+                    return 0;
+                }
+
+                if (!this.hasActivePlanteles()) {
+                    this.mensaje('plantel')
+                    return 0;
+                }
+
+                if (!this.hasActivePlantelAulaCapacidad()) {
+                    this.mensaje('capacidad');
+                    return 0;
+                }
+
+                return true;
+            },
+            hasActivePlanteles() {
+                let planteles = store.state.home.planteles,
+                    activePlanteles = planteles.filter(plantel => plantel.active || plantel.active === 1);
+
+                if (activePlanteles.length === 0) {
+                    return 0;//sin planteles activos no podemos enviar el aforo
+                }
+
+                return true;//n planteles activos
+            },
+            hasActivePlantelAulaCapacidad() {
+                let planteles = store.state.home.planteles,
+                    activePlanteles = planteles.filter(plantel => plantel.active === 1 || plantel.active),
+                    aulaPlantel = activePlanteles.filter(plantel => plantel.aulas.length > 0),
+                    hasAulasCapacidad = activePlanteles.filter(plantel => {
+                        let hasAulasCapacidad = plantel.aulas.filter(aula => aula.capacidad > 0);
+
+                        if (hasAulasCapacidad.length > 0) {
+                            return plantel;
+                        }
+                    });
+
+                if (activePlanteles.length !== aulaPlantel.length) {
+                    return 0; //cada plantel activo debe tener un aula por lo menos
+                }
+
+                if (activePlanteles.length !== hasAulasCapacidad.length) {
+                    return 0; //cada plantel activo con aulas, debe tener minimo un aula con capacidad
+                }
+
+                return true;
+            },
+            getState() {
+                return store.state.home.estado;
+            },
+            enviarAforo() {
+
+                if (!this.rules()) {
+                    return 0;
+                }
+
+                swal.fire({
+                    title: '¿Deseas enviar el aforo?',
+                    text: "",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.value) {
+                        store.dispatch('home/storeRevision')
+                            .then(res => {
+                                console.log(res);
+                            })
+                            .catch(err => {
+                                this.mensaje('error', 'Lo sentimos, algo ha salido mal intenta de nuevo.')
+                                console.log(err);
+                            })
+                    }
+                })
+            },
+            motivoRechazo() {
+                swal.fire({
+                    type: 'info',
+                    title: 'Motivo de rechazo.',
+                    text: store.state.home.revision_aforos[0].review.comentario,
+                    footer: ''
+                })
+            },
+            mensaje(tipo, msj) {
+                let mensaje = "",
+                    type = "info";
+
+                switch (tipo) {
+                    case 'R':
+                    mensaje = "El aforo esta en revisión.";
+                    break;
+                    case 'A':
+                        mensaje = "El aforo ha sido aceptado.";
+                        break;
+                    case 'plantel':
+                        mensaje = "El aforo no tiene planteles activos.";
+                        break;
+                    case 'aforo':
+                        mensaje = "La etapa de aforo no esta aperturada.";
+                        break;
+                    case 'capacidad':
+                        mensaje = "El aforo tiene planteles activos sin capacidad";
+                        break;
+                    case 'error':
+                        mensaje = msj;
+                        type = "error";
+                        break;
+                    default:
+                        mensaje= " ";
+
+                }
+
+                swal.fire({
+                    type: type,
+                    title: '',
+                    text: mensaje,
+                    footer: ''
+                })
             }
         }
     }
