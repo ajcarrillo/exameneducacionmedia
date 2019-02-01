@@ -122,47 +122,209 @@
                                 <i class="fa fa-user" style="color: white" class="img-circle elevation-2"></i>
                             </div>
                             <div class="info pt-0">
-                                <a href="#" class="d-block">{{ Auth::user()->nombre_completo }}</a>
+                                <a href="#" class="d-block">{{ (auth()->user()->nombre).' '.(auth()->user()->primer_apellido).' '.(auth()->user()->segundo_apellido)}} </a>
                             </div>
                         </div>
 
-                        <!-- Sidebar Menu -->
+                        <!------------------------------------- Sidebar Menu -->
                         <nav class="mt-2">
                             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                                 <!-- Add icons to the links using the .nav-icon class
 									 with font-awesome or any other icon font library -->
-                                <li class="nav-item has-treeview menu-open">
-                                    <a href="#" class="nav-link active">
-                                        <i class="nav-icon fa fa-tachometer-alt"></i>
-                                        <p>
-                                            Starter Pages
-                                            <i class="right fa fa-angle-left"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link active">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Active Page</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Inactive Page</p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
+
+
+                                <!-----------------Cambiar contraseña------------------------------->
+
+                                <li class="nav-item has-treeview menu">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon fa fa-th"></i>
+                                        <i></i>
                                         <p>
-                                            Simple Link
-                                            <span class="right badge badge-danger">New</span>
+                                            Cambiar contraseña
                                         </p>
                                     </a>
                                 </li>
+                                <!------------------------------------------------>
+                                <!-----------------Coordinación------------------------------->
+                                @if(auth()->user()->hasRole('cordinador'))
+                                    <li class="nav-item has-treeview menu">
+                                        <a href="#" class="nav-link">
+                                            <i></i>
+                                            <p>
+                                                Coordinación
+                                            </p>
+                                        </a>
+                                    </li>
+                                @endif
+                            <!------------------------------------------------>
+                                <!-----------------Panel de control DEMS ------------------------------->
+
+                                @if(auth()->user()->hasRole('departamento'))
+                                    <li class="nav-item has-treeview menu">
+                                        <a href="#" class="nav-link">
+                                            <i></i>
+                                            <p>
+                                                Panel de control DEMS
+                                            </p>
+                                        </a>
+                                    </li>
+                                @endif
+                            <!------------------------------------------------>
+                                <!-----------------Panel de control DEMS ------------------------------->
+                                @if(!auth()->user()->hasRole('aspirante'))
+                                    <li class="nav-item has-treeview menu">
+                                        <a href="#" class="nav-link">
+                                            <i></i>
+                                            <p>
+                                                Reportes
+                                            </p>
+                                        </a>
+                                    </li>
+                                @endif
+                            <!------------------------------------------------>
+                                <!-----------------Configuración del proceso ------------------------------->
+                                @if(auth()->user()->hasRole('departamento'))
+                                    <li class="nav-item has-treeview menu">
+                                        <a href="#" class="nav-link">
+                                            <i></i>
+                                            <p>
+                                                Configuración del proceso
+                                                <i class="right fa fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Enlaces</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Etapas del proceso</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Misceláneos</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                @endif
+                            <!------------------------------------------------>
+                                <!-----------------Administración proceso ------------------------------->
+                                @if(auth()->user()->hasRole('departamento') )
+                                    <li class="nav-item has-treeview menu">
+                                        <a href="#" class="nav-link">
+                                            <i></i>
+                                            <p>
+                                                Administración
+                                                <i class="right fa fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Aspirantes</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Buscar matricula</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Planteles</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Sedes alternas</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Subir archivos</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Subsistemas</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Usuarios</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                @endif
+                            <!------------------------------------------------>
+                                <!-----------------Revisión ------------------------------->
+                                @if(auth()->user()->hasRole('departamento'))
+                                    <li class="nav-item has-treeview menu">
+                                        <a href="#" class="nav-link">
+                                            <i></i>
+                                            <p>
+                                                Revisión
+                                                <i class="right fa fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Aforo</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Oferta educativa</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                @endif
+                            <!------------------------------------------------>
+                                <!-----------------Subsistema ------------------------------->
+                                @if(auth()->user()->hasRole('subsistema'))
+                                    <li class="nav-item has-treeview menu">
+                                        <a href="#" class="nav-link">
+                                            <i></i>
+                                            <p>
+                                                Subsistema
+                                                <i class="right fa fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Planteles</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Especialidades</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                            @endif
+                            <!------------------------------------------------>
                             </ul>
                         </nav>
                         <!-- /.sidebar-menu -->
@@ -179,6 +341,7 @@
                 <!-- /.content-header -->
 
                 <!-- Main content -->
+
                 <div class="content">
                     @yield('content')
                 </div>
