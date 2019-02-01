@@ -6,6 +6,9 @@
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
                             <h3 class="card-title">Plantel</h3>
+                            <router-link :to="{name:'subsistemas.enviar.oferta'}">
+                                <button class="btn btn-primary btn-sm">Enviar oferta educativa</button>
+                            </router-link>
                         </div>
                     </div>
                     <div class="card-body p-0 table-responsive">

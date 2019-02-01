@@ -57,6 +57,11 @@ const router = new VueRouter({
             path: '/subsistemas/plantel/:plantelid/responsable',
             component: Responsable,
             name: 'subsistema.plantel.responsable'
+        },
+        {
+            path: '/subsistemas/enviar-oferta',
+            component: Subsistemas,
+            name: 'subsistemas.enviar.oferta'
         }
     ]
 });

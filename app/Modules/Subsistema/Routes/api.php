@@ -59,3 +59,6 @@ Route::resource('subsistemas', 'API\SubsistemaController')
     ->names([
         'show' => 'api.subsistemas.show',
     ]);
+
+Route::post('/enviar-oferta', 'API\EnviarOfertaController@store')->name('api.enviar.oferta.store');
+
