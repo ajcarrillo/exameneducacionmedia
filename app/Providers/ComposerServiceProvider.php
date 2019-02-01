@@ -10,12 +10,14 @@ namespace ExamenEducacionMedia\Providers;
 
 
 use Carbon\Laravel\ServiceProvider;
+use ExamenEducacionMedia\Http\ViewComposers\LoginAsUserComposer;
+use Illuminate\Support\Facades\View;
 
 class ComposerServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-
+        View::composer('*', LoginAsUserComposer::class);
     }
 
     public function register()
