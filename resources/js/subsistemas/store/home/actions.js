@@ -6,6 +6,9 @@ export default {
                     context.commit('subsistema', res.data.subsistema);
                     context.commit('planteles', res.data.subsistema.planteles);
                     context.commit('especialidades', res.data.subsistema.especialidades);
+                    context.commit('revision_aforos', res.data.subsistema.revision_aforos);
+                    context.commit('isAforo', res.data.isAforo);
+                    context.commit('estado', res.data.estado);
                     resolve(res);
                 })
                 .catch(err => {
@@ -70,5 +73,18 @@ export default {
     },
     actualizaNombre(context, payload) {
         context.commit('actualizaNombre', payload);
+    },
+    storeRevision: function (context) {
+        return new Promise(function (resolve, reject) {
+            axios.post(route("api.revision.store"))
+                .then(res => {
+                    context.commit("reloadData", res);
+                    resolve(res);
+                })
+                .catch(err => {
+                    console.log(err.response);
+                    reject(err);
+                });
+        });
     }
-}
+};

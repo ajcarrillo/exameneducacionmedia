@@ -15,8 +15,8 @@ class CreateRevisionAforosTable extends Migration
     {
         Schema::create('revision_aforos', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('subsistema_id');
-            $table->foreign('subsistema_id')->references('id')->on('centrostrabajo.subsistemas');
+            $table->unsignedTinyInteger('subsistema_id');
+            $table->foreign('subsistema_id')->references('id')->on('subsistemas');
             $table->timestamps();
         });
     }
