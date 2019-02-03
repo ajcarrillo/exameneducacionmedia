@@ -1,7 +1,7 @@
 <template>
     <form @submit.prevent="submit">
         <template v-if="!editMode">
-            <button @click="editMode = !editMode" class="btn btn-link" type="button">
+            <button @click="update()" class="btn btn-link" type="button">
                 <i class="fa fa-pen"></i>&nbsp;
                 {{ plantelname }}
             </button>
@@ -23,6 +23,8 @@
 </template>
 
 <script>
+    import store from '../store/store';
+
     export default {
         name: "EditPlantelNameFormComponent",
         props: ['plantelname', 'plantelid'],
@@ -37,6 +39,14 @@
             this.draft = draft.length > 1 ? draft[1].trim() : draft[0].trim();
         },
         methods: {
+            update: function () {
+                if (this.getState()==='R' || this.getState()==='A') {
+                    this.mensaje(this.getState());
+                    return 0;
+                }
+
+                this.editMode = !this.editMode
+            },
             submit() {
                 axios.patch(route('api.plantel.actulizar.nombre', this.plantelid), {
                     nombre: this.draft
@@ -49,6 +59,31 @@
                     .catch(err => {
                         console.log(err.response)
                     });
+            },
+            getState() {
+                return store.state.home.estado;
+            },
+            mensaje(tipo) {
+                let mensaje="";
+
+                switch (tipo) {
+                    case 'R':
+                        mensaje = "El aforo esta en revisión";
+                        break;
+                    case 'A':
+                        mensaje = "El aforo ha sido aceptado";
+                        break;
+                    default:
+                        mensaje= " ";
+
+                }
+
+                swal.fire({
+                    type: 'info',
+                    title: '',
+                    text: mensaje,
+                    footer: ''
+                })
             }
         },
     }

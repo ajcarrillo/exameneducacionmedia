@@ -9,123 +9,109 @@
 namespace MediaSuperior\Http\Controllers\Administracion;
 
 use ExamenEducacionMedia\Http\Controllers\Controller;
+use ExamenEducacionMedia\Modules\MediaSuperior\Filters\SubsistemaFilter;
 use ExamenEducacionMedia\User;
 use Illuminate\Http\Request;
 use MediaSuperior\Models\Planteles;
 use Subsistema\Models\Plantel;
 use DB;
+use Subsistema\Models\Subsistema;
 
 class ResponsablePlantelController extends Controller
 {
     public function index()
+
     {
+
+        $subsistemas = Subsistema::pluck('referencia', 'id');
         $planteles = Plantel::with('subsistema', 'responsable')->get();
 
-        return view('media_superior.administracion.responsablePlantel.index', compact('planteles'));
+        return view('media_superior.administracion.responsablePlantel.responsables.index', compact('planteles', 'subsistemas'));
     }
-
     public function edit(Plantel $plantel)
     {
-        return view('media_superior.administracion.responsablePlantel.asignar_responsable', compact('plantel'));
+        //$user = User::role('plantel')->get();
+        //$plantel1 = Plantel::with('responsables')
+        //whereNotIn('responsable_id','=',$user->id);
+        //dd($plantel1);
+        $qry = DB::table('educacionmedia.users','educacionmedia.planteles','educacionmedia.model_has_roles' )
+            ->select('usuario.id',DB::raw("concat(usuario.nombre ,' ', usuario.primer_apellido ,' ', usuario.segundo_apellido) as nombreCompleto"),'usuario.username')
+            ->from('educacionmedia.users as usuario')
+            ->join('educacionmedia.model_has_roles  as rol','rol.model_id','=','usuario.id')
+            ->leftJoin('educacionmedia.planteles as plantel','plantel.responsable_id','=','usuario.id')
+            ->whereRaw( 'isnull (plantel.id) AND rol.role_id = 5 ')->pluck('nombreCompleto','usuario.id');
+        $responsable = Plantel::with('responsable')->find($plantel->id);
+        return view('media_superior.administracion.responsablePlantel.responsables.asignar_responsables', compact('plantel','responsable','qry'));
     }
-
     public function store(Request $request, Plantel $plantel)
     {
-
-
-
         try {
             DB::beginTransaction();
-            $user    = User::where('email', '=', $request->input('email'))->first();
+            $user = User::where('email', '=', $request->input('email'))->first();
             $plantel = Plantel::find($plantel->id);
             if ($user != NULL) {
                 $plantel->responsable_id = $user->id;
                 $plantel->save();
                 $user->assignRole('plantel');
                 flash('Se asigno correctamente el responsable del plantel')->success();
-
-                return redirect()->to(route('media.administracion.responsablePlantel.index'));
+                return redirect()->to(route('media.administracion.responsablePlantel.plantel.edit',$plantel));
             }
-            $data                    = [
-                'nombre'           => $request->input('nombre'),
-                'primer_apellido'  => $request->input('primer_apellido'),
+            $data = [
+                'nombre' => $request->input('nombre'),
+                'primer_apellido' => $request->input('primer_apellido'),
                 'segundo_apellido' => $request->input('segundo_apellido'),
-                'email'            => $request->input('email'),
-                'username'         => $request->input('username'),
-                'password'         => bcrypt($request->input('password')),
-                'api_token'        => str_random(50),
-                'active'           => true,
+                'email' => $request->input('email'),
+                'username' => $request->input('email'),
+                'password' => $request->input('password'),
+                'api_token' => str_random(50),
+                'active' => true,
             ];
-            $new_user                       = User::createUser($data, [ 'plantel' ]);
+
+
+            $new_user = User::createUser($data, ['plantel']);
             $plantel->responsable_id = $new_user->id;
             $plantel->save();
             DB::commit();
             flash('Se asigno correctamente el responsable del plantel')->success();
-
-            return redirect()->to(route('media.administracion.responsablePlantel.index'));
+            return redirect()->to(route('media.administracion.responsablePlantel.plantel.edit',$plantel));
         } catch (\Exception $e) {
             DB::rollBack();
             \Log::info($e->getMessage());
             flash('Lo sentimos hemos hecho algo mal, intente de nuevo')->error();
 
             return back()
-                ->withErrors([ 'error' => 'Ocurrió un error en el guardado, por favor intentelo nuevamente, más tarde. ' ])
+                ->withErrors(['error' => 'Ocurrió un error en el guardado, por favor intentelo nuevamente, más tarde. '])
                 ->withInput();
         }
     }
-
-    public function Actualiza_responsable(Plantel $plantel)
+    public function asigna_responsable_existente(Request $request,Plantel $plantel)
     {
-        $responsable = Plantel::with('responsable')->find($plantel->id);
 
-        return view('media_superior.administracion.responsablePlantel.actualizar_responsable', compact('responsable'));
+        $user    = User::where('id', '=', $request->input('user_id'))->first();
+        $plantel = Plantel::find($plantel->id);
+        $plantel->responsable_id = $user->id;
+        $plantel->save();
+        flash('Se actualizo correctamente el responsable del plantel')->success();
+        return redirect()->back();
     }
-
-    public function set_responsable(Request $request, Plantel $plantel)
-    {
-        try {
-            DB::beginTransaction();
-            $plantel = Plantel::with('responsable')->first();
-            $user    = User::find($plantel->responsable->id);
-            $data    = [
-                'nombre'           => $request->input('nombre'),
-                'primer_apellido'  => $request->input('primer_apellido'),
-                'segundo_apellido' => $request->input('segundo_apellido'),
-                'email'            => $request->input('email'),
-                'username'         => $request->input('username'),
-                'password'         => bcrypt($request->input('password')),
-                'api_token'        => str_random(50),
-                'active'           => true,
-            ];
-            $u       = User::actualizarUsuario($user, $data);
-            DB::commit();
-            flash('El responsable se actualizo correctamente')->success();
-
-            return redirect()->to(route('media.administracion.responsablePlantel.index'));
-        } catch (\Exception $e) {
-            DB::rollBack();
-            \Log::info($e->getMessage());
-            flash('Lo sentimos hemos hecho algo mal, intente de nuevo')->error();
-
-            return back()
-                ->withErrors([ 'error' => 'Ocurrió un error en el guardado, por favor intentelo nuevamente, más tarde. ' ])
-                ->withInput();
-        }
-    }
-
     public function delete_responsable(Plantel $plantel)
     {
-        $plantel                 = Plantel::find($plantel->id);
+        $plantel = Plantel::find($plantel->id);
         $plantel->responsable_id = NULL;
         $plantel->save();
-        flash('Se elimino correctamente')->success();
+        flash('El plantel se  ha quedado sin responsable')->success();
 
-        return redirect()->to(route('media.administracion.responsablePlantel.index'));
+        return redirect()->to(route('media.administracion.responsablePlantel.plantel.edit',$plantel));
     }
-
     public function descuentos($id)
     {
+        /*$planteles = Plantel::find($id);
+        $planteles->descuento = $request->get('descuento');
+        $planteles->opciones = $request->get('opciones');
+        $planteles->save();*/
+
         $planteles = Plantel::find($id);
+
         return view('media_superior.administracion.responsablePlantel.asignar_descuento', compact('planteles'));
     }
 

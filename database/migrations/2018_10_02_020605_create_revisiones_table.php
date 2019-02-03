@@ -19,10 +19,10 @@ class CreateRevisionesTable extends Migration
             $table->dateTime('fecha_apertura');
             $table->dateTime('fecha_revision')->nullable();
             $table->enum('estado', [ 'C', 'A', 'R' ]);
-            $table->text('comentario');
+            $table->text('comentario')->nullable();
             $table->unsignedInteger('usuario_apertura');
             $table->foreign('usuario_apertura')->references('id')->on('users');
-            $table->unsignedInteger('usuario_revision');
+            $table->unsignedInteger('usuario_revision')->nullable();
             $table->foreign('usuario_revision')->references('id')->on('users');
             $table->timestamps();
         });
