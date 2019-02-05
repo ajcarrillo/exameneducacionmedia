@@ -56,7 +56,7 @@ Route::middleware([ 'auth', 'role:departamento' ])
             ->group(function () {
                 Route::get('{sede}/create', 'Administracion\AulaController@create')->name('create');
                 Route::post('/store', 'Administracion\AulaController@store')->name('store');
-                Route::get('{sede}/destroy', 'Administracion\SedeAlternaController@destroy')->name('delete');
+                Route::get('{aula}/destroy', 'Administracion\AulaController@destroy')->name('delete');
            });
 
 

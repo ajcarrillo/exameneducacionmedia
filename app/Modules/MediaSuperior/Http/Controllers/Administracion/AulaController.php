@@ -8,8 +8,9 @@
 
 namespace MediaSuperior\Http\Controllers\Administracion;
 
-
+use Illuminate\Http\Request;
 use ExamenEducacionMedia\Http\Controllers\Controller;
+use MediaSuperior\Models\Aula;
 use MediaSuperior\Models\SedeAlterna;
 
 class AulaController extends Controller
@@ -27,8 +28,9 @@ class AulaController extends Controller
 
         $sedeAlterna = SedeAlterna::find($request->input('sede_id'));
 
-        $sedeAlterna->aula->create([
-            'referencia' => $request->get('refrencia'),
+        //dd($sedeAlterna->aulas);
+        $sedeAlterna->aulas()->create([
+            'referencia' => $request->get('referencia'),
             'capacidad' => $request->get('capacidad'),
         ]);
 
@@ -41,5 +43,15 @@ class AulaController extends Controller
         return redirect(route('media.administracion.sedesAlternas.aulas',$request->input('sede_id')));
     }
 
+    public function destroy($id)
+    {
+        $aula=Aula::find($id);
+        //dd($aula);
+
+        Aula::destroy($id);
+
+
+        return redirect()->route('media.administracion.sedesAlternas.aulas',$aula->edificio_id);
+    }
 
 }
