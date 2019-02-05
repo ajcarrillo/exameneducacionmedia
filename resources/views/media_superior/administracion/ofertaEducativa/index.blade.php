@@ -21,7 +21,9 @@
 				</div>
 				<div class="card card-primary card-outline">
 					<div class="card-header">
-						<div class="card-title">Revisión<small> Oferta educativa</small></div>
+						<div class="card-title">Revisión
+							<small> Oferta educativa</small>
+						</div>
 						<div class="dropdown">
 							<button class="btn btn-default dropdown-toggle" type="button" id="filtro" data-toggle="dropdown" aria-haspopup="true"
 							        aria-expanded="false">
@@ -79,15 +81,16 @@
 															@if($revision->estado <> 'C')
 																<a data-toggle="modal" data-target="#modalConfirmar"
 																   class="dropdown-item" href="#"
-																   id="btn_motivo_rechazo" data-id="{{$revision->id}}">Motivo
-																	rechazo</a>
+																   id="btn_motivo_rechazo" data-id="{{$revision->id}}">Rechazar
+																</a>
 															@endif
-															<a class="dropdown-item" href="{{route('media.administracion.revisiones.ofertaEducativa.imprimir', ['subsistema_id'=>$revision->revision->subsistema_id])}}" id="btn_imprimir" data-id="{{$revision->subsistema_id}}">Descargar CSV</a>
+															<a class="dropdown-item" href="{{route('media.administracion.revisiones.ofertaEducativa.imprimir', ['subsistema_id'=>$revision->revision->subsistema_id])}}" id="btn_imprimir" data-id="{{$revision->subsistema_id}}">Descargar
+																CSV</a>
 														</div>
 													</div>
 												</td>
 											</tr>
-											@else
+										@else
 											<tr>
 												<td>{{$loop->iteration}}</td>
 												<td>{{$revision->subsistema->referencia}}</td>
@@ -110,10 +113,11 @@
 															@if($revision->review->estado <> 'C')
 																<a data-toggle="modal" data-target="#modalConfirmar"
 																   class="dropdown-item" href="#"
-																   id="btn_motivo_rechazo" data-id="{{$revision->review->id}}">Motivo
-																	rechazo</a>
+																   id="btn_motivo_rechazo" data-id="{{$revision->review->id}}">Rechazar
+																</a>
 															@endif
-															<a class="dropdown-item" href="{{route('media.administracion.revisiones.ofertaEducativa.imprimir', ['subsistema_id'=>$revision->subsistema_id])}}" id="btn_imprimir" data-id="{{$revision->subsistema_id}}">Descargar CSV</a>
+															<a class="dropdown-item" href="{{route('media.administracion.revisiones.ofertaEducativa.imprimir', ['subsistema_id'=>$revision->subsistema_id])}}" id="btn_imprimir" data-id="{{$revision->subsistema_id}}">Descargar
+																CSV</a>
 														</div>
 													</div>
 												</td>

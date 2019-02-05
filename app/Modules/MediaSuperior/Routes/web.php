@@ -43,14 +43,25 @@ Route::middleware([ 'auth', 'role:departamento' ])
             ->group(function () {
                 Route::get('/', 'Administracion\ResponsablePlantelController@index')->name('index');
                 Route::get('/edit/{plantel}', 'Administracion\ResponsablePlantelController@edit')->name('plantel.edit');
+                Route::post('/usuario_existente/{plantel}', 'Administracion\ResponsablePlantelController@asigna_responsable_existente')->name('usr.plantel');
                 Route::post('/store{plantel}', 'Administracion\ResponsablePlantelController@store')->name('plantel.store');
-                Route::get('/edit/{Plantel}', 'Administracion\ResponsablePlantelController@edit')->name('plantel.edit');
-                Route::get('/actualiza-responsable/{plantel}', 'Administracion\ResponsablePlantelController@Actualiza_responsable')->name('plantel.Actualiza_responsable ');
-                Route::post('/set_responsable/{plantel}', 'Administracion\ResponsablePlantelController@set_responsable')->name('plantel.set_responsable');
-                Route::get('/delete/{plantel}', 'Administracion\ResponsablePlantelController@delete_responsable')->name('plantel.delete_responsable');
                 Route::get('/descuentos/{Plantel}', 'Administracion\ResponsablePlantelController@descuentos')->name('plantel.descuentos');
                 Route::post('/update/{id}', 'Administracion\ResponsablePlantelController@updatedesc')->name('plantel.descuentosupd');
+                Route::get('/delete/{plantel}', 'Administracion\ResponsablePlantelController@delete_responsable')->name('plantel.delete_responsable');
+
             });
+        //carga de documentos del usuario de departamento
+
+        Route::prefix('/carga-documentos')
+            ->name('carga-documentos.')
+            ->group(function () {
+                Route::get('/', 'Administracion\CargaDocumentosController@index')->name('index');
+                Route::get('/create', 'Administracion\CargaDocumentosController@create')->name('create');
+                Route::post('/store', 'Administracion\CargaDocumentosController@store')->name('store');
+                Route::get('/descargar/{id}', 'Administracion\CargaDocumentosController@descargar')->name('descargar');
+                Route::get('/eliminar/{archivo}', 'Administracion\CargaDocumentosController@eliminar')->name('eliminar');
+            });
+        //endMarlon
 
         Route::prefix('/usuarios')
             ->name('usuarios.')
@@ -67,6 +78,7 @@ Route::middleware([ 'auth', 'role:departamento' ])
                         Route::get('/','Administracion\Revisiones\OfertaEducativaController@index')->name('index');
                         Route::get('/oferta','Administracion\Revisiones\OfertaEducativaController@oferta')->name('oferta');
                         Route::get('/guardarComentario','Administracion\Revisiones\OfertaEducativaController@guardarComentario')->name('guardarComentario');
+                        Route::get('/imprimir','Administracion\Revisiones\OfertaEducativaController@imprimir')->name('imprimir');
                     });
             });
     });
