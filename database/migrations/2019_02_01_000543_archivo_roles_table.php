@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRevisionAforosTable extends Migration
+class ArchivoRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateRevisionAforosTable extends Migration
      */
     public function up()
     {
-        Schema::create('revision_aforos', function (Blueprint $table) {
+        Schema::create('archivo_roles', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedTinyInteger('subsistema_id');
-            $table->foreign('subsistema_id')->references('id')->on('subsistemas');
+            $table->unsignedInteger('archivo_id');
+            $table->foreign('archivo_id')->references('id')->on('archivos_descargables');
+            $table->unsignedInteger('role_id');
+            $table->foreign('role_id')->references('id')->on('roles');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateRevisionAforosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('revision_aforos');
+        Schema::dropIfExists('archivo_roles');
     }
 }

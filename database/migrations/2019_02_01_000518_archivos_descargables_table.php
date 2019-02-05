@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRevisionAforosTable extends Migration
+class ArchivosDescargablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateRevisionAforosTable extends Migration
      */
     public function up()
     {
-        Schema::create('revision_aforos', function (Blueprint $table) {
+        Schema::create('archivos_descargables', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedTinyInteger('subsistema_id');
-            $table->foreign('subsistema_id')->references('id')->on('subsistemas');
+            $table->string('nombre',140);
+            $table->string('path',255);
+            $table->unsignedInteger('usuario_id');
+            $table->foreign('usuario_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateRevisionAforosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('revision_aforos');
+        Schema::dropIfExists('archivos_descargables');
     }
 }
