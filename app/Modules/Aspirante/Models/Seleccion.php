@@ -29,6 +29,11 @@ class Seleccion extends Model
 
     public function ofertaEducativa()
     {
+        return $this->belongsTo(OfertaEducativa::class, 'oferta_educativa_id');
+    }
+
+    public function seleccionOferta()
+    {
         return $this->belongsTo(OfertaEducativa::class, 'oferta_educativa_id')->with('especialidad','plantel');
     }
 

@@ -38,7 +38,7 @@ class ProfileController
     public function index()
     {
         $aspirante = get_aspirante();
-        $ofertas = Seleccion::with('ofertaEducativa')
+        $ofertas = Seleccion::with('seleccionOferta')
                     ->where('aspirante_id', $aspirante->id)
                     ->orderBy('preferencia', 'asc')
                     ->get();
