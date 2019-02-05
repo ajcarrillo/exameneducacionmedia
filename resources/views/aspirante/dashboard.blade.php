@@ -104,16 +104,7 @@
 
                                         </gmap-map>
 
-                                        <div class="card-body" style="height: 14cm">
-                                            <h2>
-                                                <span class="badge badge-pill badge-success">{{$oferta->preferencia}}</span>
-                                            </h2>
-                                            <div style="height: 140px;">
-                                                <p class="card-title text-primary">
-                                                    <b>{{ $oferta->ofertaEducativa->especialidad->referencia }}</b></p>
-                                                <p class="card-text">{{ $oferta->ofertaEducativa->plantel->descripcion }}</p>
-                                            </div>
-
+                                        
                                         <div class="card-body" style="height: 14cm">
                                             <h2><span class="badge badge-pill badge-success">{{$oferta->preferencia}}</span></h2>
                                             <div style="height: 140px;">
