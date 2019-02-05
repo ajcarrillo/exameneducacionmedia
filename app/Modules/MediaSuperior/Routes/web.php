@@ -69,6 +69,19 @@ Route::middleware([ 'auth', 'role:departamento' ])
                 Route::get('/', 'UserController')->name('index');
             });
 
+
+        // INICIO RUTAS abalamjimenez@gmail.com
+        Route::prefix('/responsableSubsistema')
+            ->name('responsableSubsistema.')
+            ->group(function () {
+                Route::get('/', 'Administracion\ResponsableSubsistemaController@index')->name('index');
+                Route::get('/edit/{subsistema}', 'Administracion\ResponsableSubsistemaController@edit')->name('subsistema.edit');
+                Route::post('/usuario_existente/{subsistema}', 'Administracion\ResponsableSubsistemaController@asigna_responsable_existente')->name('usr.subsistema');
+                Route::post('/store{subsistema}', 'Administracion\ResponsableSubsistemaController@store')->name('subsistema.store');
+                Route::get('/delete/{subsistema}', 'Administracion\ResponsableSubsistemaController@delete_responsable')->name('subsistema.delete_responsable');
+            });
+        // FIN RUTAS abalamjimenez@gmail.com
+
         Route::prefix('/revisiones')
             ->name('revisiones.')
             ->group(function (){
