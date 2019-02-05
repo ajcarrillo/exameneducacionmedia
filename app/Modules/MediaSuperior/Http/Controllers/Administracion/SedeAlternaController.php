@@ -14,6 +14,7 @@ use ExamenEducacionMedia\Models\Geodatabase\MunicipioView;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use MediaSuperior\Models\Aula;
 use MediaSuperior\Models\Domicilio;
 use MediaSuperior\Models\Plantel;
 use MediaSuperior\Models\Localidad;
@@ -48,7 +49,6 @@ class SedeAlternaController extends Controller
 
     public function store(Request $request)
     {
-        //$this->validated($request);
 
         $domicilio = new Domicilio($request->input());
         $domicilio->save();
@@ -110,10 +110,17 @@ class SedeAlternaController extends Controller
         $localidades = Localidad::where('CVE_ENT', 23)->where('CVE_MUN', $cve_mun)
             ->pluck('NOM_LOC', 'CVE_LOC');
 
-        return response()->json($localidades);
+        //dd($localidades);
+        //return response()->json($localidades);
+        return $localidades;
     }
 
     public function aulas($sede_id)
     {
+
+        $aulas = Aula::where('edificio_id',$sede_id)->get();
+        $sedeAlterna = SedeAlterna::find($sede_id);
+        return view('media_superior.administracion.sedesAlternas.aulas', compact('sedeAlterna','aulas'));
+
     }
 }

@@ -17,7 +17,7 @@ $(document).ready(function () {
             }
         )
             .done(function (response) {
-                console.log(response);
+//                console.log(response);
                 $.each(response, function (key, value) {
                     $selectLocalidad.append("<option value='"+key+"'>"+value+"</option>");
                 });

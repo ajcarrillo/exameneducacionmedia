@@ -33,4 +33,5 @@ class SedeAlterna extends Model
         return $this->morphMany(Aula::class, 'edificio');
     }
 
+
 }

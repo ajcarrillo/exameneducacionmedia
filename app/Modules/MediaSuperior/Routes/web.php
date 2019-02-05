@@ -48,8 +48,17 @@ Route::middleware([ 'auth', 'role:departamento' ])
                 Route::patch('{sede}/update', 'Administracion\SedeAlternaController@update')->name('update');
                 Route::get('/localidades', 'Administracion\SedeAlternaController@localidades')->name('localidades');
                 Route::get('{sede}/localidades', 'Administracion\SedeAlternaController@localidades')->name('localidades');
-                Route::get('/aulas', 'Administracion\SedeAlternaController@aulas')->name('aulas');
+                Route::get('{sede}/aulas', 'Administracion\SedeAlternaController@aulas')->name('aulas');
             });
+
+        Route::prefix('/aulas')
+            ->name('aulas.')
+            ->group(function () {
+                Route::get('{sede}/create', 'Administracion\AulaController@create')->name('create');
+                Route::post('/store', 'Administracion\AulaController@store')->name('store');
+                Route::get('{sede}/destroy', 'Administracion\SedeAlternaController@destroy')->name('delete');
+           });
+
 
         Route::prefix('/responsablePlantel')
             ->name('responsablePlantel.')
