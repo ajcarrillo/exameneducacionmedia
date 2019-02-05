@@ -104,6 +104,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('media.administracion.carga-documentos.index') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Carga de archivos</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('media.administracion.responsablePlantel.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Planteles</p>
@@ -122,7 +128,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('media.administracion.responsableSubsistema.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Subsistemas</p>
                         </a>
