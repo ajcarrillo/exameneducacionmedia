@@ -24,10 +24,15 @@ Route::middleware([ 'auth', 'role:aspirante' ])
     ->name('aspirantes.seleccion.oferta')
     ->get('/opciones-educativas', 'SeleccionOfertaController');
 
-Route::view('/', 'aspirante.dashboard')
-    ->middleware([ 'auth', 'role:aspirante' ])
-    ->name('aspirantes.dashboard');
+Route::middleware([ 'auth', 'role:aspirante' ])
+    ->prefix('/')
+    ->name('aspirante.')
+    ->group(function () {
 
-//-- Rutas Igna
-Route::get('/captura-cuestionario', 'CuestionarioController@index')->name('captura.cuestionario');
-//-- End Igna
+        Route::prefix('/')
+            ->name('dashboard.')
+            ->group(function () {
+                Route::get('/', 'ProfileController@index')->name('index');
+            });
+    });
+

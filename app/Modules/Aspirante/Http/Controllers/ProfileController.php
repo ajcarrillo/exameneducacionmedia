@@ -12,6 +12,7 @@ namespace Aspirante\Http\Controllers;
 use ExamenEducacionMedia\Models\Entidad;
 use ExamenEducacionMedia\Models\Geodatabase\MunicipioView;
 use ExamenEducacionMedia\Models\Geodatabase\Pais;
+use Aspirante\Models\Seleccion;
 
 class ProfileController
 {
@@ -32,6 +33,18 @@ class ProfileController
         return view('aspirante.profile', compact(
             'aspirante', 'municipios', 'paises', 'entidades'
         ));
+    }
+
+    public function index()
+    {
+        $aspirante = get_aspirante();
+        $ofertas = Seleccion::with('seleccionOferta')
+                    ->where('aspirante_id', $aspirante->id)
+                    ->orderBy('preferencia', 'asc')
+                    ->get();
+
+        return view('aspirante.dashboard', compact('ofertas'));
+        
     }
 
     protected function getMunicipios()
