@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('navbar-title')
-	Enlaces
+	Configuraciones
 @endsection
 
 @section('content')
