@@ -30,7 +30,7 @@ $(document).ready(function () {
             return false;
         }
 
-        this.href = this.href + '?comentario=' + comentario + '&id=' + id;
+        this.href = this.href + '?comentario=' + comentario + '&id=' + id + '&estado=C';
 
     });
 });

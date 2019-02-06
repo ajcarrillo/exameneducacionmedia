@@ -17,12 +17,12 @@
 @section('content')
 	<div class="container">
 		<div class="row justify-content-center">
-			<div class="col-md-10">
+			<div class="col-md-12">
 				@include('flash::message')
 			</div>
 		</div>
 		<div class="row justify-content-center">
-			<div class="col-md-10">
+			<div class="col-md-12">
 				<div class="card card-primary card-outline">
 					<div class="card-header">
 						<div class="float-right">
@@ -36,6 +36,7 @@
 									<tr>
 										<th>#</th>
 										<th>Nombre del archivo</th>
+										<th>Comentarios</th>
 										<th>Roles</th>
 										<th>Opciones</th>
 									</tr>
@@ -45,6 +46,7 @@
 										<tr>
 											<td>{{$loop->iteration}}</td>
 											<td>{{$doc->nombre}}</td>
+											<td>{{$doc->descripcion}}</td>
 											<td><span class="badge badge-pill badge-primary">{{$doc->roles}}</span></td>
 											<td>
 												<div class="dropdown">

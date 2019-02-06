@@ -31,6 +31,13 @@ Route::middleware([ 'auth:api', 'role:aspirante' ])
                     ->name('store');
             });
 
+        Route::prefix('/opciones-educativas')
+            ->name('opciones.educativas.')
+            ->group(function () {
+                Route::post('/', 'API\SeleccionOfertaController@store')->name('store');
+                Route::get('/', 'API\SeleccionOfertaController@index')->name('index');
+            });
+
         Route::patch('/{id}', 'API\UpdateAspiranteController@update')->name('update');
     });
 
