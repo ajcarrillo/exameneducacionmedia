@@ -242,9 +242,6 @@
             municipios() {
                 return this.mun;
             },
-            opcionesEducativas() {
-                return this.opciones;
-            },
             planteles() {
                 let that = this;
                 return this.escuelas.filter(function (el) {
