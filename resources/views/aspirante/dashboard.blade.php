@@ -87,12 +87,12 @@
                                             :zoom="8"
                                             style="width:100%;  height: 500px;"
                                     >
-                                        @foreach($ofertas as $oferta)
+                                        @foreach($ofertas_gral as $oferta)
                                             <gmap-marker
-                                                    :position="google && new google.maps.LatLng({{ $oferta->ofertaEducativa->plantel->latitud}}, {{ $oferta->ofertaEducativa->plantel->longitud}})"
+                                                    :position="google && new google.maps.LatLng({{ $oferta->latitud}}, {{ $oferta->longitud}})"
                                                     @click="showInfoWindow()"
                                             >
-                                                <gmap-info-window :opened="visInfoWindow">{{ $oferta->ofertaEducativa->plantel->descripcion }}</gmap-info-window>
+                                                <gmap-info-window :opened="visInfoWindow">{{ $oferta->plantel_desc }}</gmap-info-window>
                                             </gmap-marker>
                                         @endforeach
 
