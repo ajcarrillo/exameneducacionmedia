@@ -95,7 +95,10 @@
         </div>
         <div class="row mb-3" v-if="puedeEnviar">
             <div class="col">
-                <button class="btn btn-success">Enviar mis opciones educativas</button>
+                <button class="btn btn-success"
+                        :disabled="submited"
+                        @click="save">Guardar
+                </button>
             </div>
         </div>
         <div class="row mb-3">
@@ -144,8 +147,19 @@
                 municipioSelected: '',
                 localidadSelected: '',
                 plantelSelected: '',
-                especialidadSelected: ''
+                especialidadSelected: '',
+                submited: false
             }
+        },
+        created() {
+            axios.get(route('aspirante.opciones.educativas.index'))
+                .then(res => {
+                    let seleccion = res.data.seleccion;
+                    seleccion.length ? this.seleccion = seleccion : [];
+                })
+                .catch(err => {
+                    console.log(err.response);
+                })
         },
         watch: {
             municipioSelected() {
@@ -191,10 +205,10 @@
             }
         },
         computed: {
-            puedeEnviar(){
+            puedeEnviar() {
                 return this.seleccion.length ? this.seleccion.length === this.opcionesAElegir : false;
             },
-            opcionesRestantes(){
+            opcionesRestantes() {
                 return `${this.opcionesPorElegir} de ${this.opcionesAElegir}`
             },
             opcionesAElegir() {
@@ -250,6 +264,40 @@
             deshacer() {
                 this.seleccion.pop();
             },
+            save() {
+                swal({
+                    title: '¿Estás seguro?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, estoy seguro!',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.value) {
+                        this.submited = true;
+                        axios.post(route('aspirante.opciones.educativas.store'), {
+                            seleccion: this.seleccion
+                        })
+                            .then(res => {
+                                swal({
+                                    type: 'success',
+                                    text: 'Tus opciones educativas se guardaron correctamente',
+                                });
+                                this.submited = false;
+                            })
+                            .catch(err => {
+                                console.log(err.response);
+                                swal({
+                                    type: 'error',
+                                    title: 'Oops...',
+                                    text: 'Lo sentimos, algo ha salido mal intenta de nuevo',
+                                });
+                                this.submited = false;
+                            })
+                    }
+                });
+            }
 
         }
     }
