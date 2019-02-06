@@ -20,6 +20,7 @@ mix.js('resources/js/adminlte.js', 'public/js')
     .js('resources/js/administracion/planteles/app.js', 'public/js/administracion/planteles')
     .js('resources/js/aspirante/registro_matricula.js', 'public/js/aspirante')
     .js('resources/js/aspirante/profile.js', 'public/js/aspirante')
+    .js('resources/js/aspirante/dashboard.js', 'public/js/aspirante')
     .js('resources/js/aspirante/seleccion_oferta.js', 'public/js/aspirante');
 
 if (mix.inProduction()) {

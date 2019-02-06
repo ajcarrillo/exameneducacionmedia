@@ -32,7 +32,7 @@ Route::middleware([ 'auth', 'role:aspirante' ])
         Route::prefix('/')
             ->name('dashboard.')
             ->group(function () {
-                Route::get('/', 'ProfileController@index')->name('index');
+                Route::get('/', 'DashboardController@index')->name('index');
             });
     });
 
