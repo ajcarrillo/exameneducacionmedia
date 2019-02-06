@@ -63,11 +63,15 @@ class OfertaEducativaController extends Controller
         $id = $request->get('id');
         Revision::find($id)->update(
             [
-                'estado' => 'C',
+                'estado' => $request->get('estado'),
                 'comentario' => $request->get('comentario'),
             ]
         );
-        flash('Se rechazo la oferta educativa exitosamente')->success();
+        if($request->get('estado')=='C'){
+            flash('La oferta educativa fue rechazada exitosamente')->success();
+        } elseif ($request->get('estado')=='A'){
+            flash('La oferta educativa fue aceptada exitosamente')->success();
+        }
         return redirect()->back();
     }
 
