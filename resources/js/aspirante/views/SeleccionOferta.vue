@@ -114,7 +114,7 @@
                 this.especialidadSelected = '';
                 this.localidades = [];
                 this.especialidades=[];
-                axios.get(route('api.localidad.index'), {
+                axios.get(route('api.localidad.plantel.index'), {
                     params: {
                         'cve_mun': this.municipioSelected
                     }
