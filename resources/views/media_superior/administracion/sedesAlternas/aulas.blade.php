@@ -41,7 +41,7 @@
                                         <td>{{ $aula->referencia }}</td>
                                         <td>{{ $aula->capacidad }}</td>
                                         <td>
-                                            <a href="{{ route('media.administracion.aulas.delete', $aula->id) }}">
+                                            <a href="{{ route('media.administracion.aulas.delete', $aula->id) }}" title="Eliminar el aula de la sede alterna" data-toggle="tooltip">
                                                 <i class="fa fa-trash" aria-hidden="true"></i>
                                             </a>
                                         </td>
@@ -59,6 +59,11 @@
 @endsection
 
 @section('extra-scripts')
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 @endsection
 
 

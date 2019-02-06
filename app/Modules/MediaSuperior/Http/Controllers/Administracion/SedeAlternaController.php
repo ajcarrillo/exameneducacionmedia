@@ -50,17 +50,31 @@ class SedeAlternaController extends Controller
     public function store(Request $request)
     {
 
-        $domicilio = new Domicilio($request->input());
-        $domicilio->save();
+        $error = false;
+        DB::beginTransaction();
 
-        $sedeAlterna = SedeAlterna::create([
-            'descripcion' => $request->get('descripcion'),
-            'sede_ceneval' => 0,
-            'domicilio_id' => $domicilio->id,
-            'plantel_id' => $request->get('plantel_id'),
-        ]);
+        try {
+            $domicilio = new Domicilio($request->input());
+            $domicilio->save();
 
-        flash('La sede alterna se guardó correctamente')->success();
+            $sedeAlterna = SedeAlterna::create([
+                'descripcion' => $request->get('descripcion'),
+                'sede_ceneval' => 0,
+                'domicilio_id' => $domicilio->id,
+                'plantel_id' => $request->get('plantel_id'),
+            ]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            $error = true;
+        } catch (\Throwable $e) {
+            DB::rollback();
+            $error = true;
+        }
+        if (!$error)
+            flash('La sede alterna se guardó correctamente')->success();
+
         if ($request->has('addanother')) {
             return back();
         }
@@ -82,8 +96,26 @@ class SedeAlternaController extends Controller
 
     public function update(Request $request, $id)
     {
-        SedeAlterna::find($request->input('id'))->update($request->all());
-        Domicilio::find($request->input('domicilio_id'))->update($request->all());
+
+        $error = false;
+        DB::beginTransaction();
+
+        try {
+            SedeAlterna::find($request->input('id'))->update($request->all());
+            Domicilio::find($request->input('domicilio_id'))->update($request->all());
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            $error = true;
+        } catch (\Throwable $e) {
+            DB::rollback();
+            $error = true;
+        }
+
+        if (!$error)
+            flash('La sede alterna se actualizo correctamente')->success();
+
 
         return redirect(route('media.administracion.sedesAlternas.index'));
     }
