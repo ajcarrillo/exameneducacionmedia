@@ -43,10 +43,10 @@
                                         <td>{{ $sede->plantel }}</td>
                                         <td>{{ $sede->NOM_MUN }} </td>
                                         <td>
-                                            <a href="{{ route('media.administracion.sedesAlternas.edit', $sede->id) }}" title="Editar sede alterna">
+                                            <a href="{{ route('media.administracion.sedesAlternas.edit', $sede->id) }}" title="Editar sede alterna" data-toggle="tooltip">
                                                 <i class="far fa-edit mr-1"></i>
                                             </a>
-                                            <a href="{{ route('media.administracion.sedesAlternas.aulas', $sede->id) }}" title="Agregar aulas a la sede alterna">
+                                            <a href="{{ route('media.administracion.sedesAlternas.aulas', $sede->id) }}" title="Agregar aulas a la sede alterna" data-toggle="tooltip">
                                                 <i class="fas fa-list mr-1"></i>
                                             </a>
 
@@ -67,6 +67,11 @@
 @endsection
 
 @section('extra-scripts')
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 @endsection
 
 
