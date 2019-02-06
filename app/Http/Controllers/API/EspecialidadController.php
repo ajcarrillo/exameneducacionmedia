@@ -18,7 +18,7 @@ class EspecialidadController extends Controller
     {
         $especialidades = OfertaEducativa::with([ 'especialidad' => function ($query) {
             $query->orderBy('referencia');
-        } ])->onlyActive()
+        }, 'plantel:id,descripcion,opciones' ])->onlyActive()
             ->where('plantel_id', request('plantel_id'))
             ->get();
 
