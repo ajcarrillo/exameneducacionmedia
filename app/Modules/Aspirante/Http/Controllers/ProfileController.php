@@ -35,18 +35,7 @@ class ProfileController
         ));
     }
 
-    public function index()
-    {
-        $aspirante = get_aspirante();
-        $ofertas = Seleccion::with('seleccionOferta')
-                    ->where('aspirante_id', $aspirante->id)
-                    ->orderBy('preferencia', 'asc')
-                    ->get();
-
-        return view('aspirante.dashboard', compact('ofertas'));
-        
-    }
-
+    
     protected function getMunicipios()
     {
         return MunicipioView::orderBy('NOM_MUN')
