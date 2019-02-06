@@ -53,17 +53,71 @@
                 </multiselect>
             </div>
         </div>
-        <div class="row">
+        <div class="row mb-3">
             <div class="col">
                 <label for="">Especialidades</label>
                 <select class="form-control" v-model="especialidadSelected">
                     <option value="">Selecciona...</option>
                     <option v-for="especialidad in especialidades"
-                            :value="especialidad.id"
+                            :value="especialidad"
                     >
                         {{ especialidad.especialidad.referencia }}
                     </option>
                 </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <button :disabled="!hasEspecialidadSelected || existeEspecialidad || hasTresPlanteles || (opcionesPorElegir === 0 && opcionesAElegir !== 0)"
+                        @click="agregaOpcion"
+                        class="btn btn-success">Agregar
+                </button>
+                <button :disabled="!hasSeleccion"
+                        @click="deshacer"
+                        class="btn btn-danger">Deshacer
+                </button>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col" v-if="hasSeleccion">
+                <h5 class="mb-0">Opciones a elegir: {{ opcionesRestantes }}</h5>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <div class="alert alert-warning" role="alert" v-if="existeEspecialidad">
+                    <strong>¡Atención!</strong> La especialidad seleccionada ya se encuentra entre tus preferencias.
+                </div>
+                <div class="alert alert-warning" role="alert" v-if="hasTresPlanteles">
+                    <strong>¡Atención!</strong> Solo puedes elegir hasta tres especialidades en un mismo plantel.
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3" v-if="puedeEnviar">
+            <div class="col">
+                <button class="btn btn-success">Enviar mis opciones educativas</button>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="1%">Preferencia</th>
+                                <th>Plantel</th>
+                                <th>Especialidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="opcion in seleccion">
+                                <td scope="row">{{ opcion.preferencia }}</td>
+                                <td>{{ opcion.plantel.descripcion }}</td>
+                                <td>{{ opcion.especialidad.referencia }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -93,27 +147,13 @@
                 especialidadSelected: ''
             }
         },
-        computed: {
-            municipios() {
-                return this.mun;
-            },
-            opcionesEducativas() {
-                return this.opciones;
-            },
-            planteles() {
-                let that = this;
-                return this.escuelas.filter(function (el) {
-                    return el.cve_mun == that.municipioSelected && el.cve_loc == that.localidadSelected.value;
-                })
-            }
-        },
         watch: {
             municipioSelected() {
                 this.localidadSelected = {};
                 this.plantelSelected = {};
                 this.especialidadSelected = '';
                 this.localidades = [];
-                this.especialidades=[];
+                this.especialidades = [];
                 axios.get(route('api.localidad.plantel.index'), {
                     params: {
                         'cve_mun': this.municipioSelected
@@ -131,7 +171,7 @@
                         })
                     })
             },
-            localidadSelected(){
+            localidadSelected() {
                 this.plantelSelected = {};
                 this.especialidades = [];
                 this.especialidadSelected = '';
@@ -150,10 +190,67 @@
                     })
             }
         },
+        computed: {
+            puedeEnviar(){
+                return this.seleccion.length ? this.seleccion.length === this.opcionesAElegir : false;
+            },
+            opcionesRestantes(){
+                return `${this.opcionesPorElegir} de ${this.opcionesAElegir}`
+            },
+            opcionesAElegir() {
+                return this.seleccion.length ? this.seleccion[0].plantel.opciones : 0;
+            },
+            opcionesPorElegir() {
+                return this.opcionesAElegir - this.seleccion.length;
+            },
+            hasTresPlanteles() {
+                let that = this;
+                let result = this.seleccion.filter(function (item) {
+                    return item.plantel_id === that.especialidadSelected.plantel_id;
+                });
+
+                return result.length >= 3;
+            },
+            existeEspecialidad() {
+                let that = this;
+                let result = this.seleccion.filter(function (item) {
+                    return item.id === that.especialidadSelected.id;
+                });
+
+                return result.length > 0;
+            },
+            hasEspecialidadSelected() {
+                return this.especialidadSelected !== "";
+            },
+            hasSeleccion() {
+                return this.seleccion.length;
+            },
+            municipios() {
+                return this.mun;
+            },
+            opcionesEducativas() {
+                return this.opciones;
+            },
+            planteles() {
+                let that = this;
+                return this.escuelas.filter(function (el) {
+                    return el.cve_mun == that.municipioSelected && el.cve_loc == that.localidadSelected.value;
+                })
+            }
+        },
         methods: {
             selectMunicipio(value) {
                 this.municipioSelected = value;
-            }
+            },
+            agregaOpcion() {
+                this.especialidadSelected.preferencia = this.seleccion.length + 1;
+                this.seleccion.push(this.especialidadSelected);
+                this.especialidadSelected = '';
+            },
+            deshacer() {
+                this.seleccion.pop();
+            },
+
         }
     }
 </script>
