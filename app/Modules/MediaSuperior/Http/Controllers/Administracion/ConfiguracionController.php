@@ -1,7 +1,8 @@
 <?php
 
-namespace ExamenEducacionMedia\Http\Controllers;
+namespace MediaSuperior\Http\Controllers\Administracion;
 
+use ExamenEducacionMedia\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use MediaSuperior\Models\Configuracion;
 
@@ -23,6 +24,6 @@ class ConfiguracionController extends Controller
             $configuracion->save();
         }
 
-        return redirect()->route('configuracion.index');
+        return redirect()->route('media.administracion.configuracion.index');
     }
 }

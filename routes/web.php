@@ -75,8 +75,3 @@ Route::post('login/oauth-password', 'Auth\LoginJarvisController@login')->name('l
 /*Login con jarvis*/
 
 Auth::routes();
-
-
-Route::group([ 'middleware' => [ 'auth', 'role:departamento' ] ], function () {
-    require __DIR__ . '/Routes/Configuracion/configuracion.php';
-});

@@ -15,7 +15,7 @@
 				<h1 class="card-title">Miscelaneos</h1>
 			</div>
 			<div class="card-body">
-				{!! Form::open(['route' => ['configuracion.update'], 'method'=>'POST', 'id'=>'update-form','class'=>'form-horizontal']) !!}
+				{!! Form::open(['route' => ['media.administracion.configuracion.update'], 'method'=>'POST', 'id'=>'update-form','class'=>'form-horizontal']) !!}
 
 				@forelse($configs as $config)
 
