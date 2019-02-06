@@ -69,8 +69,11 @@
 									@endforeach
 								</div>
 							</div>
-
 							<br>
+							<div class="form-group col-12 justify-content-center">
+								<label class="text-info">comentario:</label>
+								<textarea class="form-control" name="descripcion" rows="1"></textarea>
+							</div>
 						</div>
 						<br>
 						<div class="box-body">
@@ -82,6 +85,7 @@
 					</div>
 					<div class="card-footer">
 						<button type="submit" class="btn btn-success">Guardar</button>
+						<button type="submit" class="btn btn-success" name="addanother">Guardar y agregar otro</button>
 						<a href="{{route('media.administracion.carga-documentos.index')}}" class="btn btn-default float-right">Regresar</a>
 					</div>
 					{!! Form::close() !!}
