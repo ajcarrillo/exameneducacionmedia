@@ -49,7 +49,7 @@ Route::get('/subsistema/aforo', function () {
 })->middleware([ 'isAforo' ]);
 
 Route::get('/subsistema/oferta', function () {
-    return view('welcome');
+    return view('subsistemas.home');
 })->middleware([ 'isOferta' ]);
 
 Route::group([ 'prefix' => '/planteles', 'middleware' => [ 'auth', 'role:plantel', 'hasPlantel' ] ], function () {
