@@ -3,10 +3,13 @@
 namespace ExamenEducacionMedia\Http\Controllers\Auth;
 
 use ExamenEducacionMedia\Http\Controllers\Controller;
+use ExamenEducacionMedia\Traits\RedirectTo;
 use Illuminate\Http\Request;
 
 class LoginAsController extends Controller
 {
+    use RedirectTo;
+
     protected $sessionKey = 'imporsonate.original_id';
 
     public function loginAsUser(Request $request)
@@ -19,7 +22,9 @@ class LoginAsController extends Controller
 
         \Auth::loginUsingId($loginAsUserId);
 
-        return back();
+        $user = \Auth::user();
+
+        return $this->redirectTo($user);
     }
 
     public function logout()
