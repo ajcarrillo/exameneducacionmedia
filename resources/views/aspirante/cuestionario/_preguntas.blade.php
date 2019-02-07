@@ -15,7 +15,7 @@
 					@foreach($pregunta->hijos as $hijo)
 						<li class="list-group-item list-group-item-action">
 							<b>{{ $hijo->nombre }}</b>
-							<select name="preguntas[{{ $hijo->id }}]" class="form-control col-md-6" >
+							<select name="preguntas[{{ $hijo->id }}]" class="form-control col-sm-6">
 								<option value="">Seleccione...</option>
 								@foreach($hijo->diccionario->respuestas  as $respuesta)
 									<option value="{{ $respuesta->id }}">{{ $respuesta->etiqueta }}</option>
@@ -28,7 +28,4 @@
 		</div>
 	@endforeach
 </div>
-
 {{ "-" . $page }}
-<input type="hidden" id="lastPage" value="{{ $lastPage }}">
-<input type="hidden" id="page" value="{{ $page }}">

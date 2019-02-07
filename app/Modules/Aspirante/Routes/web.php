@@ -30,5 +30,5 @@ Route::view('/', 'aspirante.dashboard')
 
 //-- Rutas Igna
 Route::get('/captura-cuestionario', 'CuestionarioController@index')->name('captura.cuestionario');
-Route::post('/guarda-cuestionario', 'CuestionarioController@store')->name('guarda.cuestionario');
+Route::post('/captura-cuestionario', 'CuestionarioController@store')->name('guarda.cuestionario');
 //-- End Igna

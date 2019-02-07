@@ -2,9 +2,11 @@
 
 namespace Aspirante\Http\Controllers;
 
+use Aspirante\Models\AspiranteRespuesta;
 use Aspirante\Models\Pregunta;
 use Illuminate\Http\Request;
 use ExamenEducacionMedia\Http\Controllers\Controller;
+use Exception;
 
 class CuestionarioController extends Controller
 {
@@ -16,6 +18,15 @@ class CuestionarioController extends Controller
      */
     public function index(Request $request)
     {
+        $aspirante = get_aspirante();
+        $existe = AspiranteRespuesta::where('aspirante_id', $aspirante->id)->first();
+
+        $aviso = "El cuestionario ceneval ya fue repondido por el aspirante";
+
+        if ($existe) {
+            return view('aspirante.cuestionario.aviso_aspirante', ['aviso' => $aviso]);
+        }
+
         $preguntas = Pregunta::with('hijos','hijos.diccionario','hijos.diccionario.respuestas')
             ->whereNull('padre_id')
             ->orderBy('id')
@@ -32,6 +43,29 @@ class CuestionarioController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->input());
+        try {
+            $aspirante = get_aspirante();
+            $cuestionario = ($request->input("preguntas"));
+            $aviso = '';
+
+            foreach ($cuestionario as $clave => $valor) {
+               $aspiranteRespuesta = new AspiranteRespuesta;
+                $aspiranteRespuesta->aspirante_id = $aspirante->id;
+                $aspiranteRespuesta->pregunta_id = $clave;
+                $aspiranteRespuesta->respuesta_id = $valor;
+                $aspiranteRespuesta->save();
+
+                if (!$aspiranteRespuesta) {
+                    throw new Exception("Error al guardar los datos.");
+                }
+            }
+
+            $aviso = "El cuestionario ceneval fue respondido exitosamente.";
+            return view('aspirante.cuestionario.aviso_aspirante', ['aviso' => $aviso]);
+
+        } catch (Exception $e) {
+            flash($e->getMessage())->warning();
+            return redirect()->back();
+        }
     }
 }
