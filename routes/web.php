@@ -49,7 +49,7 @@ Route::get('/subsistema/aforo', function () {
 })->middleware([ 'isAforo' ]);
 
 Route::get('/subsistema/oferta', function () {
-    return view('welcome');
+    return view('subsistemas.home');
 })->middleware([ 'isOferta' ]);
 
 Route::group([ 'prefix' => '/planteles', 'middleware' => [ 'auth', 'role:plantel', 'hasPlantel' ] ], function () {
@@ -58,13 +58,6 @@ Route::group([ 'prefix' => '/planteles', 'middleware' => [ 'auth', 'role:plantel
     });
 });
 
-Route::middleware([ 'auth', 'role:plantel', 'hasPlantel' ])
-    ->prefix('/planteles')
-    ->group(function () {
-        Route::get('/{all?}', 'Plantel\HomeController@index')
-            ->where([ 'all' => '.*' ])
-            ->name('spa.planteles');
-    });
 
 /* Login con jarvis*/
 Route::get('/loging/oauth', 'Auth\LoginController@redirectToProvider')->name('login.oauth');
