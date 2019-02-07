@@ -71,7 +71,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('media.administracion.configuracion.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Misceláneos</p>
                         </a>
