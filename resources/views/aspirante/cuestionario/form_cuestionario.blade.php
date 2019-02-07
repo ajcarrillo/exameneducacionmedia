@@ -23,37 +23,40 @@
 					<div class="card-header">
 						<div class="card-title">CAPTURAR CUESTIONARIO</div>
 					</div>
-					<div id="contenedor">
+					<div class="card-body">
+						<div id="contenedor">
+                            <div id="pagina-{{ $page }}">
+                                @foreach($preguntas as $pregunta)
+                                    <div class="card card-info">
+                                        <div class="card-header">
+                                            {{ $page}} {{ $pregunta->nombre }}
+                                        </div>
+                                        <div class="card-body">
+                                            <ul class="list-group">
+                                                @foreach($pregunta->hijos as $hijo)
+                                                    <li class="list-group-item list-group-item-action">
+                                                        <b>{{ $hijo->nombre }}</b>
 
-						<div class="card-body">
-							@foreach($preguntas as $pregunta)
-								<div class="card card-info">
-									<div class="card-header">
-										{{ $page}} {{ $pregunta->nombre }}
-									</div>
-									<div class="card-body">
-										<ul class="list-group">
-											@foreach($pregunta->hijos as $hijo)
-												<li class="list-group-item list-group-item-action">
-													<b>{{ $hijo->nombre }}</b>
-
-													<select name="respuesta" id="" class="form-control col-md-6" required>
-														<option value="">Seleccione...</option>
-														@foreach($hijo->diccionario->respuestas  as $respuesta)
-															<option value="{{ $respuesta->id }}">{{ $respuesta->etiqueta }}</option>
-														@endforeach
-													</select>
-												</li>
-											@endforeach
-										</ul>
-									</div>
-								</div>
-							@endforeach
+                                                        <select name="preguntas[{{ $hijo->id }}]" class="form-control col-md-6" >
+                                                            <option value="">Seleccione...</option>
+                                                            @foreach($hijo->diccionario->respuestas  as $respuesta)
+                                                                <option value="{{ $respuesta->id }}">{{ $respuesta->etiqueta }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
 						</div>
-						<div class="card-footer">
-							{{ $preguntas->links() }}
-						</div>
-
+					</div>
+					<div class="card-footer">
+						<input type="hidden" id="lastPage" value="{{ $lastPage }}">
+						<input type="hidden" id="page" value="{{ $page }}">
+						<button type="submit" id="btnGuardar" class="btn btn-success" style="display: none;">Guardar</button>
+						<button type="button" id="btnSiguiente" class="btn btn-default">Siguiente <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
 					</div>
 				</div>
 				{!! Form::close() !!}
@@ -65,28 +68,39 @@
 @section('extra-scripts')
 	<script>
         $(document).ready(function() {
-	        $(document).on('click', '.pagination a', function (e) {
-                e.preventDefault();
+            "use strict";
 
-                var page = $(this).attr('href').split('page=')[1],
+            $("#btnSiguiente").on("click", function () {
+            	var page = $("#page").val(),
+					siguiente = parseInt(page) + 1,
+					lastPage = $("#lastPage").val(),
+					boton = $("#btnGuardar"),
                     contenedor = $("#contenedor");
+
+                if(siguiente > lastPage) {
+					return false;
+                }
 
                 $.ajax({
                     url: "/aspirantes/captura-cuestionario",
                     type: 'GET',
                     dataType: "json",
-                    data: {'page': page},
+                    data: {'page': siguiente}
                 })
                     .done(function (response) {
-						$("#contenedor").html(response);
+                        $("[id*='pagina-']").css("display", "none");
+                        contenedor.append(response);
+
+                        if(siguiente == lastPage) {
+                            boton.css("display", "block");
+                            $("#btnSiguiente").css("display", "none");
+                        }
                     })
                     .fail(function (xhr) {
                         console.error("Error durante petición ajax.");
                         console.error(xhr);
                     });
-
             });
         });
-
 	</script>
 @endsection

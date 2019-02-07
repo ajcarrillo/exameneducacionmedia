@@ -4,8 +4,7 @@
  * User: igna
  */
 ?>
-
-<div class="card-body">
+<div id="pagina-{{ $page }}">
 	@foreach($preguntas as $pregunta)
 		<div class="card card-info">
 			<div class="card-header">
@@ -16,8 +15,7 @@
 					@foreach($pregunta->hijos as $hijo)
 						<li class="list-group-item list-group-item-action">
 							<b>{{ $hijo->nombre }}</b>
-
-							<select name="respuesta" id="" class="form-control col-md-6" required>
+							<select name="preguntas[{{ $hijo->id }}]" class="form-control col-md-6" >
 								<option value="">Seleccione...</option>
 								@foreach($hijo->diccionario->respuestas  as $respuesta)
 									<option value="{{ $respuesta->id }}">{{ $respuesta->etiqueta }}</option>
@@ -30,6 +28,7 @@
 		</div>
 	@endforeach
 </div>
-<div class="card-footer">
-	{{ $preguntas->links() }}
-</div>
+
+{{ "-" . $page }}
+<input type="hidden" id="lastPage" value="{{ $lastPage }}">
+<input type="hidden" id="page" value="{{ $page }}">

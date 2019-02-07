@@ -22,15 +22,16 @@ class CuestionarioController extends Controller
             ->paginate(7);
 
         $page = $preguntas->currentPage();
+	    $lastPage = $preguntas->lastPage();
 
         if ($request->ajax()) {
-            return response()->json(view('aspirante.cuestionario._preguntas', compact('preguntas', 'page'))->render());
+            return response()->json(view('aspirante.cuestionario._preguntas', compact('preguntas', 'page', 'lastPage'))->render());
         }
-        return view('aspirante.cuestionario.form_cuestionario', compact('preguntas', 'page'));
+        return view('aspirante.cuestionario.form_cuestionario', compact('preguntas', 'page', 'lastPage'));
     }
 
     public function store(Request $request)
     {
-        dd($request);
+        dd($request->input());
     }
 }
