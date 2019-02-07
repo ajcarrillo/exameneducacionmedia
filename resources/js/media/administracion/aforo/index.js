@@ -21,7 +21,7 @@ $(document).ready(function () {
 
         if ((comentario.trim()).length === 0) {
             error = 'SI';
-            mensaje = 'Escriba algún motivo de rechazo de la oferta educativa.';
+            mensaje = 'Escriba algún motivo de rechazo del aforo.';
         }
 
         if (error === 'SI') {

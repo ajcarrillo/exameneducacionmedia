@@ -33,7 +33,7 @@ Route::middleware([ 'auth', 'role:departamento' ])
             ->group(function () {
                 Route::get('/', 'Administracion\BuscarMatriculaController@index')->name('index');
                 Route::post('/buscar', 'Administracion\BuscarMatriculaController@buscarEstudiante')->name('buscar');
-                Route::get('/buscar', function() {
+                Route::get('/buscar', function () {
                     return redirect()->route('media.administracion.estudiante.index');
                 });
             });
@@ -48,7 +48,6 @@ Route::middleware([ 'auth', 'role:departamento' ])
                 Route::get('/descuentos/{Plantel}', 'Administracion\ResponsablePlantelController@descuentos')->name('plantel.descuentos');
                 Route::post('/update/{id}', 'Administracion\ResponsablePlantelController@updatedesc')->name('plantel.descuentosupd');
                 Route::get('/delete/{plantel}', 'Administracion\ResponsablePlantelController@delete_responsable')->name('plantel.delete_responsable');
-
             });
         //carga de documentos del usuario de departamento
 
@@ -84,14 +83,23 @@ Route::middleware([ 'auth', 'role:departamento' ])
 
         Route::prefix('/revisiones')
             ->name('revisiones.')
-            ->group(function (){
+            ->group(function () {
                 Route::prefix('/ofertaEducativa')
                     ->name('ofertaEducativa.')
-                    ->group(function (){
-                        Route::get('/','Administracion\Revisiones\OfertaEducativaController@index')->name('index');
-                        Route::get('/oferta','Administracion\Revisiones\OfertaEducativaController@oferta')->name('oferta');
-                        Route::get('/guardarComentario','Administracion\Revisiones\OfertaEducativaController@guardarComentario')->name('guardarComentario');
-                        Route::get('/imprimir','Administracion\Revisiones\OfertaEducativaController@imprimir')->name('imprimir');
+                    ->group(function () {
+                        Route::get('/', 'Administracion\Revisiones\OfertaEducativaController@index')->name('index');
+                        Route::get('/oferta', 'Administracion\Revisiones\OfertaEducativaController@oferta')->name('oferta');
+                        Route::get('/guardarComentario', 'Administracion\Revisiones\OfertaEducativaController@guardarComentario')->name('guardarComentario');
+                        Route::get('/imprimir', 'Administracion\Revisiones\OfertaEducativaController@imprimir')->name('imprimir');
+                    });
+
+                Route::prefix('/aforo')
+                    ->name('aforo.')
+                    ->group(function () {
+                        Route::get('/', 'Administracion\Revisiones\AforoController@index')->name('index');
+                        Route::get('/aforo', 'Administracion\Revisiones\AforoController@aforo')->name('aforo');
+                        Route::get('/guardarComentario', 'Administracion\Revisiones\AforoController@guardarComentario')->name('guardarComentario');
+                        Route::get('/imprimir', 'Administracion\Revisiones\AforoController@imprimir')->name('imprimir');
                     });
             });
 

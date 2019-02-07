@@ -7,11 +7,9 @@ use ExamenEducacionMedia\Exports\UsersExport;
 use ExamenEducacionMedia\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use MediaSuperior\Models\Revision;
-use Subsistema\Models\OfertaEducativa;
 use Subsistema\Models\RevisionOferta;
 use Subsistema\Models\Subsistema;
 use DB;
-use Maatwebsite\Excel;
 
 
 class OfertaEducativaController extends Controller
@@ -42,7 +40,10 @@ class OfertaEducativaController extends Controller
                 return $query->where('estado', $request->get('estado'));
             }, 'subsistema','review.usuarioApertura','review.usuarioRevision'])->get();*/
 
-            $revisiones = Revision::where('estado',$request->get('estado'))->with('revision','revision.subsistema','usuarioApertura','usuarioRevision')->get();
+            $revisiones = Revision::where('estado',$request->get('estado'))
+                ->where('revision_type','ofertas')
+                ->with('revision','revision.subsistema','usuarioApertura','usuarioRevision')
+                ->get();
         }
 
         if(!empty($subsistema_id)){
@@ -77,6 +78,6 @@ class OfertaEducativaController extends Controller
 
     public function imprimir(Request $request)
     {
-        return  \Excel::download( new UsersExport($request->get('subsistema_id')), 'ofertaEducativa.csv');
+        return  \Excel::download( new UsersExport($request->get('subsistema_id'),$request->get('formato')), 'ofertaEducativa.csv');
     }
 }
