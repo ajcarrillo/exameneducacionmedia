@@ -11,6 +11,7 @@ class ConfiguracionController extends Controller
     public function index(Request $request)
     {
         $configs = Configuracion::all();
+
         return view('configuracion.index', compact('configs'));
     }
 
@@ -23,6 +24,8 @@ class ConfiguracionController extends Controller
             $configuracion->valor = $config;
             $configuracion->save();
         }
+
+        flash('La configuración se guardó correctamente')->success();
 
         return redirect()->route('media.administracion.configuracion.index');
     }
