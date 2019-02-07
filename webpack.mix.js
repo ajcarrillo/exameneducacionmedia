@@ -54,4 +54,5 @@ mix.js('resources/js/media/administracion/carga_documento/index_archivos.js', 'p
 
 //alvaro
 mix.js('resources/js/media/administracion/oferta_educativa/index.js', 'public/js/media/administracion/oferta_educativa/index.js');
+mix.js('resources/js/media/administracion/aforo/index.js', 'public/js/media/administracion/aforo/index.js');
 //endAlvaro
