@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@section('extra-head')
+    <link href="/select2/dist/css/select2.css" rel="stylesheet" />
+    <link href="/select2-bootstrap4-theme/dist/select2-bootstrap4.css" rel="stylesheet" />
+@endsection
+
+
 @section('navbar-title')
     Sedes alternas - Nuevo
 @endsection
@@ -32,5 +38,6 @@
 @endsection
 
 @section('extra-scripts')
+    <script src="/select2/dist/js/select2.js"></script>
     <script src="{{ mix('js/media/administracion/sedes_alternas/create.js') }}"></script>
 @endsection
