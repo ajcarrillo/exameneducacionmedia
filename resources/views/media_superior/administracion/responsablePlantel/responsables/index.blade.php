@@ -39,6 +39,8 @@
                                 <th style="vertical-align:top;">Descripción</th>
                                 <th style="vertical-align:top;">Responsable</th>
                                 <th>Subsistema</th>
+                                <th>Descuento</th>
+                                <th>No. Opciones</th>
                                 <th style="vertical-align:top;">opciones</th>
                             </tr>
                             </thead>
@@ -55,6 +57,8 @@
                                         @endif
                                     </td>
                                     <td>{{ $plantel->subsistema->referencia }}</td>
+                                    <td>{{ $plantel->descuento.'%' }}</td>
+                                    <td>{{ $plantel->opciones }}</td>
                                     <td>
                                         <div class="dropdown">
                                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
