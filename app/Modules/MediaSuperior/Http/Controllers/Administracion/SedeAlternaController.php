@@ -139,12 +139,21 @@ class SedeAlternaController extends Controller
     public function localidades(Request $request)
     {
         $cve_mun = $request->get('cve_mun');
-        $localidades = Localidad::where('CVE_ENT', 23)->where('CVE_MUN', $cve_mun)
-            ->pluck('NOM_LOC', 'CVE_LOC');
+        $nom_loc = $request->get('q');
+        /*$localidades = Localidad::where('CVE_ENT', 23)->where('CVE_MUN', $cve_mun)->where('NOM_LOC','LIKE','%'.$nom_loc.'%')
+            ->pluck('NOM_LOC', 'CVE_LOC');*/
+
+        $localidades = Localidad::select('CVE_LOC','NOM_LOC')->where('CVE_ENT', 23)->where('CVE_MUN', $cve_mun)
+            ->Where('NOM_LOC','LIKE','%'.$nom_loc.'%')->get();
+
+        //dd($localidades);
+
+        return response()->json($localidades);
+
 
         //dd($localidades);
         //return response()->json($localidades);
-        return $localidades;
+        //return $localidades;
     }
 
     public function aulas($sede_id)
