@@ -94,5 +94,12 @@ Route::middleware([ 'auth', 'role:departamento' ])
                         Route::get('/imprimir','Administracion\Revisiones\OfertaEducativaController@imprimir')->name('imprimir');
                     });
             });
+
+        Route::prefix('/configuracion')
+            ->name('configuracion.')
+            ->group(function () {
+                Route::get('/', 'Administracion\ConfiguracionController@index')->name('index');
+                Route::post('/update', 'Administracion\ConfiguracionController@update')->name('update');
+            });
     });
 
