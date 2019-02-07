@@ -22,6 +22,11 @@ class Aula extends Model
     {
         return $this->morphTo();
     }
+    public function aulas()
+    {
+        return $this->morphTo();
+    }
+
 
     public function setReferenciaAttribute($value)
     {

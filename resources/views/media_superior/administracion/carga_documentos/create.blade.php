@@ -49,7 +49,7 @@
 							<br>
 								<button  type="button" class="btn btn -lg btn-primary mb-4" id="limpiar"><li class="fa fa-eraser"></li> Limpiar</button>
 							<br>
-							{{Form::file('pdf',['class'=>'form-control font-weight-light','id' =>'pdf','required' =>'true','size'=>'1000'])}}
+							{{Form::file('pdf',['class'=>'form-control font-weight-light','id' =>'pdf','required' =>'true','size'=>'10240'])}}
 							<br>
 							{!! Form::label('info','Selecciona los roles para los que estará disponible este documento:',['class'=>'control-label mb-4 text-center text-info font-weight-bold font-size-4']) !!}
 
