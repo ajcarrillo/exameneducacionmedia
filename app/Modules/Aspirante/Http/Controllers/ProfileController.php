@@ -35,7 +35,7 @@ class ProfileController
         ));
     }
 
-    
+
     protected function getMunicipios()
     {
         return MunicipioView::orderBy('NOM_MUN')
