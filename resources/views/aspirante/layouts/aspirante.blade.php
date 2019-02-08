@@ -24,6 +24,7 @@
         </style>
     </head>
     <body>
+        @include('partials.logos_banner')
         <div class="bg-primary">
             <div class="container py-4">
                 <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
