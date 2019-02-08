@@ -24,8 +24,26 @@
         </style>
     </head>
     <body>
+        <div class="bg-primary">
+            <div class="container py-4">
+                <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
+                    <div class="mb-3 mb-sm-0">
+                        <h5 class="mb-0">Bienvenido<br> {{ get_user_full_name() }} <br> Folio
+                            CENEVAL: {{ get_aspirante()->folio }}</h5>
 
-        <div class="wrapper bg-light" id="app">
+                    </div>
+
+                    <!-- Edit Profile -->
+                    <a class="btn bg-white" style="color: #1f2d3d!important" href="{{ route('aspirante.profile') }}">
+                        <i class="fa fa-user small mr-2"></i>
+                        Editar perfil
+                    </a>
+                    <!-- End Edit Profile -->
+                </div>
+
+            </div>
+        </div>
+        <div class="wrapper" id="app">
             @yield('content')
         </div>
         @routes
