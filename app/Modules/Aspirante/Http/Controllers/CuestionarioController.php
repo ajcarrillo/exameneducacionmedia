@@ -7,6 +7,7 @@ use Aspirante\Models\Pregunta;
 use Illuminate\Http\Request;
 use ExamenEducacionMedia\Http\Controllers\Controller;
 use Exception;
+use DB;
 
 class CuestionarioController extends Controller
 {
@@ -18,15 +19,6 @@ class CuestionarioController extends Controller
      */
     public function index(Request $request)
     {
-        $aspirante = get_aspirante();
-        $existe = AspiranteRespuesta::where('aspirante_id', $aspirante->id)->first();
-
-        $aviso = "El cuestionario ceneval ya fue repondido por el aspirante";
-
-        if ($existe) {
-            return view('aspirante.cuestionario.aviso_aspirante', ['aviso' => $aviso]);
-        }
-
         $preguntas = Pregunta::with('hijos','hijos.diccionario','hijos.diccionario.respuestas')
             ->whereNull('padre_id')
             ->orderBy('id')
@@ -48,11 +40,15 @@ class CuestionarioController extends Controller
             $cuestionario = ($request->input("preguntas"));
             $total = Pregunta::whereNotNull('padre_id')->count();
 
-            if (count($cuestionario) == $total) {
+            if (count($cuestionario) <> $total) {
                 throw new Exception("Error: No coincide el total de preguntas.");
             }
 
+            DB::beginTransaction();
             foreach ($cuestionario as $clave => $valor) {
+                if (empty($valor)) {
+                    throw new Exception("Error: pregunta sin responder.");
+                }
                $aspiranteRespuesta = new AspiranteRespuesta;
                 $aspiranteRespuesta->aspirante_id = $aspirante->id;
                 $aspiranteRespuesta->pregunta_id = $clave;
@@ -64,10 +60,12 @@ class CuestionarioController extends Controller
                 }
             }
 
+            DB::commit();
             $aviso = "El cuestionario ceneval fue respondido exitosamente.";
-            return view('aspirante.cuestionario.aviso_aspirante', ['aviso' => $aviso]);
+            return redirect()->route('aviso.aspirante', compact('aviso'));
 
         } catch (Exception $e) {
+            DB::rollback();
             flash($e->getMessage())->warning();
             return redirect()->back();
         }

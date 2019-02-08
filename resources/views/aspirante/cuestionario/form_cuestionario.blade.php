@@ -31,10 +31,13 @@
 					<div class="card-body">
 						<div id="contenedor">
 							<div id="pagina-{{ $page }}">
+								<p class="text-center text-info">
+									Página <span class="badge badge-light">{{ $page }}</span>
+								</p>
 								@foreach($preguntas as $pregunta)
 									<div class="card card-info">
 										<div class="card-header">
-											{{ $page}} {{ $pregunta->nombre }}
+											{{ $pregunta->nombre }}
 										</div>
 										<div class="card-body">
 											<ul class="list-group">
@@ -42,7 +45,7 @@
 													<li class="list-group-item list-group-item-action">
 														<b>{{ $hijo->nombre }}</b>
 
-														<select name="preguntas[{{ $hijo->id }}]" class="form-control col-sm-6">
+														<select name="preguntas[{{ $hijo->id }}]" class="form-control col-sm-6" >
 															<option value="">Seleccione...</option>
 															@foreach($hijo->diccionario->respuestas  as $respuesta)
 																<option value="{{ $respuesta->id }}">{{ $respuesta->etiqueta }}</option>
@@ -56,11 +59,12 @@
 								@endforeach
 							</div>
 						</div>
+						<div id="avisoUsuario"></div>
 					</div>
 					<div class="card-footer">
 						<input type="hidden" data-id="page" data-page="{{ $page }}" data-last="{{ $lastPage }}">
 						<button type="submit" id="btnGuardar" class="btn btn-success" style="display: none;">Guardar</button>
-						<button type="button" id="btnSiguiente" class="btn btn-default">Siguiente <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+						<button type="button" id="btnSiguiente" class="btn btn-light">Siguiente <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
 					</div>
 				</div>
 				{!! Form::close() !!}
@@ -70,51 +74,5 @@
 @endsection
 
 @section('extra-scripts')
-	<script>
-		$(document).ready(function () {
-			"use strict";
-
-			$("#btnSiguiente").on("click", function () {
-				var idPage = $('[data-id="page"]'),
-					page = idPage.attr("data-page"),
-					siguiente = parseInt(page) + 1,
-					lastPage = idPage.attr("data-last"),
-					boton = $("#btnGuardar"),
-					contenedor = $("#contenedor"),
-					form = $("#form-cuestionario");
-
-				if (!form[0].checkValidity()) {
-					$("#avisoUsuario").html('<div class="alert alert-primary" role="alert"> Para continuar debe responder todas las preguntas.</div>');
-					return false;
-				} else {
-					$("#avisoUsuario").html('');
-				}
-
-				if (siguiente > lastPage) {
-					return false;
-				}
-
-				$.ajax({
-					url: "/aspirantes/captura-cuestionario",
-					type: 'GET',
-					dataType: "json",
-					data: {'page': siguiente}
-				})
-					.done(function (response) {
-						$("[id*='pagina-']").css("display", "none");
-						idPage.attr("data-page", siguiente);
-						contenedor.append(response);
-
-						if (siguiente == lastPage) {
-							boton.css("display", "block");
-							$("#btnSiguiente").css("display", "none");
-						}
-					})
-					.fail(function (xhr) {
-						console.error("Error durante petición ajax.");
-						console.error(xhr);
-					});
-			});
-		});
-	</script>
+	<script src="{{ mix('js/aspirante/cuestionario/form_cuestionario.js') }}"></script>
 @endsection

@@ -39,6 +39,7 @@ if (mix.inProduction()) {
 //Igna
 mix.js('resources/js/media/administracion/etapas/edit.js', 'public/js/media/administracion/etapas/edit.js');
 mix.js('resources/js/media/administracion/buscar_matricula/index.js', 'public/js/media/administracion/buscar_matricula/index.js');
+mix.js('resources/js/aspirante/cuestionario/form_cuestionario.js', 'public/js/aspirante/cuestionario/form_cuestionario.js');
 //endIgna
 mix.js('resources/js/media/administracion/responsable_plantel/eliminar.js', 'public/js/media/administracion/responsable_plantel/eliminar.js');
 mix.js('resources/js/media/administracion/carga_documento/create.js', 'public/js/media/administracion/carga_documento/create.js');
