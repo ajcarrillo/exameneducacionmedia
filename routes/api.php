@@ -36,6 +36,7 @@ Route::prefix('/v1')
         Route::group([ 'prefix' => '/geodatabase' ], function () {
             Route::get('/localidad', 'API\LocalidadController@show')->name('api.localidad.show');
             Route::get('/localidades', 'API\LocalidadController@index')->name('api.localidad.index');
+            Route::get('/localidades-con-plantel', 'API\SeleccionLocalidadController@index')->name('api.localidad.plantel.index');
             Route::get('/municipios', 'API\MunicipioController@index')->name('api.municipios.index');
         });
 

@@ -125,6 +125,8 @@
                     curp_valida: false,
                 })
                     .then(res => {
+                        this.aspirante.curp_historica = res.data.curp_historica;
+                        this.aspirante.curp_valida = res.data.curp_valida;
                         swal({
                             type: 'success',
                             text: 'Los datos generales se guardaron correctamente',

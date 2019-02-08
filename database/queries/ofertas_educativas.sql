@@ -1,63 +1,254 @@
--- MySQL dump 10.13  Distrib 5.6.17, for osx10.9 (x86_64)
---
--- Host: 127.0.0.1    Database: educacionmedia
--- ------------------------------------------------------
--- Server version	5.7.23
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `ofertas_educativas`
---
-
-DROP TABLE IF EXISTS `ofertas_educativas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ofertas_educativas` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `plantel_id` int(10) unsigned NOT NULL,
-  `especialidad_id` int(10) unsigned NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '1',
-  `clave` varchar(15) NOT NULL,
-  `programa_estudio_id` smallint(5) unsigned NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `ofertas_educativas_plantel_id_foreign` (`plantel_id`),
-  KEY `ofertas_educativas_especialidad_id_foreign` (`especialidad_id`),
-  KEY `ofertas_educativas_programa_estudio_id_foreign` (`programa_estudio_id`),
-  CONSTRAINT `ofertas_educativas_especialidad_id_foreign` FOREIGN KEY (`especialidad_id`) REFERENCES `especialidades` (`id`),
-  CONSTRAINT `ofertas_educativas_plantel_id_foreign` FOREIGN KEY (`plantel_id`) REFERENCES `planteles` (`id`),
-  CONSTRAINT `ofertas_educativas_programa_estudio_id_foreign` FOREIGN KEY (`programa_estudio_id`) REFERENCES `programas_estudio` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=285 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ofertas_educativas`
---
-
-LOCK TABLES `ofertas_educativas` WRITE;
-/*!40000 ALTER TABLE `ofertas_educativas` DISABLE KEYS */;
-INSERT INTO `ofertas_educativas` VALUES (4,26,4,1,'ENFE08',6,NULL,NULL),(5,26,5,1,'INFO08',5,NULL,NULL),(6,26,6,1,'HOSP08',7,NULL,NULL),(7,26,7,1,'MODI08',4,NULL,NULL),(8,26,8,1,'ADMO08',8,NULL,NULL),(9,27,4,1,'ENFE08',6,NULL,NULL),(10,27,6,1,'HOSP08',7,NULL,NULL),(11,27,7,0,'MODI08',4,NULL,NULL),(12,28,9,1,'ASDI08',8,NULL,NULL),(13,28,10,1,'CONA13B',8,NULL,NULL),(14,28,11,1,'ALBE08',7,NULL,NULL),(15,28,6,1,'HOSP08',7,NULL,NULL),(16,29,11,1,'ALBE08',7,NULL,NULL),(17,29,9,1,'ASDI08',8,NULL,NULL),(18,29,6,1,'HOSP08',7,NULL,NULL),(19,30,11,1,'ALBE08',7,NULL,NULL),(20,30,6,1,'HOSP08',7,NULL,NULL),(21,30,5,1,'INFO08',5,NULL,NULL),(22,31,8,1,'ADMO08',8,NULL,NULL),(23,31,5,1,'INFO08',5,NULL,NULL),(24,31,12,1,'EGAD08',5,NULL,NULL),(25,32,8,1,'ADMO08',8,NULL,NULL),(26,32,6,1,'HOSP08',7,NULL,NULL),(27,32,13,1,'RECL13B',4,NULL,NULL),(28,33,4,1,'ENFE08',6,NULL,NULL),(29,33,14,1,'MMOP08',4,NULL,NULL),(30,33,15,1,'MECA08',4,NULL,NULL),(31,91,16,1,'GENERAL',8,NULL,NULL),(32,92,16,1,'GENERAL',8,NULL,NULL),(33,93,16,1,'GENERAL',8,NULL,NULL),(34,94,16,1,'GENERAL',8,NULL,NULL),(35,95,16,1,'GENERAL',8,NULL,NULL),(36,96,16,1,'GENERAL',8,NULL,NULL),(37,97,16,1,'GENERAL',8,NULL,NULL),(38,98,16,1,'GENERAL',8,NULL,NULL),(39,99,16,1,'GENERAL',8,NULL,NULL),(40,100,16,1,'GENERAL',8,NULL,NULL),(41,101,16,1,'GENERAL',8,NULL,NULL),(42,102,16,1,'GENERAL',8,NULL,NULL),(43,103,16,1,'GENERAL',8,NULL,NULL),(45,104,16,1,'GENERAL',8,NULL,NULL),(46,34,18,1,'611215',8,NULL,NULL),(47,34,19,1,'244209',2,NULL,NULL),(48,34,20,1,'615102',8,NULL,NULL),(49,34,21,1,'244207',3,NULL,NULL),(50,34,22,1,'622204',8,NULL,NULL),(51,105,16,1,'GENERAL',8,NULL,NULL),(52,107,16,1,'GENERAL',8,NULL,NULL),(53,83,23,1,'351300001',4,NULL,NULL),(54,83,24,1,'381100002',7,NULL,NULL),(55,83,25,1,'361400001',1,NULL,NULL),(56,83,26,1,'333502001',8,NULL,NULL),(57,108,16,1,'GENERAL',8,NULL,NULL),(58,109,16,1,'GENERAL',8,NULL,NULL),(59,111,16,1,'GENERAL',8,NULL,NULL),(60,110,16,1,'GENERAL',8,NULL,NULL),(61,112,16,1,'GENERAL',8,NULL,NULL),(62,113,16,1,'GENERAL',8,NULL,NULL),(63,114,16,1,'GENERAL',8,NULL,NULL),(64,115,16,1,'GENERAL',8,NULL,NULL),(65,116,16,1,'GENERAL',8,NULL,NULL),(66,117,16,1,'GENERAL',8,NULL,NULL),(67,118,16,1,'GENERAL',8,NULL,NULL),(68,119,16,1,'GENERAL',8,NULL,NULL),(69,120,16,1,'GENERAL',8,NULL,NULL),(70,121,16,1,'GENERAL',8,NULL,NULL),(71,122,16,1,'GENERAL',8,NULL,NULL),(72,123,16,1,'GENERAL',8,NULL,NULL),(73,124,16,1,'GENERAL',8,NULL,NULL),(74,125,16,1,'GENERAL',8,NULL,NULL),(75,127,16,1,'GENERAL',8,NULL,NULL),(76,128,16,1,'GENERAL',8,NULL,NULL),(77,129,16,1,'GENERAL',8,NULL,NULL),(78,130,16,1,'GENERAL',8,NULL,NULL),(79,131,16,1,'GENERAL',8,NULL,NULL),(80,132,16,1,'GENERAL',8,NULL,NULL),(81,133,16,1,'GENERAL',8,NULL,NULL),(82,134,16,1,'GENERAL',8,NULL,NULL),(83,135,16,1,'GENERAL',8,NULL,NULL),(84,136,16,1,'GENERAL',8,NULL,NULL),(85,137,16,1,'GENERAL',8,NULL,NULL),(86,138,16,1,'GENERAL',8,NULL,NULL),(87,139,16,1,'GENERAL',8,NULL,NULL),(88,140,16,1,'GENERAL',8,NULL,NULL),(89,141,16,1,'GENERAL',8,NULL,NULL),(90,142,16,1,'GENERAL',8,NULL,NULL),(91,143,16,1,'GENERAL',8,NULL,NULL),(92,1,27,1,'23ECB0007V',3,NULL,NULL),(93,2,27,1,'23ECB0009T',3,NULL,NULL),(94,3,27,1,'23ECB0022N',3,NULL,NULL),(95,4,27,1,'23ECB0025K',3,NULL,NULL),(96,5,27,1,'23ECB0006W',3,NULL,NULL),(97,6,27,1,'23ECB0024L',3,NULL,NULL),(98,55,27,1,'23EMS0008A',3,NULL,NULL),(99,54,27,1,'23EMS0004E',3,NULL,NULL),(100,7,27,1,'23ECB0001A',3,NULL,NULL),(101,8,27,1,'23ECB0008U',3,NULL,NULL),(102,10,27,1,'23ECB0005X',3,NULL,NULL),(103,11,27,1,'23ECB0010I',3,NULL,NULL),(104,12,27,1,'23ECB0012G',3,NULL,NULL),(105,13,27,1,'23ECB0002Z',3,NULL,NULL),(106,14,27,1,'23ECB0013F',3,NULL,NULL),(107,15,27,1,'23ECB0021O',3,NULL,NULL),(108,56,27,1,'23EMS0026Q',3,NULL,NULL),(109,16,27,1,'23ECB0023M',3,NULL,NULL),(110,58,27,1,'23EMS0025R',3,NULL,NULL),(111,18,27,1,'23ECB0028H',3,NULL,NULL),(112,59,27,1,'23EMS0003F',3,NULL,NULL),(113,19,27,1,'23ECB0004Y',3,NULL,NULL),(114,60,27,1,'23EMS0005D',3,NULL,NULL),(115,20,27,1,'23ECB0018A',3,NULL,NULL),(116,61,27,1,'23EMS0009Z',3,NULL,NULL),(117,21,27,1,'23ECB0027I',3,NULL,NULL),(118,62,27,1,'23EMS0016J',3,NULL,NULL),(119,22,27,1,'23ECB0017B',3,NULL,NULL),(120,63,27,1,'23EMS0017I',3,NULL,NULL),(121,23,27,1,'23ECB0011H',3,NULL,NULL),(122,64,27,1,'23EMS0019G',3,NULL,NULL),(123,24,27,1,'23ECB0003Z',3,NULL,NULL),(125,25,27,1,'23ECB0026J',3,NULL,NULL),(126,67,27,1,'23EMS0027P',3,NULL,NULL),(127,69,27,1,'23EMS0002G',3,NULL,NULL),(128,68,27,1,'23EMS0001H',3,NULL,NULL),(129,70,27,1,'23EMS0007B',3,NULL,NULL),(130,71,27,1,'23EMS0013M',3,NULL,NULL),(131,72,27,1,'23EMS0021V',3,NULL,NULL),(132,74,27,1,'23EMS0012N',3,NULL,NULL),(133,75,27,1,'23EMS0014L',3,NULL,NULL),(134,78,27,1,'23EMS0020W',3,NULL,NULL),(135,76,27,1,'23EMS0024S',3,NULL,NULL),(136,66,27,1,'23EMS0022U',3,NULL,NULL),(137,79,28,1,'361100003',1,NULL,NULL),(138,106,16,1,'GENERAL',8,NULL,NULL),(139,79,29,1,'344100001',5,NULL,NULL),(140,126,16,1,'GENERAL',8,NULL,NULL),(141,79,30,1,'333505001',8,NULL,NULL),(142,80,28,1,'361100003',1,NULL,NULL),(143,80,31,1,'333505001',8,NULL,NULL),(144,80,32,1,'351700001',5,NULL,NULL),(146,81,31,1,'333505001',8,NULL,NULL),(148,81,32,1,'351700001',5,NULL,NULL),(149,81,33,1,'361100001',1,NULL,NULL),(150,82,28,1,'361100003',1,NULL,NULL),(151,82,29,1,'344100001',5,NULL,NULL),(152,82,31,1,'333505001',8,NULL,NULL),(159,43,40,1,'351700001-13',5,NULL,NULL),(161,43,42,1,'351100002-13',5,NULL,NULL),(162,43,43,1,'351200001-13',5,NULL,NULL),(163,84,44,1,'BT-PESCAYBUCEO',5,NULL,NULL),(164,84,45,1,'BT-MECA-NAVAL',5,NULL,NULL),(167,84,48,1,'BT-MIXTORH',8,NULL,NULL),(168,84,49,1,'BT-REFRICLIM',5,NULL,NULL),(169,84,50,1,'BT-OPERPORT',8,NULL,NULL),(174,44,43,1,'351200001-13',5,NULL,NULL),(176,44,56,1,'351700001-13',5,NULL,NULL),(178,47,56,1,'351700001-13',5,NULL,NULL),(179,36,58,1,'111300003',3,NULL,NULL),(181,46,60,1,'351300001-13',5,NULL,NULL),(182,36,61,1,'144100015',5,NULL,NULL),(183,46,40,1,'351700001-13',5,NULL,NULL),(185,36,62,1,'171700003',6,NULL,NULL),(186,48,63,1,'351200003-13',5,NULL,NULL),(187,48,54,1,'333507007-13',8,NULL,NULL),(188,48,59,1,'333200001-13',8,NULL,NULL),(189,48,56,1,'351700001-13',5,NULL,NULL),(190,43,54,1,'333507007-13',8,NULL,NULL),(191,44,54,1,'333507007-13',8,NULL,NULL),(192,35,64,1,'10120',3,NULL,NULL),(193,46,59,1,'333200001-13',8,NULL,NULL),(194,47,54,1,'333507007-13',8,NULL,NULL),(195,35,65,1,'10122',3,NULL,NULL),(196,49,54,1,'333507007-13',8,NULL,NULL),(197,35,66,1,'10104',3,NULL,NULL),(198,49,67,1,'351700001-13',5,NULL,NULL),(200,50,54,1,'333507007-13',8,NULL,NULL),(201,50,67,1,'351700001-13',5,NULL,NULL),(202,50,59,1,'333200001-13',8,NULL,NULL),(203,51,54,1,'333507007-13',8,NULL,NULL),(204,51,59,1,'333200001-13',8,NULL,NULL),(205,51,68,1,'351500004-13',5,NULL,NULL),(206,51,67,1,'351700001-13',5,NULL,NULL),(207,144,43,1,'351200001-13',5,NULL,NULL),(209,144,42,1,'351100002-13',5,NULL,NULL),(211,37,71,1,'333400001-13',8,NULL,NULL),(212,37,72,1,'333502001-13',8,NULL,NULL),(215,37,74,1,'333508001-13',7,NULL,NULL),(216,53,75,1,'361400001',5,NULL,NULL),(217,37,76,1,'344100002-13',5,NULL,NULL),(218,37,77,1,'333507003-13',7,NULL,NULL),(219,53,45,1,'351500004',4,NULL,NULL),(220,37,78,1,'351700001-13',5,NULL,NULL),(221,53,49,1,'351200003',7,NULL,NULL),(222,38,72,1,'333502001-13',8,NULL,NULL),(224,38,71,1,'333400001-13',8,NULL,NULL),(225,38,79,1,'351200001-13',4,NULL,NULL),(226,38,76,1,'344100002-13',5,NULL,NULL),(227,38,78,1,'351700001-13',5,NULL,NULL),(228,53,24,1,'38100002',7,NULL,NULL),(229,39,71,1,'333400001-13',8,NULL,NULL),(230,53,44,1,'381100001',7,NULL,NULL),(231,39,80,1,'371200001-13',6,NULL,NULL),(232,39,81,1,'351100002-13',4,NULL,NULL),(233,39,74,1,'333508001-13',7,NULL,NULL),(234,39,76,1,'344100002-13',5,NULL,NULL),(235,39,77,1,'333507003-13',7,NULL,NULL),(236,39,82,1,'351700001-13',5,NULL,NULL),(237,40,72,1,'333502001-13',8,NULL,NULL),(238,40,83,1,'353200001-13',4,NULL,NULL),(239,40,71,1,'333400001-13',8,NULL,NULL),(240,40,84,1,'321300001-13',5,NULL,NULL),(241,40,76,1,'344100002-13',5,NULL,NULL),(242,41,72,1,'333502001-13',8,NULL,NULL),(243,41,85,0,'371400001-13',6,NULL,NULL),(244,41,74,1,'333508001-13',7,NULL,NULL),(245,41,76,1,'344100002-13',5,NULL,NULL),(246,42,74,1,'333508001-13',7,NULL,NULL),(247,42,76,1,'344100002-13',5,NULL,NULL),(248,42,86,1,'333200001-13',8,NULL,NULL),(249,86,87,1,'351600002',4,NULL,NULL),(250,86,88,1,'371700002',6,NULL,NULL),(251,86,89,1,'344100004',5,NULL,NULL),(252,86,90,1,'333507003',8,NULL,NULL),(253,145,16,1,'NO APLICA',3,NULL,NULL),(254,146,16,1,'NO APLICA',3,NULL,NULL),(255,147,16,1,'NO APLICA',3,NULL,NULL),(256,148,16,1,'NO APLICA',3,NULL,NULL),(257,149,16,1,'NO APLICA',3,NULL,NULL),(258,150,16,1,'NO APLICA',3,NULL,NULL),(259,151,16,1,'NO APLICA',3,NULL,NULL),(260,152,16,1,'NO APLICA',3,NULL,NULL),(261,153,16,1,'NO APLICA',3,NULL,NULL),(262,154,16,1,'NO APLICA',3,NULL,NULL),(263,155,16,1,'NO APLICA',3,NULL,NULL),(264,156,16,1,'NO APLICA',3,NULL,NULL),(265,157,16,1,'NO APLICA',3,NULL,NULL),(266,158,16,1,'NO APLICA',3,NULL,NULL),(267,159,16,1,'NO APLICA',3,NULL,NULL),(268,160,16,1,'NO APLICA',3,NULL,NULL),(269,161,16,1,'NO APLICA',3,NULL,NULL),(270,162,16,1,'NO APLICA',3,NULL,NULL),(271,163,16,1,'NO APLICA',3,NULL,NULL),(272,164,16,1,'NO APLICA',3,NULL,NULL),(273,165,16,1,'NO APLICA',3,NULL,NULL),(274,166,16,1,'NO APLICA',3,NULL,NULL),(275,167,16,1,'NO APLICA',3,NULL,NULL),(276,168,16,1,'NO APLICA',3,NULL,NULL),(277,169,16,1,'NO APLICA',3,NULL,NULL),(278,170,16,1,'NO APLICA',3,NULL,NULL),(279,171,90,0,'NO APLICA',7,NULL,NULL),(280,171,24,0,'NO APLICA',7,NULL,NULL),(281,41,93,1,'371400001-16',6,NULL,NULL),(282,144,95,1,'13',7,NULL,NULL),(283,83,48,0,'333502001-13',3,NULL,NULL),(284,53,96,1,'344100002-13',7,NULL,NULL);
-/*!40000 ALTER TABLE `ofertas_educativas` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2018-10-03  0:45:08
+SET  FOREIGN_KEY_CHECKS = 0;
+TRUNCATE educacionmedia.ofertas_educativas;
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (1, 16, 4, 1, 'ENFE08', 6, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (2, 16, 5, 1, 'INFO08', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (3, 16, 6, 1, 'HOSP08', 7, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (4, 16, 7, 1, 'MODI08', 4, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (5, 16, 8, 1, 'ADMO08', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (6, 13, 9, 1, 'ASDI08', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (7, 13, 10, 1, 'CONA13B', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (8, 13, 11, 1, 'ALBE08', 7, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (9, 13, 6, 1, 'HOSP08', 7, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (10, 14, 11, 1, 'ALBE08', 7, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (11, 14, 9, 1, 'ASDI08', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (12, 14, 6, 1, 'HOSP08', 7, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (13, 15, 11, 1, 'ALBE08', 7, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (14, 15, 6, 1, 'HOSP08', 7, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (15, 15, 5, 1, 'INFO08', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (16, 17, 8, 1, 'ADMO08', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (17, 17, 5, 1, 'INFO08', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (18, 17, 12, 1, 'EGAD08', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (19, 19, 8, 1, 'ADMO08', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (20, 19, 6, 1, 'HOSP08', 7, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (21, 19, 13, 1, 'RECL13B', 4, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (22, 18, 4, 1, 'ENFE08', 6, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (23, 18, 14, 1, 'MMOP08', 4, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (24, 18, 15, 1, 'MECA08', 4, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (25, 78, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (26, 79, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (27, 80, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (28, 81, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (29, 82, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (30, 83, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (31, 84, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (32, 85, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (33, 86, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (34, 87, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (35, 88, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (36, 89, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (37, 90, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (38, 91, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (39, 47, 18, 1, '611215', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (40, 47, 19, 1, '244209', 2, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (41, 47, 20, 1, '615102', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (42, 47, 21, 1, '244207', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (43, 47, 22, 1, '622204', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (44, 92, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (45, 94, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (46, 6, 23, 1, '351300001', 4, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (47, 6, 24, 1, '381100002', 7, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (48, 6, 25, 1, '361400001', 1, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (49, 6, 26, 1, '333502001', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (50, 95, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (51, 96, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (52, 98, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (53, 97, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (54, 99, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (55, 100, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (56, 101, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (57, 102, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (58, 103, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (59, 104, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (60, 105, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (61, 106, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (62, 107, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (63, 108, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (64, 109, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (65, 110, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (66, 111, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (67, 112, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (68, 114, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (69, 115, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (70, 116, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (71, 117, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (72, 118, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (73, 119, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (74, 120, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (75, 121, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (76, 122, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (77, 123, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (78, 124, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (79, 125, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (80, 126, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (81, 127, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (82, 128, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (83, 129, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (84, 130, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (85, 30, 27, 1, '23ECB0007V', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (86, 32, 27, 1, '23ECB0009T', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (87, 40, 27, 1, '23ECB0022N', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (88, 43, 27, 1, '23ECB0025K', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (89, 29, 27, 1, '23ECB0006W', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (90, 42, 27, 1, '23ECB0024L', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (91, 54, 27, 1, '23EMS0008A', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (92, 51, 27, 1, '23EMS0004E', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (93, 24, 27, 1, '23ECB0001A', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (94, 31, 27, 1, '23ECB0008U', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (95, 28, 27, 1, '23ECB0005X', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (96, 33, 27, 1, '23ECB0010I', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (97, 35, 27, 1, '23ECB0012G', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (98, 25, 27, 1, '23ECB0002Z', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (99, 36, 27, 1, '23ECB0013F', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (100, 39, 27, 1, '23ECB0021O', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (101, 67, 27, 1, '23EMS0026Q', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (102, 41, 27, 1, '23ECB0023M', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (103, 66, 27, 1, '23EMS0025R', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (104, 46, 27, 1, '23ECB0028H', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (105, 50, 27, 1, '23EMS0003F', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (106, 27, 27, 1, '23ECB0004Y', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (107, 52, 27, 1, '23EMS0005D', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (108, 38, 27, 1, '23ECB0018A', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (109, 55, 27, 1, '23EMS0009Z', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (110, 45, 27, 1, '23ECB0027I', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (111, 59, 27, 1, '23EMS0016J', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (112, 37, 27, 1, '23ECB0017B', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (113, 60, 27, 1, '23EMS0017I', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (114, 34, 27, 1, '23ECB0011H', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (115, 61, 27, 1, '23EMS0019G', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (116, 26, 27, 1, '23ECB0003Z', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (117, 44, 27, 1, '23ECB0026J', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (118, 68, 27, 1, '23EMS0027P', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (119, 49, 27, 1, '23EMS0002G', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (120, 48, 27, 1, '23EMS0001H', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (121, 53, 27, 1, '23EMS0007B', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (122, 57, 27, 1, '23EMS0013M', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (123, 63, 27, 1, '23EMS0021V', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (124, 56, 27, 1, '23EMS0012N', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (125, 58, 27, 1, '23EMS0014L', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (126, 62, 27, 1, '23EMS0020W', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (127, 65, 27, 1, '23EMS0024S', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (128, 64, 27, 1, '23EMS0022U', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (129, 20, 28, 1, '361100003', 1, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (130, 93, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (131, 20, 29, 1, '344100001', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (132, 113, 16, 1, 'GENERAL', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (133, 20, 30, 1, '333505001', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (134, 21, 28, 1, '361100003', 1, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (135, 21, 31, 1, '333505001', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (136, 21, 32, 1, '351700001', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (137, 23, 31, 1, '333505001', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (138, 23, 32, 1, '351700001', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (139, 23, 33, 1, '361100001', 1, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (140, 22, 28, 1, '361100003', 1, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (141, 22, 29, 1, '344100001', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (142, 22, 31, 1, '333505001', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (143, 69, 40, 1, '351700001-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (144, 69, 42, 1, '351100002-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (145, 69, 43, 1, '351200001-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (146, 5, 44, 1, 'BT-PESCAYBUCEO', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (147, 5, 45, 1, 'BT-MECA-NAVAL', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (148, 5, 48, 1, 'BT-MIXTORH', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (149, 5, 49, 1, 'BT-REFRICLIM', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (150, 5, 50, 1, 'BT-OPERPORT', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (151, 70, 43, 1, '351200001-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (152, 70, 56, 1, '351700001-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (153, 71, 56, 1, '351700001-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (154, 2, 58, 1, '111300003', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (155, 72, 60, 1, '351300001-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (156, 2, 61, 1, '144100015', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (157, 72, 40, 1, '351700001-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (158, 2, 62, 1, '171700003', 6, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (159, 73, 63, 1, '351200003-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (160, 73, 54, 1, '333507007-13', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (161, 73, 59, 1, '333200001-13', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (162, 73, 56, 1, '351700001-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (163, 69, 54, 1, '333507007-13', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (164, 70, 54, 1, '333507007-13', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (165, 1, 64, 1, '10120', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (166, 72, 59, 1, '333200001-13', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (167, 71, 54, 1, '333507007-13', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (168, 1, 65, 1, '10122', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (169, 74, 54, 1, '333507007-13', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (170, 1, 66, 1, '10104', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (171, 74, 67, 1, '351700001-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (172, 75, 54, 1, '333507007-13', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (173, 75, 67, 1, '351700001-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (174, 75, 59, 1, '333200001-13', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (175, 76, 54, 1, '333507007-13', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (176, 76, 59, 1, '333200001-13', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (177, 76, 68, 1, '351500004-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (178, 76, 67, 1, '351700001-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (179, 77, 43, 1, '351200001-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (180, 77, 42, 1, '351100002-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (181, 8, 71, 1, '333400001-13', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (182, 8, 72, 1, '333502001-13', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (183, 8, 74, 1, '333508001-13', 7, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (184, 3, 75, 1, '361400001', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (185, 8, 76, 1, '344100002-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (186, 8, 77, 1, '333507003-13', 7, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (187, 3, 45, 1, '351500004', 4, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (188, 8, 78, 1, '351700001-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (189, 3, 49, 1, '351200003', 7, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (190, 9, 72, 1, '333502001-13', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (191, 9, 71, 1, '333400001-13', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (192, 9, 79, 1, '351200001-13', 4, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (193, 9, 76, 1, '344100002-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (194, 9, 78, 1, '351700001-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (195, 3, 24, 1, '38100002', 7, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (196, 12, 71, 1, '333400001-13', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (197, 3, 44, 1, '381100001', 7, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (198, 12, 80, 1, '371200001-13', 6, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (199, 12, 81, 1, '351100002-13', 4, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (200, 12, 74, 1, '333508001-13', 7, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (201, 12, 76, 1, '344100002-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (202, 12, 77, 1, '333507003-13', 7, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (203, 12, 82, 1, '351700001-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (204, 7, 72, 1, '333502001-13', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (205, 7, 83, 1, '353200001-13', 4, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (206, 7, 71, 1, '333400001-13', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (207, 7, 84, 1, '321300001-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (208, 7, 76, 1, '344100002-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (209, 10, 72, 1, '333502001-13', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (210, 10, 85, 0, '371400001-13', 6, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (211, 10, 74, 1, '333508001-13', 7, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (212, 10, 76, 1, '344100002-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (213, 11, 74, 1, '333508001-13', 7, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (214, 11, 76, 1, '344100002-13', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (215, 11, 86, 1, '333200001-13', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (216, 4, 87, 1, '351600002', 4, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (217, 4, 88, 1, '371700002', 6, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (218, 4, 89, 1, '344100004', 5, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (219, 4, 90, 1, '333507003', 8, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (220, 152, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (221, 153, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (222, 154, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (223, 155, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (224, 131, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (225, 132, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (226, 133, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (227, 134, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (228, 136, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (229, 135, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (230, 137, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (231, 138, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (232, 139, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (233, 140, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (234, 141, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (235, 142, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (236, 143, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (237, 144, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (238, 145, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (239, 146, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (240, 147, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (241, 148, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (242, 156, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (243, 149, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (244, 150, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (245, 151, 16, 1, 'no aplica', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (246, 157, 90, 0, 'no aplica', 7, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (247, 157, 24, 0, 'no aplica', 7, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (248, 10, 93, 1, '371400001-16', 6, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (249, 77, 95, 1, '13', 7, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (250, 6, 48, 0, '333502001-13', 3, null, null);
+INSERT INTO educacionmedia.ofertas_educativas (id, plantel_id, especialidad_id, active, clave, programa_estudio_id, created_at, updated_at) VALUES (251, 3, 96, 1, '344100002-13', 7, null, null);
+SET FOREIGN_KEY_CHECKS = 1;

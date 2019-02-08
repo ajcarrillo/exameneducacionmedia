@@ -20,6 +20,7 @@ mix.js('resources/js/adminlte.js', 'public/js')
     .js('resources/js/administracion/planteles/app.js', 'public/js/administracion/planteles')
     .js('resources/js/aspirante/registro_matricula.js', 'public/js/aspirante')
     .js('resources/js/aspirante/profile.js', 'public/js/aspirante')
+    .js('resources/js/aspirante/dashboard.js', 'public/js/aspirante')
     .js('resources/js/aspirante/seleccion_oferta.js', 'public/js/aspirante');
 
 if (mix.inProduction()) {
@@ -42,10 +43,17 @@ mix.js('resources/js/media/administracion/buscar_matricula/index.js', 'public/js
 mix.js('resources/js/aspirante/cuestionario/form_cuestionario.js', 'public/js/aspirante/cuestionario/form_cuestionario.js');
 //endIgna
 mix.js('resources/js/media/administracion/responsable_plantel/eliminar.js', 'public/js/media/administracion/responsable_plantel/eliminar.js');
+
+
+
+
+// ANTONIO
+mix.js('resources/js/media/administracion/responsable_subsistema/eliminar.js', 'public/js/media/administracion/responsable_subsistema/eliminar.js');
+// END ANTONIO
+
 mix.js('resources/js/media/administracion/carga_documento/create.js', 'public/js/media/administracion/carga_documento/create.js');
 mix.js('resources/js/media/administracion/carga_documento/index_archivos.js', 'public/js/media/administracion/carga_documento/index_archivos.js');
 
 //alvaro
 mix.js('resources/js/media/administracion/oferta_educativa/index.js', 'public/js/media/administracion/oferta_educativa/index.js');
 //endAlvaro
-
