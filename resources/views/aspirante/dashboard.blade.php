@@ -30,6 +30,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="col">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h1 class="card-title">Información</h1>
+                        </div>
+                        <div class="card-body">
+
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 @if(count($ofertas) > 0)
