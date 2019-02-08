@@ -11,14 +11,14 @@
 	@foreach($preguntas as $pregunta)
 		<div class="card card-info">
 			<div class="card-header">
-				{{ $page }} {{ $pregunta->nombre }}
+				{{ $pregunta->nombre }}
 			</div>
 			<div class="card-body">
 				<ul class="list-group">
 					@foreach($pregunta->hijos as $hijo)
 						<li class="list-group-item list-group-item-action">
 							<b>{{ $hijo->nombre }}</b>
-							<select name="preguntas[{{ $hijo->id }}]" class="form-control col-sm-6" >
+							<select name="preguntas[{{ $hijo->id }}]" class="form-control col-sm-6" required>
 								<option value="">Seleccione...</option>
 								@foreach($hijo->diccionario->respuestas  as $respuesta)
 									<option value="{{ $respuesta->id }}">{{ $respuesta->etiqueta }}</option>

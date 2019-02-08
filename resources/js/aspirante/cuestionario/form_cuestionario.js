@@ -11,11 +11,11 @@ $(document).ready(function () {
             form       = $("#form-cuestionario");
 
         if (!form[0].checkValidity()) {
-            $("#avisoUsuario").html('<div class="alert alert-primary" role="alert"> Para continuar debe responder todas las preguntas.</div>');
+            $("#avisoUsuario").html("<div class='alert alert-primary' role='alert'>" + "Para continuar debe responder todas las preguntas" + "</div>");
             return false;
-        } else {
-            $("#avisoUsuario").html('');
         }
+
+        $("#avisoUsuario").html("");
 
         if (siguiente > lastPage) {
             return false;
