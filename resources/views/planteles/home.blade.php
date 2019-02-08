@@ -14,6 +14,7 @@
 
 @section('content')
 
+    <div class="content">
         <div class="row">
             <div class="col-md-3">
                 <div class="small-box bg-aqua">
@@ -99,11 +100,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="info-box bg-green">
-                    <span class="info-box-icon"><i class="icon ion-ios-heart-outline"></i></span>
+                    <span class="info-box-icon bg-green-active"><i class="fa fa-bar-chart"></i></span>
 
                     <div class="info-box-content">
                         <span class="info-box-text">Porcentaje ocupado</span>
-                        <span class="info-box-number">{{$porcentaje}}%</span>
+                        <span class="info-box-number">{{$porcentaje}} %</span>
 
                         <div class="progress">
                             <div class="progress-bar" style="width: {{$porcentaje}}%"></div>
@@ -116,51 +117,43 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="box box-success">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Sedes alternas</h3>
-                        <div class="box-tools pull-right">
-                            <!-- Buttons, labels, and many other things can be placed here! -->
-                            <!-- Here is a label for example -->
-                            <span class="label label-primary"></span>
-                        </div><!-- /.box-tools -->
-                    </div><!-- /.box-header -->
-                    <div class="box-body no-padding">
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th>Sede</th>
-                                <th class="text-right">Capacidad</th>
-                                <th class="text-right">Aulas</th>
-                                <th class="text-right">Capacidad ocupada</th>
-                                <th class="text-right">Porcentaje ocupado</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <!-- foreach-->
-                            @foreach($sedes as $sede)
-                            <tr>
-                                <td rowspan="2">{{ $sede->descripcion }}</td>
-                                <td class="text-right"></td>
-                                <td class="text-right"></td>
-                                <td class="text-right"></td>
-                                <td class="text-right"></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td colspan="2" style="text-align: right">
-                                </td>
-                            </tr>
-                            <!-- end foreach-->
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div><!-- /.box-body -->
-                </div><!-- /.box -->
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <div class="card-title">Sedes alternas</div>
+                    </div>
+                    <div class="card-body">
+                        <!--<div class="table-responsive-sm">-->
+                            <table class="table table-hover table-responsive-sm">
+                                <thead>
+                                <tr>
+                                    <th>Sede</th>
+                                    <th class="text-right">Capacidad</th>
+                                    <th class="text-right">Aulas</th>
+                                    <th class="text-right">Capacidad ocupada</th>
+                                    <th class="text-right">Porcentaje ocupado</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- foreach-->
+                                @foreach($sedes as $sede)
+                                    <tr>
+                                        <td rowspan="2">{{ $sede->sede }}</td>
+                                        <td class="text-right">{{ $sede->capacidad_aula }}</td>
+                                        <td class="text-right">{{ $sede->aulas }}</td>
+                                        <td class="text-right">{{ $sede->capacidad_ocupada }}</td>
+                                        <td class="text-right">{{ ($sede->capacidad_ocupada / $sede->capacidad_aula)*100 }} %</td>
+                                    </tr>
+                                    <tr>
+                                    </tr>
+                                    <!-- end foreach-->
+                                @endforeach
+                                </tbody>
+                            </table>
+                        <!--</div>-->
+                    </div>
+                    <div class="card-footer"></div>
+                </div>
             </div>
         </div>
-
-
-
+    </div>
 @endsection

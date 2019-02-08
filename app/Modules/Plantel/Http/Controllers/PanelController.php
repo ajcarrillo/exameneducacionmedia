@@ -55,9 +55,21 @@ class PanelController extends Controller
         $aforo_suma= $Aula->where('edificio_id', $id_plantel)->sum('capacidad');
         $aulas= $Aula->where('edificio_id', $id_plantel)->count('id');
 
-        $porcentaje = ($aspirantes_proceso_completo/$aforo_suma)*100; //var_dump($porcentaje);exit;
+        $porcentaje = ($aspirantes_proceso_completo/$aforo_suma)*100;
 
-        $sedes= SedeAlterna::where('plantel_id', $id_plantel)->get();
+        $sede='SELECT DISTINCT (t.id) as id_sede ,t.descripcion as sede 
+            , SUM(au.capacidad) as capacidad_aula
+            , COUNT(DISTINCT au.id) as aulas,
+            (SELECT COUNT(edificio_id) 
+            FROM pases_examen
+            INNER JOIN aulas ON aulas.id = pases_examen.aula_id AND aulas.edificio_type = "sede_alterna"
+            WHERE aulas.edificio_id = t.id GROUP BY edificio_id
+            ) as capacidad_ocupada
+            FROM sedes_alternas as t
+            INNER JOIN aulas as au on au.edificio_id = t.id
+            WHERE t.plantel_id = '.$id_plantel.' AND au.edificio_type = "sede_alterna"
+            GROUP BY (t.id)';
+        $sedes= DB::select($sede);
 
         return view('planteles.home', compact('total_oferta','total_demanda', 'aspirantes_proceso_completo', 'aspirantes_sin_pago','aforo_suma','aulas','porcentaje', 'sedes'));
     }
