@@ -56,3 +56,7 @@ mix.js('resources/js/media/administracion/carga_documento/index_archivos.js', 'p
 //alvaro
 mix.js('resources/js/media/administracion/oferta_educativa/index.js', 'public/js/media/administracion/oferta_educativa/index.js');
 //endAlvaro
+
+
+mix.js('resources/js/media/administracion/sedes_alternas/create.js', 'public/js/media/administracion/sedes_alternas/create.js');
+mix.js('resources/js/media/administracion/sedes_alternas/edit.js', 'public/js/media/administracion/sedes_alternas/edit.js');
