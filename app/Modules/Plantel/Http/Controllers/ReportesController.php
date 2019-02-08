@@ -18,7 +18,7 @@ class ReportesController extends Controller
 {
     public function descargar(Request $request)
     {
-         Auth::user()->plantel();
+         $nombre_file="";
 
         $nombre_a_descargar = "nombre del archivo";
         $pdf                = app('snappy.pdf.wrapper');
@@ -31,25 +31,30 @@ class ReportesController extends Controller
             ->setOption('disable-smart-shrinking', true)
             ->setOption('zoom', '1');
 
-        $query = DB::table('aulas')
-            //->select()
-            //->from('aulas')
-            ->join('planteles', 'aulas.edificio_id', '=', 'planteles.id')
+        $aulas = DB::table('planteles')
+            ->select('aulas.id', 'aulas.capacidad')
+            ->join('aulas', 'planteles.id', '=', 'aulas.edificio_id')
+            ->where('planteles.id', Auth::user()->plantel->id)
+            ->get();
+
+        $query = DB::table('ofertas_educativas')
+            ->join('planteles', 'ofertas_educativas.plantel_id', '=', 'planteles.id')
+            ->join('especialidades', 'ofertas_educativas.especialidad_id', '=', 'especialidades.id')
+            ->join('aulas', 'planteles.id', '=', 'aulas.edificio_id')
             ->join('pases_examen', 'pases_examen.aula_id', '=', 'aulas.id')
             ->join('aspirantes', 'aspirantes.id', '=', 'pases_examen.aspirante_id')
             ->join('alumnos.alumnos as alumn','alumn.id','=','aspirantes.alumno_id')
-            ->join('seleccion_ofertas_educativas as ofertas', 'ofertas.aspirante_id', '=', 'aspirantes.id')
-            ->join('ofertas_educativas as ofertas_edu', 'ofertas_edu.id', '=', 'ofertas.oferta_educativa_id')
-            ->join('especialidades', 'ofertas_edu.especialidad_id', '=', 'especialidades.id')
-            ->where('planteles.id', Auth::user()->plantel->id)
-            //->groupBy('plantel.id')
-            ->get();
-            //dd($query);
+            ->where('planteles.id', Auth::user()->plantel->id);
+
         $formato = $request->formato;
 
         if ($formato == "1") {
-            $pdf ->setOrientation('landscape');
-            $pdf->loadView('planteles.reportes1', ['query' => $query]);
+            $nombre_file = 'reporte_1';
+            $query = $query->select('pases_examen.numero_lista','nombre_completo', 'aspirantes.folio as folio_ceneval', 'aulas.id as no_aula',  'aulas.capacidad', 'especialidades.referencia as especialidad','aulas.id')
+                            ->get();
+            //dd($aulas);
+            //$pdf ->setOrientation('landscape');
+            $pdf->loadView('planteles.reportes1', ['query' => $query, 'aulas' => $aulas]);
         } else if ($formato == "2") {
             $pdf->loadView('planteles.reportes1', ['query' => $query]);
         } else {
@@ -59,7 +64,8 @@ class ReportesController extends Controller
             [ 'Variables compact a la vista' ]
         ); */
 
-       return $pdf->download('hola.pdf');
+       //return $pdf->download($nombre_file.'.pdf');
+        return $pdf->inline($nombre_file.'.pdf');
 
     }
 }
