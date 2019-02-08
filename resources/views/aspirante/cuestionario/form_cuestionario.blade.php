@@ -23,7 +23,7 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-12">
-				{!! Form::open(['class'=>'', 'method'=>'post', 'route'=>['guarda.cuestionario'], 'name'=>'form-cuestionario', 'id' => 'form-cuestionario']) !!}
+				{!! Form::open(['class'=>'', 'method'=>'post', 'route'=>['aspirante.guarda.cuestionario'], 'name'=>'form-cuestionario', 'id' => 'form-cuestionario']) !!}
 				<div class="card card-primary card-outline">
 					<div class="card-header">
 						<div class="card-title">CAPTURAR CUESTIONARIO CENEVAL</div>

@@ -62,7 +62,7 @@ class CuestionarioController extends Controller
 
             DB::commit();
             $aviso = "El cuestionario ceneval fue respondido exitosamente.";
-            return redirect()->route('aviso.aspirante', compact('aviso'));
+            return redirect()->route('aspirante.aviso.aspirante', compact('aviso'));
 
         } catch (Exception $e) {
             DB::rollback();

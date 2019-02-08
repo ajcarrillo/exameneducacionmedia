@@ -26,7 +26,7 @@
 						<div class="alert alert-primary"> {{ $_REQUEST['aviso'] }} </div>
 					</div>
 					<div class="card-footer">
-						<a type="button" class="btn btn-light" href="{{ route('aspirantes.dashboard') }}">Inicio</a>
+						<a type="button" class="btn btn-light" href="{{ route('aspirante.dashboard.index') }}">Inicio</a>
 					</div>
 				</div>
 				{!! Form::close() !!}

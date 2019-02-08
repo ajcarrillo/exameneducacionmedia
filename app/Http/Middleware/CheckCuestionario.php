@@ -21,7 +21,7 @@ class CheckCuestionario
 
         $aviso = "El cuestionario ceneval ya fue repondido por el aspirante.";
         if ($existe) {
-            return redirect()->route('aviso.aspirante', compact('aviso'));
+            return redirect()->route('aspirante.aviso.aspirante', compact('aviso'));
         }
 
         return $next($request);
