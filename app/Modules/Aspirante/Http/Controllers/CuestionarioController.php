@@ -46,7 +46,11 @@ class CuestionarioController extends Controller
         try {
             $aspirante = get_aspirante();
             $cuestionario = ($request->input("preguntas"));
-            $aviso = '';
+            $total = Pregunta::whereNotNull('padre_id')->count();
+
+            if (count($cuestionario) == $total) {
+                throw new Exception("Error: No coincide el total de preguntas.");
+            }
 
             foreach ($cuestionario as $clave => $valor) {
                $aspiranteRespuesta = new AspiranteRespuesta;

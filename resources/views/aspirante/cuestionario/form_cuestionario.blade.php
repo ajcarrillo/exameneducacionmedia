@@ -42,8 +42,7 @@
 													<li class="list-group-item list-group-item-action">
 														<b>{{ $hijo->nombre }}</b>
 
-														<select name="preguntas[{{ $hijo->id }}]"
-														        class="form-control col-sm-6">
+														<select name="preguntas[{{ $hijo->id }}]" class="form-control col-sm-6">
 															<option value="">Seleccione...</option>
 															@foreach($hijo->diccionario->respuestas  as $respuesta)
 																<option value="{{ $respuesta->id }}">{{ $respuesta->etiqueta }}</option>
@@ -60,8 +59,7 @@
 					</div>
 					<div class="card-footer">
 						<input type="hidden" data-id="page" data-page="{{ $page }}" data-last="{{ $lastPage }}">
-						<button type="submit" id="btnGuardar" class="btn btn-success" style="display: none;">Guardar
-						</button>
+						<button type="submit" id="btnGuardar" class="btn btn-success" style="display: none;">Guardar</button>
 						<button type="button" id="btnSiguiente" class="btn btn-default">Siguiente <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
 					</div>
 				</div>
@@ -82,7 +80,15 @@
 					siguiente = parseInt(page) + 1,
 					lastPage = idPage.attr("data-last"),
 					boton = $("#btnGuardar"),
-					contenedor = $("#contenedor");
+					contenedor = $("#contenedor"),
+					form = $("#form-cuestionario");
+
+				if (!form[0].checkValidity()) {
+					$("#avisoUsuario").html('<div class="alert alert-primary" role="alert"> Para continuar debe responder todas las preguntas.</div>');
+					return false;
+				} else {
+					$("#avisoUsuario").html('');
+				}
 
 				if (siguiente > lastPage) {
 					return false;
