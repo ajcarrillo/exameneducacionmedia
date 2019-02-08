@@ -10,8 +10,7 @@ $(document).ready(function () {
 
     $body.on("change", "#cve_mun",function (e) {
         $('#cve_loc').val('');
-        $('.select2.select2-container').remove();
-        $('.select2').select2();
+        $("#cve_loc").empty();
     });
 
         $( "#cve_loc" ).select2({
