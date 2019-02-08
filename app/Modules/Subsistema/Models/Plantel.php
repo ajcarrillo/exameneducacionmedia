@@ -52,4 +52,9 @@ class Plantel extends Model
     {
         return $this->morphMany(Aula::class, 'edificio');
     }
+
+    public function scopeOnlyActive($query)
+    {
+        return $query->where('active', true);
+    }
 }

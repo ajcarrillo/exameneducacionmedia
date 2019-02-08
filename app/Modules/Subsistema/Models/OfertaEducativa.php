@@ -51,4 +51,9 @@ class OfertaEducativa extends Model
     {
         $this->update([ 'active' => false ]);
     }
+
+    public function scopeOnlyActive($query)
+    {
+        return $query->where('active', true);
+    }
 }

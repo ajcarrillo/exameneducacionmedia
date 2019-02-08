@@ -35,6 +35,7 @@
                 return JSON.parse(JSON.stringify(obj));
             }
         </script>
+
         @yield('extra-scripts')
     </body>
 </html>
