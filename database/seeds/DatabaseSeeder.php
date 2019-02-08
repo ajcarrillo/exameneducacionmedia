@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionsTableSeeder::class);
         $this->call(CreateSampleUsersTableSeeder::class);
         $this->call(FoliosTableSeeder::class);
+        $this->call(AspirantesTableSeeder::class);
 
         $files = [
             'database/queries/subsistemas.sql',
