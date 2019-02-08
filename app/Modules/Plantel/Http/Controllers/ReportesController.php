@@ -29,12 +29,17 @@ class ReportesController extends Controller
             ->setOption('margin-right', '0mm')
             ->setOption('margin-left', '0mm')
             ->setOption('disable-smart-shrinking', true)
-            ->setOption('zoom', '1');
+            ->setOption('zoom', '1')
+
+        ;
 
         $aulas = DB::table('planteles')
-            ->select('aulas.id', 'aulas.capacidad')
+            ->select(DB::raw('count(aspirantes.id) as lugares_ocupados, aulas.id, aulas.capacidad, planteles.descripcion'))
             ->join('aulas', 'planteles.id', '=', 'aulas.edificio_id')
+            ->join('pases_examen', 'pases_examen.aula_id', '=', 'aulas.id')
+            ->join('aspirantes', 'aspirantes.id', '=', 'pases_examen.aspirante_id')
             ->where('planteles.id', Auth::user()->plantel->id)
+            ->groupBy('aulas.id')
             ->get();
 
         $query = DB::table('ofertas_educativas')
@@ -50,11 +55,13 @@ class ReportesController extends Controller
 
         if ($formato == "1") {
             $nombre_file = 'reporte_1';
+
             $query = $query->select('pases_examen.numero_lista','nombre_completo', 'aspirantes.folio as folio_ceneval', 'aulas.id as no_aula',  'aulas.capacidad', 'especialidades.referencia as especialidad','aulas.id')
                             ->get();
-            //dd($aulas);
+           // dd($aulas);
             //$pdf ->setOrientation('landscape');
-            $pdf->loadView('planteles.reportes1', ['query' => $query, 'aulas' => $aulas]);
+            $pdf->loadView('planteles.reportes1', compact('query', 'aulas'));
+
         } else if ($formato == "2") {
             $pdf->loadView('planteles.reportes1', ['query' => $query]);
         } else {
