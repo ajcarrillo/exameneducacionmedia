@@ -3,6 +3,7 @@
 namespace ExamenEducacionMedia\Http\Controllers\Auth;
 
 use ExamenEducacionMedia\Http\Controllers\Controller;
+use ExamenEducacionMedia\Traits\RedirectTo;
 use ExamenEducacionMedia\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    use AuthenticatesUsers, RedirectTo;
 
     /**
      * Where to redirect users after login.
@@ -83,11 +84,6 @@ class LoginController extends Controller
 
     public function authenticated($request, $user)
     {
-        //TODO: Redirect depending of user's role
-        /*if ($user->hasRole('[role_name]')) {
-            return redirect()->route('[route_name]');
-        }*/
-
         if ($user->session_id) {
             \Session::getHandler()->destroy($user->session_id);
         }
@@ -95,7 +91,7 @@ class LoginController extends Controller
         $user->session_id = session()->getId();
         $user->save();
 
-        return redirect()->intended($this->redirectTo);
+        return $this->redirectTo($user);
     }
 
     public function logout(Request $request)
