@@ -1,3 +1,6 @@
+<?php
+use Carbon\Carbon;
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -60,6 +63,9 @@
         }
         .footer{
             text-align: center;
+            font-size: 8px;
+            letter-spacing: 2px;
+            font-weight: bold;
         }
 
 
@@ -135,7 +141,7 @@
                 </div>
 
             </div>
-            <div class="footer">dsdsds</div>
+            <div class="footer">{{'*** Aspirantes con derecho a presentar examen que no concluyeron su registro en línea en el plazo especificado.'}} <br>{{Carbon::now()->toFormattedDateString()}}</div>
 
         </div>
 
