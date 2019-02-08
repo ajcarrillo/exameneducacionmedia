@@ -84,6 +84,17 @@
 																   id="btn_motivo_rechazo" data-id="{{$revision->id}}">Rechazar
 																</a>
 															@endif
+															@if($revision->estado == 'R')
+																<a class="dropdown-item"
+																   href="{{route('media.administracion.revisiones.ofertaEducativa.guardarComentario',
+																   [
+																   'estado'=>'A',
+																   'comentario'=>'',
+																   'id'=>$revision->id
+																   ])}}">
+																	Aceptar oferta
+																</a>
+															@endif
 															<a class="dropdown-item" href="{{route('media.administracion.revisiones.ofertaEducativa.imprimir', ['subsistema_id'=>$revision->revision->subsistema_id])}}" id="btn_imprimir" data-id="{{$revision->subsistema_id}}">Descargar
 																CSV</a>
 														</div>
@@ -114,6 +125,17 @@
 																<a data-toggle="modal" data-target="#modalConfirmar"
 																   class="dropdown-item" href="#"
 																   id="btn_motivo_rechazo" data-id="{{$revision->review->id}}">Rechazar
+																</a>
+															@endif
+															@if($revision->review->estado == 'R')
+																<a class="dropdown-item"
+																   href="{{route('media.administracion.revisiones.ofertaEducativa.guardarComentario',
+																   [
+																   'estado'=>'A',
+																   'comentario'=>'',
+																   'id'=>$revision->review->id
+																   ])}}">
+																	Aceptar oferta
 																</a>
 															@endif
 															<a class="dropdown-item" href="{{route('media.administracion.revisiones.ofertaEducativa.imprimir', ['subsistema_id'=>$revision->subsistema_id])}}" id="btn_imprimir" data-id="{{$revision->subsistema_id}}">Descargar

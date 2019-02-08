@@ -23,11 +23,10 @@ class SubsistemaServiceProvider extends ServiceProvider
     public function boot()
     {
         Relation::morphMap([
-            'plantel'      => Plantel::class,
-            'sede_alterna' => SedeAlterna::class,
-            'oferta_educativa' => OfertaEducativa::class,
-            'ofertas' => RevisionOferta::class,
-            'aforos' => RevisionAforo::class,
+            'plantel'          => Plantel::class,
+            'sede_alterna'     => SedeAlterna::class,
+            'ofertas'          => RevisionOferta::class,
+            'aforos'           => RevisionAforo::class,
         ]);
     }
 

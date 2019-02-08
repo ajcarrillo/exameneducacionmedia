@@ -13,6 +13,7 @@ use ExamenEducacionMedia\Classes\Renapo;
 use ExamenEducacionMedia\Models\Entidad;
 use ExamenEducacionMedia\Models\Geodatabase\MunicipioView;
 use ExamenEducacionMedia\Models\Geodatabase\Pais;
+use Aspirante\Models\Seleccion;
 
 class ProfileController
 {
@@ -66,6 +67,7 @@ class ProfileController
 
         return $aspirante;
     }
+
 
     protected function getMunicipios()
     {

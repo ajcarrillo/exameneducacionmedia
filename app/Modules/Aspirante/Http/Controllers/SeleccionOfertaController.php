@@ -40,7 +40,8 @@ class SeleccionOfertaController extends Controller
 
     protected function getPlanteles()
     {
-        return Plantel::orderBy('cve_mun', 'asc')
+        return Plantel::onlyActive()
+            ->orderBy('cve_mun', 'asc')
             ->orderBy('cve_loc', 'asc')
             ->orderBy('descripcion', 'asc')
             ->get();
