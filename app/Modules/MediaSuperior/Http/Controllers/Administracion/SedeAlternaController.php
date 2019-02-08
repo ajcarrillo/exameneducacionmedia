@@ -8,24 +8,22 @@
 
 namespace MediaSuperior\Http\Controllers\Administracion;
 
+use Aspirante\Models\Domicilio;
 use ExamenEducacionMedia\Http\Controllers\Controller;
 
+use ExamenEducacionMedia\Models\Geodatabase\Localidad;
 use ExamenEducacionMedia\Models\Geodatabase\MunicipioView;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use MediaSuperior\Models\Aula;
-use MediaSuperior\Models\Domicilio;
-use MediaSuperior\Models\Plantel;
-use MediaSuperior\Models\Localidad;
-use MediaSuperior\Models\SedeAlterna;
+use Subsistema\Models\Aula;
+use Subsistema\Models\Plantel;
+use Subsistema\Models\SedeAlterna;
 
 class SedeAlternaController extends Controller
 {
     public function index()
     {
-        //$sedes = SedeAlterna::get();
-
         $sedes = DB::table('sedes_alternas')
             ->Join('domicilios', 'sedes_alternas.domicilio_id', '=', 'domicilios.id')
             ->leftJoin('geodatabase.municipios_view', 'domicilios.cve_mun', '=', 'geodatabase.municipios_view.CVE_MUN')
