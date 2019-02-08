@@ -4,12 +4,9 @@ namespace Plantel\Http\Controllers;
 
 use Auth;
 use DB;
-use Illuminate\Http\Request;
 use ExamenEducacionMedia\Http\Controllers\Controller;
-use Plantel\Models\OfertaEducativa;
-use Plantel\Models\Plantel;
-use Plantel\Models\SedeAlterna;
-use Plantel\Models\Seleccion;
+use Subsistema\Models\OfertaEducativa;
+use Subsistema\Models\Plantel;
 
 class PanelController extends Controller
 {
