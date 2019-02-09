@@ -168,6 +168,7 @@ return [
         Subsistema\Providers\SubsistemaServiceProvider::class,
         MediaSuperior\Providers\RouteServiceProvider::class,
         MediaSuperior\Providers\MediaSuperiorServiceProvider::class,
+        Plantel\Providers\RouteServiceProvider::class,
     ],
 
     /*
