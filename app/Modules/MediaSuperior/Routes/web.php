@@ -33,7 +33,7 @@ Route::middleware([ 'auth', 'role:departamento' ])
             ->group(function () {
                 Route::get('/', 'Administracion\BuscarMatriculaController@index')->name('index');
                 Route::post('/buscar', 'Administracion\BuscarMatriculaController@buscarEstudiante')->name('buscar');
-                Route::get('/buscar', function() {
+                Route::get('/buscar', function () {
                     return redirect()->route('media.administracion.estudiante.index');
                 });
             });
@@ -57,7 +57,7 @@ Route::middleware([ 'auth', 'role:departamento' ])
                 Route::get('{sede}/create', 'Administracion\AulaController@create')->name('create');
                 Route::post('/store', 'Administracion\AulaController@store')->name('store');
                 Route::get('{aula}/destroy', 'Administracion\AulaController@destroy')->name('delete');
-           });
+            });
 
 
         Route::prefix('/responsablePlantel')
@@ -70,7 +70,6 @@ Route::middleware([ 'auth', 'role:departamento' ])
                 Route::get('/descuentos/{Plantel}', 'Administracion\ResponsablePlantelController@descuentos')->name('plantel.descuentos');
                 Route::post('/update/{id}', 'Administracion\ResponsablePlantelController@updatedesc')->name('plantel.descuentosupd');
                 Route::get('/delete/{plantel}', 'Administracion\ResponsablePlantelController@delete_responsable')->name('plantel.delete_responsable');
-
             });
         //carga de documentos del usuario de departamento
 
@@ -106,14 +105,14 @@ Route::middleware([ 'auth', 'role:departamento' ])
 
         Route::prefix('/revisiones')
             ->name('revisiones.')
-            ->group(function (){
+            ->group(function () {
                 Route::prefix('/ofertaEducativa')
                     ->name('ofertaEducativa.')
-                    ->group(function (){
-                        Route::get('/','Administracion\Revisiones\OfertaEducativaController@index')->name('index');
-                        Route::get('/oferta','Administracion\Revisiones\OfertaEducativaController@oferta')->name('oferta');
-                        Route::get('/guardarComentario','Administracion\Revisiones\OfertaEducativaController@guardarComentario')->name('guardarComentario');
-                        Route::get('/imprimir','Administracion\Revisiones\OfertaEducativaController@imprimir')->name('imprimir');
+                    ->group(function () {
+                        Route::get('/', 'Administracion\Revisiones\OfertaEducativaController@index')->name('index');
+                        Route::get('/oferta', 'Administracion\Revisiones\OfertaEducativaController@oferta')->name('oferta');
+                        Route::get('/guardarComentario', 'Administracion\Revisiones\OfertaEducativaController@guardarComentario')->name('guardarComentario');
+                        Route::get('/imprimir', 'Administracion\Revisiones\OfertaEducativaController@imprimir')->name('imprimir');
                     });
             });
 

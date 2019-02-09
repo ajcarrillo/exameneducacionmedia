@@ -22,11 +22,6 @@ class Domicilio extends Model
     protected $table      = 'domicilios';
     protected $guarded    = [];
 
-    protected $fillable = [
-        'cve_ent', 'cve_mun', 'cve_loc', 'colonia', 'calle', 'numero', 'codigo_postal'
-    ];
-
-
     public function aspirante()
     {
         return $this->hasOne(Aspirante::class, 'domicilio_id');

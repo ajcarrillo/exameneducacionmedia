@@ -9,13 +9,13 @@
 namespace MediaSuperior\Http\Controllers\Administracion;
 
 use Aspirante\Models\Domicilio;
+use DB;
 use ExamenEducacionMedia\Http\Controllers\Controller;
 
 use ExamenEducacionMedia\Models\Geodatabase\Localidad;
 use ExamenEducacionMedia\Models\Geodatabase\MunicipioView;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Subsistema\Models\Aula;
 use Subsistema\Models\Plantel;
 use Subsistema\Models\SedeAlterna;
@@ -37,9 +37,10 @@ class SedeAlternaController extends Controller
 
     public function create()
     {
-        $planteles = Plantel::pluck('descripcion', 'id');
-        $municipios = $this->getMunicipios();
-        $localidades = ['000' => 'Seleccionar ...'];
+        $planteles   = Plantel::pluck('descripcion', 'id');
+        $municipios  = $this->getMunicipios();
+        $localidades = [ '000' => 'Seleccionar ...' ];
+
         //$localidades   = $this->getLocalidades('004');
 
         return view('media_superior.administracion.sedesAlternas.create', compact('planteles', 'municipios', 'localidades'));
@@ -47,30 +48,39 @@ class SedeAlternaController extends Controller
 
     public function store(Request $request)
     {
-
         $error = false;
-        DB::beginTransaction();
 
         try {
-            $domicilio = new Domicilio($request->input());
+            DB::beginTransaction();
+            $domicilio = new Domicilio($request->only([
+                'cve_ent',
+                'cve_mun',
+                'cve_loc',
+                'colonia',
+                'calle',
+                'numero',
+                'codigo_postal',
+            ]));
             $domicilio->save();
 
             $sedeAlterna = SedeAlterna::create([
-                'descripcion' => $request->get('descripcion'),
+                'descripcion'  => $request->get('descripcion'),
                 'sede_ceneval' => 0,
                 'domicilio_id' => $domicilio->id,
-                'plantel_id' => $request->get('plantel_id'),
+                'plantel_id'   => $request->get('plantel_id'),
             ]);
 
             DB::commit();
         } catch (\Exception $e) {
+            \Log::info($e->getMessage());
             DB::rollback();
             $error = true;
         } catch (\Throwable $e) {
+            \Log::info($e->getMessage());
             DB::rollback();
             $error = true;
         }
-        if (!$error)
+        if ( ! $error)
             flash('La sede alterna se guardó correctamente')->success();
 
         if ($request->has('addanother')) {
@@ -83,12 +93,12 @@ class SedeAlternaController extends Controller
     public function edit($id)
     {
         $sedeAlterna = SedeAlterna::find($id);
-        $domicilio = Domicilio::find($sedeAlterna->domicilio_id);
-        $planteles = Plantel::pluck('descripcion', 'id');
-        $municipios = $this->getMunicipios();
-        $localidades   = $this->getLocalidades($domicilio->cve_mun);
+        $domicilio   = Domicilio::find($sedeAlterna->domicilio_id);
+        $planteles   = Plantel::pluck('descripcion', 'id');
+        $municipios  = $this->getMunicipios();
+        $localidades = $this->getLocalidades($domicilio->cve_mun);
 
-        return view('media_superior.administracion.sedesAlternas.edit', compact('sedeAlterna', 'domicilio','planteles', 'municipios', 'localidades'));
+        return view('media_superior.administracion.sedesAlternas.edit', compact('sedeAlterna', 'domicilio', 'planteles', 'municipios', 'localidades'));
     }
 
 
@@ -111,7 +121,7 @@ class SedeAlternaController extends Controller
             $error = true;
         }
 
-        if (!$error)
+        if ( ! $error)
             flash('La sede alterna se actualizo correctamente')->success();
 
 
@@ -129,7 +139,8 @@ class SedeAlternaController extends Controller
     {
         //dd($cve_mun);
         $localidades = Localidad::where('CVE_ENT', 23)->where('CVE_MUN', $cve_mun)
-                ->pluck('NOM_LOC', 'CVE_LOC');
+            ->pluck('NOM_LOC', 'CVE_LOC');
+
         return $localidades;
     }
 
@@ -141,8 +152,8 @@ class SedeAlternaController extends Controller
         /*$localidades = Localidad::where('CVE_ENT', 23)->where('CVE_MUN', $cve_mun)->where('NOM_LOC','LIKE','%'.$nom_loc.'%')
             ->pluck('NOM_LOC', 'CVE_LOC');*/
 
-        $localidades = Localidad::select('CVE_LOC','NOM_LOC')->where('CVE_ENT', 23)->where('CVE_MUN', $cve_mun)
-            ->Where('NOM_LOC','LIKE','%'.$nom_loc.'%')->get();
+        $localidades = Localidad::select('CVE_LOC', 'NOM_LOC')->where('CVE_ENT', 23)->where('CVE_MUN', $cve_mun)
+            ->Where('NOM_LOC', 'LIKE', '%' . $nom_loc . '%')->get();
 
         //dd($localidades);
 
@@ -157,9 +168,9 @@ class SedeAlternaController extends Controller
     public function aulas($sede_id)
     {
 
-        $aulas = Aula::where('edificio_id',$sede_id)->get();
+        $aulas       = Aula::where('edificio_id', $sede_id)->get();
         $sedeAlterna = SedeAlterna::find($sede_id);
-        return view('media_superior.administracion.sedesAlternas.aulas', compact('sedeAlterna','aulas'));
 
+        return view('media_superior.administracion.sedesAlternas.aulas', compact('sedeAlterna', 'aulas'));
     }
 }
