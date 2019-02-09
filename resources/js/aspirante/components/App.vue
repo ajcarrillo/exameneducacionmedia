@@ -32,6 +32,15 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-10 col-lg-8">
+                        <div v-if="curpState" class="alert alert-info" role="alert">
+                            <strong>{{curpState}}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 col-lg-8">
                         <datos-generales-form
                             :aspirante="aspirante"
                             :entidades="entidades"
@@ -128,6 +137,23 @@
             },
             nombreCompleto() {
                 return `${this.usuario.nombre} ${this.usuario.primer_apellido} ${this.usuario.segundo_apellido === null ? '' : this.usuario.segundo_apellido}`;
+            },
+            curpState() {
+                let aspirante = this.aspirante,
+                    mensaje   = null;
+
+                if (aspirante.curp_historica !== null && aspirante.curp_valida !== null) {
+
+                    if (aspirante.curp_historica && !aspirante.curp_valida) {
+                        mensaje = "curp historica";
+                    }
+
+                    if (!aspirante.curp_historica && !aspirante.curp_valida) {
+                        mensaje = "curp inválida";
+                    }
+                }
+
+                return mensaje;
             }
         },
         methods: {

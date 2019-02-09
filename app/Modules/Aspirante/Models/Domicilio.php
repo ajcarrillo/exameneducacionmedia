@@ -36,4 +36,10 @@ class Domicilio extends Model
     {
         return $this->belongsTo(Localidad::class, [ 'cve_ent', 'cve_mun', 'cve_loc' ], [ 'CVE_ENT', 'CVE_MUN', 'CVE_LOC' ]);
     }
+
+    public function sedeAlterna()
+    {
+        return $this->hasOne(SedeAlterna::class, 'domicilio_id');
+    }
+
 }

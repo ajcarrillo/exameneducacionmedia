@@ -2,6 +2,7 @@
 
 namespace ExamenEducacionMedia\Http;
 
+use ExamenEducacionMedia\Http\Middleware\CheckCuestionario;
 use ExamenEducacionMedia\Http\Middleware\CheckForAforoMode;
 use ExamenEducacionMedia\Http\Middleware\CheckForOfertaMode;
 use ExamenEducacionMedia\Http\Middleware\CheckForPlantel;
@@ -70,6 +71,7 @@ class Kernel extends HttpKernel
         'isRegistro'         => CheckForRegistroMode::class,
         'hasSubsistema'      => CheckForSubsistema::class,
         'hasPlantel'         => CheckForPlantel::class,
+        'cuestionario'       => CheckCuestionario::class,
         'role'               => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission'         => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,

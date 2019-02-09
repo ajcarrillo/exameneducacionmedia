@@ -15,6 +15,7 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
         @yield('extra-head')
 
+        <link rel="stylesheet" href="{{ mix('css/base.css') }}">
         <link rel="stylesheet" href="{{ mix('css/adminlte.css') }}">
         @yield('extra-css')
     </head>

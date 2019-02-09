@@ -38,6 +38,28 @@ Route::middleware([ 'auth', 'role:departamento' ])
                 });
             });
 
+        Route::prefix('/sedes-alternas')
+            ->name('sedesAlternas.')
+            ->group(function () {
+                Route::get('/', 'Administracion\SedeAlternaController@index')->name('index');
+                Route::get('/create', 'Administracion\SedeAlternaController@create')->name('create');
+                Route::post('/store', 'Administracion\SedeAlternaController@store')->name('store');
+                Route::get('{sede}/edit', 'Administracion\SedeAlternaController@edit')->name('edit');
+                Route::patch('{sede}/update', 'Administracion\SedeAlternaController@update')->name('update');
+                Route::get('/localidades', 'Administracion\SedeAlternaController@localidades')->name('localidades');
+                Route::get('{sede}/localidades', 'Administracion\SedeAlternaController@localidades')->name('localidades');
+                Route::get('{sede}/aulas', 'Administracion\SedeAlternaController@aulas')->name('aulas');
+            });
+
+        Route::prefix('/aulas')
+            ->name('aulas.')
+            ->group(function () {
+                Route::get('{sede}/create', 'Administracion\AulaController@create')->name('create');
+                Route::post('/store', 'Administracion\AulaController@store')->name('store');
+                Route::get('{aula}/destroy', 'Administracion\AulaController@destroy')->name('delete');
+            });
+
+
         Route::prefix('/responsablePlantel')
             ->name('responsablePlantel.')
             ->group(function () {

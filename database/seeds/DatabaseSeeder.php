@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionsTableSeeder::class);
         $this->call(CreateSampleUsersTableSeeder::class);
         $this->call(FoliosTableSeeder::class);
+        $this->call(AspirantesTableSeeder::class);
 
         $files = [
             'database/queries/subsistemas.sql',
@@ -27,7 +28,8 @@ class DatabaseSeeder extends Seeder
             'database/queries/entidades.sql',
             'database/queries/ceneval_diccionarios.sql',
             'database/queries/ceneval_preguntas.sql',
-            'database/queries/ceneval_respuestas.sql'
+            'database/queries/ceneval_respuestas.sql',
+            'database/queries/ofertas_educativas.sql',
         ];
         foreach ($files as $path) {
             DB::unprepared(file_get_contents($path));

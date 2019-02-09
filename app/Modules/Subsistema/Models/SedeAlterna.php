@@ -19,7 +19,7 @@ class SedeAlterna extends Model
 
     protected $table    = 'sedes_alternas';
     protected $fillable = [
-        'descripcion', 'sede_ceneval',
+        'descripcion', 'domicilio_id', 'plantel_id', 'sede_ceneval'
     ];
 
 
