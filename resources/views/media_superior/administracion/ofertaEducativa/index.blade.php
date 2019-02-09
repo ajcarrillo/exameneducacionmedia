@@ -71,7 +71,11 @@
 												@elseif($revision->estado = 'C')
 													<td>{{'Cancelado'}}</td>
 												@endif
-												<td>{{$revision->usuarioRevision->nombre.' '.$revision->usuarioRevision->primer_apellido.' '.$revision->usuarioRevision->segundo_apellido}}</td>
+												@if(!empty($revision->usuario_revision))
+													<td>{{$revision->usuarioRevision->nombre.' '.$revision->usuarioRevision->primer_apellido.' '.$revision->usuarioRevision->segundo_apellido}}</td>
+												@else
+													<td></td>
+												@endif
 												<td>
 													<div class="dropdown">
 														<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -114,7 +118,11 @@
 												@elseif($revision->review->estado = 'C')
 													<td>{{'Cancelado'}}</td>
 												@endif
-												<td>{{$revision->review->usuarioRevision->nombre.' '.$revision->review->usuarioRevision->primer_apellido.' '.$revision->review->usuarioRevision->segundo_apellido}}</td>
+												@if(!empty($revision->review->usuario_revision))
+													<td>{{$revision->review->usuarioRevision->nombre.' '.$revision->review->usuarioRevision->primer_apellido.' '.$revision->review->usuarioRevision->segundo_apellido}}</td>
+												@else
+													<td></td>
+												@endif
 												<td>
 													<div class="dropdown">
 														<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
