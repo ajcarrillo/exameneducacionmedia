@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid">
-        <div class="row pt-5">
+        <div class="row pt-1">
             <div class="col">
                 <p class="text-center"><b>Selecciona un municipio</b></p>
                 <div class="d-flex flex-row flex-wrap justify-content-center bd-highlight mb-3">
