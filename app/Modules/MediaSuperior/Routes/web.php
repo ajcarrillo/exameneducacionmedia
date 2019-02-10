@@ -114,6 +114,15 @@ Route::middleware([ 'auth', 'role:departamento' ])
                         Route::get('/guardarComentario', 'Administracion\Revisiones\OfertaEducativaController@guardarComentario')->name('guardarComentario');
                         Route::get('/imprimir', 'Administracion\Revisiones\OfertaEducativaController@imprimir')->name('imprimir');
                     });
+
+                Route::prefix('/aforo')
+                    ->name('aforo.')
+                    ->group(function () {
+                        Route::get('/', 'Administracion\Revisiones\AforoController@index')->name('index');
+                        Route::get('/aforo', 'Administracion\Revisiones\AforoController@aforo')->name('aforo');
+                        Route::get('/guardarComentario', 'Administracion\Revisiones\AforoController@guardarComentario')->name('guardarComentario');
+                        Route::get('/imprimir', 'Administracion\Revisiones\AforoController@imprimir')->name('imprimir');
+                    });
             });
 
         Route::prefix('/configuracion')

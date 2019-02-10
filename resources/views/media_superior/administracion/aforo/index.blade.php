@@ -4,7 +4,7 @@
 @endsection
 
 @section('navbar-title')
-	Educación Media - Administración - Revisión - Oferta educativa
+	Educación Media - Administración - Revisión - Aforo
 @endsection
 
 @section('content')
@@ -22,7 +22,7 @@
 				<div class="card card-primary card-outline">
 					<div class="card-header">
 						<div class="card-title">Revisión
-							<small> Oferta educativa</small>
+							<small> Aforo</small>
 						</div>
 						<div class="dropdown">
 							<button class="btn btn-default dropdown-toggle" type="button" id="filtro" data-toggle="dropdown" aria-haspopup="true"
@@ -32,12 +32,12 @@
 							</button>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenu1">
 								<li class="dropdown-header">Estados</li>
-								<a class="dropdown-item" href="{{route('media.administracion.revisiones.ofertaEducativa.oferta',['estado'=>'A'])}}">Aceptado</a>
-								<a class="dropdown-item" href="{{route('media.administracion.revisiones.ofertaEducativa.oferta',['estado'=>'R'])}}">En revisión</a>
+								<a class="dropdown-item" href="{{route('media.administracion.revisiones.aforo.aforo',['estado'=>'A'])}}">Aceptado</a>
+								<a class="dropdown-item" href="{{route('media.administracion.revisiones.aforo.aforo',['estado'=>'R'])}}">En revisión</a>
 								<li class="dropdown-divider"></li>
 								<li class="dropdown-header">Subsistemas</li>
 								@foreach($subsistemas as $id => $referencia)
-									<a class="dropdown-item" href="{{route('media.administracion.revisiones.ofertaEducativa.oferta',['subsistema_id'=>$id])}}">{{$referencia}}</a>
+									<a class="dropdown-item" href="{{route('media.administracion.revisiones.aforo.aforo',['subsistema_id'=>$id])}}">{{$referencia}}</a>
 								@endforeach
 							</div>
 						</div>
@@ -90,16 +90,16 @@
 															@endif
 															@if($revision->estado == 'R')
 																<a class="dropdown-item"
-																   href="{{route('media.administracion.revisiones.ofertaEducativa.guardarComentario',
+																   href="{{route('media.administracion.revisiones.aforo.guardarComentario',
 																   [
 																   'estado'=>'A',
 																   'comentario'=>'',
 																   'id'=>$revision->id
 																   ])}}">
-																	Aceptar oferta
+																	Aceptar aforo
 																</a>
 															@endif
-															<a class="dropdown-item" href="{{route('media.administracion.revisiones.ofertaEducativa.imprimir', ['subsistema_id'=>$revision->revision->subsistema_id,'formato'=>1])}}" id="btn_imprimir" data-id="{{$revision->subsistema_id}}">Descargar
+															<a class="dropdown-item" href="{{route('media.administracion.revisiones.aforo.imprimir', ['subsistema_id'=>$revision->revision->subsistema_id,'formato'=>2])}}" id="btn_imprimir" data-id="{{$revision->subsistema_id}}">Descargar
 																CSV</a>
 														</div>
 													</div>
@@ -137,16 +137,16 @@
 															@endif
 															@if($revision->review->estado == 'R')
 																<a class="dropdown-item"
-																   href="{{route('media.administracion.revisiones.ofertaEducativa.guardarComentario',
+																   href="{{route('media.administracion.revisiones.aforo.guardarComentario',
 																   [
 																   'estado'=>'A',
 																   'comentario'=>'',
 																   'id'=>$revision->review->id
 																   ])}}">
-																	Aceptar oferta
+																	Aceptar aforo
 																</a>
 															@endif
-															<a class="dropdown-item" href="{{route('media.administracion.revisiones.ofertaEducativa.imprimir', ['subsistema_id'=>$revision->subsistema_id, 'formato'=>1])}}" id="btn_imprimir" data-id="[{{$revision->subsistema_id}}]">Descargar
+															<a class="dropdown-item" href="{{route('media.administracion.revisiones.aforo.imprimir', ['subsistema_id'=>$revision->subsistema_id,'formato'=>2])}}" id="btn_imprimir" data-id="{{$revision->subsistema_id}}">Descargar
 																CSV</a>
 														</div>
 													</div>
@@ -175,7 +175,7 @@
 				</div>
 				<div class="modal-body">
 					<form>
-						<div class="form-group">{!! Form::label('observacion','Comentario:') !!}
+						<div class="form-group">{!! Form::label('observacion','Comentarios:') !!}
 							{!! Form::textarea('comentario',NULL,['class'=>'form-control','rows'=>3,'required','id'=>'comentario']) !!}
 						</div>
 						<div id="mensajeUsuario"></div>
@@ -183,7 +183,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-					<a href="{{  route('media.administracion.revisiones.ofertaEducativa.guardarComentario') }}" class="btn btn-primary" data-button="btnAceptaConfirmacion">Aceptar</a>
+					<a href="{{  route('media.administracion.revisiones.aforo.guardarComentario') }}" class="btn btn-primary" data-button="btnAceptaConfirmacion">Aceptar</a>
 				</div>
 			</div>
 		</div>
@@ -191,5 +191,5 @@
 @endsection
 
 @section('extra-scripts')
-	<script src="{{ mix('js/media/administracion/oferta_educativa/index.js') }}"></script>
+	<script src="{{ mix('js/media/administracion/aforo/index.js') }}"></script>
 @endsection
