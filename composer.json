@@ -10,6 +10,9 @@
     "require": {
         "php": "^7.1.3",
         "awobaz/compoships": "^1.1",
+        "barryvdh/laravel-snappy": "^0.4.1",
+        "h4cc/wkhtmltoimage-amd64": "0.12.x",
+        "h4cc/wkhtmltopdf-amd64": "0.12.x",
         "awssat/laravel-sync-migration": "^0.1.1",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.3",
