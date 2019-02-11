@@ -40,6 +40,7 @@ if (mix.inProduction()) {
 //Igna
 mix.js('resources/js/media/administracion/etapas/edit.js', 'public/js/media/administracion/etapas/edit.js');
 mix.js('resources/js/media/administracion/buscar_matricula/index.js', 'public/js/media/administracion/buscar_matricula/index.js');
+mix.js('resources/js/aspirante/cuestionario/form_cuestionario.js', 'public/js/aspirante/cuestionario/form_cuestionario.js');
 //endIgna
 mix.js('resources/js/media/administracion/responsable_plantel/eliminar.js', 'public/js/media/administracion/responsable_plantel/eliminar.js');
 
@@ -55,4 +56,9 @@ mix.js('resources/js/media/administracion/carga_documento/index_archivos.js', 'p
 
 //alvaro
 mix.js('resources/js/media/administracion/oferta_educativa/index.js', 'public/js/media/administracion/oferta_educativa/index.js');
+mix.js('resources/js/media/administracion/aforo/index.js', 'public/js/media/administracion/aforo/index.js');
 //endAlvaro
+
+
+mix.js('resources/js/media/administracion/sedes_alternas/create.js', 'public/js/media/administracion/sedes_alternas/create.js');
+mix.js('resources/js/media/administracion/sedes_alternas/edit.js', 'public/js/media/administracion/sedes_alternas/edit.js');

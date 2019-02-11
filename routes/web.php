@@ -12,14 +12,14 @@
 */
 
 Route::post('/login-as-user', 'Auth\LoginAsController@loginAsUser')
-    ->middleware([ 'auth', 'role:departamento,admin' ])
+    ->middleware(['auth', 'role:departamento,admin'])
     ->name('login.as.user');
 
 Route::post('/logout-as-user', 'Auth\LoginAsController@logout')
-    ->middleware([ 'auth' ])
+    ->middleware(['auth'])
     ->name('logout.as.user');
 
-Route::middleware([ 'auth', 'role:departamento' ])
+Route::middleware(['auth', 'role:departamento'])
     ->prefix('/administracion')
     ->as('administracion.')
     ->group(function () {
@@ -29,12 +29,12 @@ Route::middleware([ 'auth', 'role:departamento' ])
             ->as('planteles.')
             ->group(function () {
                 Route::view('/{all?}', 'administracion.planteles.home')
-                    ->where([ 'all' => '.*' ])
+                    ->where(['all' => '.*'])
                     ->name('spa');
             });
     });
 
-Route::view('/home', 'home')->middleware([ 'auth' ]);
+Route::view('/home', 'home')->middleware(['auth']);
 
 Route::get('/', function () {
     return view('welcome');
@@ -42,22 +42,22 @@ Route::get('/', function () {
 
 Route::get('/registro', function () {
     return view('welcome');
-})->middleware([ 'isRegistro' ]);
+})->middleware(['isRegistro']);
 
 Route::get('/subsistema/aforo', function () {
     return view('welcome');
-})->middleware([ 'isAforo' ]);
+})->middleware(['isAforo']);
 
 Route::get('/subsistema/oferta', function () {
     return view('subsistemas.home');
-})->middleware([ 'isOferta' ]);
+})->middleware(['isOferta']);
 
-Route::group([ 'prefix' => '/planteles', 'middleware' => [ 'auth', 'role:plantel', 'hasPlantel' ] ], function () {
+
+Route::group(['prefix' => '/planteles', 'middleware' => ['auth', 'role:plantel', 'hasPlantel']], function () {
     Route::get('/', function () {
         return view('welcome');
     });
 });
-
 
 /* Login con jarvis*/
 Route::get('/loging/oauth', 'Auth\LoginController@redirectToProvider')->name('login.oauth');

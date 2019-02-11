@@ -7,11 +7,9 @@ use ExamenEducacionMedia\Exports\UsersExport;
 use ExamenEducacionMedia\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use MediaSuperior\Models\Revision;
-use Subsistema\Models\OfertaEducativa;
 use Subsistema\Models\RevisionOferta;
 use Subsistema\Models\Subsistema;
 use DB;
-use Maatwebsite\Excel;
 
 
 class OfertaEducativaController extends Controller
@@ -23,35 +21,39 @@ class OfertaEducativaController extends Controller
      */
     public function index()
     {
-        $estado = '';
-        $revisiones = array();
-        $subsistemas = Subsistema::select('id',DB::raw('referencia'))
+        $estado      = '';
+        $revisiones  = array();
+        $subsistemas = Subsistema::select('id', DB::raw('referencia'))
             ->orderBy('id', 'asc')
             ->get()->pluck('referencia', 'id');
+
         return view('media_superior.administracion.ofertaEducativa.index', compact('subsistemas', 'revisiones', 'estado'));
     }
 
     public function oferta(Request $request)
     {
-        $estado = $request->get('estado') ?? '';
+        $estado        = $request->get('estado') ?? '';
         $subsistema_id = $request->get('subsistema_id') ?? '';
-        $revisiones = array();
+        $revisiones    = array();
 
-        if(!empty($estado)){
+        if ( ! empty($estado)) {
             /*$revisiones = RevisionOferta::with(['review'=>function($query) use ($request) {
                 return $query->where('estado', $request->get('estado'));
             }, 'subsistema','review.usuarioApertura','review.usuarioRevision'])->get();*/
 
-            $revisiones = Revision::where('estado',$request->get('estado'))->with('revision','revision.subsistema','usuarioApertura','usuarioRevision')->get();
-        }
-
-        if(!empty($subsistema_id)){
-            $revisiones = RevisionOferta::with(['review','subsistema','review.usuarioApertura','review.usuarioRevision'])
-                ->where('revision_ofertas.subsistema_id','=',$subsistema_id)
+            $revisiones = Revision::where('estado', $request->get('estado'))
+                ->where('revision_type', 'ofertas')
+                ->with('revision', 'revision.subsistema', 'usuarioApertura', 'usuarioRevision')
                 ->get();
         }
 
-        $subsistemas = Subsistema::select('id',DB::raw('referencia'))
+        if ( ! empty($subsistema_id)) {
+            $revisiones = RevisionOferta::with([ 'review', 'subsistema', 'review.usuarioApertura', 'review.usuarioRevision' ])
+                ->where('revision_ofertas.subsistema_id', '=', $subsistema_id)
+                ->get();
+        }
+
+        $subsistemas = Subsistema::select('id', DB::raw('referencia'))
             ->orderBy('id', 'asc')
             ->get()->pluck('referencia', 'id');
 
@@ -61,22 +63,34 @@ class OfertaEducativaController extends Controller
     public function guardarComentario(Request $request)
     {
         $id = $request->get('id');
-        Revision::find($id)->update(
-            [
-                'estado' => $request->get('estado'),
-                'comentario' => $request->get('comentario'),
-            ]
-        );
-        if($request->get('estado')=='C'){
+        if ($request->get('estado') == 'C') {
+            Revision::find($id)->update(
+                [
+                    'estado'     => $request->get('estado'),
+                    'comentario' => $request->get('comentario'),
+                ]
+            );
+        } elseif ($request->get('estado') == 'A') {
+            Revision::find($id)->update(
+                [
+                    'estado'           => $request->get('estado'),
+                    'comentario'       => $request->get('comentario'),
+                    'usuario_revision' => \Auth::user()->id,
+                ]
+            );
+        }
+
+        if ($request->get('estado') == 'C') {
             flash('La oferta educativa fue rechazada exitosamente')->success();
-        } elseif ($request->get('estado')=='A'){
+        } elseif ($request->get('estado') == 'A') {
             flash('La oferta educativa fue aceptada exitosamente')->success();
         }
+
         return redirect()->back();
     }
 
     public function imprimir(Request $request)
     {
-        return  \Excel::download( new UsersExport($request->get('subsistema_id')), 'ofertaEducativa.csv');
+        return \Excel::download(new UsersExport($request->get('subsistema_id'), $request->get('formato')), 'ofertaEducativa.csv');
     }
 }

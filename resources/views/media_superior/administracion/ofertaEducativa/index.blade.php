@@ -71,7 +71,11 @@
 												@elseif($revision->estado = 'C')
 													<td>{{'Cancelado'}}</td>
 												@endif
-												<td>{{$revision->usuarioRevision->nombre.' '.$revision->usuarioRevision->primer_apellido.' '.$revision->usuarioRevision->segundo_apellido}}</td>
+												@if(!empty($revision->usuario_revision))
+													<td>{{$revision->usuarioRevision->nombre.' '.$revision->usuarioRevision->primer_apellido.' '.$revision->usuarioRevision->segundo_apellido}}</td>
+												@else
+													<td></td>
+												@endif
 												<td>
 													<div class="dropdown">
 														<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -95,7 +99,7 @@
 																	Aceptar oferta
 																</a>
 															@endif
-															<a class="dropdown-item" href="{{route('media.administracion.revisiones.ofertaEducativa.imprimir', ['subsistema_id'=>$revision->revision->subsistema_id])}}" id="btn_imprimir" data-id="{{$revision->subsistema_id}}">Descargar
+															<a class="dropdown-item" href="{{route('media.administracion.revisiones.ofertaEducativa.imprimir', ['subsistema_id'=>$revision->revision->subsistema_id,'formato'=>1])}}" id="btn_imprimir" data-id="{{$revision->subsistema_id}}">Descargar
 																CSV</a>
 														</div>
 													</div>
@@ -114,7 +118,11 @@
 												@elseif($revision->review->estado = 'C')
 													<td>{{'Cancelado'}}</td>
 												@endif
-												<td>{{$revision->review->usuarioRevision->nombre.' '.$revision->review->usuarioRevision->primer_apellido.' '.$revision->review->usuarioRevision->segundo_apellido}}</td>
+												@if(!empty($revision->review->usuario_revision))
+													<td>{{$revision->review->usuarioRevision->nombre.' '.$revision->review->usuarioRevision->primer_apellido.' '.$revision->review->usuarioRevision->segundo_apellido}}</td>
+												@else
+													<td></td>
+												@endif
 												<td>
 													<div class="dropdown">
 														<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -138,7 +146,7 @@
 																	Aceptar oferta
 																</a>
 															@endif
-															<a class="dropdown-item" href="{{route('media.administracion.revisiones.ofertaEducativa.imprimir', ['subsistema_id'=>$revision->subsistema_id])}}" id="btn_imprimir" data-id="{{$revision->subsistema_id}}">Descargar
+															<a class="dropdown-item" href="{{route('media.administracion.revisiones.ofertaEducativa.imprimir', ['subsistema_id'=>$revision->subsistema_id, 'formato'=>1])}}" id="btn_imprimir" data-id="[{{$revision->subsistema_id}}]">Descargar
 																CSV</a>
 														</div>
 													</div>

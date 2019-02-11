@@ -169,6 +169,7 @@ return [
         MediaSuperior\Providers\RouteServiceProvider::class,
         Plantel\Providers\RouteServiceProvider::class,
         Barryvdh\Snappy\ServiceProvider::class,
+        MediaSuperior\Providers\MediaSuperiorServiceProvider::class,
     ],
 
     /*

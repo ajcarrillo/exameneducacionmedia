@@ -21,7 +21,7 @@ $(document).ready(function () {
 
         if ((comentario.trim()).length === 0) {
             error = 'SI';
-            mensaje = 'Escriba algun motivo de rechazo de la oferta educativa.';
+            mensaje = 'Escriba algún motivo de rechazo de la oferta educativa.';
         }
 
         if (error === 'SI') {

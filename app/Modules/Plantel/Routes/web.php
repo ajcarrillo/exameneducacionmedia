@@ -7,3 +7,4 @@ Route::middleware([ 'auth', 'role:plantel', 'hasPlantel' ])
             ->name('planteles.reporte');
     });
 
+
