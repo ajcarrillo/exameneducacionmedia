@@ -112,7 +112,7 @@
 												de Acuse</a>
 										</div>
 										<div class="col-sm-4">
-											<a class="btn" style="background:#00a65a;color: white;font-size: 13pt" href="#" id="btn_imprimir">Listado
+											<a class="btn" style="background:#00a65a;color: white;font-size: 13pt" href="{{route('planteles.reporte',['formato'=>3])}}" id="btn_imprimir">Listado
 												General</a>
 										</div>
 										<div class="col-sm-4">

@@ -12,13 +12,14 @@ use Illuminate\Http\Request;
 use ExamenEducacionMedia\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Subsistema\Models\Plantel;
 
 class ReportesController extends Controller
 {
     public function descargar(Request $request)
     {
 
-        $pdf                = app('snappy.pdf.wrapper');
+        $pdf = app('snappy.pdf.wrapper');
         $pdf->setPaper('letter')
             ->setOrientation('portrait')
             ->setOption('margin-bottom', '0mm')
@@ -47,20 +48,32 @@ class ReportesController extends Controller
             ->where('planteles.id', Auth::user()->plantel->id);
 
         $formato = $request->formato;
-        if ($formato == "1") {
-            $nombre_file = 'reporte_1';
-            $query = $query->select('pases_examen.numero_lista', 'nombre_completo', 'aspirantes.folio as folio_ceneval', 'aulas.id as no_aula', 'aulas.capacidad', 'especialidades.referencia as especialidad', 'aulas.id')
-                ->get();
-            $pdf->loadView('planteles.reportes1', compact('query', 'aulas'));
-        } else if ($formato == "2") {
-            $nombre_file = 'reporte_de_acuse';
-            $query   = $query->select('aulas.id', 'aulas.referencia', 'pases_examen.numero_lista', 'aulas.capacidad', 'alumn.nombre_completo', 'aulas.id as no_aula', 'aspirantes.folio', 'planteles.descripcion')->groupBy('aulas.id', 'alumn.id')->get();
-            $pdf->setOrientation('landscape');
-            $pdf->loadView('planteles.reportes2', compact('query', 'aulas'));
-        } else {
-            $pdf->loadView('planteles.reportes1', [ 'query' => $query ]);
-        }
+        switch ($formato) {
 
+            case 1 :
+                $nombre_file = 'reporte_1';
+                $query       = $query->select('pases_examen.numero_lista', 'nombre_completo', 'aspirantes.folio as folio_ceneval', 'aulas.id as no_aula', 'aulas.capacidad', 'especialidades.referencia as especialidad', 'aulas.id')
+                    ->get();
+                $pdf->loadView('planteles.reportes1', compact('query', 'aulas'));
+                break;
+            case 2:
+                $nombre_file = 'reporte_de_acuse';
+                $query       = $query->select('aulas.id', 'aulas.referencia', 'pases_examen.numero_lista', 'aulas.capacidad', 'alumn.nombre_completo', 'aulas.id as no_aula', 'aspirantes.folio', 'planteles.descripcion')->groupBy('aulas.id', 'alumn.id')->get();
+                $pdf->setOrientation('landscape');
+                $pdf->loadView('planteles.reportes2', compact('query', 'aulas'));
+                break;
+            case 3:
+                $nombre_file = 'Listado_General_de_Alumnos';
+                $plantel     = Plantel::find(Auth::user()->plantel->id);
+                $query       = $query->select(DB::raw('concat_ws(" ",alumn.primer_apellido, alumn.segundo_apellido, alumn.nombre) as nombre_completo'),
+                    'alumn.primer_apellido', 'alumn.segundo_apellido',
+                    'alumn.nombre', 'aspirantes.folio as folio_ceneval', 'especialidades.referencia as especialidad',
+                    'aulas.id as no_aula', 'aulas.id', 'aulas.referencia as aula_descripcion')
+                    ->orderBy('alumn.primer_apellido', 'asc')
+                    ->get();
+                $pdf->loadView('planteles.reportes3', compact('query', 'plantel'));
+                break;
+        }
         return $pdf->download($nombre_file . '.pdf');
     }
 }
