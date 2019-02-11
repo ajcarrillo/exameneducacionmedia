@@ -36,6 +36,16 @@ class Aspirante extends Model
         'is_aspirante_externo',
     ];
 
+    public function respuestasCeneval()
+    {
+        return $this->hasMany(AspiranteRespuesta::class, 'aspirante_id');
+    }
+
+    public function revisiones()
+    {
+        return $this->hasMany(RevisionRegistro::class, 'aspirante_id');
+    }
+
     public function paseExamen()
     {
         return $this->hasOne(Pase::class, 'aspirante_id');
@@ -74,6 +84,38 @@ class Aspirante extends Model
     public function getIsAspiranteExternoAttribute()
     {
         return $this->alumno_id ? false : true;
+    }
+
+    protected function hasDomicilio()
+    {
+        return $this->domicilio()->exists();
+    }
+
+    protected function hasInformacionProcedencia()
+    {
+        return $this->informacionProcedencia()->exists();
+    }
+
+    protected function hasSeleccion()
+    {
+        return $this->opcionesEducativas()->exists();
+    }
+
+    protected function hasRespuestasCeneval()
+    {
+        return $this->respuestasCeneval()->exists();
+    }
+
+    public function hasInformacionCompleta()
+    {
+        if ( ! $this->hasDomicilio() ||
+            ! $this->hasInformacionProcedencia() ||
+            ! $this->hasSeleccion() ||
+            ! $this->hasRespuestasCeneval()) {
+            return false;
+        }
+
+        return true;
     }
 
     public function asignarPase()
