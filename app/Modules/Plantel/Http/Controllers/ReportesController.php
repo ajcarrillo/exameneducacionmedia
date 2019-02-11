@@ -2,15 +2,19 @@
 /**
  * Created by PhpStorm.
  * User: marlo
+<<<<<<< HEAD
  * Date: 06/02/2019
  * Time: 10:35 AM
+=======
+ * Date: 10/02/2019
+ * Time: 09:22 PM
+>>>>>>> 121f5d4e950fe5c87d15fb26632cab410446b164
  */
 
 namespace Plantel\Http\Controllers;
 
 use Illuminate\Http\Request;
 use ExamenEducacionMedia\Http\Controllers\Controller;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -18,9 +22,6 @@ class ReportesController extends Controller
 {
     public function descargar(Request $request)
     {
-         $nombre_file="";
-
-        $nombre_a_descargar = "nombre del archivo";
         $pdf                = app('snappy.pdf.wrapper');
         $pdf->setPaper('letter')
             ->setOrientation('portrait')
@@ -29,9 +30,7 @@ class ReportesController extends Controller
             ->setOption('margin-right', '0mm')
             ->setOption('margin-left', '0mm')
             ->setOption('disable-smart-shrinking', true)
-            ->setOption('zoom', '1')
-
-        ;
+            ->setOption('zoom', '1');
 
         $aulas = DB::table('planteles')
             ->select(DB::raw('count(aspirantes.id) as lugares_ocupados, aulas.id, aulas.capacidad, planteles.descripcion'))
@@ -48,31 +47,24 @@ class ReportesController extends Controller
             ->join('aulas', 'planteles.id', '=', 'aulas.edificio_id')
             ->join('pases_examen', 'pases_examen.aula_id', '=', 'aulas.id')
             ->join('aspirantes', 'aspirantes.id', '=', 'pases_examen.aspirante_id')
-            ->join('alumnos.alumnos as alumn','alumn.id','=','aspirantes.alumno_id')
+            ->join('alumnos.alumnos as alumn', 'alumn.id', '=', 'aspirantes.alumno_id')
             ->where('planteles.id', Auth::user()->plantel->id);
 
         $formato = $request->formato;
-
         if ($formato == "1") {
-            $nombre_file = 'reporte_1';
-
-            $query = $query->select('pases_examen.numero_lista','nombre_completo', 'aspirantes.folio as folio_ceneval', 'aulas.id as no_aula',  'aulas.capacidad', 'especialidades.referencia as especialidad','aulas.id')
-                            ->get();
-           // dd($aulas);
-            //$pdf ->setOrientation('landscape');
+            $nombre_file = 'reporte_aspirantes_por_aula';
+            $query = $query->select('pases_examen.numero_lista', 'nombre_completo', 'aspirantes.folio as folio_ceneval', 'aulas.id as no_aula', 'aulas.capacidad', 'especialidades.referencia as especialidad', 'aulas.id')
+                ->get();
             $pdf->loadView('planteles.reportes1', compact('query', 'aulas'));
-
         } else if ($formato == "2") {
-            $pdf->loadView('planteles.reportes1', ['query' => $query]);
+            $nombre_file = 'reporte_de_acuse';
+            $query   = $query->select('aulas.id', 'aulas.referencia', 'pases_examen.numero_lista', 'aulas.capacidad', 'alumn.nombre_completo', 'aulas.id as no_aula', 'aspirantes.folio', 'planteles.descripcion')->groupBy('aulas.id', 'alumn.id')->get();
+            $pdf->setOrientation('landscape');
+            $pdf->loadView('planteles.reportes2', compact('query', 'aulas'));
         } else {
-            $pdf->loadView('planteles.reportes1', ['query' => $query]);
+            $pdf->loadView('planteles.reportes1', [ 'query' => $query ]);
         }
-         /* $pdf->loadView('ruta de la vista',
-            [ 'Variables compact a la vista' ]
-        ); */
 
-       //return $pdf->download($nombre_file.'.pdf');
-        return $pdf->inline($nombre_file.'.pdf');
-
+        return $pdf->download($nombre_file . '.pdf');
     }
 }

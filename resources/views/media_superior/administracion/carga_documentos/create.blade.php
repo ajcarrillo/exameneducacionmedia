@@ -40,7 +40,7 @@
 						<h3 class="card-title">Cargar documento</h3>
 					</div>
 					<div class="card-body">
-						{!! Form::open(['action' => 'Administracion\CargaDocumentosController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+						{!! Form::open(['class'=>'form-horizontal', 'route'=>['media.administracion.carga-documentos.store'],'enctype' => 'multipart/form-data']) !!}
 						<div class=" text-center form-group" >
 							<img id="pdf_thumbnail" class="img-thumbnail img-responsive rounded" width="15%" height="15%">
 						</div>
@@ -72,7 +72,7 @@
 							<br>
 							<div class="form-group col-12 justify-content-center">
 								<label class="text-info">comentario:</label>
-								<textarea class="form-control" name="descripcion" rows="1"></textarea>
+								<textarea class="form-control" required name="descripcion" rows="1"></textarea>
 							</div>
 						</div>
 						<br>
