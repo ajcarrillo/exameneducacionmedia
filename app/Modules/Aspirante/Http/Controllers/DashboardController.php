@@ -34,14 +34,15 @@ class DashboardController
             ->orderBy('preferencia', 'asc')
             ->get();
 
-        $revision        = $this->getRevision($aspirante);
-        $hasRevision     = $this->hasRevision($aspirante);
-        $paseAlExamen    = $this->getPaseAlExamen($aspirante);
-        $hasPaseAlExamen = $this->hasPaseAlExamen($aspirante);
+        $revision               = $this->getRevision($aspirante);
+        $hasRevision            = $this->hasRevision($aspirante);
+        $paseAlExamen           = $this->getPaseAlExamen($aspirante);
+        $hasPaseAlExamen        = $this->hasPaseAlExamen($aspirante);
+        $hasInformacionCompleta = $aspirante->hasInformacionCompleta();
 
         return view('aspirante.dashboard', compact(
             'ofertas', 'ofertas_gral', 'revision', 'hasRevision',
-            'paseAlExamen', 'hasPaseAlExamen'
+            'paseAlExamen', 'hasPaseAlExamen', 'hasInformacionCompleta'
         ));
     }
 

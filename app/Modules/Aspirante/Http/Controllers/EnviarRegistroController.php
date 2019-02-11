@@ -9,6 +9,7 @@
 namespace Aspirante\Http\Controllers;
 
 
+use Aspirante\Http\Requests\StoreRevisionRegistro;
 use Aspirante\Models\RevisionRegistro;
 use Carbon\Carbon;
 use DB;
@@ -17,8 +18,10 @@ use MediaSuperior\Models\Revision;
 
 class EnviarRegistroController extends Controller
 {
-    public function store()
+    public function store(StoreRevisionRegistro $request)
     {
+        $request->validated();
+
         try {
             DB::transaction(function () {
                 $aspirante = get_aspirante();
