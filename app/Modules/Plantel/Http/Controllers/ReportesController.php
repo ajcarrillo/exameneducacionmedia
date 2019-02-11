@@ -18,7 +18,6 @@ class ReportesController extends Controller
 {
     public function descargar(Request $request)
     {
-
         $pdf = app('snappy.pdf.wrapper');
         $pdf->setPaper('letter')
             ->setOrientation('portrait')
@@ -74,6 +73,7 @@ class ReportesController extends Controller
                 $pdf->loadView('planteles.reportes3', compact('query', 'plantel'));
                 break;
         }
+        
         return $pdf->download($nombre_file . '.pdf');
     }
 }
