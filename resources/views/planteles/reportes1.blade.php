@@ -59,7 +59,7 @@ use Carbon\Carbon;
             position:relative;
         }
         .dtll{
-            height: 26cm;
+            height: 25cm;
         }
         .footer{
             text-align: center;
@@ -141,7 +141,10 @@ use Carbon\Carbon;
                 </div>
 
             </div>
-            <div class="footer">{{'*** Aspirantes con derecho a presentar examen que no concluyeron su registro en línea en el plazo especificado.'}} <br>{{Carbon::now()->toFormattedDateString()}}</div>
+            <div class="footer">{{'*** Aspirantes con derecho a presentar examen que no concluyeron su registro en línea en el plazo especificado.'}} <br>
+                {{Carbon::now()->toFormattedDateString()}}<br>
+                <div style="margin-left: 700px">Aula:{{$aula->id}}</div>
+            </div>
 
         </div>
 

@@ -116,7 +116,7 @@
 												General</a>
 										</div>
 										<div class="col-sm-4">
-											<a class="btn" style="background:#00a65a;color: white;font-size: 13pt" href="#" id="btn_imprimir">Listado
+											<a class="btn" style="background:#00a65a;color: white;font-size: 13pt" href="{{route('planteles.reporte',['formato'=>1])}}" id="btn_imprimir">Listado
 												de Alumnos</a>
 										</div>
 									</div>
