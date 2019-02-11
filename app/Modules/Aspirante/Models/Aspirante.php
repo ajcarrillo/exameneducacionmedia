@@ -36,6 +36,11 @@ class Aspirante extends Model
         'is_aspirante_externo',
     ];
 
+    public function revisiones()
+    {
+        return $this->hasMany(RevisionRegistro::class, 'aspirante_id');
+    }
+
     public function paseExamen()
     {
         return $this->hasOne(Pase::class, 'aspirante_id');
