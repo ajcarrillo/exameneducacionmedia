@@ -1,4 +1,4 @@
-{{-- extends('aspirante.layouts.aspirante') --}}
+
 @extends('layouts.app')
 
 @section('extra-head')
