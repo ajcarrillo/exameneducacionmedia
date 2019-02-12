@@ -48,13 +48,6 @@ Route::middleware([ 'auth', 'role:aspirante' ])
         //-- End Igna
     });
 
-Route::middleware(['auth', 'role:plantel|departamento'])
-    ->prefix('/')
-    ->name('aspirante.')
-    ->group(function () {
-        Route::get('/problemasCurp', 'DashboardController@historicoCurp')->name('historico.curp');
-        Route::get('/problemasCurp/descargar', 'DashboardController@descargar')->name('historico.descargar');
-    });
 
 
 
