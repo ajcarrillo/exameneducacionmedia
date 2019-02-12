@@ -75,6 +75,7 @@
 				font-family: "Trebuchet MS";
 				font-weight: normal;
 				font-size: 8px;
+				width: 150px;
 				background-color: lightgray;
 				padding: 5px 5px;
 				border-style: solid;
@@ -151,12 +152,12 @@
 							</table>
 							<table class="table_aspirantes">
 								<colgroup>
+									<col style="width: 50px">
+									<col style="width: 300px">
 									<col style="width: 100px">
-									<col style="width: 250px">
 									<col style="width: 100px">
-									<col style="width: 150px">
-									<col style="width: 150px">
-									<col style="width: 200px">
+									<col style="width: 100px">
+									<col style="width: 100px">
 								</colgroup>
 								<tr>
 									<th>No. de lista</th>
