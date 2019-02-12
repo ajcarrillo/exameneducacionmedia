@@ -18,8 +18,8 @@
         <link rel="stylesheet" href="{{ mix('css/adminlte.css') }}">
         @yield('extra-css')
         <style>
-            body{
-                height: 100vh!important;
+            body {
+                height: 100vh !important;
             }
         </style>
     </head>
@@ -33,6 +33,16 @@
                             CENEVAL: {{ get_aspirante()->folio }}</h5>
 
                     </div>
+
+                    <a class="btn bg-white"
+                       style="color: #1f2d3d!important"
+                       href="{{ route('logout') }}"
+                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        Salir
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </div>
 
             </div>
