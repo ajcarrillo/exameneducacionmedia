@@ -11,7 +11,7 @@
         <div class="card card-primary card-outline">
             <div class="card-header">
                 <h1 class="card-title" style="float: left">Listado de alumnos con problemas de curp</h1>
-                <a href="{{route('aspirante.historico.descargar', ['subsistema_id'=>0,'formato'=>3])}}" class="btn btn-md btn-success" style="float: right"> Descargar</a>
+                <a href="{{ route('media.administracion.historico.descargar', ['subsistema_id'=>0,'formato'=>3]) }}" class="btn btn-md btn-success" style="float: right"> Descargar</a>
             </div>
             <div class="card-body">
                 <div class="container-fluid pt-1">
