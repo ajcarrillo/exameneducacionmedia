@@ -52,8 +52,8 @@ Route::middleware(['auth', 'role:plantel|departamento'])
     ->prefix('/')
     ->name('aspirante.')
     ->group(function () {
-        Route::get('/historico', 'DashboardController@historicoCurp')->name('historico.curp');
-        Route::get('/historico/descargar', 'DashboardController@descargar')->name('historico.descargar');
+        Route::get('/problemasCurp', 'DashboardController@historicoCurp')->name('historico.curp');
+        Route::get('/problemasCurp/descargar', 'DashboardController@descargar')->name('historico.descargar');
     });
 
 
