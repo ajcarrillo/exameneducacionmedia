@@ -163,13 +163,13 @@ return [
         ExamenEducacionMedia\Providers\RouteServiceProvider::class,
         ExamenEducacionMedia\Providers\ComposerServiceProvider::class,
 
+        Aspirante\Providers\AspiranteServiceProvider::class,
         Aspirante\Providers\RouteServiceProvider::class,
-        Subsistema\Providers\RouteServiceProvider::class,
-        Subsistema\Providers\SubsistemaServiceProvider::class,
+        MediaSuperior\Providers\MediaSuperiorServiceProvider::class,
         MediaSuperior\Providers\RouteServiceProvider::class,
         Plantel\Providers\RouteServiceProvider::class,
-        Barryvdh\Snappy\ServiceProvider::class,
-        MediaSuperior\Providers\MediaSuperiorServiceProvider::class,
+        Subsistema\Providers\SubsistemaServiceProvider::class,
+        Subsistema\Providers\RouteServiceProvider::class,
     ],
 
     /*

@@ -38,6 +38,7 @@ class UpdateAspirante extends FormRequest
             ],
             'curp'                  => [
                 'required_if:pais_nacimiento_id,MX',
+                'nullable',
                 Rule::unique('aspirantes')->ignore($this->id),
             ],
             'curp_historica'        => 'required_with:curp',

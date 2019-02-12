@@ -36,6 +36,16 @@ class Aspirante extends Model
         'is_aspirante_externo',
     ];
 
+    public function respuestasCeneval()
+    {
+        return $this->hasMany(AspiranteRespuesta::class, 'aspirante_id');
+    }
+
+    public function revisiones()
+    {
+        return $this->hasMany(RevisionRegistro::class, 'aspirante_id');
+    }
+
     public function paseExamen()
     {
         return $this->hasOne(Pase::class, 'aspirante_id');
@@ -76,6 +86,18 @@ class Aspirante extends Model
         return $this->alumno_id ? false : true;
     }
 
+    public function hasInformacionCompleta()
+    {
+        if ( ! $this->hasDomicilio() ||
+            ! $this->hasInformacionProcedencia() ||
+            ! $this->hasSeleccion() ||
+            ! $this->hasRespuestasCeneval()) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function asignarPase()
     {
         $primerOpcion = $this->opcionesEducativas()->where('preferencia', 1)->firstOrFail();
@@ -97,6 +119,15 @@ class Aspirante extends Model
         return $asignado;
     }
 
+    public function crearRevision()
+    {
+        $revisionRegistro = new RevisionRegistro([
+            'efectuado' => false,
+        ]);
+
+        $this->revisiones()->save($revisionRegistro);
+    }
+
     protected function distribuirPase($aulas)
     {
         $asignado = false;
@@ -105,14 +136,14 @@ class Aspirante extends Model
             $pase            = Pase::where('aula_id', $aula->id);
             $lugaresOcupados = $pase->count();
 
+            if ($lugaresOcupados == $aula->capacidad) {
+                break;
+            }
+
             if ( ! $pase->exists()) {
                 $maximoNumeroLista = 0;
             } else {
                 $maximoNumeroLista = $pase->max('numero_lista');
-            }
-
-            if ($lugaresOcupados == $aula->capacidad) {
-                break;
             }
 
             $nuevoPase               = new Pase();
@@ -130,5 +161,25 @@ class Aspirante extends Model
         }
 
         return $asignado;
+    }
+
+    protected function hasDomicilio()
+    {
+        return $this->domicilio()->exists();
+    }
+
+    protected function hasInformacionProcedencia()
+    {
+        return $this->informacionProcedencia()->exists();
+    }
+
+    protected function hasSeleccion()
+    {
+        return $this->opcionesEducativas()->exists();
+    }
+
+    protected function hasRespuestasCeneval()
+    {
+        return $this->respuestasCeneval()->exists();
     }
 }

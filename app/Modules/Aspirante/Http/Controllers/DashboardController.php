@@ -9,6 +9,7 @@
 namespace Aspirante\Http\Controllers;
 
 
+use Aspirante\Models\Aspirante;
 use Aspirante\Models\Seleccion;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -31,13 +32,41 @@ class DashboardController
             ->groupBy('plantel.id')
             ->get();
 
-        $ofertas = Seleccion::with(['ofertaEducativa', 'ofertaEducativa.plantel', 'ofertaEducativa.especialidad'])
-                    ->where('aspirante_id', $aspirante->id)
-                    ->orderBy('preferencia', 'asc')
-                    ->get();
+        $ofertas = Seleccion::with([ 'ofertaEducativa', 'ofertaEducativa.plantel', 'ofertaEducativa.especialidad' ])
+            ->where('aspirante_id', $aspirante->id)
+            ->orderBy('preferencia', 'asc')
+            ->get();
 
-        return view('aspirante.dashboard', compact('ofertas','ofertas_gral'));
-        
+        $revision               = $this->getRevision($aspirante);
+        $hasRevision            = $this->hasRevision($aspirante);
+        $paseAlExamen           = $this->getPaseAlExamen($aspirante);
+        $hasPaseAlExamen        = $this->hasPaseAlExamen($aspirante);
+        $hasInformacionCompleta = $aspirante->hasInformacionCompleta();
+
+        return view('aspirante.dashboard', compact(
+            'ofertas', 'ofertas_gral', 'revision', 'hasRevision',
+            'paseAlExamen', 'hasPaseAlExamen', 'hasInformacionCompleta'
+        ));
+    }
+
+    protected function getRevision(Aspirante $aspirante)
+    {
+        return $aspirante->revisiones()->first();
+    }
+
+    protected function hasRevision(Aspirante $aspirante)
+    {
+        return $aspirante->revisiones()->exists();
+    }
+
+    protected function getPaseAlExamen(Aspirante $aspirante)
+    {
+        return $aspirante->paseExamen;
+    }
+
+    public function hasPaseAlExamen(Aspirante $aspirante)
+    {
+        return $aspirante->paseExamen()->exists();
     }
     public function historicoCurp(){
         $query = DB::table('aspirantes')
