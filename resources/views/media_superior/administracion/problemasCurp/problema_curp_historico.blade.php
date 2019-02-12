@@ -1,4 +1,4 @@
-
+{{-- extends --}}
 @extends('layouts.app')
 
 @section('extra-head')
