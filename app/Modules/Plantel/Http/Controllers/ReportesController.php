@@ -51,21 +51,21 @@ class ReportesController extends Controller
 
             case 1 :
                 $nombre_file = 'Listado_Alumnos_por_Aula';
-                $query       = $query->select('pases_examen.numero_lista', DB::raw('concat_ws(" ",users.primer_apellido,users.segundo_apellido,users.nombre) as nombre_completo'), 'aspirantes.folio as folio_ceneval', 'aulas.id as no_aula', 'aulas.capacidad', 'especialidades.referencia as especialidad', 'aulas.id')
+                $query       = $query->select('pases_examen.numero_lista', DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'), 'aspirantes.folio as folio_ceneval', 'aulas.id as no_aula', 'aulas.capacidad', 'especialidades.referencia as especialidad', 'aulas.id')
                     ->groupBy('aulas.id', 'users.id')
                     ->get();
                 $pdf->loadView('planteles.reportes1', compact('query', 'aulas'));
                 break;
             case 2:
                 $nombre_file = 'reporte_de_acuse';
-                $query       = $query->select('aulas.id', 'aulas.referencia', 'pases_examen.numero_lista', 'aulas.capacidad',DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'), 'aulas.id as no_aula', 'aspirantes.folio', 'planteles.descripcion')->groupBy('aulas.id', 'users.id')->get();
+                $query       = $query->select('aulas.id', 'aulas.referencia', 'pases_examen.numero_lista', 'aulas.capacidad', DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'), 'aulas.id as no_aula', 'aspirantes.folio', 'planteles.descripcion')->groupBy('aulas.id', 'users.id')->get();
                 $pdf->setOrientation('landscape');
                 $pdf->loadView('planteles.reportes2', compact('query', 'aulas'));
                 break;
             case 3:
                 $nombre_file = 'Listado_General_de_Alumnos';
                 $plantel     = Plantel::find(Auth::user()->plantel->id);
-                $query       = $query->select(DB::raw('concat_ws(users.primer_apellido,users.segundo_apellido,users.nombre) as nombre_completo'),
+                $query       = $query->select(DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'),
                     'users.primer_apellido', 'users.segundo_apellido',
                     'users.nombre', 'aspirantes.folio as folio_ceneval', 'especialidades.referencia as especialidad',
                     'aulas.id as no_aula', 'aulas.id', 'aulas.referencia as aula_descripcion')
@@ -76,6 +76,6 @@ class ReportesController extends Controller
                 break;
         }
 
-        return $pdf->inline($nombre_file . '.pdf');
+        return $pdf->download($nombre_file . '.pdf');
     }
 }

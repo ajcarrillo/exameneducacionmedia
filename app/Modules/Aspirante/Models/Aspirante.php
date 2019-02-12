@@ -86,26 +86,6 @@ class Aspirante extends Model
         return $this->alumno_id ? false : true;
     }
 
-    protected function hasDomicilio()
-    {
-        return $this->domicilio()->exists();
-    }
-
-    protected function hasInformacionProcedencia()
-    {
-        return $this->informacionProcedencia()->exists();
-    }
-
-    protected function hasSeleccion()
-    {
-        return $this->opcionesEducativas()->exists();
-    }
-
-    protected function hasRespuestasCeneval()
-    {
-        return $this->respuestasCeneval()->exists();
-    }
-
     public function hasInformacionCompleta()
     {
         if ( ! $this->hasDomicilio() ||
@@ -139,6 +119,15 @@ class Aspirante extends Model
         return $asignado;
     }
 
+    public function crearRevision()
+    {
+        $revisionRegistro = new RevisionRegistro([
+            'efectuado' => false,
+        ]);
+
+        $this->revisiones()->save($revisionRegistro);
+    }
+
     protected function distribuirPase($aulas)
     {
         $asignado = false;
@@ -147,14 +136,14 @@ class Aspirante extends Model
             $pase            = Pase::where('aula_id', $aula->id);
             $lugaresOcupados = $pase->count();
 
+            if ($lugaresOcupados == $aula->capacidad) {
+                break;
+            }
+
             if ( ! $pase->exists()) {
                 $maximoNumeroLista = 0;
             } else {
                 $maximoNumeroLista = $pase->max('numero_lista');
-            }
-
-            if ($lugaresOcupados == $aula->capacidad) {
-                break;
             }
 
             $nuevoPase               = new Pase();
@@ -172,5 +161,25 @@ class Aspirante extends Model
         }
 
         return $asignado;
+    }
+
+    protected function hasDomicilio()
+    {
+        return $this->domicilio()->exists();
+    }
+
+    protected function hasInformacionProcedencia()
+    {
+        return $this->informacionProcedencia()->exists();
+    }
+
+    protected function hasSeleccion()
+    {
+        return $this->opcionesEducativas()->exists();
+    }
+
+    protected function hasRespuestasCeneval()
+    {
+        return $this->respuestasCeneval()->exists();
     }
 }

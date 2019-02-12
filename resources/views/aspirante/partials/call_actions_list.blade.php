@@ -13,8 +13,15 @@
         @if($revision->efectuado)
             @if(!$hasPaseAlExamen)
                 <li>
-                    <a href=""
+                    <a href="{{ route('aspirante.generar.pase') }}"
+                       onclick="event.preventDefault(); document.getElementById('generar-pase-form').submit();"
                        class="btn btn-primary btn-sm">Genera pase al examen</a>
+                    <form id="generar-pase-form"
+                          action="{{ route('aspirante.generar.pase') }}"
+                          method="post"
+                          style="display: none">
+                        @csrf
+                    </form>
                 </li>
             @else
                 <li>

@@ -5,7 +5,7 @@ return array(
 
     'pdf' => array(
         'enabled' => true,
-        'binary'  => env('SNAPPY_PDF', '/usr/local/bin/wkhtmltoimage'),
+        'binary'  => env('SNAPPY_PDF','/usr/local/bin/wkhtmltopdf'),
         'timeout' => false,
         'options' => array(),
         'env'     => array(),
