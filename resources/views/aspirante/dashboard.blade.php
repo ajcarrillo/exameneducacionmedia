@@ -1,11 +1,21 @@
 @extends('aspirante.layouts.aspirante')
 
 @section('extra-css')
+    <style>
+        .call-to-action li {
+            padding-bottom: 1rem;
+        }
+    </style>
 @endsection
 
 @section('content')
     <main>
         <div class="container-fluid py-4" style="background-color: RGBA(248, 249, 250, 1.00)">
+            <div class="row">
+                <div class="col">
+                    @include('flash::message')
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-3 mb-7 mb-lg-0">
                     <div class="card shadow-none border">
@@ -25,8 +35,7 @@
                             </div>
                         </div>
                         <div class="card-body text-center">
-                            <a href="/aspirantes/opciones-educativas"
-                               class="btn btn-primary btn-sm">Opciones educativas</a>
+                            @include('aspirante.partials.call_actions_list')
                         </div>
                     </div>
                 </div>
@@ -36,7 +45,11 @@
                             <h1 class="card-title">Información</h1>
                         </div>
                         <div class="card-body">
-
+                            @if($hasRevision && !$revision->efectuado)
+                                <div class="alert alert-success" role="alert">
+                                    Tu registro ha sido enviado, regresa en 72hrs para generar tu pase al examen.
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

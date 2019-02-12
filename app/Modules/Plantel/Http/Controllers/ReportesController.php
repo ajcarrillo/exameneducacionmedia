@@ -57,7 +57,7 @@ class ReportesController extends Controller
                 break;
             case 2:
                 $nombre_file = 'reporte_de_acuse';
-                $query       = $query->select('aulas.id', 'aulas.referencia', 'pases_examen.numero_lista', 'aulas.capacidad',DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'), 'aulas.id as no_aula', 'aspirantes.folio', 'planteles.descripcion')->groupBy('aulas.id', 'users.id')->get();
+                $query       = $query->select('aulas.id', 'aulas.referencia', 'pases_examen.numero_lista', 'aulas.capacidad', DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'), 'aulas.id as no_aula', 'aspirantes.folio', 'planteles.descripcion')->groupBy('aulas.id', 'users.id')->get();
                 $pdf->setOrientation('landscape');
                 $pdf->loadView('planteles.reportes2', compact('query', 'aulas'));
                 break;
