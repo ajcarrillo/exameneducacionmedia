@@ -35,6 +35,9 @@ Route::middleware([ 'auth', 'role:aspirante' ])
                 Route::get('/', 'DashboardController@index')->name('index');
             });
 
+        Route::post('/enviar-registro', 'EnviarRegistroController@store')
+            ->name('enviar.registro');
+
         //-- Rutas Igna
         Route::get('/captura-cuestionario', 'CuestionarioController@index')->middleware('cuestionario')->name('captura.cuestionario');
         Route::post('/captura-cuestionario', 'CuestionarioController@store')->middleware('cuestionario')->name('guarda.cuestionario');

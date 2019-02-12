@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateRevisionRegistrosTable extends Migration
 {
@@ -17,7 +17,7 @@ class CreateRevisionRegistrosTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('aspirante_id')->unique();
             $table->foreign('aspirante_id')->references('id')->on('aspirantes');
-            $table->unsignedInteger('solicitud_pago')->unique();
+            $table->unsignedInteger('solicitud_pago_id')->nullable();
             $table->boolean('efectuado')->default(0);
             $table->timestamps();
         });

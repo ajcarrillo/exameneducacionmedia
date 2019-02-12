@@ -33,13 +33,6 @@
                             CENEVAL: {{ get_aspirante()->folio }}</h5>
 
                     </div>
-
-                    <!-- Edit Profile -->
-                    <a class="btn bg-white" style="color: #1f2d3d!important" href="{{ route('aspirante.profile') }}">
-                        <i class="fa fa-user small mr-2"></i>
-                        Editar perfil
-                    </a>
-                    <!-- End Edit Profile -->
                 </div>
 
             </div>
