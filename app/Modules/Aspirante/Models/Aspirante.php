@@ -136,14 +136,14 @@ class Aspirante extends Model
             $pase            = Pase::where('aula_id', $aula->id);
             $lugaresOcupados = $pase->count();
 
+            if ($lugaresOcupados == $aula->capacidad) {
+                break;
+            }
+
             if ( ! $pase->exists()) {
                 $maximoNumeroLista = 0;
             } else {
                 $maximoNumeroLista = $pase->max('numero_lista');
-            }
-
-            if ($lugaresOcupados == $aula->capacidad) {
-                break;
             }
 
             $nuevoPase               = new Pase();

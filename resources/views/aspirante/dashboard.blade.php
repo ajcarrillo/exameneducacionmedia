@@ -50,6 +50,11 @@
                                     Tu registro ha sido enviado, regresa en 72hrs para generar tu pase al examen.
                                 </div>
                             @endif
+                            @if($hasPaseAlExamen)
+                                <div class="alert alert-success" role="alert">
+                                    Tu pase al examen ha sido generado correctamente, ahora procede a descargar tu pase al examen
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
