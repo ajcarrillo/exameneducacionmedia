@@ -18,8 +18,8 @@
         <link rel="stylesheet" href="{{ mix('css/adminlte.css') }}">
         @yield('extra-css')
         <style>
-            body{
-                height: 100vh!important;
+            body {
+                height: 100vh !important;
             }
         </style>
     </head>
@@ -34,12 +34,15 @@
 
                     </div>
 
-                    <!-- Edit Profile -->
-                    <a class="btn bg-white" style="color: #1f2d3d!important" href="{{ route('aspirante.profile') }}">
-                        <i class="fa fa-user small mr-2"></i>
-                        Editar perfil
+                    <a class="btn bg-white"
+                       style="color: #1f2d3d!important"
+                       href="{{ route('logout') }}"
+                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        Salir
                     </a>
-                    <!-- End Edit Profile -->
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </div>
 
             </div>

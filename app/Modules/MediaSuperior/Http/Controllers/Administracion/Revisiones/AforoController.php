@@ -61,13 +61,16 @@ class AforoController extends controller
         if ($request->get('estado') == 'C') {
             Revision::find($id)->update(
                 [
-                    'estado'     => $request->get('estado'),
-                    'comentario' => $request->get('comentario'),
+                    'fecha_revision'   => now(),
+                    'estado'           => $request->get('estado'),
+                    'comentario'       => $request->get('comentario'),
+                    'usuario_revision' => \Auth::user()->id,
                 ]
             );
         } elseif ($request->get('estado') == 'A') {
             Revision::find($id)->update(
                 [
+                    'fecha_revision'   => now(),
                     'estado'           => $request->get('estado'),
                     'comentario'       => $request->get('comentario'),
                     'usuario_revision' => \Auth::user()->id,
