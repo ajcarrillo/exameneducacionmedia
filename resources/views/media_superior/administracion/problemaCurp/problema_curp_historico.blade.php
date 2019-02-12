@@ -1,4 +1,4 @@
-{{-- extends('aspirante.layouts.aspirante') --}}
+{{-- extends --}}
 @extends('layouts.app')
 
 @section('extra-head')
@@ -11,7 +11,7 @@
         <div class="card card-primary card-outline">
             <div class="card-header">
                 <h1 class="card-title" style="float: left">Listado de alumnos con problemas de curp</h1>
-                <a href="{{route('aspirante.historico.descargar', ['subsistema_id'=>0,'formato'=>3])}}" class="btn btn-md btn-success" style="float: right"> Descargar</a>
+                <a href="{{ route('media.administracion.historico.descargar', ['subsistema_id'=>0,'formato'=>3]) }}" class="btn btn-md btn-success" style="float: right"> Descargar</a>
             </div>
             <div class="card-body">
                 <div class="container-fluid pt-1">
@@ -21,9 +21,8 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Datos Personales</th>
-                                    <!--<th>Correo</th>
-                                    <th>Telefono</th>-->
+                                    <th>Nombre</th>
+                                    <th>Contacto</th>
                                     <th>Municipio</th>
                                     <th>Localidad</th>
                                     <th>Subsistema</th>
@@ -36,11 +35,11 @@
 
                                     <tr>
                                         <td>{{$cont++}}</td>
+                                        <td>{{$aspirante->nombre.' '.$aspirante->primer_apellido.' '.$aspirante->segundo_apellido}}</td>
                                         <td>
                                             <ul>
-                                                <li>{{$aspirante->nombre.' '.$aspirante->primer_apellido.' '.$aspirante->segundo_apellido}}</li>
-                                                <li>{{$aspirante->email}}</li>
-                                                <li>{{$aspirante->telefono}}</li>
+                                                <li><b>Correo Electronico:</b><br>{{$aspirante->email}}</li>
+                                                <li><b>Telefono:</b><br>{{$aspirante->telefono}}</li>
                                                 <li><b>Domicilio:</b><br>{{$aspirante->calle.' '.$aspirante->numero.' Col.'.$aspirante->colonia}}</li>
                                             </ul>
                                         </td>
