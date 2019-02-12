@@ -26,19 +26,11 @@ class EnviarRegistroController extends Controller
             DB::transaction(function () {
                 $aspirante = get_aspirante();
 
-                $revisionRegistro = new RevisionRegistro([
-                    'efectuado' => false,
-                ]);
+                $aspirante->crearRevision();
 
-                $revisionRegistro->aspirante()->associate($aspirante)->save();
+                $revisionRegistro = $aspirante->revisiones()->first();
 
-                $revision = new Revision([
-                    'fecha_apertura'   => Carbon::now(),
-                    'estado'           => 'R',
-                    'usuario_apertura' => get_aspirante()->id,
-                ]);
-
-                $revision->revision()->associate($revisionRegistro)->save();
+                $revisionRegistro->crearRevision();
             });
 
             flash('Tu registro se envió correctamente')->success();
