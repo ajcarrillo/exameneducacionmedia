@@ -42,4 +42,14 @@ Route::middleware([ 'auth', 'role:aspirante' ])
         //-- End Igna
     });
 
+Route::middleware(['auth', 'role:plantel|departamento'])
+    ->prefix('/')
+    ->name('aspirante.')
+    ->group(function () {
+        Route::get('/historico', 'DashboardController@historicoCurp')->name('historico.curp');
+        Route::get('/historico/descargar', 'DashboardController@descargar')->name('historico.descargar');
+    });
+
+
+
 

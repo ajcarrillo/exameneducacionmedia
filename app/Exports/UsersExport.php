@@ -6,6 +6,7 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use DB;
 use Subsistema\Models\Subsistema;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Illuminate\Support\Facades\Auth;
 
 
 class UsersExport implements FromCollection, WithHeadings
@@ -73,10 +74,56 @@ class UsersExport implements FromCollection, WithHeadings
             ->get();
     }
 
+    public function dataAlumnos(){
+        $query = DB::table('aspirantes')
+            ->select(DB::raw('concat(users.nombre," ",users.primer_apellido," ", users.segundo_apellido) as nombre_full'), 'users.email', 'aspirantes.telefono',  'geo.NOM_MUN as municipio', 'geo.NOM_LOC as localidad', 'domicilios.calle', 'domicilios.numero', 'domicilios.colonia', 'subsistemas.descripcion as subsistema', 'planteles.descripcion as plantel')
+            ->join('users', 'users.id', '=', 'aspirantes.user_id')
+            ->join('domicilios', 'domicilios.id', '=', 'aspirantes.domicilio_id')
+            ->join('geodatabase.estados_municipios_localidades as geo', function($join){
+                $join->on('geo.CVE_ENT', '=', 'domicilios.cve_ent')
+                    ->on('geo.CVE_MUN', '=', 'domicilios.cve_mun')
+                    ->on('geo.CVE_LOC', '=', 'domicilios.cve_loc');
+            })
+            ->join('seleccion_ofertas_educativas', 'seleccion_ofertas_educativas.aspirante_id', '=', 'aspirantes.id')
+            ->join('ofertas_educativas', 'ofertas_educativas.id', '=', 'seleccion_ofertas_educativas.oferta_educativa_id')
+            ->join('especialidades', 'especialidades.id', '=', 'ofertas_educativas.especialidad_id')
+            ->join('planteles', 'planteles.id', '=', 'ofertas_educativas.plantel_id')
+            ->join('subsistemas', 'subsistemas.id', '=', 'especialidades.subsistema_id')
+            ->where('seleccion_ofertas_educativas.preferencia', 1)
+            ->where('aspirantes.curp_historica', 1)
+            ->orWhere('aspirantes.curp_valida', 0)
+            ->groupBy('aspirantes.id');
+
+        switch (Auth::user()->roles[0]->name){
+            case 'plantel' :
+                $query = $query->where('planteles.id', Auth::user()->plantel->id)
+                    ->get();
+                break;
+            case  'departamento':
+                $query = $query->get();
+                break;
+
+        }
+        return $query;
+    }
+
     public function collection()
     {
-
-        if ($this->formato == 1) {
+        switch ($this->formato){
+            case 1 :
+                $ofertaEducativa = $this->dataOferta();
+                return $ofertaEducativa;
+                break;
+            case 2 :
+                $aforo = $this->dataAforo();
+                return $aforo;
+                break;
+            case 3 :
+                $alumnos = $this->dataAlumnos();
+                return $alumnos;
+                break;
+        }
+        /*if ($this->formato == 1) {
             $ofertaEducativa = $this->dataOferta();
 
             return $ofertaEducativa;
@@ -86,13 +133,51 @@ class UsersExport implements FromCollection, WithHeadings
             $aforo = $this->dataAforo();
 
             return $aforo;
-        }
+        }*/
     }
 
     public function headings(): array
     {
         $columnas = array();
-        if ($this->formato == 1) {
+
+        switch ($this->formato) {
+            case 1 :
+                $columnas = [
+                    'descripcion',
+                    'clave',
+                    'nombre localidad',
+                    'domicilio',
+                    'especialidad',
+                    'total grupos',
+                    'alumnos por grupo',
+                    'total alumnos',
+                ];
+                break;
+            case 2 :
+                $columnas = [
+                    'descripcion',
+                    'aulas',
+                    'capacidad',
+                    'ocupados',
+                    'disponibles',
+                ];
+                break;
+            case 3 :
+                $columnas = [
+                   'nombre_completo',
+                    'email',
+                    'telefono',
+                    'municipio',
+                    'localidad',
+                    'calle',
+                    'numero',
+                    'colonia',
+                    'subsistema',
+                    'plantel',
+                ];
+                break;
+        }
+        /*if ($this->formato == 1) {
             $columnas = [
                 'descripcion',
                 'clave',
@@ -111,7 +196,7 @@ class UsersExport implements FromCollection, WithHeadings
                 'ocupados',
                 'disponibles',
             ];
-        }
+        }*/
 
         return $columnas;
     }

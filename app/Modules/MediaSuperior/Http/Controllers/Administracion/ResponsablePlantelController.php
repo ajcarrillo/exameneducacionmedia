@@ -25,6 +25,7 @@ class ResponsablePlantelController extends Controller
 
         $subsistemas = Subsistema::pluck('referencia', 'id');
         $planteles = Plantel::with('subsistema', 'responsable')->get();
+        dd(Auth::user()->roles[0]->name);
 
         return view('media_superior.administracion.responsablePlantel.responsables.index', compact('planteles', 'subsistemas'));
     }
