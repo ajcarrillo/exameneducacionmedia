@@ -22,7 +22,6 @@ class Aula extends Model
     {
         return $this->morphTo();
     }
-
     public function setReferenciaAttribute($value)
     {
         $this->attributes['referencia'] = strtoupper($value);

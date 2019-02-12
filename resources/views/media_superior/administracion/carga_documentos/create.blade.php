@@ -40,7 +40,7 @@
 						<h3 class="card-title">Cargar documento</h3>
 					</div>
 					<div class="card-body">
-						{!! Form::open(['action' => 'Administracion\CargaDocumentosController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+						{!! Form::open(['class'=>'form-horizontal', 'route'=>['media.administracion.carga-documentos.store'],'enctype' => 'multipart/form-data']) !!}
 						<div class=" text-center form-group" >
 							<img id="pdf_thumbnail" class="img-thumbnail img-responsive rounded" width="15%" height="15%">
 						</div>
@@ -49,7 +49,7 @@
 							<br>
 								<button  type="button" class="btn btn -lg btn-primary mb-4" id="limpiar"><li class="fa fa-eraser"></li> Limpiar</button>
 							<br>
-							{{Form::file('pdf',['class'=>'form-control font-weight-light','id' =>'pdf','required' =>'true','size'=>'1000'])}}
+							{{Form::file('pdf',['class'=>'form-control font-weight-light','id' =>'pdf','required' =>'true','size'=>'10240'])}}
 							<br>
 							{!! Form::label('info','Selecciona los roles para los que estará disponible este documento:',['class'=>'control-label mb-4 text-center text-info font-weight-bold font-size-4']) !!}
 
@@ -72,7 +72,7 @@
 							<br>
 							<div class="form-group col-12 justify-content-center">
 								<label class="text-info">comentario:</label>
-								<textarea class="form-control" name="descripcion" rows="1"></textarea>
+								<textarea class="form-control" required name="descripcion" rows="1"></textarea>
 							</div>
 						</div>
 						<br>
