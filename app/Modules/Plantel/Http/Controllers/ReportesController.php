@@ -52,6 +52,7 @@ class ReportesController extends Controller
             case 1 :
                 $nombre_file = 'Listado_Alumnos_por_Aula';
                 $query       = $query->select('pases_examen.numero_lista', DB::raw('concat_ws(" ",users.primer_apellido,users.segundo_apellido,users.nombre) as nombre_completo'), 'aspirantes.folio as folio_ceneval', 'aulas.id as no_aula', 'aulas.capacidad', 'especialidades.referencia as especialidad', 'aulas.id')
+                    ->groupBy('aulas.id', 'users.id')
                     ->get();
                 $pdf->loadView('planteles.reportes1', compact('query', 'aulas'));
                 break;
@@ -69,6 +70,7 @@ class ReportesController extends Controller
                     'users.nombre', 'aspirantes.folio as folio_ceneval', 'especialidades.referencia as especialidad',
                     'aulas.id as no_aula', 'aulas.id', 'aulas.referencia as aula_descripcion')
                     ->orderBy('users.primer_apellido', 'asc')
+                    ->groupBy('aulas.id', 'users.id')
                     ->get();
                 $pdf->loadView('planteles.reportes3', compact('query', 'plantel'));
                 break;
