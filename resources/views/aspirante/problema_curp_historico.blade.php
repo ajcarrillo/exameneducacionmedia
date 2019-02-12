@@ -21,9 +21,8 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Datos Personales</th>
-                                    <!--<th>Correo</th>
-                                    <th>Telefono</th>-->
+                                    <th>Nombre</th>
+                                    <th>Contacto</th>
                                     <th>Municipio</th>
                                     <th>Localidad</th>
                                     <th>Subsistema</th>
@@ -36,11 +35,11 @@
 
                                     <tr>
                                         <td>{{$cont++}}</td>
+                                        <td>{{$aspirante->nombre.' '.$aspirante->primer_apellido.' '.$aspirante->segundo_apellido}}</td>
                                         <td>
                                             <ul>
-                                                <li>{{$aspirante->nombre.' '.$aspirante->primer_apellido.' '.$aspirante->segundo_apellido}}</li>
-                                                <li>{{$aspirante->email}}</li>
-                                                <li>{{$aspirante->telefono}}</li>
+                                                <li><b>Correo Electronico:</b><br>{{$aspirante->email}}</li>
+                                                <li><b>Telefono:</b><br>{{$aspirante->telefono}}</li>
                                                 <li><b>Domicilio:</b><br>{{$aspirante->calle.' '.$aspirante->numero.' Col.'.$aspirante->colonia}}</li>
                                             </ul>
                                         </td>
