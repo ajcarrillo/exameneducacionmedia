@@ -9,6 +9,7 @@
 namespace Aspirante\Models;
 
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use MediaSuperior\Models\Revision;
 
@@ -29,5 +30,16 @@ class RevisionRegistro extends Model
     public function revision()
     {
         return $this->morphOne(Revision::class, 'revision');
+    }
+
+    public function crearRevision()
+    {
+        $revision = new Revision([
+            'fecha_apertura'   => Carbon::now(),
+            'estado'           => 'R',
+            'usuario_apertura' => get_aspirante()->id,
+        ]);
+
+        $this->revision()->save($revision);
     }
 }
