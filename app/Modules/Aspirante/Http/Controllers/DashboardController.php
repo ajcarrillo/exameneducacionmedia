@@ -12,9 +12,6 @@ namespace Aspirante\Http\Controllers;
 use Aspirante\Models\Aspirante;
 use Aspirante\Models\Seleccion;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use ExamenEducacionMedia\Exports\UsersExport;
 
 class DashboardController
 {
