@@ -95,21 +95,31 @@ class AforoController extends BaseController
                     'planteles.localidad',
                     'especialidades',
                     'planteles.aulas',
+                    'planteles.ofertaEducativa.grupos',
                     'revisionAforos' => function ($query) {
                         return $query->orderBy('id', 'desc')->first();
                     },
-                    'revisionAforos.review'
+                    'revisionAforos.review',
+                    'revisiones' => function ($query) {
+                        return $query->orderBy('id', 'desc')->first();
+                    },
+                    'revisiones.review',
                 ]
             );
 
             $isAforo = EtapaProceso::isAforo();
+            $isOferta = EtapaProceso::isOferta();
             $estado = is_null($this->subsistema->revisionAforos->first()) ? 'sr' : $this->subsistema->revisionAforos->first()->review->estado;
+
+            $reviewOferta = $subsistema->revisiones->first();
+            $ofertaEstado   = is_null($reviewOferta) ? 'sr' : $reviewOferta->review->estado;
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
             return error_json_response($e->getMessage(), [], 500);
         }
 
-        return $this->respondWithArray(compact('subsistema', 'isAforo', 'estado'));
+        return $this->respondWithArray(compact('subsistema', 'isAforo', 'estado', 'isOferta', 'ofertaEstado'));
     }
 }

@@ -40,8 +40,7 @@
         },
         methods: {
             update: function () {
-                if (this.getState()==='R' || this.getState()==='A') {
-                    this.mensaje(this.getState());
+                if (!this.isValidForChange('*')) {
                     return 0;
                 }
 
@@ -60,28 +59,42 @@
                         console.log(err.response)
                     });
             },
-            getState() {
-                return store.state.home.estado;
+            getState(tipo = 'aforo') {
+                let state = store.state.home;
+                return tipo === 'oferta' ? state.estadoOferta : state.estado;
             },
-            mensaje(tipo) {
-                let mensaje="";
+            isValidForChange(type = '*') {
+                if (type === "*" || type === "aforo") {
+                    if (this.getState("aforo") === "R") {
+                        this.sweet("El aforo esta en revisión");
+                        return 0;
+                    }
 
-                switch (tipo) {
-                    case 'R':
-                        mensaje = "El aforo esta en revisión";
-                        break;
-                    case 'A':
-                        mensaje = "El aforo ha sido aceptado";
-                        break;
-                    default:
-                        mensaje= " ";
-
+                    if (this.getState("aforo") === "A") {
+                        this.sweet("El aforo ha sido aceptado");
+                        return 0;
+                    }
                 }
 
+                if (type === "*" || type === "oferta") {
+                    if (this.getState("oferta") === "R") {
+                        this.sweet("La oferta esta en revisión");
+                        return 0;
+                    }
+
+                    if (this.getState("oferta") === "A") {
+                        this.sweet("La oferta ha sido aceptada");
+                        return 0;
+                    }
+                }
+
+                return true;
+            },
+            sweet(text = "", title = "", type = "info") {
                 swal.fire({
-                    type: 'info',
-                    title: '',
-                    text: mensaje,
+                    type: type,
+                    title: title,
+                    text: text,
                     footer: ''
                 })
             }

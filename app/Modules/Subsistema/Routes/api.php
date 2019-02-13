@@ -64,4 +64,5 @@ Route::group([
     'prefix' => '/subsistemas'
 ], function () {
     Route::post('/revision', 'API\AforoController@storeRevision')->name('api.revision.store');
+    Route::post('/revision-oferta', 'API\OfertaEducativaController@storeRevision')->name('api.revision.oferta.store');
 });
