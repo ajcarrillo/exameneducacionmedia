@@ -4,6 +4,7 @@
 @endsection
 
 @section('content')
+
 	<div class="row justify-content-center">
 		<div class="card card-primary card-outline col-md-7 mt-5 col-md-9">
 			<div class="card-header">
@@ -45,6 +46,7 @@
 			</div>
 		</div>
 	</div>
+	
 @endsection
 @section('extra-scripts')
 	<script src="{{ asset('datatables/datatables.js') }}"></script>
