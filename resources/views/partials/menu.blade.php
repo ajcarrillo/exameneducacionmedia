@@ -26,7 +26,7 @@
 
         @if(auth()->user()->hasRole('departamento'))
             <li class="nav-item has-treeview menu">
-                <a href="#" class="nav-link">
+                <a href="{{ route('media.administracion.panelAdministracion.index') }}" class="nav-link">
                     <i></i>
                     <p>
                         Panel de control DEMS
