@@ -131,5 +131,14 @@ Route::middleware([ 'auth', 'role:departamento' ])
                 Route::get('/', 'Administracion\ConfiguracionController@index')->name('index');
                 Route::post('/update', 'Administracion\ConfiguracionController@update')->name('update');
             });
+
     });
 
+//Ruta-rosa
+Route::middleware(['auth', 'role:departamento'])
+    ->prefix('home')
+    ->name('home')
+    ->group(function () {
+        Route::get('/', 'PanelController@index')->name('index');
+    });
+//fin

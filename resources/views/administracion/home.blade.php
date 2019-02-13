@@ -1,17 +1,18 @@
 @extends('layouts.app')
 
 @section('extra-head')
-@stop
 
-@section('extra-css')
-@stop
+    <link rel="stylesheet" href="{{ mix('css/adminlte.css') }}">
+    @yield('extra-css')
 
-@section('extra-scripts')
-@stop
+@endsection
 
-@section('content-header')
-@stop
+@section('navbar-title')
+    Departamento - Contenido
+@endsection
 
 @section('content')
-
-@stop
+    <div class="content">
+        Contenido
+    </div>
+@endsection
