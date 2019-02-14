@@ -27,6 +27,7 @@ class ProblemaCurpController
             ->join('planteles', 'planteles.id', '=', 'ofertas_educativas.plantel_id')
             ->join('subsistemas', 'subsistemas.id', '=', 'especialidades.subsistema_id')
             ->where('seleccion_ofertas_educativas.preferencia', 1)
+            ->where('aspirantes.pais_nacimiento_id', 'MX')
             ->where('aspirantes.curp_historica', 1)
             ->orWhere('aspirantes.curp_valida', 0)
             ->groupBy('aspirantes.id');
