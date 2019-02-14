@@ -143,9 +143,9 @@ Route::middleware([ 'auth', 'role:departamento' ])
     });
 
 Route::middleware(['auth', 'role:plantel|departamento'])
-    ->prefix('/')
+    ->prefix('/administracion')
     ->name('administracion.')
     ->group(function () {
-        Route::get('/problemasCurp', 'Administracion\ProblemaCurpController@index')->name('historico.curp');
-        Route::get('/problemasCurp/descargar', 'Administracion\ProblemaCurpController@descargar')->name('historico.descargar');
+        Route::get('/problemas-curp', 'Administracion\ProblemaCurpController@index')->name('historico.curp');
+        Route::get('/problemas-curp/descargar', 'Administracion\ProblemaCurpController@descargar')->name('historico.descargar');
     });
