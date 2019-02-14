@@ -13,6 +13,7 @@
 
 @section('content')
 	<div class="content">
+        <h3>{{ $nombre_plantel }}</h3><hr>
 		<div class="row">
 			<div class="col-md-3">
 				<div class="small-box bg-aqua">

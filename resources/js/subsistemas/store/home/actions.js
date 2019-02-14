@@ -9,6 +9,9 @@ export default {
                     context.commit('revision_aforos', res.data.subsistema.revision_aforos);
                     context.commit('isAforo', res.data.isAforo);
                     context.commit('estado', res.data.estado);
+                    context.commit('revision_oferta', res.data.subsistema.revisiones);
+                    context.commit('isOferta', res.data.isOferta);
+                    context.commit('estadoOferta', res.data.ofertaEstado);
                     resolve(res);
                 })
                 .catch(err => {
@@ -74,9 +77,22 @@ export default {
     actualizaNombre(context, payload) {
         context.commit('actualizaNombre', payload);
     },
-    storeRevision: function (context) {
+    storeAforoRevision: function (context) {
         return new Promise(function (resolve, reject) {
             axios.post(route("api.revision.store"))
+                .then(res => {
+                    context.commit("reloadData", res);
+                    resolve(res);
+                })
+                .catch(err => {
+                    console.log(err.response);
+                    reject(err);
+                });
+        });
+    },
+    storeOfertaRevision: function (context) {
+        return new Promise(function (resolve, reject) {
+            axios.post(route("api.revision.oferta.store"))
                 .then(res => {
                     context.commit("reloadData", res);
                     resolve(res);
