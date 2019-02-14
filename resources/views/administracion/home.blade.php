@@ -113,7 +113,34 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-3">
+                <p>
+
+                    <a class="btn btn-lg btn-block" style="background:#00a65a;color: white;font-size: 13pt" data-toggle="collapse" href="#desactivar" role="button" aria-expanded="false" aria-controls="desactivar">
+                        <span class="small-box-footer"><i class="fa fa-info-circle"></i></span>
+                        Desactivaciones </a>
+                </p>
+                <div class="row">
+                    <div class="col">
+                        <div class="collapse multi-collapse" id="desactivar">
+                            <div class="small-box">
+                                <div class="card card-body bg-gray-light">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <a class="btn" style="background:#00a65a;color: white;font-size: 13pt" href="#" id="btn_desactivar_planteles">Desactivar planteles</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
+    </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="info-box bg-green">
@@ -171,4 +198,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('extra-scripts')
+    <script src="{{ mix('js/media/administracion/home.js') }}"></script>
 @endsection

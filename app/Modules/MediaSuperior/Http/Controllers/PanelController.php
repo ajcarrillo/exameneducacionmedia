@@ -20,4 +20,11 @@ class PanelController extends Controller
         $aspirantes_hoy= Aspirante::where('created_at', 'LIKE', '%'. $hoy.'%')->count('id');
         return view('administracion.home', compact('especialidades','planteles'));
     }
+
+    public function desactivarPlanteles()
+    {
+        //dd("Desactivar planteles");
+        Plantel::where('active', 1)
+            ->update(['active' => 0]);
+    }
 }
