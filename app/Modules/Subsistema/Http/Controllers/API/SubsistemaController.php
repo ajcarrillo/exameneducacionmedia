@@ -21,16 +21,25 @@ class SubsistemaController extends Controller
                 'planteles.localidad',
                 'especialidades',
                 'planteles.aulas',
+                'planteles.ofertaEducativa.grupos',
                 'revisionAforos' => function ($query) {
                     return $query->orderBy('id', 'desc')->first();
                 },
-                'revisionAforos.review'
+                'revisionAforos.review',
+                'revisiones' => function ($query) {
+                    return $query->orderBy('id', 'desc')->first();
+                },
+                'revisiones.review',
             ]
         );
 
-        $isAforo = EtapaProceso::isAforo();
-        $estado = is_null($subsistema->revisionAforos->first()) ? 'sr' : $subsistema->revisionAforos->first()->review->estado;
+        $isAforo  = EtapaProceso::isAforo();
+        $isOferta = EtapaProceso::isOferta();
+        $estado   = is_null($subsistema->revisionAforos->first()) ? 'sr' : $subsistema->revisionAforos->first()->review->estado;
 
-        return $this->respondWithArray(compact('subsistema', 'isAforo', 'estado'));
+        $reviewOferta = $subsistema->revisiones->first();
+        $ofertaEstado   = is_null($reviewOferta) ? 'sr' : $reviewOferta->review->estado;
+
+        return $this->respondWithArray(compact('subsistema', 'isAforo', 'estado', 'isOferta', 'ofertaEstado'));
     }
 }

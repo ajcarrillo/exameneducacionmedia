@@ -21,6 +21,15 @@ export default {
     estado(state, estado) {
         state.estado = estado;
     },
+    revision_oferta(state, revision_oferta) {
+        state.revision_oferta = revision_oferta;
+    },
+    isOferta(state, isOferta) {
+        state.isOferta = isOferta;
+    },
+    estadoOferta(state, estadoOferta) {
+        state.estadoOferta = estadoOferta;
+    },
     updateStatusPlantel(state, payload) {
         state.planteles[payload.index].active = payload.active;
     },
@@ -40,7 +49,10 @@ export default {
             especialidades = res.data.subsistema.especialidades,
             revision_aforos = res.data.subsistema.revision_aforos,
             isAforo = res.data.isAforo,
-            estado = res.data.estado;
+            estado = res.data.estado,
+            revision_oferta = res.data.subsistema.revisiones,
+            isOferta = res.data.isOferta,
+            estadoOferta = res.data.ofertaEstado;
 
         state.subsistema = {
             id: subsistema.id,
@@ -52,5 +64,8 @@ export default {
         state.revision_aforos = revision_aforos;
         state.isAforo = isAforo;
         state.estado = estado;
+        state.revision_oferta = revision_oferta;
+        state.isOferta = isOferta;
+        state.estadoOferta = estadoOferta;
     }
 };

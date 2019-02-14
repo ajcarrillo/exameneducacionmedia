@@ -12,11 +12,13 @@ class PanelController extends Controller
 {
     public function index()
     {
+
         $usuario_id = Auth::user()->id;
 
         $var = Plantel::with("responsable")->where("responsable_id", $usuario_id)->get();
         foreach ($var as $r) {
             $id_plantel = $r->id;
+            $nombre_plantel= $r->descripcion;
         }
         $total_oferta = OfertaEducativa::where('plantel_id', $id_plantel)->count();
         $sqlof        = 'SELECT COUNT( DISTINCT t.aspirante_id) as aspirante_id
@@ -51,9 +53,12 @@ class PanelController extends Controller
         $Aula       = DB::table('aulas');
         $aforo_suma = $Aula->where('edificio_id', $id_plantel)->sum('capacidad');
         $aulas      = $Aula->where('edificio_id', $id_plantel)->count('id');
-
-        $porcentaje = $aforo_suma = 0 ? ($aspirantes_proceso_completo / $aforo_suma) * 100 : 0;
-
+        if($aforo_suma == 0){
+            $porcentaje= 0;
+        }else{
+            $division=($aspirantes_proceso_completo / $aforo_suma) * 100;
+            $porcentaje = round($division);
+        }
         $sede  = 'SELECT DISTINCT (t.id) as id_sede ,t.descripcion as sede 
             , SUM(au.capacidad) as capacidad_aula
             , COUNT(DISTINCT au.id) as aulas,
@@ -68,6 +73,6 @@ class PanelController extends Controller
             GROUP BY (t.id)';
         $sedes = DB::select($sede);
 
-        return view('planteles.home', compact('total_oferta', 'total_demanda', 'aspirantes_proceso_completo', 'aspirantes_sin_pago', 'aforo_suma', 'aulas', 'porcentaje', 'sedes'));
+        return view('planteles.home', compact('total_oferta','nombre_plantel', 'total_demanda', 'aspirantes_proceso_completo', 'aspirantes_sin_pago', 'aforo_suma', 'aulas', 'porcentaje', 'sedes'));
     }
 }
