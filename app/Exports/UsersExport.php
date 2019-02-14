@@ -90,8 +90,11 @@ class UsersExport implements FromCollection, WithHeadings
             ->join('planteles', 'planteles.id', '=', 'ofertas_educativas.plantel_id')
             ->join('subsistemas', 'subsistemas.id', '=', 'especialidades.subsistema_id')
             ->where('seleccion_ofertas_educativas.preferencia', 1)
-            ->where('aspirantes.curp_historica', 1)
-            ->orWhere('aspirantes.curp_valida', 0)
+            ->where('aspirantes.pais_nacimiento_id','=', 'MX')
+            ->where(function ($query) {
+                $query->where('aspirantes.curp_historica', 1)
+                    ->orWhere('aspirantes.curp_valida', 0);
+            })
             ->groupBy('aspirantes.id');
 
         switch (Auth::user()->roles[0]->name){
