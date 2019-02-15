@@ -43,7 +43,7 @@ class ProblemaCurpController
                 $query = $query->get();
                 break;
         }
-        //dd(Auth::user()->roles[0]->name);
+        dd(Auth::user()->plantel->id);
         return view('media_superior.administracion.problemaCurp.problema_curp_historico', compact('query'));
     }
 
