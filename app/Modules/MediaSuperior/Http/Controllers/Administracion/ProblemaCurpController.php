@@ -27,7 +27,7 @@ class ProblemaCurpController
             ->join('planteles', 'planteles.id', '=', 'ofertas_educativas.plantel_id')
             ->join('subsistemas', 'subsistemas.id', '=', 'especialidades.subsistema_id')
             ->where('seleccion_ofertas_educativas.preferencia', 1)
-            ->where('aspirantes.pais_nacimiento_id','=', 'MX')
+            ->where('aspirantes.pais_nacimiento_id', '=', 'MX')
             ->where(function ($query) {
                 $query->where('aspirantes.curp_historica', 1)
                     ->orWhere('aspirantes.curp_valida', 0);
@@ -36,14 +36,15 @@ class ProblemaCurpController
 
         switch (Auth::user()->roles[0]->name){
             case 'plantel' :
-                $query = $query->where('planteles.id', Auth::user()->plantel->id)
+                //$query = $query->get();
+                $query = $query->where('aspirantes.user_id', Auth::user()->id)
                     ->get();
                 break;
             case  'departamento':
                 $query = $query->get();
                 break;
         }
-        //dd(Auth::user()->roles[0]->name);
+        
         return view('media_superior.administracion.problemaCurp.problema_curp_historico', compact('query'));
     }
 
