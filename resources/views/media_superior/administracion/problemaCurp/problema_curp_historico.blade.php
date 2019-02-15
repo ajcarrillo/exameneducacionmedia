@@ -11,12 +11,13 @@
         <div class="card card-primary card-outline">
             <div class="card-header">
                 <h1 class="card-title" style="float: left">Listado de alumnos con problemas de curp</h1>
-                <a href="{{ route('media.administracion.historico.descargar', ['subsistema_id'=>0,'formato'=>3]) }}" class="btn btn-md btn-success" style="float: right"> Descargar</a>
+                <a href="{{ route('media.administracion.historico.descargar', ['subsistema_id'=>0,'formato'=>3]) }}"
+                   class="btn btn-md btn-success" style="float: right"> Descargar</a>
             </div>
             <div class="card-body">
                 <div class="container-fluid pt-1">
-                    <div class="row justify-content-md-center">
-                        <div class="col-md-11">
+                    <div class="row">
+                        <div class="col-md-12">
                             <table class="table table-striped" id="filtro">
                                 <thead>
                                 <tr>
@@ -27,6 +28,8 @@
                                     <th>Localidad</th>
                                     <th>Subsistema</th>
                                     <th>Plantel</th>
+                                    <th>Curp historica</th>
+                                    <th>Curp valida</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -40,7 +43,9 @@
                                             <ul>
                                                 <li><b>Correo Electronico:</b><br>{{$aspirante->email}}</li>
                                                 <li><b>Telefono:</b><br>{{$aspirante->telefono}}</li>
-                                                <li><b>Domicilio:</b><br>{{$aspirante->calle.' '.$aspirante->numero.' Col.'.$aspirante->colonia}}</li>
+                                                <li>
+                                                    <b>Domicilio:</b><br>{{$aspirante->calle.' '.$aspirante->numero.' Col.'.$aspirante->colonia}}
+                                                </li>
                                             </ul>
                                         </td>
                                         <!--<td>july@example.com</td>
@@ -50,6 +55,8 @@
                                     <!--<td>{{$aspirante->calle.' '.$aspirante->numero.' Col.'.$aspirante->colonia}}</td>-->
                                         <td>{{$aspirante->subsistema}}</td>
                                         <td>{{$aspirante->plantel}}</td>
+                                        <td>{{$aspirante->historica}}</td>
+                                        <td>{{$aspirante->valida}}</td>
                                     </tr>
                                 @endforeach
 
@@ -69,9 +76,9 @@
 @section('extra-scripts')
     <script src="{{ asset('datatables/datatables.js') }}"></script>
     <script>
-        $(document).ready( function () {
+        $(document).ready(function () {
             $('#filtro').DataTable();
-        } );
+        });
     </script>
 @endsection
 

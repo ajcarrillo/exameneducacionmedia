@@ -14,7 +14,7 @@ class ProblemaCurpController
     public function index()
     {
         $query = DB::table('aspirantes')
-            ->select('users.id', 'users.nombre', 'users.primer_apellido', 'users.segundo_apellido', 'users.email', 'aspirantes.telefono', 'geo.NOM_MUN', 'geo.NOM_LOC', 'domicilios.calle', 'domicilios.numero', 'domicilios.colonia', 'subsistemas.descripcion as subsistema', 'planteles.descripcion as plantel')
+            ->select('users.id', 'users.nombre', 'users.primer_apellido', 'users.segundo_apellido', 'users.email', 'aspirantes.telefono', 'geo.NOM_MUN', 'geo.NOM_LOC', 'domicilios.calle', 'domicilios.numero', 'domicilios.colonia', 'subsistemas.descripcion as subsistema', 'planteles.descripcion as plantel', DB::raw('if(aspirantes.curp_historica > 0, "Si","No") as historica'), DB::raw('if(aspirantes.curp_valida > 0, "Si","No") as valida'))
             ->join('users', 'users.id', '=', 'aspirantes.user_id')
             ->join('domicilios', 'domicilios.id', '=', 'aspirantes.domicilio_id')
             ->join('geodatabase.estados_municipios_localidades as geo', function ($join) {
