@@ -127,6 +127,7 @@
                     .then(res => {
                         this.aspirante.curp_historica = res.data.curp_historica;
                         this.aspirante.curp_valida = res.data.curp_valida;
+                        this.aspirante.pais_nacimiento_id = res.data.pais_nacimiento_id;
                         swal({
                             type: 'success',
                             text: 'Los datos generales se guardaron correctamente',

@@ -8,7 +8,6 @@
 
 namespace Aspirante\Http\Controllers\API;
 
-
 use Aspirante\Http\Requests\UpdateAspirante;
 use Aspirante\Traits\Utilities;
 use ExamenEducacionMedia\Classes\Renapo;
@@ -25,13 +24,12 @@ class UpdateAspiranteController extends Controller
 
         $aspirante = $this->getAspiranteByUuid($id);
 
-        $request = $this->validarCurp($request);
+        $aspiranteValidado = $this->validarCurp($request);
 
-        $aspirante->update($request->input());
+        $aspirante->update($aspiranteValidado);
 
         $data = [
-            'curp_historica' => $aspirante->curp_historica,
-            'curp_valida'    => $aspirante->curp_valida,
+            'aspirante' => $aspirante
         ];
 
         return ok($data);
@@ -39,23 +37,42 @@ class UpdateAspiranteController extends Controller
 
     protected function validarCurp(Request $request)
     {
+        $aspirante = [
+            'curp'                  => $request->input('curp'),
+            'curp_historica'        => $request->input('curp_historica'),
+            'curp_valida'           => $request->input('curp_valida'),
+            'entidad_nacimiento_id' => $request->input('entidad_nacimiento_id'),
+            'fecha_nacimiento'      => $request->input('fecha_nacimiento'),
+            'nombre'                => $request->input('nombre'),
+            'pais_nacimiento_id'    => $request->input('pais_nacimiento_id'),
+            'primer_apellido'       => $request->input('primer_apellido'),
+            'segundo_apellido'      => $request->input('segundo_apellido'),
+            'sexo'                  => $request->input('sexo'),
+            'telefono'              => $request->input('telefono'),
+        ];
+
+        if ($request->input('pais_nacimiento_id') !== 'MX') {
+            return $aspirante;
+        }
+
+
         $renapo = new Renapo();
         $curp   = $renapo->consultarCurp($request->input('curp'));
 
         if (is_null($curp['curp'])) {
-            $request->merge([ 'curp_historica' => 0 ]);
-            $request->merge([ 'curp_valida' => 0 ]);
+            $aspirante['curp_historica'] = 0;
+            $aspirante['curp_valida']    = 0;
         } else {
             if ($curp['es_historica']) {
-                $request->merge([ 'curp_historica' => 1 ]);
-                $request->merge([ 'curp_valida' => 0 ]);
+                $aspirante['curp_historica'] = 1;
+                $aspirante['curp_valida']    = 0;
             }
-            if (!$curp['es_historica']) {
-                $request->merge([ 'curp_historica' => 0 ]);
-                $request->merge([ 'curp_valida' => 1 ]);
+            if (! $curp['es_historica']) {
+                $aspirante['curp_historica'] = 0;
+                $aspirante['curp_valida']    = 1;
             }
         }
 
-        return $request;
+        return $aspirante;
     }
 }
