@@ -48,8 +48,9 @@ $(document).ready(function () {
     });
 
     $('#btn_desactivar_planteles').click(function () {
-        $('#btn_desactivar_planteles').html('<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>')
-        swal.fire({
+        //$('#btn_desactivar_planteles').html('<a class="btn" style="background:#00a65a;color: white;font-size: 13pt" href="#" id="btn_desactivar_planteles"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></a>');
+        $("#btn_desactivar_planteles").prop('disabled', true);
+        Swal.fire({
             title: '¿Esta seguro de continuar?',
             text: "Este proceso realizara la desactivación de los planteles",
             type: 'warning',
@@ -69,7 +70,7 @@ $(document).ready(function () {
                 )
                     .done(function (response) {
                         if (response.code == 200)
-                            swal.fire(
+                            Swal.fire(
                                 {
                                     position: 'top-end',
                                     type: 'success',
@@ -79,7 +80,7 @@ $(document).ready(function () {
                                 }
                             )
                         else
-                            swal.fire(
+                            Swal.fire(
                                 {
                                     position: 'top-end',
                                     type: 'success',
@@ -90,7 +91,7 @@ $(document).ready(function () {
                             )
                     })
                     .fail(function (xhr) {
-                        swal.fire(
+                        Swal.fire(
                             {
                                 position: 'top-end',
                                 type: 'success',
@@ -106,6 +107,7 @@ $(document).ready(function () {
 
         event.preventDefault();
 
+        $("#btn_desactivar_planteles").prop('disabled', false);
 
     });
 });
