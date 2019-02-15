@@ -126,10 +126,11 @@
                             <div class="small-box">
                                 <div class="card card-body bg-gray-light">
                                     <div class="row">
-                                        <div class="col-sm-4">
-                                            <a class="btn" style="background:#00a65a;color: white;font-size: 13pt" href="#" id="btn_desactivar_planteles">Desactivar planteles</a>
-                                        </div>
-
+                                        @if($botonDesactivar)
+                                            <div class="col-sm-4">
+                                                <a class="btn" style="background:#00a65a;color: white;font-size: 13pt" href="#" id="btn_desactivar_planteles">Desactivar planteles</a>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

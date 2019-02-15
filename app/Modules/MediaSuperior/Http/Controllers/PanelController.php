@@ -6,6 +6,7 @@ use Aspirante\Models\Aspirante;
 use Auth;
 use DB;
 use ExamenEducacionMedia\Http\Controllers\Controller;
+use ExamenEducacionMedia\Models\EtapaProceso;
 use Subsistema\Models\OfertaEducativa;
 use Subsistema\Models\Plantel;
 
@@ -20,7 +21,16 @@ class PanelController extends Controller
         $planteles = Plantel::where('active', 1)->count('id');
         $hoy = date("Y-m-d");
         $aspirantes_hoy= Aspirante::where('created_at', 'LIKE', '%'. $hoy.'%')->count('id');
-        return view('administracion.home', compact('especialidades','planteles'));
+
+        $isAforo = EtapaProceso::isAforo();
+        $isOferta = EtapaProceso::isOferta();
+        $isRegistro = EtapaProceso::isRegistro();
+
+        $botonDesactivar = true;
+        if ($isAforo or $isOferta or $isRegistro)
+            $botonDesactivar = false;
+
+        return view('administracion.home', compact('especialidades','planteles', 'botonDesactivar'));
     }
 
     public function desactivarPlanteles()
