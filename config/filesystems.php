@@ -45,7 +45,7 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app\descargables'),
+            'root' => storage_path('app'),
         ],
 
         'public' => [
@@ -53,6 +53,12 @@ return [
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
+        ],
+
+        'descargables' => [ //directorio en el que estan los documentos compartidos por rol de usuario
+            'driver' => 'local',
+            'root' => storage_path('app/descargables'),
+            'visibility' => 'private',
         ],
 
         's3' => [
