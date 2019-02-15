@@ -9,6 +9,8 @@ use ExamenEducacionMedia\Http\Controllers\Controller;
 use Subsistema\Models\OfertaEducativa;
 use Subsistema\Models\Plantel;
 
+
+
 class PanelController extends Controller
 {
     public function index()
@@ -23,8 +25,15 @@ class PanelController extends Controller
 
     public function desactivarPlanteles()
     {
-        //dd("Desactivar planteles");
-        Plantel::where('active', 1)
-            ->update(['active' => 0]);
+
+        try {
+            Plantel::where('active', 1)
+                ->update(['active' => 0]);
+            return json_response([ 'isValid' => true ]);
+
+        } catch (ModelNotFoundException $exception) {
+            json_response([ 'isValid' => false ]);
+        }
+
     }
 }

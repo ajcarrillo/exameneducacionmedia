@@ -137,7 +137,7 @@ Route::middleware([ 'auth', 'role:departamento' ])
             ->name('panelAdministracion.')
             ->group(function () {
                 Route::get('/', 'PanelController@index')->name('index');
-                Route::get('/desactivar_planteles', 'PanelController@desactivarPlanteles')->name('desactivar-planteles');
+                Route::get('/desactivar-planteles', 'PanelController@desactivarPlanteles')->name('desactivar-planteles');
 
             });
         //end

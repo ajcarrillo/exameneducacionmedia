@@ -1,69 +1,59 @@
-import swal from 'sweetalert2';
-
-//window.swal = require('sweetalert2');
+window.swal = require('sweetalert2');
 $(document).ready(function () {
-   /* swal("Hello world!");*/
-    $('#btn_desactivar_planteles').click(function() {
-    swal({
-            title: "¿Seguro que deseas continuar?",
-            text: "Este momento se realizará la deactivacion de todos los planteles...",
-            type: "warning",
-            showCancelButton: true,
-            cancelButtonText: "Cancelar",
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Aceptar",
-            },
-
-        function(isConfirm){
-            if (isConfirm) {
-                swal("¡Hecho!",
-                    "Ahora eres uno de los nuestros",
-                    "success");
-            } else {
-                swal("¡Gallina!",
-                    "Tu te lo pierdes...",
-                    "error");
-            }
-            /*function(isConfirm){
-
-            if (isConfirm){
-                $.ajax(
-                    {
-                        'url': '/administracion/panelAdministracion/desactivar_planteles',
-                        'type': 'post',
-                        'dataType': 'json',
-                    }
-                )
-                    .done(function (response) {
-                        console.log(response);
-                    })
-                    .fail(function (xhr) {
-                        console.log(xhr);
-                    });
-                swal("Shortlisted!", "Candidates are successfully shortlisted!", "success");
-
-            } else {
-                swal("Cancelled", "Your imaginary file is safe :)", "error");
-            }*/
+       $('#btn_desactivar_planteles').click(function () {
+            swal.fire({
+                title: '¿Esta seguro de continuar?',
+                text: "Este proceso realizara la desactivación de los planteles",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax(
+                        {
+                            'url': '/administracion/panelAdministracion/desactivar-planteles',
+                            'type': 'get',
+                            'dataType': 'json',
+                        }
+                    )
+                        .done(function (response) {
+                            if (response.isValid)
+                                swal.fire(
+                                    {
+                                        position: 'top-end',
+                                        type: 'success',
+                                        title: 'Los planteles se desactivaron satisfactoriamente',
+                                        showConfirmButton: false,
+                                        timer: 3000
+                                    }
+                                )
+                            else
+                                swal.fire(
+                                    {
+                                        position: 'top-end',
+                                        type: 'success',
+                                        title: 'Los planteles se no fueron desactivados',
+                                        showConfirmButton: false,
+                                        timer: 3000
+                                    }
+                                )
+                        })
+                        .fail(function (xhr) {
+                            swal.fire(
+                                {
+                                    position: 'top-end',
+                                    type: 'success',
+                                    title: 'Los planteles se no fueron desactivados',
+                                    showConfirmButton: false,
+                                    timer: 3000
+                                }
+                            )
+                            console.log(xhr);
+                        });
+                }
+            })
         });
     });
-    /*$('#btn_desactivar_planteles').click(function() {
-        let r = confirm("¿Desea desactivar planteles?");
-        if (r) {
-            $.ajax(
-                {
-                    'url': '/administracion/panelAdministracion/desactivar_planteles',
-                    'type': 'post',
-                    'dataType': 'json',
-                }
-            )
-                .done(function (response) {
-                    console.log(response);
-                })
-                .fail(function (xhr) {
-                    console.log(xhr);
-                });
-     }
-    });*/
-
-});
