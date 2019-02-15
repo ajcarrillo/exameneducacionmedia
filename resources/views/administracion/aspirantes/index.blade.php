@@ -54,7 +54,7 @@
                             @forelse($users as $user)
                                 <tr>
                                     <td>
-                                        <a href="#!">
+                                        <a href="{{ route('media.administracion.aspirantes.show', $user->aspirante->id) }}">
                                             <i class="far fa-id-card pr-2"></i>
                                             {{ get_full_name_from_user($user) }}
                                         </a>

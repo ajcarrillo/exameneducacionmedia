@@ -11,6 +11,7 @@ Route::middleware([ 'auth', 'role:departamento' ])
             ->name('aspirantes.')
             ->group(function () {
                 Route::get('/', 'AspiranteController@index')->name('index');
+                Route::get('/show/{id}', 'AspiranteController@show')->name('show');
             });
 
         Route::prefix('/enlaces')

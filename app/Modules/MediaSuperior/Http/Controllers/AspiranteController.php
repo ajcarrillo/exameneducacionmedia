@@ -9,6 +9,7 @@
 namespace MediaSuperior\Http\Controllers;
 
 
+use Aspirante\Models\Aspirante;
 use ExamenEducacionMedia\Http\Controllers\Controller;
 use ExamenEducacionMedia\User;
 use ExamenEducacionMedia\UserFilter;
@@ -30,5 +31,25 @@ class AspiranteController extends Controller
         $users->appends($request->only([ 'curp', 'search' ]));
 
         return view('administracion.aspirantes.index', compact('users'));
+    }
+
+    /**
+     * Mostrar expediente del aspirante
+     *
+     */
+    public function show($id)
+    {
+        $aspirante = Aspirante::with('user')->find($id);
+
+        return view('administracion.aspirantes.show', compact('aspirante'));
+    }
+
+    /**
+     * Update.
+     *
+     */
+    public function update(Request $request, $id)
+    {
+        //
     }
 }
