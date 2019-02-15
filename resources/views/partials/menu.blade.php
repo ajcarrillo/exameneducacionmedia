@@ -21,6 +21,18 @@
                 </a>
             </li>
         @endif
+    <!-----------------plantel------------------------------->
+	    @if(auth()->user()->hasRole('plantel'))
+		    <li class="nav-item has-treeview menu">
+			    <a href="{{ route('centro-descarga.cdescarga.index') }}" class="nav-link">
+				    <i></i>
+				    <p>
+					    Centro de descarga
+				    </p>
+			    </a>
+		    </li>
+	    @endif
+    <!--------------------------endplantel---------------------->
     <!------------------------------------------------>
         <!-----------------Panel de control DEMS ------------------------------->
 
@@ -92,7 +104,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('media.administracion.aspirantes.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Aspirantes</p>
                         </a>
@@ -172,7 +184,16 @@
     <!------------------------------------------------>
         <!-----------------Subsistema ------------------------------->
         @if(auth()->user()->hasRole('subsistema'))
-            <li class="nav-item has-treeview menu">
+		    <li class="nav-item has-treeview menu">
+			    <a href="{{ route('centro-descarga.cdescarga.index') }}" class="nav-link">
+				    <i></i>
+				    <p>
+					    Centro de descargas
+				    </p>
+			    </a>
+		    </li>
+
+		    <li class="nav-item has-treeview menu">
                 <a href="#" class="nav-link">
                     <i></i>
                     <p>

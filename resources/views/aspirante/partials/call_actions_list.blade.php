@@ -9,6 +9,10 @@
         <a href="/aspirantes/opciones-educativas"
            class="btn btn-primary btn-sm">Opciones educativas</a>
     </li>
+	<li>
+		<a href="{{ route('centro-descarga.cdescarga.index') }}"
+		   class="btn btn-primary btn-sm">Centro de descargas</a>
+	</li>
     @if($hasRevision)
         @if($revision->efectuado)
             @if(!$hasPaseAlExamen)
