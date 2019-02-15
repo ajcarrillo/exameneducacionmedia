@@ -13,6 +13,14 @@
 
 @section('content')
     <div class="content">
+	    <div class="row">
+		    <div class="col-md-3">
+			    @if($activar == 1)
+				    <a class="btn" style="background:#00a65a;color: white;font-size: 13pt" href="{{route('media.administracion.panelAdministracion.cancelarOferta')}}" id="btn_desactivar">Desactivar Ofertas</a>
+			    @endif
+		    </div>
+	    </div>
+	    <br />
         <div class="row">
             <div class="col-md-3">
                 <div class="small-box bg-aqua">
@@ -171,4 +179,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('extra-scripts')
+	<script src="{{mix('js/administracion/panel_departamento/home.js')}}"></script>
 @endsection
