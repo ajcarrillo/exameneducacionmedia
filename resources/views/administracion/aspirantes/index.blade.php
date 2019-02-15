@@ -1,7 +1,17 @@
 @extends('layouts.app')
 
+@section('navbar-title')
+    Aspirantes
+@stop
+
 @section('content')
     <div class="container-fluid">
+        <div class="row pb-3">
+            <div class="col">
+                <a href="{{ route('media.administracion.historico.curp') }}"
+                   class="btn btn-primary">Ver aspirantes con problemas con curp</a>
+            </div>
+        </div>
         <div class="row">
             <div class="col">
                 <div class="card card-primary card-outline">
