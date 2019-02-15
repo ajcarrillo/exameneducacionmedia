@@ -146,7 +146,7 @@ Route::middleware(['auth', 'role:plantel|departamento|subsistema'])
     ->prefix('/administracion')
     ->name('administracion.')
     ->group(function () {
-        Route::get('/preferencia-plantel', 'Administracion\ReportesController@index')->name('preferencia.plantel');
+        Route::get('/preferencia-plantel', 'Administracion\PreferenciaPlantelController@index')->name('preferencia.plantel');
         //Route::get('/problemas-curp/descargar', 'Administracion\ProblemaCurpController@descargar')->name('historico.descargar');
     });
 
