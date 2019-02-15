@@ -21,6 +21,7 @@ class CentroDescargaController extends Controller
         return view('centro_de_descargas.centro_descarga', compact('documentos', 'name_role'));
     }
 
+    
     public function descargar($id_archivo)
     {
         $archivo = Archivo::find($id_archivo);
