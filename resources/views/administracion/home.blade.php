@@ -185,3 +185,7 @@
         </div>
     </div>
 @endsection
+
+@section('extra-scripts')
+    <script src="{{mix('js/administracion/panel_departamento/home.js')}}"></script>
+@endsection
