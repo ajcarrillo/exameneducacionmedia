@@ -1,11 +1,6 @@
 {{-- extends --}}
 @extends('layouts.app')
 
-@section('extra-head')
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-@endsection
-
 @section('content')
     <div class="col">
         <div class="card card-primary card-outline">
@@ -15,8 +10,8 @@
             </div>
             <div class="card-body">
                 <div class="container-fluid pt-1">
-                    <div class="row justify-content-md-center">
-                        <div class="col-md-11">
+                    <div class="row">
+                        <div class="col-md-12">
                             <table class="table table-striped" id="filtro">
                                 <thead>
                                 <tr>
@@ -42,7 +37,8 @@
                                         <td>{{$info->primera_opcion}}</td>
                                         <td>{{$info->subsistema}}</td>
                                         <td>{{$info->municipio}}</td>
-                                        <td>{{--$aspirante->plantel--}}</td>
+                                        <td>{{$info->pago}}</td>
+                                        <td>{{$info->concluyo_registo}}</td>
                                     </tr>
 
                                  @endforeach
@@ -50,6 +46,10 @@
 
                                 </tbody>
                             </table>
+
+                            <div class="card-body float-right">
+                                {{ $datos->links() }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -58,13 +58,4 @@
     </div>
 
 
-@endsection
-
-@section('extra-scripts')
-    <script src="{{ asset('datatables/datatables.js') }}"></script>
-    <script>
-        $(document).ready( function () {
-            $('#filtro').DataTable();
-        } );
-    </script>
 @endsection
