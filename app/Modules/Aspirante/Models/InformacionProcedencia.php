@@ -27,7 +27,7 @@ class InformacionProcedencia extends Model
         return $this->hasOne(Aspirante::class, 'informacion_procedencia_id');
     }
 
-    public function getNombreCompuestoAttribute()
+    public function getNombreCTCompuestoAttribute()
     {
         return $this->clave_centro_trabajo . ' - ' . $this->nombre_centro_trabajo;
     }

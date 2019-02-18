@@ -20,8 +20,10 @@
 
 					{!! Form::model($aspirante, ['class'=>'form-horizontal']) !!}
 					<div class="card-body">
-						<h6 class="card-subtitle mb-2 text-muted">Datos personales</h6>
-						<div class="card">
+						<div class="card card-light">
+							<div class="card-header">
+								<h6 class="card-subtitle text-primary">Datos personales</h6>
+							</div>
 							<div class="card-body">
 								<div class="form-row">
 									<div class="form-group col-sm-4">
@@ -48,46 +50,98 @@
 									</div>
 									<div class="form-group col-sm-4">
 										{!! Form::label('sexo', 'Sexo') !!}
-										{!! Form::select('sexo', ['H' => 'Hombre', 'M' => 'Mujer'], $aspirante->sexo, ['class'=>'form-control', 'required']) !!}
+										{!! Form::select('sexo', ['' => 'Seleccione...', 'H' => 'Hombre', 'M' => 'Mujer'], $aspirante->sexo, ['class'=>'form-control', 'required']) !!}
 									</div>
 								</div>
 
 								<div class="form-row">
-									<div class="form-group col-sm-6">
+									<div class="form-group col-sm-4">
+										<label for="">Domicilio</label>
+										<p class="form-control-plaintext">{{ optional($aspirante->domicilio)->direccionCompuesta }}</p>
+									</div>
+									<div class="form-group col-sm-4">
+										<label for="">Colonia</label>
+										<p class="form-control-plaintext">{{ optional($aspirante->domicilio)->colonia }}</p>
+									</div>
+									<div class="form-group col-sm-4">
+										<label for="">Localidad</label>
+										<p class="form-control-plaintext">{{ optional($aspirante->domicilio)->localidad->NOM_LOC }}</p>
+									</div>
+								</div>
+
+								<div class="form-row">
+									<div class="form-group col-sm-4">
+										<label for="">Código postal</label>
+										<p class="form-control-plaintext">{{ optional($aspirante->domicilio)->codigo_postal }}</p>
+									</div>
+									<div class="form-group col-sm-4">
+										<label for="">País</label>
+										<p class="form-control-plaintext"></p>
+									</div>
+								</div>
+
+								<div class="form-row">
+									<div class="form-group col-sm-4">
 										{!! Form::label('user[email]', 'Correo electrónico') !!}
 										{!! Form::email('user[email]', NULL, ['class'=>'form-control', 'required']) !!}
 									</div>
-								</div>
-								<div class="form-row">
-									<div class="form-group col-sm-6">
+									<div class="form-group col-sm-4">
 										<label for="">Reestablecer contraseña</label>
 										<input type="password" class="form-control" name="password">
 									</div>
 								</div>
+
 								<hr>
 								<h6 class="card-subtitle mb-2 text-muted">Información de procedencia</h6>
 								<div class="form-row">
 									<div class="form-group col-sm-4">
 										<label for="">Escuela de procedencia</label>
-										<p class="form-control-plaintext">{{ $aspirante->informacionProcedencia->nombreCompuesto }}</p>
+										<p class="form-control-plaintext">{{ optional($aspirante->informacionProcedencia)->nombreCTCompuesto }}</p>
 									</div>
 									<div class="form-group col-sm-4">
 										<label for="">Fecha de egreso</label>
-										<p class="form-control-plaintext"> {{ $aspirante->informacionProcedencia->fecha_egreso }}</p>
+										<p class="form-control-plaintext"> {{ optional($aspirante->informacionProcedencia)->fecha_egreso }}</p>
 									</div>
 									<div class="form-group col-sm-4">
 										<label for="">Primera vez en el proceso</label>
-										<p class="form-control-plaintext"> {{ $aspirante->informacionProcedencia->primeraVezTexto }}</p>
+										<p class="form-control-plaintext"> {{ optional($aspirante->informacionProcedencia)->primeraVezTexto }}</p>
 									</div>
 								</div>
 								<hr>
 							</div>
 						</div>
 
-						<h6 class="card-subtitle mb-2 text-muted">Oferta educativa</h6>
-						<div class="card">
+						<div class="card card-light">
+							<div class="card-header">
+								<h6 class="card-subtitle text-primary">Oferta educativa</h6>
+							</div>
 							<div class="card-body">
-
+								<div class="table-responsive-sm">
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>Plantel</th>
+												<th>Especialidad</th>
+												<th>Preferencia</th>
+											</tr>
+										</thead>
+										<tbody>
+											@forelse($ofertas as $oferta)
+												<tr>
+													<td>{{ $loop->iteration }}</td>
+													<td>{{ $oferta->seleccionOferta->plantel->descripcion }}</td>
+													<td>{{ $oferta->seleccionOferta->especialidad->referencia }}</td>
+													<td>{{ $oferta->preferencia }}</td>
+												</tr>
+											@empty
+												<tr>
+													<td colspan="4" class="text-center">No se encontraron registros</td>
+												</tr>
+											@endforelse
+										</tbody>
+									</table>
+								</div>
 							</div>
 						</div>
 					</div>
