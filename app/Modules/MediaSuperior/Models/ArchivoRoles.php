@@ -13,10 +13,17 @@ use Spatie\Permission\Models\Role;
 
 class ArchivoRoles extends Model
 {
-    protected $table = 'archivo_roles';
-    protected $fillable = ['id','archivo_id','role_id' ];
-    public function roles(){
-        return $this->belongsToMany(Role::class,'roles')->withPivot('role_id','name');
+    protected $table    = 'archivo_roles';
+    protected $fillable = [ 'id', 'archivo_id', 'role_id' ];
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'roles')->withPivot('role_id', 'name');
+    }
+
+    public function archivo()
+    {
+        return $this->belongsTo(Archivo::class, 'archivo_id');
     }
 
 }

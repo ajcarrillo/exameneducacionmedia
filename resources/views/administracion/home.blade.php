@@ -2,8 +2,8 @@
 
 @section('extra-head')
 
-    <link rel="stylesheet" href="{{ mix('css/adminlte.css') }}">
-    @yield('extra-css')
+	<link rel="stylesheet" href="{{ mix('css/adminlte.css') }}">
+	@yield('extra-css')
 
 @endsection
 
@@ -19,6 +19,11 @@
 				    <a class="btn" style="background:#00a65a;color: white;font-size: 13pt" href="{{route('media.administracion.panelAdministracion.cancelarOferta')}}" id="btn_desactivar">Desactivar Ofertas</a>
 			    @endif
 		    </div>
+            <div class="col-md-3">
+                @if($activar == 1)
+                        <a class="btn" style="background:#00a65a;color: white;font-size: 13pt" href="#" id="btn_desactivar_planteles">Desactivar planteles</a>
+                @endif
+            </div>
 	    </div>
 	    <br />
         <div class="row">
@@ -182,5 +187,5 @@
 @endsection
 
 @section('extra-scripts')
-	<script src="{{mix('js/administracion/panel_departamento/home.js')}}"></script>
+    <script src="{{mix('js/administracion/panel_departamento/home.js')}}"></script>
 @endsection

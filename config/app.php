@@ -165,11 +165,13 @@ return [
 
         Aspirante\Providers\AspiranteServiceProvider::class,
         Aspirante\Providers\RouteServiceProvider::class,
-        MediaSuperior\Providers\MediaSuperiorServiceProvider::class,
-        MediaSuperior\Providers\RouteServiceProvider::class,
-        Plantel\Providers\RouteServiceProvider::class,
-        Subsistema\Providers\SubsistemaServiceProvider::class,
         Subsistema\Providers\RouteServiceProvider::class,
+        Subsistema\Providers\SubsistemaServiceProvider::class,
+        MediaSuperior\Providers\RouteServiceProvider::class,
+        MediaSuperior\Providers\MediaSuperiorServiceProvider::class,
+        Plantel\Providers\RouteServiceProvider::class,
+        Barryvdh\Snappy\ServiceProvider::class,
+        MediaSuperior\Providers\MediaSuperiorServiceProvider::class,
     ],
 
     /*

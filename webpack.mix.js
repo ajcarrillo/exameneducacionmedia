@@ -63,3 +63,4 @@ mix.js('resources/js/administracion/panel_departamento/home.js', 'public/js/admi
 
 mix.js('resources/js/media/administracion/sedes_alternas/create.js', 'public/js/media/administracion/sedes_alternas/create.js');
 mix.js('resources/js/media/administracion/sedes_alternas/edit.js', 'public/js/media/administracion/sedes_alternas/edit.js');
+mix.js('resources/js/media/administracion/home.js', 'public/js/media/administracion/home.js');

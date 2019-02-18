@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Igna
@@ -7,8 +8,12 @@ Route::middleware([ 'auth', 'role:departamento' ])
     ->prefix('/administracion')
     ->name('administracion.')
     ->group(function () {
+        Route::prefix('/aspirantes')
+            ->name('aspirantes.')
+            ->group(function () {
+                Route::get('/', 'AspiranteController@index')->name('index');
+            });
 
-        //-- Rutas Marlon
         Route::prefix('/enlaces')
             ->name('enlaces.')
             ->group(function () {
@@ -18,7 +23,6 @@ Route::middleware([ 'auth', 'role:departamento' ])
                 Route::post('/', 'EnlaceController@store')->name('store');
                 Route::get('/', 'EnlaceController@index')->name('index');
             });
-        //-- end Marlon
 
         Route::prefix('/etapas-proceso')
             ->name('etapasProceso.')
@@ -59,7 +63,6 @@ Route::middleware([ 'auth', 'role:departamento' ])
                 Route::get('{aula}/destroy', 'Administracion\AulaController@destroy')->name('delete');
             });
 
-
         Route::prefix('/responsablePlantel')
             ->name('responsablePlantel.')
             ->group(function () {
@@ -71,7 +74,6 @@ Route::middleware([ 'auth', 'role:departamento' ])
                 Route::post('/update/{id}', 'Administracion\ResponsablePlantelController@updatedesc')->name('plantel.descuentosupd');
                 Route::get('/delete/{plantel}', 'Administracion\ResponsablePlantelController@delete_responsable')->name('plantel.delete_responsable');
             });
-        //carga de documentos del usuario de departamento
 
         Route::prefix('/carga-documentos')
             ->name('carga-documentos.')
@@ -82,7 +84,6 @@ Route::middleware([ 'auth', 'role:departamento' ])
                 Route::get('/descargar/{id}', 'Administracion\CargaDocumentosController@descargar')->name('descargar');
                 Route::get('/eliminar/{archivo}', 'Administracion\CargaDocumentosController@eliminar')->name('eliminar');
             });
-        //endMarlon
 
         Route::prefix('/usuarios')
             ->name('usuarios.')
@@ -138,8 +139,18 @@ Route::middleware([ 'auth', 'role:departamento' ])
             ->group(function () {
                 Route::get('/', 'PanelController@index')->name('index');
                 Route::get('/cancelarOferta', 'PanelController@cancelarOferta')->name('cancelarOferta');
+                Route::get('/desactivar-planteles', 'PanelController@desactivarPlanteles')->name('desactivar-planteles');
+
             });
         //end
 
+
     });
 
+Route::middleware(['auth', 'role:plantel|departamento'])
+    ->prefix('/administracion')
+    ->name('administracion.')
+    ->group(function () {
+        Route::get('/problemas-curp', 'Administracion\ProblemaCurpController@index')->name('historico.curp');
+        Route::get('/problemas-curp/descargar', 'Administracion\ProblemaCurpController@descargar')->name('historico.descargar');
+    });

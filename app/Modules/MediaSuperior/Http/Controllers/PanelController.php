@@ -68,4 +68,27 @@ class PanelController extends Controller
 
         return new JsonResponse($data, $data['meta']['code'], [], 0);
     }
+
+    public function desactivarPlanteles()
+    {
+
+        try {
+            Plantel::where('active', 1)
+                ->update(['active' => 0]);
+
+            $data['meta'] = [
+                'status'  => 'success',
+                'message' => 'OK',
+                'code'    => 200,
+            ];
+
+        } catch (ModelNotFoundException $exception) {
+            $data['meta'] = [
+                'status'  => 'error',
+                'message' => $exception->getMessage(),
+                'code'    => 500,
+            ];
+        }
+
+    }
 }
