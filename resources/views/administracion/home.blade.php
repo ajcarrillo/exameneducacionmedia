@@ -2,17 +2,8 @@
 
 @section('extra-head')
 
-    <link rel="stylesheet" href="{{ mix('css/adminlte.css') }}">
-    <style>
-        .btn:enabled {
-            color: #2b2;
-        }
-
-        .btn:disabled {
-            color: #aaa;
-        }
-    </style>
-    @yield('extra-css')
+	<link rel="stylesheet" href="{{ mix('css/adminlte.css') }}">
+	@yield('extra-css')
 
 @endsection
 
