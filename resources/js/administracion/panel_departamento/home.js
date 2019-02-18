@@ -17,6 +17,8 @@ $(document).ready(function () {
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.value) {
+            $cancelar_ofertas.addClass('disabled');
+            $cancelar_ofertas.html('<a class="btn" style="background:#00a65a;color: white;font-size: 6pt"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></a>');
             Ofertas.index.desactivar(function (response) {
                 if (response.code === 200) {
                     Swal.fire({
@@ -44,7 +46,6 @@ $(document).ready(function () {
     });
 
         event.preventDefault();
-
     });
 
     $('#btn_desactivar_planteles').click(function () {
