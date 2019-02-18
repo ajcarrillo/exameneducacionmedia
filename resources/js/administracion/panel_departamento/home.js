@@ -50,9 +50,6 @@ $(document).ready(function () {
 
     $('#btn_desactivar_planteles').click(function () {
 
-
-        $('#btn_desactivar_planteles').addClass('disabled');
-        $('#btn_desactivar_planteles').prepend('<i class="fa fa-refresh fa-spin"></i> ');
         Swal.fire({
             title: '¿Esta seguro de continuar?',
             text: "Este proceso realizara la desactivación de los planteles",
@@ -64,6 +61,9 @@ $(document).ready(function () {
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.value) {
+                $('#btn_desactivar_planteles').addClass('disabled');
+                $('#btn_desactivar_planteles').prepend('<i class="fa fa-refresh fa-spin"></i> ');
+
                 $.ajax(
                     {
                         'url': '/administracion/panelAdministracion/desactivar-planteles',
