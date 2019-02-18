@@ -3,28 +3,57 @@
         <div class="row">
             <div class="col">
                 <div class="card">
+                    <div class="card-body">
+                        <button type="button" class="btn btn-sm btn-success float-right ml-1" v-if="getState('oferta')==='sr' || getState('oferta')==='C'" @click="enviar('oferta')">
+                            <i class="fa fa-arrow-right"></i>
+                            Enviar oferta educativa
+                        </button>
+                        <button type="button" class="btn btn-sm btn-danger float-right ml-1" v-if="getState('oferta')==='C'" @click="motivoRechazo('oferta')">
+                            <i class="fa fa-eye"></i>
+                            Ver motivo de rechazo oferta
+                        </button>
+                        <button type="button" class="btn btn-sm btn-warning float-right ml-1" v-if="getState('oferta')==='C'">
+                            <i class="fa fa-times"></i>
+                            La oferta educativa fue rechazada
+                        </button>
+                        <button type="button" class="btn btn-sm btn-secondary float-right disabled ml-1" v-if="getState('oferta')==='A'">
+                            <i class="fa fa-check"></i>
+                            La oferta educativa fue aceptada
+                        </button>
+                        <button type="button" class="btn btn-sm btn-info float-right disabled ml-1" v-if="getState('oferta')==='R'">
+                            <i class="fa fa-file"></i>
+                            La oferta educativa esta en revisión
+                        </button>
+
+                        <button type="button" class="btn btn-sm btn-success float-right ml-1" v-if="getState('aforo')==='sr' || getState('aforo')==='C'" @click="enviar('aforo')">
+                            <i class="fa fa-arrow-right"></i>
+                            Enviar aforo
+                        </button>
+                        <button type="button" class="btn btn-sm btn-danger float-right ml-1" v-if="getState('aforo')==='C'" @click="motivoRechazo('aforo')">
+                            <i class="fa fa-eye"></i>
+                            ver motivo de rechazo aforo
+                        </button>
+                        <button type="button" class="btn btn-sm btn-warning float-right ml-1" v-if="getState('aforo')==='C'">
+                            <i class="fa fa-times"></i>
+                            El aforo fue rechazado
+                        </button>
+                        <button type="button" class="btn btn-sm btn-secondary float-right disabled ml-1" v-if="getState('aforo')==='A'">
+                            <i class="fa fa-check"></i>
+                            El aforo fue aceptado
+                        </button>
+                        <button type="button" class="btn btn-sm btn-info float-right disabled ml-1" v-if="getState('aforo')==='R'">
+                            <i class="fa fa-file"></i>
+                            El aforo esta en revisión
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
                             <h3 class="card-title">Plantel</h3>
                         </div>
-                        <div class="card-tools col-sm-5">
-                            <button type="button" class="btn btn-sm btn-success float-right ml-1" v-if="getState()==='sr' || getState()==='C'" @click="enviarAforo()">
-                                <i class="fa fa-arrow-right"></i>
-                                Enviar aforo
-                            </button>
-                            <button type="button" class="btn btn-sm btn-danger float-right ml-1" v-if="getState()==='C'" @click="motivoRechazo">
-                                <i class="fa fa-eye"></i>
-                                Ver motivo de rechazo
-                            </button>
-                            <button type="button" class="btn btn-sm btn-info float-right disabled ml-1" v-if="getState()==='C'">
-                                El aforo fue rechazado
-                            </button>
-                            <button type="button" class="btn btn-sm btn-info float-right disabled ml-1" v-if="getState()==='A'">
-                                El aforo ha sido aceptado
-                            </button>
-                            <button type="button" class="btn btn-sm btn-info float-right disabled ml-1" v-if="getState()==='R'">
-                                El aforo esta en revisión
-                            </button>
+                        <div class="card-tools">
+
                         </div>
                     </div>
                     <div class="card-body p-0 table-responsive">
@@ -55,17 +84,19 @@
                                     </router-link>
                                 </td>
                                 <td class="text-center">
-                                    <router-link
+                                    <router-link v-if="getState('oferta')==='sr' || getState('oferta')==='C'"
                                         :to="{name:'subsistema.plantel.oferta', params:{plantelid: props.item.uuid}}">
                                         <button class="btn btn-primary btn-sm">Oferta</button>
                                     </router-link>
 
-                                    <router-link v-if="getState()==='sr' || getState()==='C'"
-                                        :to="{name:'subsistema.plantel.aforo', params: {plantelid: props.item.uuid}}">
+                                    <button v-if="getState('oferta')==='R' || getState('oferta')==='A'" @click="isValidForChange('oferta')" class="btn btn-primary btn-sm">Oferta</button>
+
+                                    <router-link v-if="getState('aforo')==='sr' || getState('aforo')==='C'"
+                                                 :to="{name:'subsistema.plantel.aforo', params: {plantelid: props.item.uuid}}">
                                         <button class="btn btn-primary btn-sm">Aforo</button>
                                     </router-link>
 
-                                    <button v-if="getState()==='R' || getState()==='A'" @click="mensaje(getState())" class="btn btn-primary btn-sm">Aforo</button>
+                                    <button v-if="getState('aforo')==='R' || getState('aforo')==='A'" @click="isValidForChange('aforo')" class="btn btn-primary btn-sm">Aforo</button>
 
                                 </td>
                             </template>
@@ -155,11 +186,37 @@
             }
         },
         methods: {
+            isValidForChange(type = '*') {
+                if (type === "*" || type === "aforo") {
+                    if (this.getState("aforo") === "R") {
+                        this.sweet("El aforo esta en revisión");
+                        return 0;
+                    }
+
+                    if (this.getState("aforo") === "A") {
+                        this.sweet("El aforo ha sido aceptado");
+                        return 0;
+                    }
+                }
+
+                if (type === "*" || type === "oferta") {
+                    if (this.getState("oferta") === "R") {
+                        this.sweet("La oferta esta en revisión");
+                        return 0;
+                    }
+
+                    if (this.getState("oferta") === "A") {
+                        this.sweet("La oferta ha sido aceptada");
+                        return 0;
+                    }
+                }
+
+                return true;
+            },
             updateStatus(plantelId, estatus, index) {
 
-                if (this.getState()==='R' || this.getState()==='A') {
-                    this.mensaje(this.getState());
-                    return true;
+                if (!this.isValidForChange()) {
+                    return 0;
                 }
 
                 if (estatus) {
@@ -197,28 +254,52 @@
                     type: 'success'
                 });
             },
-            rules() {
+            rules(tipo) {
                 let home = store.state.home;
 
-                if (!home.isAforo) {
-                    this.mensaje('aforo');
-                    return 0;
-                }
+                if (tipo === 'oferta') {
+                    if (!home.isOferta) {
+                        this.sweet("La etapa de oferta, no esta aperturada.");
+                        return 0;
+                    }
 
-                if (!this.hasActivePlanteles()) {
-                    this.mensaje('plantel')
-                    return 0;
-                }
+                    if (!this.hasActivePlanteles()) {
+                        this.sweet("La oferta no tiene planteles activos.")
+                        return 0;
+                    }
 
-                if (!this.hasActivePlantelAulaCapacidad()) {
-                    this.mensaje('capacidad');
-                    return 0;
+                    if (!this.hasPlantelesActiveOfertas()) {
+                        this.sweet('Los planteles, no tienen ofertas educativas activas');
+                        return 0;
+                    }
+
+                    if (!this.hasPlantelesOfertasGroups()) {
+                        this.sweet('Tiene ofertas educativas activas, sin grupos');
+                        return 0;
+                    }
+
+                } else {
+                    if (!home.isAforo) {
+                        this.sweet("La etapa de aforo no esta aperturada.");
+                        return 0;
+                    }
+
+                    if (!this.hasActivePlanteles()) {
+                        this.sweet("El aforo no tiene planteles activos.")
+                        return 0;
+                    }
+
+                    if (!this.hasActivePlantelAulaCapacidad()) {
+                        this.sweet("El aforo tiene planteles activos sin capacidad");
+                        return 0;
+                    }
+
                 }
 
                 return true;
             },
             hasActivePlanteles() {
-                let planteles = store.state.home.planteles,
+                let planteles       = store.state.home.planteles,
                     activePlanteles = planteles.filter(plantel => plantel.active || plantel.active === 1);
 
                 if (activePlanteles.length === 0) {
@@ -228,9 +309,9 @@
                 return true;//n planteles activos
             },
             hasActivePlantelAulaCapacidad() {
-                let planteles = store.state.home.planteles,
-                    activePlanteles = planteles.filter(plantel => plantel.active === 1 || plantel.active),
-                    aulaPlantel = activePlanteles.filter(plantel => plantel.aulas.length > 0),
+                let planteles         = store.state.home.planteles,
+                    activePlanteles   = planteles.filter(plantel => plantel.active === 1 || plantel.active),
+                    aulaPlantel       = activePlanteles.filter(plantel => plantel.aulas.length > 0),
                     hasAulasCapacidad = activePlanteles.filter(plantel => {
                         let hasAulasCapacidad = plantel.aulas.filter(aula => aula.capacidad > 0);
 
@@ -249,17 +330,74 @@
 
                 return true;
             },
-            getState() {
-                return store.state.home.estado;
-            },
-            enviarAforo() {
+            hasPlantelesActiveOfertas() {
+                let planteles       = store.state.home.planteles,
+                    activePlanteles = planteles.filter(plantel => plantel.active || plantel.active === 1),
+                    plantelesOfertas = activePlanteles.filter(plantel => plantel.oferta_educativa.length > 0),
+                    plantelesActiveOfertas = plantelesOfertas.filter(plantel => {
+                        let activeOfertas = plantel.oferta_educativa.filter(oferta => oferta.active || oferta.active === 1);
 
-                if (!this.rules()) {
+                        if (activeOfertas.length > 0) {
+                            return plantel;
+                        }
+                    });
+
+                if (activePlanteles.length !== plantelesOfertas.length) {
                     return 0;
                 }
 
+                if (activePlanteles.length !== plantelesActiveOfertas.length) {
+                    return 0;
+                }
+
+                return true;
+            },
+            hasPlantelesOfertasGroups() {
+                let planteles       = store.state.home.planteles,
+                    activePlanteles = planteles.filter(plantel => plantel.active || plantel.active === 1),
+                    plantelesOfertas = activePlanteles.filter(plantel => plantel.oferta_educativa.length > 0),
+                    plantelesActiveOfertasGroups = plantelesOfertas.filter(plantel => {
+                        let activeOfertas = plantel.oferta_educativa.filter(oferta => oferta.active || oferta.active === 1),
+                            ofertasWithGroups = activeOfertas.filter(oferta => {
+                                if (oferta.grupos !== null && oferta.grupos.grupos > 0) {
+                                    return oferta;
+                                }
+                            });
+
+                        //si existe por lo menos una oferta activa y tiene grupos
+                        if (ofertasWithGroups.length > 0) {
+                            return plantel;
+                        }
+                    });
+
+                if (activePlanteles.length !== plantelesActiveOfertasGroups.length) {
+                    return 0;
+                }
+
+                return true;
+            },
+            getState(tipo = 'aforo') {
+                let state = store.state.home;
+                return tipo === 'oferta' ? state.estadoOferta : state.estado;
+            },
+            enviar(tipo) {
+                let title = "",
+                    url = "";
+
+                if (!this.rules(tipo)) {
+                    return 0;
+                }
+
+                if (tipo === 'oferta') {
+                    title = "¿Deseas enviar la oferta?";
+                    url = "home/storeOfertaRevision";
+                } else {
+                    title = "¿Deseas enviar el aforo?";
+                    url = "home/storeAforoRevision";
+                }
+
                 swal.fire({
-                    title: '¿Deseas enviar el aforo?',
+                    title: title,
                     text: "",
                     type: 'warning',
                     showCancelButton: true,
@@ -269,58 +407,36 @@
                     cancelButtonText: 'Cancelar'
                 }).then((result) => {
                     if (result.value) {
-                        store.dispatch('home/storeRevision')
+                        store.dispatch(url)
                             .then(res => {
                                 console.log(res);
                             })
                             .catch(err => {
-                                this.mensaje('error', 'Lo sentimos, algo ha salido mal intenta de nuevo.')
+                                this.sweet("Lo sentimos, algo ha salido mal intenta de nuevo", "", "error")
                                 console.log(err);
                             })
                     }
                 })
             },
-            motivoRechazo() {
+            motivoRechazo(tipo) {
+                let text = "",
+                    revisionAforo = store.state.home.revision_aforos[0].review.comentario,
+                    revisionOferta = store.state.home.revision_oferta[0].review.comentario;
+
+                text = tipo === 'oferta' ? revisionOferta : revisionAforo;
+
                 swal.fire({
                     type: 'info',
                     title: 'Motivo de rechazo.',
-                    text: store.state.home.revision_aforos[0].review.comentario,
+                    text: text,
                     footer: ''
                 })
             },
-            mensaje(tipo, msj) {
-                let mensaje = "",
-                    type = "info";
-
-                switch (tipo) {
-                    case 'R':
-                    mensaje = "El aforo esta en revisión.";
-                    break;
-                    case 'A':
-                        mensaje = "El aforo ha sido aceptado.";
-                        break;
-                    case 'plantel':
-                        mensaje = "El aforo no tiene planteles activos.";
-                        break;
-                    case 'aforo':
-                        mensaje = "La etapa de aforo no esta aperturada.";
-                        break;
-                    case 'capacidad':
-                        mensaje = "El aforo tiene planteles activos sin capacidad";
-                        break;
-                    case 'error':
-                        mensaje = msj;
-                        type = "error";
-                        break;
-                    default:
-                        mensaje= " ";
-
-                }
-
+            sweet(text = "", title = "", type = "info") {
                 swal.fire({
                     type: type,
-                    title: '',
-                    text: mensaje,
+                    title: title,
+                    text: text,
                     footer: ''
                 })
             }

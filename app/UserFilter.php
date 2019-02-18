@@ -17,8 +17,9 @@ class UserFilter extends QueryFilter
     public function rules(): array
     {
         return [
-            'role'   => 'filled|in:subsistema,plantel,aspirante',
+            'role'   => 'filled|in:subsistema,plantel',
             'search' => 'filled',
+            'curp'   => 'filled|min:4',
         ];
     }
 
@@ -34,6 +35,14 @@ class UserFilter extends QueryFilter
     {
         return $query->whereHas('roles', function ($q) use ($role) {
             return $q->where('name', $role);
+        });
+    }
+
+    public function curp($query, $curp)
+    {
+        return $query->whereHas('aspirante', function ($q) use ($curp) {
+            return $q->where('curp', 'like', "%{$curp}%")
+                ->orWhere('folio', 'like', "%{$curp}%");
         });
     }
 }

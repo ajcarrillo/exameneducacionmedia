@@ -65,4 +65,5 @@ class DashboardController
     {
         return $aspirante->paseExamen()->exists();
     }
+
 }

@@ -13,10 +13,11 @@ use DB;
 use ExamenEducacionMedia\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use MediaSuperior\Models\Archivo;
 use MediaSuperior\Models\ArchivoRoles;
 use Spatie\Permission\Models\Role;
-use Storage;
+
 
 class CargaDocumentosController extends Controller
 {
@@ -52,14 +53,14 @@ class CargaDocumentosController extends Controller
         $descripcion    = $request->input('descripcion');
         $path_archivo   = storage_path();                                        //PATH DEL DOCUMENTO
         $nombre_archivo = $archivo->getClientOriginalName();
-        $exists         = Storage::disk('local')->exists($nombre_archivo);
+        $exists         = Storage::disk('descargables')->exists($nombre_archivo);
         if ($exists) {
             flash('¡¡ Este documento ya se encuentra cargado ,verifique!!')->warning();
 
             return redirect()->back();
         }
         // NOMBRE DEL DOCUMENTO
-        Storage::disk('local')->put($nombre_archivo, \File::get($archivo)); //GUARDADO
+        Storage::disk('descargables')->put($nombre_archivo, \File::get($archivo)); //GUARDADO
         $obj_archivo              = new Archivo();
         $obj_archivo->nombre      = $nombre_archivo;
         $obj_archivo->descripcion = $descripcion;
@@ -85,15 +86,15 @@ class CargaDocumentosController extends Controller
     {
         $archivo = Archivo::find($id_archivo);
 
-        return Storage::disk('local')->download($archivo->nombre);
+        return Storage::disk('descargables')->download($archivo->nombre);
     }
 
     public function eliminar(Request $request, Archivo $archivo)
     {
         ArchivoRoles::where('archivo_id', '=', $archivo->id)->delete();
         $archivo->delete();
-        Storage::disk('local')->delete($archivo->nombre);
-        flash('!! El archivo se ha eliminado correctamente ¡¡')->success();
+        Storage::disk('descargables')->delete($archivo->nombre);
+        flash('¡¡ El archivo se ha eliminado correctamente !!')->success();
 
         return redirect()->back();
     }

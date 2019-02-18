@@ -144,6 +144,10 @@
 
                 if (aspirante.curp_historica !== null && aspirante.curp_valida !== null) {
 
+                    if (aspirante.pais_nacimiento_id !== 'MX') {
+                        return 0;
+                    }
+
                     if (aspirante.curp_historica && !aspirante.curp_valida) {
                         mensaje = "curp historica";
                     }
