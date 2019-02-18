@@ -8,17 +8,20 @@
             <div class="card-header">
                 <h1 class="card-title" style="float: left">Listado de preferencia de plantel</h1>
                 <div class="form-group form-inline float-right">
-                    <form action="" method="get" class="d-flex">
-                    {{-- !! Form::open(['class'=>'', 'method'=>'post', 'route'=>['aspirante.guarda.cuestionario'], 'name'=>'form-cuestionario', 'id' => 'form-cuestionario']) !! --}}
-                        <input type="text" name="filtro"  placeholder="Buscar..." class="form-control mr-3">
-                        <select class="form-control mr-3" name="t_filtro">
-                            <option value="">Tipo de filtro</option>
-                            <option value="subsistema">Subsistema</option>
-                            <option value="plantel">Plantel</option>
-                        </select>
-                        <button type="submit" class="btn btn-md btn-info mr-3">Buscar</button>
-                    {{-- !! Form::close() !! --}}
-                    </form>
+
+                    @if(Auth::user()->roles[0]->name == 'departamento')
+                        <form action="" method="get" class="d-flex">
+                        {{-- !! Form::open(['class'=>'', 'method'=>'post', 'route'=>['aspirante.guarda.cuestionario'], 'name'=>'form-cuestionario', 'id' => 'form-cuestionario']) !! --}}
+                            <input type="text" name="filtro"  placeholder="Buscar..." class="form-control mr-3">
+                            <select class="form-control mr-3" name="t_filtro">
+                                <option value="">Tipo de filtro</option>
+                                <option value="subsistema">Subsistema</option>
+                                <option value="plantel">Plantel</option>
+                            </select>
+                            <button type="submit" class="btn btn-md btn-info mr-3">Buscar</button>
+                        {{-- !! Form::close() !! --}}
+                        </form>
+                    @endif
 
                     <div class="dropdown">
                         <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
@@ -26,8 +29,9 @@
                         </button>
                         <div class="dropdown-menu">
                             <h5 class="dropdown-header">Tipo de Descargas</h5>
-                            <a class="dropdown-item" href="#">PDF</a>
-                            <a href="{{ route('media.administracion.preferencia.plantel.descargar', ['subsistema_id'=>0,'formato'=>4,'t_filtro'=> $t_filtro, 'filtro'=> $filtro ]) }}" class="dropdown-item" >CSV</a>
+
+                            <a href="{{ route('media.administracion.preferencia.plantel.descargarCsv', ['subsistema_id'=>0,'formato'=>4,'t_filtro'=> $t_filtro, 'filtro'=> $filtro ]) }}" class="dropdown-item" >CSV</a>
+                            <a href="{{ route('media.administracion.preferencia.plantel.descargarPdf', ['subsistema_id'=>0,'formato'=>4,'t_filtro'=> $t_filtro, 'filtro'=> $filtro ]) }}" class="dropdown-item" >PDF</a>
                         </div>
                     </div>
 

@@ -154,6 +154,7 @@ Route::middleware(['auth', 'role:plantel|departamento|subsistema'])
     ->name('administracion.')
     ->group(function () {
         Route::get('/preferencia-plantel', 'Administracion\PreferenciaPlantelController@index')->name('preferencia.plantel');
-        Route::get('/preferencia-plantel/descargar', 'Administracion\PreferenciaPlantelController@descargar')->name('preferencia.plantel.descargar');
+        Route::get('/preferencia-plantel/descargarCsv', 'Administracion\PreferenciaPlantelController@descargarCsv')->name('preferencia.plantel.descargarCsv');
+        Route::get('/preferencia-plantel/descargarPdf', 'Administracion\PreferenciaPlantelController@descargarPdf')->name('preferencia.plantel.descargarPdf');
     });
 
