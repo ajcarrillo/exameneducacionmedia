@@ -2,16 +2,45 @@
 @extends('layouts.app')
 
 @section('content')
+
     <div class="col">
         <div class="card card-primary card-outline">
             <div class="card-header">
                 <h1 class="card-title" style="float: left">Listado de preferencia de plantel</h1>
-                <a href="{{-- route('media.administracion.historico.descargar', ['subsistema_id'=>0,'formato'=>3]) --}}" class="btn btn-md btn-success" style="float: right"> Descargar</a>
+                <div class="form-group form-inline float-right">
+                    <form action="" method="get" class="d-flex">
+                    {{-- !! Form::open(['class'=>'', 'method'=>'post', 'route'=>['aspirante.guarda.cuestionario'], 'name'=>'form-cuestionario', 'id' => 'form-cuestionario']) !! --}}
+                        <input type="text" name="filtro"  placeholder="Buscar..." class="form-control mr-3">
+                        <select class="form-control mr-3" name="t_filtro">
+                            <option value="">Tipo de filtro</option>
+                            <option value="subsistema">Subsistema</option>
+                            <option value="plantel">Plantel</option>
+                        </select>
+                        <button type="submit" class="btn btn-md btn-info mr-3">Buscar</button>
+                    {{-- !! Form::close() !! --}}
+                    </form>
+
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                            Descargar
+                        </button>
+                        <div class="dropdown-menu">
+                            <h5 class="dropdown-header">Tipo de Descargas</h5>
+                            <a class="dropdown-item" href="#">PDF</a>
+                            <a href="{{ route('media.administracion.preferencia.plantel.descargar', ['subsistema_id'=>0,'formato'=>4,'t_filtro'=> $t_filtro, 'filtro'=> $filtro ]) }}" class="dropdown-item" >CSV</a>
+                        </div>
+                    </div>
+
+
+                </div>
+
             </div>
             <div class="card-body">
                 <div class="container-fluid pt-1">
                     <div class="row">
+
                         <div class="col-md-12">
+
                             <table class="table table-striped" id="filtro">
                                 <thead>
                                 <tr>
@@ -27,7 +56,7 @@
                                 </thead>
                                 <tbody>
                                 <?php $cont = 1; ?>
-                                 @foreach($datos as $info)
+                                @foreach($datos as $info)
 
                                     <tr>
                                         <td>{{$cont++ }}</td>
@@ -41,14 +70,15 @@
                                         <td>{{$info->concluyo_registo}}</td>
                                     </tr>
 
-                                 @endforeach
+                                @endforeach
 
 
                                 </tbody>
                             </table>
 
+
                             <div class="card-body float-right">
-                                {{ $datos->links() }}
+                                {{-- $datos->links() --}}
                             </div>
                         </div>
                     </div>
@@ -59,3 +89,4 @@
 
 
 @endsection
+

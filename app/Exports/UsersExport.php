@@ -110,6 +110,52 @@ class UsersExport implements FromCollection, WithHeadings
         return $query;
     }
 
+    public function dataPreferencias(){
+        $datos = DB::table('seleccion_ofertas_educativas')
+            ->select('aspirantes.folio', DB::raw("concat(users.nombre,' ',users.primer_apellido,' ',segundo_apellido) as nombre_completo"), 'especialidades.referencia as primera_opcion_especialidad', 'subsistemas.referencia as subsistema', 'geo.NOM_MUN as municipio', DB::raw('IF(revision_registros.efectuado > 0, "Pagado", "Pendiente") as pago'), DB::raw('IF(pases_examen.id > 0, "Concluido", "Concluso") as concluyo_registo'))
+            ->join('aspirantes','aspirantes.id','=','seleccion_ofertas_educativas.aspirante_id')
+            ->join('users','users.id','=','aspirantes.user_id')
+            ->join('ofertas_educativas','ofertas_educativas.id','=','seleccion_ofertas_educativas.oferta_educativa_id')
+            ->join('especialidades','especialidades.id','=', 'ofertas_educativas.especialidad_id')
+            ->join('planteles','planteles.id','=','ofertas_educativas.plantel_id')
+            ->join('subsistemas','subsistemas.id','=','planteles.subsistema_id')
+            ->join('geodatabase.mun_loc_qroo_camp as geo','geo.CVE_MUN','=','planteles.cve_mun')
+            ->join('revision_registros','revision_registros.aspirante_id','=','aspirantes.id')
+            ->leftjoin('pases_examen','pases_examen.aspirante_id','=','aspirantes.id')
+            ->where('seleccion_ofertas_educativas.preferencia',1)
+
+            ->groupBy('aspirantes.id');
+        //->paginate(10);
+
+        switch (Auth::user()->roles[0]->name){
+            case 'plantel' :
+                $datos = $datos->where('planteles.id', Auth::user()->plantel->id)
+                    ->paginate(10);
+                break;
+            case  'subsistema':
+                $datos = $datos->where('subsistemas.id', Auth::user()->plantel->subsistema_id)
+                    ->paginate(10);
+                break;
+            case  'departamento':
+                //$datos = $datos->paginate(10);
+                switch ($_GET['t_filtro']){
+                    case '':
+                        $datos = $datos->paginate(10);
+                        break;
+                    case 'subsistema':
+                        $datos = $datos->where('subsistemas.referencia','LIKE', '%'.$_GET['filtro'].'%')
+                            ->paginate(10);
+                        break;
+                    case 'plantel':
+                        $datos = $datos->where('planteles.descripcion','LIKE', '%'.$_GET['filtro'].'%')
+                            ->paginate(10);
+                        break;
+                }
+                break;
+        }
+        return $datos;
+    }
+
     public function collection()
     {
         switch ($this->formato){
@@ -125,18 +171,12 @@ class UsersExport implements FromCollection, WithHeadings
                 $alumnos = $this->dataAlumnos();
                 return $alumnos;
                 break;
+            case 4 :
+                $preferencias = $this->dataPreferencias();
+                return $preferencias;
+                break;
         }
-        /*if ($this->formato == 1) {
-            $ofertaEducativa = $this->dataOferta();
 
-            return $ofertaEducativa;
-        }
-
-        if ($this->formato == 2) {
-            $aforo = $this->dataAforo();
-
-            return $aforo;
-        }*/
     }
 
     public function headings(): array
@@ -179,27 +219,18 @@ class UsersExport implements FromCollection, WithHeadings
                     'plantel',
                 ];
                 break;
+            case 4 :
+                $columnas = [
+                    'folio',
+                    'nombre_completo',
+                    'primera_opcion_especialidad',
+                    'subsistema',
+                    'municipio',
+                    'pago',
+                    'concluyo_registo'
+                ];
+                break;
         }
-        /*if ($this->formato == 1) {
-            $columnas = [
-                'descripcion',
-                'clave',
-                'nombre localidad',
-                'domicilio',
-                'especialidad',
-                'total grupos',
-                'alumnos por grupo',
-                'total alumnos',
-            ];
-        } elseif ($this->formato == 2) {
-            $columnas = [
-                'descripcion',
-                'aulas',
-                'capacidad',
-                'ocupados',
-                'disponibles',
-            ];
-        }*/
 
         return $columnas;
     }
