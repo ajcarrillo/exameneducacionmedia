@@ -15,6 +15,9 @@
 					<div class="card-header">
 						<h1 class="card-title">Expediente de aspirante</h1>
 					</div>
+
+					{!! '<pre>' . $aspirante . '</pre>' !!}
+
 					{!! Form::model($aspirante, ['class'=>'form-horizontal']) !!}
 					<div class="card-body">
 						<h6 class="card-subtitle mb-2 text-muted">Datos personales</h6>
@@ -45,9 +48,10 @@
 									</div>
 									<div class="form-group col-sm-4">
 										{!! Form::label('sexo', 'Sexo') !!}
-										{!! Form::text('sexo', NULL, ['class'=>'form-control', 'required']) !!}
+										{!! Form::select('sexo', ['H' => 'Hombre', 'M' => 'Mujer'], $aspirante->sexo, ['class'=>'form-control', 'required']) !!}
 									</div>
 								</div>
+
 								<div class="form-row">
 									<div class="form-group col-sm-6">
 										{!! Form::label('user[email]', 'Correo electrónico') !!}
@@ -60,6 +64,30 @@
 										<input type="password" class="form-control" name="password">
 									</div>
 								</div>
+								<hr>
+								<h6 class="card-subtitle mb-2 text-muted">Información de procedencia</h6>
+								<div class="form-row">
+									<div class="form-group col-sm-4">
+										<label for="">Escuela de procedencia</label>
+										<p class="form-control-plaintext">{{ $aspirante->informacionProcedencia->nombreCompuesto }}</p>
+									</div>
+									<div class="form-group col-sm-4">
+										<label for="">Fecha de egreso</label>
+										<p class="form-control-plaintext"> {{ $aspirante->informacionProcedencia->fecha_egreso }}</p>
+									</div>
+									<div class="form-group col-sm-4">
+										<label for="">Primera vez en el proceso</label>
+										<p class="form-control-plaintext"> {{ $aspirante->informacionProcedencia->primeraVezTexto }}</p>
+									</div>
+								</div>
+								<hr>
+							</div>
+						</div>
+
+						<h6 class="card-subtitle mb-2 text-muted">Oferta educativa</h6>
+						<div class="card">
+							<div class="card-body">
+
 							</div>
 						</div>
 					</div>

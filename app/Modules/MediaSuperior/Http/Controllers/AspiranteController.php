@@ -39,7 +39,7 @@ class AspiranteController extends Controller
      */
     public function show($id)
     {
-        $aspirante = Aspirante::with('user')->find($id);
+        $aspirante = Aspirante::with('user', 'domicilio', 'informacionProcedencia')->find($id);
 
         return view('administracion.aspirantes.show', compact('aspirante'));
     }
