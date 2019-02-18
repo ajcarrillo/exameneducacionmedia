@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Igna
@@ -137,8 +138,12 @@ Route::middleware([ 'auth', 'role:departamento' ])
             ->name('panelAdministracion.')
             ->group(function () {
                 Route::get('/', 'PanelController@index')->name('index');
+                Route::get('/cancelarOferta', 'PanelController@cancelarOferta')->name('cancelarOferta');
+                Route::get('/desactivar-planteles', 'PanelController@desactivarPlanteles')->name('desactivar-planteles');
+
             });
         //end
+
 
     });
 
