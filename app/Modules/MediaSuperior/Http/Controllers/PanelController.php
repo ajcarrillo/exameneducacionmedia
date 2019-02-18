@@ -45,14 +45,15 @@ class PanelController extends Controller
         $folios_usados = Aspirante::count('folio');
         $porcentaje_folios = ($folios_usados / $total_folios) * 100;
 
-        //consulta fechas para grafica
-        /*$sql       = 'select DATE_FORMAT(created_at, "%Y-%m-%d") as fecha from aspirantes';
-        //$fechas_r = DB::select($sql);*/
+        //consulta fechas y personas por dia para la grafica
         $f= Aspirante::select(DB::raw('DISTINCT(DATE_FORMAT(created_at, "%Y-%m-%d")) as fecha'))
             ->groupBy('id')
-            ->get()->toArray();
-        $fechas_rd = array_column($f, 'fecha');
-        $fechas_r=response()->json($fechas_rd);
+            ->pluck('fecha');
+        $fechas_r = $f;
+        $dato= Aspirante::select(DB::raw('DISTINCT(DATE_FORMAT(created_at, "%Y-%m-%d")) as fecha, count(id) as personas_por_dia'))
+            ->groupBy('fecha')
+            ->pluck('personas_por_dia');
+
 
         // consulta los planteles con demanda
         $plnt = 'select sb.referencia, t.*,
@@ -144,6 +145,6 @@ IFNULL((ROUND((SELECT COUNT(DISTINCT(pe.aspirante_id))
         }
 
         return view('administracion.home', compact('especialidades','planteles','aspirantes_hoy','total_aspirantes','revisiones_oferta',
-            'revisiones_aforo','total_folios', 'folios_usados', 'porcentaje_folios','fechas_r','plantelescomplet','porcentaje_filtro'));
+            'revisiones_aforo','total_folios', 'folios_usados', 'porcentaje_folios','fechas_r','plantelescomplet','porcentaje_filtro','dato'));
     }
 }

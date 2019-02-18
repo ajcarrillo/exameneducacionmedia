@@ -192,7 +192,8 @@
             </div>
         </div>
     </div>
-    <input type="hidden" id="signup-stats-url" value="{{$fechas_r}}">
+    <input type="hidden" id="fecha" value="{{$fechas_r}}">
+    <input type="hidden" id="persona" value="{{$dato}}">
 
 @endsection
 
@@ -203,37 +204,52 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
     <script>
-        var speedCanvas = document.getElementById("signup-stats");
+        var data = $('#fecha').val();
+        var count = $('#persona').val();
 
-        Chart.defaults.global.defaultFontFamily = "Lato";
-        Chart.defaults.global.defaultFontSize = 18;//alert($('#signup-stats-url').val());
-        var speedData = {
-            //labels: ["0s", "10s", "20s", "30s", "40s", "50s", "60s"],
-            //labels:["2019-01-16","2019-01-18","2019-01-18","2019-01-18","2019-02-13","2019-02-13","2019-02-13"],
-            labels: $('#signup-stats-url').val(),
-            datasets: [{
-                label: "Comportamiento de registro",
-                //data: [0, 59, 75, 20, 20, 55, 40],
-                data: [0, 59, 75, 20, 20, 55, 40],
-            }]
-        };
-
-        var chartOptions = {
-            legend: {
-                display: true,
-                position: 'top',
-                labels: {
-                    boxWidth: 80,
-                    fontColor: 'black'
+        $(document).ready(function(){
+            var speedCanvas = document.getElementById("signup-stats");
+            Chart.defaults.global.defaultFontFamily = "Lato";
+            Chart.defaults.global.defaultFontSize = 18;
+            var speedData = {
+                labels: JSON.parse(data),
+                datasets: [{
+                    label: "Comportamiento de registro",
+                    //data: [0, 59, 75, 20, 20, 55, 40],
+                    data: JSON.parse(count),
+                    backgroundColor: "rgba(75,192,192,0.4)",
+                    borderColor: "rgba(75,192,192,1)",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: "rgba(60, 141, 188, 1)",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 5,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10
+                }]
+            };
+            var chartOptions = {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        boxWidth: 80,
+                        fontColor: 'black'
+                    }
                 }
-            }
-        };
+            };
 
-        var lineChart = new Chart(speedCanvas, {
-            type: 'line',
-            data: speedData,
-            options: chartOptions
+            var lineChart = new Chart(speedCanvas, {
+                type: 'line',
+                data: speedData,
+                options: chartOptions
+            });
         });
-
     </script>
 @endsection
