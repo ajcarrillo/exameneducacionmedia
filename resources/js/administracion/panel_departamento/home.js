@@ -49,7 +49,12 @@ $(document).ready(function () {
 
     $('#btn_desactivar_planteles').click(function () {
         //$('#btn_desactivar_planteles').html('<a class="btn" style="background:#00a65a;color: white;font-size: 13pt" href="#" id="btn_desactivar_planteles"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></a>');
-        $("#btn_desactivar_planteles").prop('disabled', true);
+        // $('#btn_desactivar_planteles').attr("disabled", true);
+        //this.disabled = true;
+        //$("#btn_desactivar_planteles").prop('disabled', true);
+
+        $('#btn_desactivar_planteles').attr('disabled', 'disabled').prepend('<i class="fa fa-refresh fa-spin"></i> ');
+        //$('').attr('disabled','disabled');
         Swal.fire({
             title: '¿Esta seguro de continuar?',
             text: "Este proceso realizara la desactivación de los planteles",
@@ -69,7 +74,7 @@ $(document).ready(function () {
                     }
                 )
                     .done(function (response) {
-                        if (response.code == 200)
+                        if (response.code == 200) {
                             Swal.fire(
                                 {
                                     position: 'top-end',
@@ -79,7 +84,8 @@ $(document).ready(function () {
                                     timer: 3000
                                 }
                             )
-                        else
+                            $('#btn_desactivar_planteles').removeAttr('disabled').find('i.fa').remove();
+                        } else {
                             Swal.fire(
                                 {
                                     position: 'top-end',
@@ -89,6 +95,8 @@ $(document).ready(function () {
                                     timer: 3000
                                 }
                             )
+                            $('#btn_desactivar_planteles').removeAttr('disabled').find('i.fa').remove();
+                        }
                     })
                     .fail(function (xhr) {
                         Swal.fire(
@@ -100,14 +108,16 @@ $(document).ready(function () {
                                 timer: 3000
                             }
                         )
+                        $('#btn_desactivar_planteles').removeAttr('disabled').find('i.fa').remove();
                         console.log(xhr);
                     });
             }
         });
 
         event.preventDefault();
+        ///$('#btn_desactivar_planteles').attr("disabled", false);
 
-        $("#btn_desactivar_planteles").prop('disabled', false);
+//        $("#btn_desactivar_planteles").prop('disabled', false);
 
     });
 });
