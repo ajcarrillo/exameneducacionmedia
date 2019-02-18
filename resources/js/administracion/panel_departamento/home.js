@@ -18,28 +18,30 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.value) {
             $cancelar_ofertas.addClass('disabled');
-            $cancelar_ofertas.html('<a class="btn" style="background:#00a65a;color: white;font-size: 6pt"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></a>');
+            $cancelar_ofertas.prepend('<i class="fa fa-refresh fa-spin"></i> ');
             Ofertas.index.desactivar(function (response) {
                 if (response.code === 200) {
                     Swal.fire({
-                        title: 'Se desactivaron las ofertas educativas!',
+                        title: 'Se desactivaron las ofertas educativas exitosamente!',
                         type: 'success',
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Aceptar',
-                    }).then((result) => {
-                        if (result.value) {
-                        location.reload();
-                    }
-                });
+                        //confirmButtonColor: '#3085d6',
+                        //confirmButtonText: 'Aceptar',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
+                    $cancelar_ofertas.removeClass('disabled');
+                    $cancelar_ofertas.find('i.fa').remove();
                 } else {
                     Swal.fire({
                         title: 'No se desactivaron las ofertas educativas!',
                         type: 'warning',
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Aceptar',
-                    }).then((result) => {
-                        //
+                        //confirmButtonColor: '#3085d6',
+                        //confirmButtonText: 'Aceptar',
+                        showConfirmButton: false,
+                        timer: 2000
                     });
+                    $cancelar_ofertas.removeClass('disabled');
+                    $cancelar_ofertas.find('i.fa').remove();
                 }
             });
         }
