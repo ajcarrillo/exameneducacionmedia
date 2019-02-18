@@ -149,3 +149,12 @@ Route::middleware(['auth', 'role:plantel|departamento'])
         Route::get('/problemas-curp', 'Administracion\ProblemaCurpController@index')->name('historico.curp');
         Route::get('/problemas-curp/descargar', 'Administracion\ProblemaCurpController@descargar')->name('historico.descargar');
     });
+Route::middleware(['auth', 'role:plantel|departamento|subsistema'])
+    ->prefix('/administracion')
+    ->name('administracion.')
+    ->group(function () {
+        Route::get('/preferencia-plantel', 'Administracion\PreferenciaPlantelController@index')->name('preferencia.plantel');
+        Route::get('/preferencia-plantel/descargarCsv', 'Administracion\PreferenciaPlantelController@descargarCsv')->name('preferencia.plantel.descargarCsv');
+        Route::get('/preferencia-plantel/descargarPdf', 'Administracion\PreferenciaPlantelController@descargarPdf')->name('preferencia.plantel.descargarPdf');
+    });
+
