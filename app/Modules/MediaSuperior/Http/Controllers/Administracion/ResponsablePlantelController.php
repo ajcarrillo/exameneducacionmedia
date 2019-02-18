@@ -28,21 +28,23 @@ class ResponsablePlantelController extends Controller
 
         return view('media_superior.administracion.responsablePlantel.responsables.index', compact('planteles', 'subsistemas'));
     }
+
     public function edit(Plantel $plantel)
     {
         //$user = User::role('plantel')->get();
         //$plantel1 = Plantel::with('responsables')
         //whereNotIn('responsable_id','=',$user->id);
         //dd($plantel1);
-        $qry = DB::table('educacionmedia.users','educacionmedia.planteles','educacionmedia.model_has_roles' )
-            ->select('usuario.id',DB::raw("concat(usuario.nombre ,' ', usuario.primer_apellido ,' ', usuario.segundo_apellido) as nombreCompleto"),'usuario.username')
+        $qry = DB::table('educacionmedia.users', 'educacionmedia.planteles', 'educacionmedia.model_has_roles')
+            ->select('usuario.id', DB::raw("concat(usuario.nombre ,' ', usuario.primer_apellido ,' ', usuario.segundo_apellido) as nombreCompleto"), 'usuario.username')
             ->from('educacionmedia.users as usuario')
-            ->join('educacionmedia.model_has_roles  as rol','rol.model_id','=','usuario.id')
-            ->leftJoin('educacionmedia.planteles as plantel','plantel.responsable_id','=','usuario.id')
-            ->whereRaw( 'isnull (plantel.id) AND rol.role_id = 5 ')->pluck('nombreCompleto','usuario.id');
+            ->join('educacionmedia.model_has_roles  as rol', 'rol.model_id', '=', 'usuario.id')
+            ->leftJoin('educacionmedia.planteles as plantel', 'plantel.responsable_id', '=', 'usuario.id')
+            ->whereRaw('isnull (plantel.id) AND rol.role_id = 5 ')->pluck('nombreCompleto', 'usuario.id');
         $responsable = Plantel::with('responsable')->find($plantel->id);
-        return view('media_superior.administracion.responsablePlantel.responsables.asignar_responsables', compact('plantel','responsable','qry'));
+        return view('media_superior.administracion.responsablePlantel.responsables.asignar_responsables', compact('plantel', 'responsable', 'qry'));
     }
+
     public function store(Request $request, Plantel $plantel)
     {
         try {
@@ -54,7 +56,7 @@ class ResponsablePlantelController extends Controller
                 $plantel->save();
                 $user->assignRole('plantel');
                 flash('Se asigno correctamente el responsable del plantel')->success();
-                return redirect()->to(route('media.administracion.responsablePlantel.plantel.edit',$plantel));
+                return redirect()->to(route('media.administracion.responsablePlantel.plantel.edit', $plantel));
             }
             $data = [
                 'nombre' => $request->input('nombre'),
@@ -73,7 +75,7 @@ class ResponsablePlantelController extends Controller
             $plantel->save();
             DB::commit();
             flash('Se asigno correctamente el responsable del plantel')->success();
-            return redirect()->to(route('media.administracion.responsablePlantel.plantel.edit',$plantel));
+            return redirect()->to(route('media.administracion.responsablePlantel.plantel.edit', $plantel));
         } catch (\Exception $e) {
             DB::rollBack();
             \Log::info($e->getMessage());
@@ -84,16 +86,18 @@ class ResponsablePlantelController extends Controller
                 ->withInput();
         }
     }
-    public function asigna_responsable_existente(Request $request,Plantel $plantel)
+
+    public function asigna_responsable_existente(Request $request, Plantel $plantel)
     {
 
-        $user    = User::where('id', '=', $request->input('user_id'))->first();
+        $user = User::where('id', '=', $request->input('user_id'))->first();
         $plantel = Plantel::find($plantel->id);
         $plantel->responsable_id = $user->id;
         $plantel->save();
         flash('Se actualizo correctamente el responsable del plantel')->success();
         return redirect()->back();
     }
+
     public function delete_responsable(Plantel $plantel)
     {
         $plantel = Plantel::find($plantel->id);
@@ -101,8 +105,9 @@ class ResponsablePlantelController extends Controller
         $plantel->save();
         flash('El plantel se  ha quedado sin responsable')->success();
 
-        return redirect()->to(route('media.administracion.responsablePlantel.plantel.edit',$plantel));
+        return redirect()->to(route('media.administracion.responsablePlantel.plantel.edit', $plantel));
     }
+
     public function descuentos($id)
     {
         /*$planteles = Plantel::find($id);
