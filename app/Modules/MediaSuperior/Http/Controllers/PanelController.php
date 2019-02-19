@@ -206,7 +206,7 @@ IFNULL((ROUND((SELECT COUNT(DISTINCT(pe.aspirante_id))
             $data['meta'] = [
                 'status'  => 'success',
                 'message' => 'OK',
-                'code'    => 201,
+                'code'    => 200,
             ];
 
         } catch (ModelNotFoundException $exception) {
