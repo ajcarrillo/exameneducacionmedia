@@ -178,10 +178,12 @@ IFNULL((ROUND((SELECT COUNT(DISTINCT(pe.aspirante_id))
     public function cancelarOferta()
     {
         try {
-            $ofertas = OfertaEducativa::all();
+            OfertaEducativa::where('active',1)
+                ->update(['active' => 0]);
+            /*$ofertas = OfertaEducativa::all();
             $ofertas->map(function ($oferta){
                 $oferta->desactivar();
-            });
+            });*/
             $data['meta'] = [
                 'status'  => 'success',
                 'message' => 'OK',
