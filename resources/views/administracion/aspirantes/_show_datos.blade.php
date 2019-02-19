@@ -45,7 +45,11 @@
 		</div>
 		<div class="form-group col-sm-4">
 			<label for="">Localidad</label>
-			<p class="form-control-plaintext">{{ optional($aspirante->domicilio)->localidad->NOM_LOC }}</p>
+			<p class="form-control-plaintext">
+				@if($conDomicilio and $aspirante->domicilio->localidad)
+					{{ $aspirante->domicilio->localidad->NOM_LOC }}
+				@endif
+			</p>
 		</div>
 	</div>
 

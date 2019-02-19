@@ -51,10 +51,12 @@ class AspiranteController extends Controller
 
         $ofertas    = $aspirante->opcionesEducativas;
         $revisiones = $aspirante->revisiones;
+
+        $conDomicilio = empty($aspirante->domicilio) ? false : true;
         $sexos      = Aspirante::listaSexos();
         $estados    = RevisionRegistro::listaEstadosPago();
 
-        return view('administracion.aspirantes.show', compact('aspirante', 'ofertas', 'revisiones', 'sexos', 'estados'));
+        return view('administracion.aspirantes.show', compact('aspirante', 'ofertas', 'revisiones', 'conDomicilio', 'sexos', 'estados'));
     }
 
     /**
