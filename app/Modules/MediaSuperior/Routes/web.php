@@ -3,6 +3,9 @@
  * Created by PhpStorm.
  * User: Igna
  */
+
+Route::get('/reporte-dinamico', 'ReporteDinamicoController@index');
+
 Route::middleware([ 'auth', 'role:departamento' ])
     ->prefix('/administracion')
     ->name('administracion.')
