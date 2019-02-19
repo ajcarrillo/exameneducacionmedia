@@ -206,7 +206,7 @@ IFNULL((ROUND((SELECT COUNT(DISTINCT(pe.aspirante_id))
             $data['meta'] = [
                 'status'  => 'success',
                 'message' => 'OK',
-                'code'    => 200,
+                'code'    => 201,
             ];
 
         } catch (ModelNotFoundException $exception) {
@@ -217,5 +217,6 @@ IFNULL((ROUND((SELECT COUNT(DISTINCT(pe.aspirante_id))
             ];
         }
 
+        return new JsonResponse($data, $data['meta']['code'], [], 0);
     }
 }
