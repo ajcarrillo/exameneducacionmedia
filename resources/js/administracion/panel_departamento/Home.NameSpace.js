@@ -1,19 +1,18 @@
 let Ofertas = Ofertas || {};
 
 Ofertas.index = {
-    desactivar: function (callback) {
+    desactivar: function (callback, fail) {
         $.ajax({
-            url: "/administracion/panelAdministracion/cancelarOferta/",
-            type: "post",
-            dataType: "json"
+            url: "/administracion/panelAdministracion/cancelarOferta",
+            type: "POST"
         })
             .done(function (response) {
-                callback.call(this, response.meta);
+                callback.call(this, response);
             })
             .fail(function (response) {
-                callback.call(this, response.responseJSON.meta);
+                fail.call(this, response);
             });
-        
+
     }
 };
 

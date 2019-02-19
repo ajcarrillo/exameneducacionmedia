@@ -20,7 +20,7 @@ $(document).ready(function () {
             $cancelar_ofertas.addClass('disabled');
             $cancelar_ofertas.prepend('<i class="fa fa-refresh fa-spin"></i> ');
             Ofertas.index.desactivar(function (response) {
-                if (response.code === 200) {
+                if (response.meta.code === 200) {
                     Swal.fire({
                         title: 'Se desactivaron las ofertas educativas exitosamente!',
                         type: 'success',
@@ -43,6 +43,8 @@ $(document).ready(function () {
                     $cancelar_ofertas.removeClass('disabled');
                     $cancelar_ofertas.find('i.fa').remove();
                 }
+            }, function (response) {
+                console.log(response);
             });
         }
     });
