@@ -9,15 +9,36 @@ use ExamenEducacionMedia\Http\Controllers\Controller;
 use ExamenEducacionMedia\Modules\MediaSuperior\Models\Folio;
 use Illuminate\Support\Facades\Input;
 use MediaSuperior\Models\Revision;
+use ExamenEducacionMedia\Models\EtapaProceso;
 use Subsistema\Models\OfertaEducativa;
 use Subsistema\Models\Plantel;
 use Subsistema\Models\RevisionOferta;
 use Subsistema\Models\Subsistema;
+use Illuminate\Http\JsonResponse;
 
 class PanelController extends Controller
 {
     public function index()
     {
+        $activar = 1;
+        switch (EtapaProceso::isAforo()){
+            case true:
+                $activar = 0;
+                break;
+        }
+
+        switch (EtapaProceso::isRegistro()){
+            case true:
+                $activar = 0;
+                break;
+        }
+
+        switch (EtapaProceso::isOferta()){
+            case true:
+                $activar = 0;
+                break;
+        }
+
         $usuario_id = Auth::user()->id;
         $vari= Subsistema::with('responsable')->where('responsable_id', $usuario_id)->get();
         foreach ($vari as $r) {
@@ -144,7 +165,57 @@ IFNULL((ROUND((SELECT COUNT(DISTINCT(pe.aspirante_id))
             }
         }
 
-        return view('administracion.home', compact('especialidades','planteles','aspirantes_hoy','total_aspirantes','revisiones_oferta',
+        return view('administracion.home', compact('especialidades','planteles','activar','aspirantes_hoy','total_aspirantes','revisiones_oferta',
             'revisiones_aforo','total_folios', 'folios_usados', 'porcentaje_folios','fechas_r','plantelescomplet','porcentaje_filtro','dato'));
+    }
+
+    public function cancelarOferta()
+    {
+        try {
+            $ofertas = OfertaEducativa::all();
+            $ofertas->map(function ($oferta){
+                $oferta->desactivar();
+            });
+            $data['meta'] = [
+                'status'  => 'success',
+                'message' => 'OK',
+                'code'    => 200,
+                ];
+
+            //return redirect()->back();
+
+        } catch (\Exception $e) {
+
+            $data['meta'] = [
+                'status'  => 'error',
+                'message' => $e->getMessage(),
+                'code'    => 500,
+            ];
+        }
+
+        return new JsonResponse($data, $data['meta']['code'], [], 0);
+    }
+
+    public function desactivarPlanteles()
+    {
+
+        try {
+            Plantel::where('active', 1)
+                ->update(['active' => 0]);
+
+            $data['meta'] = [
+                'status'  => 'success',
+                'message' => 'OK',
+                'code'    => 200,
+            ];
+
+        } catch (ModelNotFoundException $exception) {
+            $data['meta'] = [
+                'status'  => 'error',
+                'message' => $exception->getMessage(),
+                'code'    => 500,
+            ];
+        }
+
     }
 }
