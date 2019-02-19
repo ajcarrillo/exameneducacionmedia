@@ -74,7 +74,8 @@ $(document).ready(function () {
                     }
                 )
                     .done(function (response) {
-                        if (response.code == 200) {
+                        console.log(response.meta);
+                        if (response.meta.code == 200) {
                             Swal.fire(
                                 {
                                     position: 'top-end',
@@ -84,34 +85,35 @@ $(document).ready(function () {
                                     timer: 3000
                                 }
                             )
-                            $('#btn_desactivar_planteles').removeAttr('disabled').find('i.fa').remove();
+
                         } else {
                             Swal.fire(
                                 {
                                     position: 'top-end',
-                                    type: 'success',
-                                    title: 'Los planteles se no fueron desactivados',
+                                    type: 'error',
+                                    title: 'Los planteles no fueron desactivados',
                                     showConfirmButton: false,
                                     timer: 3000
                                 }
                             )
-                            $('#btn_desactivar_planteles').removeAttr('disabled').find('i.fa').remove();
+
                         }
                     })
                     .fail(function (xhr) {
                         Swal.fire(
                             {
                                 position: 'top-end',
-                                type: 'success',
-                                title: 'Los planteles se no fueron desactivados',
+                                type: 'error',
+                                title: 'Los planteles no fueron desactivados',
                                 showConfirmButton: false,
                                 timer: 3000
                             }
                         )
-                        $('#btn_desactivar_planteles').removeClass('disabled');
-                        $('#btn_desactivar_planteles').find('i.fa').remove();
+
                         console.log(xhr);
                     });
+                $('#btn_desactivar_planteles').removeClass('disabled');
+                $('#btn_desactivar_planteles').find('i.fa').remove();
             }
         });
 

@@ -223,5 +223,6 @@ IFNULL((ROUND((SELECT COUNT(DISTINCT(pe.aspirante_id))
             ];
         }
 
+        return new JsonResponse($data, $data['meta']['code'], [], 0);
     }
 }
