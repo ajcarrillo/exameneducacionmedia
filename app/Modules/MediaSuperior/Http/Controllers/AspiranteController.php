@@ -10,6 +10,7 @@ namespace MediaSuperior\Http\Controllers;
 
 
 use Aspirante\Models\Aspirante;
+use Aspirante\Models\RevisionRegistro;
 use ExamenEducacionMedia\Http\Controllers\Controller;
 use ExamenEducacionMedia\User;
 use ExamenEducacionMedia\UserFilter;
@@ -48,12 +49,12 @@ class AspiranteController extends Controller
             'revisiones.revision'
         )->find($id);
 
-        $ofertas = $aspirante->opcionesEducativas;
+        $ofertas    = $aspirante->opcionesEducativas;
         $revisiones = $aspirante->revisiones;
+        $sexos      = Aspirante::listaSexos();
+        $estados    = RevisionRegistro::listaEstadosPago();
 
-
-
-        return view('administracion.aspirantes.show', compact('aspirante', 'ofertas', 'revisiones'));
+        return view('administracion.aspirantes.show', compact('aspirante', 'ofertas', 'revisiones', 'sexos', 'estados'));
     }
 
     /**
@@ -62,6 +63,6 @@ class AspiranteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd('hey... trabajando');
     }
 }

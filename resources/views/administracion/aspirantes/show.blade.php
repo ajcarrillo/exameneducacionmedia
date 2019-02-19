@@ -7,6 +7,10 @@
 
 @extends('layouts.app')
 
+@section('navbar-title')
+	Administración - Expediente de aspirante
+@endsection
+
 @section('content')
 	<div class="container">
 		<div class="row">
@@ -15,177 +19,35 @@
 					<div class="card-header">
 						<h1 class="card-title">Expediente de aspirante</h1>
 					</div>
-
-					{!! Form::model($aspirante, ['class'=>'form-horizontal']) !!}
+					{!! Form::model($aspirante, ['route' => ['media.administracion.aspirantes.update', $aspirante->id], 'class'=>'form-horizontal', 'method'=>'POST']) !!}
 					<div class="card-body">
 						<div class="card card-light">
 							<div class="card-header">
 								<h6 class="card-subtitle text-primary">Datos personales</h6>
 							</div>
-							<div class="card-body">
-								<div class="form-row">
-									<div class="form-group col-sm-4">
-										{!! Form::label('user[nombre]', 'Nombre') !!}
-										{!! Form::text('user[nombre]', NULL, ['class'=>'form-control', 'required']) !!}
-									</div>
-									<div class="form-group col-sm-4">
-										{!! Form::label('user[primer_apellido]', 'Primer apellido') !!}
-										{!! Form::text('user[primer_apellido]', NULL, ['class'=>'form-control', 'required']) !!}
-									</div>
-									<div class="form-group col-sm-4">
-										{!! Form::label('user[segundo_apellido]', 'Segundo apellido') !!}
-										{!! Form::text('user[segundo_apellido]', NULL, ['class'=>'form-control']) !!}
-									</div>
-								</div>
-								<div class="form-row">
-									<div class="form-group col-sm-4">
-										{!! Form::label('curp', 'CURP') !!}
-										{!! Form::text('curp', NULL, ['class'=>'form-control']) !!}
-									</div>
-									<div class="form-group col-sm-4">
-										{!! Form::label('fecha_nacimiento', 'Fecha nacimiento') !!}
-										{!! Form::date('fecha_nacimiento', $aspirante->fecha_nacimiento, ['class'=>'form-control']) !!}
-									</div>
-									<div class="form-group col-sm-4">
-										{!! Form::label('sexo', 'Sexo') !!}
-										{!! Form::select('sexo', ['' => 'Seleccione...', 'H' => 'Hombre', 'M' => 'Mujer'], $aspirante->sexo, ['class'=>'form-control']) !!}
-									</div>
-								</div>
-								<div class="form-row">
-									<div class="form-group col-sm-4">
-										<label for="">Domicilio</label>
-										<p class="form-control-plaintext">{{ optional($aspirante->domicilio)->direccionCompuesta }}</p>
-									</div>
-									<div class="form-group col-sm-4">
-										<label for="">Colonia</label>
-										<p class="form-control-plaintext">{{ optional($aspirante->domicilio)->colonia }}</p>
-									</div>
-									<div class="form-group col-sm-4">
-										<label for="">Localidad</label>
-										<p class="form-control-plaintext">{{ optional($aspirante->domicilio)->localidad->NOM_LOC }}</p>
-									</div>
-								</div>
-
-								<div class="form-row">
-									<div class="form-group col-sm-4">
-										<label for="">Código postal</label>
-										<p class="form-control-plaintext">{{ optional($aspirante->domicilio)->codigo_postal }}</p>
-									</div>
-									<div class="form-group col-sm-4">
-										<label for="">País</label>
-										<p class="form-control-plaintext">{{ optional($aspirante->paisNacimiento)->descripcion }}</p>
-									</div>
-								</div>
-								<div class="form-row">
-									<div class="form-group col-sm-4">
-										{!! Form::label('user[email]', 'Correo electrónico') !!}
-										{!! Form::email('user[email]', NULL, ['class'=>'form-control', 'required']) !!}
-									</div>
-									<div class="form-group col-sm-4">
-										<label for="">Reestablecer contraseña</label>
-										<input type="password" class="form-control" name="password">
-									</div>
-								</div>
-
-								<hr>
-
-								<h6 class="card-subtitle mb-2 text-muted">Información de procedencia</h6>
-								<div class="form-row">
-									<div class="form-group col-sm-4">
-										<label for="">Escuela de procedencia</label>
-										<p class="form-control-plaintext">{{ optional($aspirante->informacionProcedencia)->nombreCTCompuesto }}</p>
-									</div>
-									<div class="form-group col-sm-4">
-										<label for="">Fecha de egreso</label>
-										<p class="form-control-plaintext"> {{ optional($aspirante->informacionProcedencia)->fecha_egreso }}</p>
-									</div>
-									<div class="form-group col-sm-4">
-										<label for="">Primera vez en el proceso</label>
-										<p class="form-control-plaintext"> {{ optional($aspirante->informacionProcedencia)->primeraVezTexto }}</p>
-									</div>
-								</div>
-
-								<hr>
-
-							</div>
+							@include('administracion.aspirantes._show_datos')
 						</div>
 
 						<div class="card card-light">
 							<div class="card-header">
 								<h6 class="card-subtitle text-primary">Oferta educativa</h6>
 							</div>
-							<div class="card-body">
-								<div class="table-responsive-sm">
-									<table class="table table-bordered">
-										<thead>
-											<tr>
-												<th>#</th>
-												<th>Plantel</th>
-												<th>Especialidad</th>
-												<th>Preferencia</th>
-											</tr>
-										</thead>
-										<tbody>
-											@forelse($ofertas as $oferta)
-												<tr>
-													<td>{{ $loop->iteration }}</td>
-													<td>{{ $oferta->seleccionOferta->plantel->descripcion }}</td>
-													<td>{{ $oferta->seleccionOferta->especialidad->referencia }}</td>
-													<td>{{ $oferta->preferencia }}</td>
-												</tr>
-											@empty
-												<tr>
-													<td colspan="4" class="text-center">No se encontraron registros</td>
-												</tr>
-											@endforelse
-										</tbody>
-									</table>
-								</div>
-							</div>
+							@include('administracion.aspirantes._show_oferta')
 						</div>
 
 						<div class="card card-light">
 							<div class="card-header">
 								<h6 class="card-subtitle text-primary">información de registro</h6>
 							</div>
-							<div class="card-body">
-								<div class="table-responsive-sm">
-									<table class="table table-bordered">
-										<thead>
-											<tr>
-												<th>#</th>
-												<th>Fecha de envío</th>
-												<th>Estatus</th>
-												<th>Estatus del pago</th>
-											</tr>
-										</thead>
-										<tbody>
-											@forelse($revisiones as $revision)
-												<tr>
-													<td>{{ $loop->iteration }}</td>
-													<td>{{ $revision->revision->fecha_apertura }}</td>
-													<td>{{ $revision->revision->estado }}</td>
-													<td>
-														{!! Form::select('revisiones[efectuado]', ['1' => 'Si', '0' => 'No'],$revision->efectuado, ['class'=>'form-control']) !!}
-													</td>
-												</tr>
-											@empty
-												<tr>
-													<td colspan="4" class="text-center">No se encontraron registros</td>
-												</tr>
-											@endforelse
-										</tbody>
-									</table>
-								</div>
-							</div>
+							@include('administracion.aspirantes._show_revision')
 						</div>
 					</div>
-					{!! Form::close() !!}
 					<div class="card-footer">
+						<button type="submit" class="btn btn-success">Guardar</button>
 					</div>
+					{!! Form::close() !!}
 				</div>
 			</div>
 		</div>
 	</div>
 @stop
-
