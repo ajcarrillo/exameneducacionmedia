@@ -211,7 +211,7 @@
 @endsection
 
 @section('extra-scripts')
-
+    <script src="{{mix('js/administracion/panel_departamento/home.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
@@ -267,6 +267,3 @@
     </script>
 @endsection
 
-@section('extra-scripts')
-    <script src="{{mix('js/administracion/panel_departamento/home.js')}}"></script>
-@endsection
