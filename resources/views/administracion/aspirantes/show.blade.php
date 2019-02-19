@@ -16,8 +16,6 @@
 						<h1 class="card-title">Expediente de aspirante</h1>
 					</div>
 
-					{!! '<pre>' . $aspirante . '</pre>' !!}
-
 					{!! Form::model($aspirante, ['class'=>'form-horizontal']) !!}
 					<div class="card-body">
 						<div class="card card-light">
@@ -36,24 +34,23 @@
 									</div>
 									<div class="form-group col-sm-4">
 										{!! Form::label('user[segundo_apellido]', 'Segundo apellido') !!}
-										{!! Form::text('user[segundo_apellido]', NULL, ['class'=>'form-control', 'required']) !!}
+										{!! Form::text('user[segundo_apellido]', NULL, ['class'=>'form-control']) !!}
 									</div>
 								</div>
 								<div class="form-row">
 									<div class="form-group col-sm-4">
 										{!! Form::label('curp', 'CURP') !!}
-										{!! Form::text('curp', NULL, ['class'=>'form-control', 'required']) !!}
+										{!! Form::text('curp', NULL, ['class'=>'form-control']) !!}
 									</div>
 									<div class="form-group col-sm-4">
 										{!! Form::label('fecha_nacimiento', 'Fecha nacimiento') !!}
-										{!! Form::date('fecha_nacimiento', $aspirante->fecha_nacimiento, ['class'=>'form-control', 'required']) !!}
+										{!! Form::date('fecha_nacimiento', $aspirante->fecha_nacimiento, ['class'=>'form-control']) !!}
 									</div>
 									<div class="form-group col-sm-4">
 										{!! Form::label('sexo', 'Sexo') !!}
-										{!! Form::select('sexo', ['' => 'Seleccione...', 'H' => 'Hombre', 'M' => 'Mujer'], $aspirante->sexo, ['class'=>'form-control', 'required']) !!}
+										{!! Form::select('sexo', ['' => 'Seleccione...', 'H' => 'Hombre', 'M' => 'Mujer'], $aspirante->sexo, ['class'=>'form-control']) !!}
 									</div>
 								</div>
-
 								<div class="form-row">
 									<div class="form-group col-sm-4">
 										<label for="">Domicilio</label>
@@ -76,10 +73,9 @@
 									</div>
 									<div class="form-group col-sm-4">
 										<label for="">País</label>
-										<p class="form-control-plaintext"></p>
+										<p class="form-control-plaintext">{{ optional($aspirante->paisNacimiento)->descripcion }}</p>
 									</div>
 								</div>
-
 								<div class="form-row">
 									<div class="form-group col-sm-4">
 										{!! Form::label('user[email]', 'Correo electrónico') !!}
@@ -92,6 +88,7 @@
 								</div>
 
 								<hr>
+
 								<h6 class="card-subtitle mb-2 text-muted">Información de procedencia</h6>
 								<div class="form-row">
 									<div class="form-group col-sm-4">
@@ -107,7 +104,9 @@
 										<p class="form-control-plaintext"> {{ optional($aspirante->informacionProcedencia)->primeraVezTexto }}</p>
 									</div>
 								</div>
+
 								<hr>
+
 							</div>
 						</div>
 
@@ -133,6 +132,42 @@
 													<td>{{ $oferta->seleccionOferta->plantel->descripcion }}</td>
 													<td>{{ $oferta->seleccionOferta->especialidad->referencia }}</td>
 													<td>{{ $oferta->preferencia }}</td>
+												</tr>
+											@empty
+												<tr>
+													<td colspan="4" class="text-center">No se encontraron registros</td>
+												</tr>
+											@endforelse
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+
+						<div class="card card-light">
+							<div class="card-header">
+								<h6 class="card-subtitle text-primary">información de registro</h6>
+							</div>
+							<div class="card-body">
+								<div class="table-responsive-sm">
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>Fecha de envío</th>
+												<th>Estatus</th>
+												<th>Estatus del pago</th>
+											</tr>
+										</thead>
+										<tbody>
+											@forelse($revisiones as $revision)
+												<tr>
+													<td>{{ $loop->iteration }}</td>
+													<td>{{ $revision->revision->fecha_apertura }}</td>
+													<td>{{ $revision->revision->estado }}</td>
+													<td>
+														{!! Form::select('revisiones[efectuado]', ['1' => 'Si', '0' => 'No'],$revision->efectuado, ['class'=>'form-control']) !!}
+													</td>
 												</tr>
 											@empty
 												<tr>

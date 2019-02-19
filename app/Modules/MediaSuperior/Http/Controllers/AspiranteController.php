@@ -10,7 +10,6 @@ namespace MediaSuperior\Http\Controllers;
 
 
 use Aspirante\Models\Aspirante;
-use Aspirante\Models\Seleccion;
 use ExamenEducacionMedia\Http\Controllers\Controller;
 use ExamenEducacionMedia\User;
 use ExamenEducacionMedia\UserFilter;
@@ -40,14 +39,21 @@ class AspiranteController extends Controller
      */
     public function show($id)
     {
-        $aspirante = Aspirante::with('user', 'domicilio.localidad', 'informacionProcedencia')
-            ->find($id);
-        $ofertas = Seleccion::with( 'seleccionOferta')
-            ->where('aspirante_id', $id)
-            ->orderBy('preferencia', 'asc')
-            ->get();
+        $aspirante = Aspirante::with(
+            'user',
+            'domicilio.localidad',
+            'paisNacimiento',
+            'informacionProcedencia',
+            'opcionesEducativas.seleccionOferta',
+            'revisiones.revision'
+        )->find($id);
 
-        return view('administracion.aspirantes.show', compact('aspirante', 'ofertas'));
+        $ofertas = $aspirante->opcionesEducativas;
+        $revisiones = $aspirante->revisiones;
+
+
+
+        return view('administracion.aspirantes.show', compact('aspirante', 'ofertas', 'revisiones'));
     }
 
     /**
