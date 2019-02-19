@@ -71,7 +71,7 @@ $(document).ready(function () {
                 $.ajax(
                     {
                         'url': '/administracion/panelAdministracion/desactivar-planteles',
-                        'type': 'get',
+                        'type': 'post',
                         'dataType': 'json',
                     }
                 )

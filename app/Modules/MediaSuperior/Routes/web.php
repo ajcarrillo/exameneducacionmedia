@@ -138,7 +138,7 @@ Route::middleware([ 'auth', 'role:departamento' ])
             ->group(function () {
                 Route::get('/', 'PanelController@index')->name('index');
                 Route::post('/cancelarOferta', 'PanelController@cancelarOferta')->name('cancelarOferta');
-                Route::get('/desactivar-planteles', 'PanelController@desactivarPlanteles')->name('desactivar-planteles');
+                Route::post('/desactivar-planteles', 'PanelController@desactivarPlanteles')->name('desactivar-planteles');
 
             });
         //end
