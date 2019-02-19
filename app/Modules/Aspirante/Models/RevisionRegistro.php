@@ -42,4 +42,14 @@ class RevisionRegistro extends Model
 
         $this->revision()->save($revision);
     }
+
+    public static function listaEstadosPago()
+    {
+        $estados = [
+            1 => 'Si',
+            0 => 'No'
+        ];
+
+        return $estados;
+    }
 }

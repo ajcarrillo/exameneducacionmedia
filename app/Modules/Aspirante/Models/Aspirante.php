@@ -182,4 +182,15 @@ class Aspirante extends Model
     {
         return $this->respuestasCeneval()->exists();
     }
+
+    public static function listaSexos()
+    {
+        $sexos = [
+            ''  => 'Seleccione...',
+            'H' => 'Hombre',
+            'M' => 'Mujer',
+        ];
+
+        return $sexos;
+    }
 }
