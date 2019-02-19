@@ -41,6 +41,12 @@ class PanelController extends Controller
 
         $usuario_id = Auth::user()->id;
         $vari= Subsistema::with('responsable')->where('responsable_id', $usuario_id)->get();
+        if (count($vari) > 0) {
+
+        }
+        else{
+            return view('home');
+        }
         foreach ($vari as $r) {
             $subsistema_id = $r->id;
         }
