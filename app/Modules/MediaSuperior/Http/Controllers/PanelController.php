@@ -7,13 +7,12 @@ use Auth;
 use DB;
 use ExamenEducacionMedia\Http\Controllers\Controller;
 use ExamenEducacionMedia\Modules\MediaSuperior\Models\Folio;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Input;
 use MediaSuperior\Models\Revision;
 use ExamenEducacionMedia\Models\EtapaProceso;
 use Subsistema\Models\OfertaEducativa;
 use Subsistema\Models\Plantel;
-use Subsistema\Models\RevisionOferta;
-use Subsistema\Models\Subsistema;
 use Illuminate\Http\JsonResponse;
 
 class PanelController extends Controller
@@ -21,50 +20,50 @@ class PanelController extends Controller
     public function index()
     {
         $activar = 1;
-        switch (EtapaProceso::isAforo()){
+        switch (EtapaProceso::isAforo()) {
             case true:
                 $activar = 0;
                 break;
         }
 
-        switch (EtapaProceso::isRegistro()){
+        switch (EtapaProceso::isRegistro()) {
             case true:
                 $activar = 0;
                 break;
         }
 
-        switch (EtapaProceso::isOferta()){
+        switch (EtapaProceso::isOferta()) {
             case true:
                 $activar = 0;
                 break;
         }
 
         //Datos generales
-        $especialidades= OfertaEducativa::with('activar')->where('active', 1)->count('especialidad_id');
+        $especialidades = OfertaEducativa::with('activar')->where('active', 1)->count('especialidad_id');
         $planteles = Plantel::where('active', 1)->count('id');
         $hoy = date("Y-m-d");
-        $aspirantes_hoy= Aspirante::where('created_at', 'LIKE', '%'. $hoy.'%')->count('id');
+        $aspirantes_hoy = Aspirante::where('created_at', 'LIKE', '%' . $hoy . '%')->count('id');
         $total_aspirantes = Aspirante::count('id');
-        $revisiones_oferta = Revision::where('estado','R')
+        $revisiones_oferta = Revision::where('estado', 'R')
             ->where('revision_type', 'ofertas')
             ->join('revision_ofertas as ro', 'ro.id', '=', 'revisiones.revision_id')
-            ->with('revision', 'revision.subsistema','revision.revisionOferta', 'usuarioApertura', 'usuarioRevision')
+            ->with('revision', 'revision.subsistema', 'revision.revisionOferta', 'usuarioApertura', 'usuarioRevision')
             ->count('revision_id');
-        $revisiones_aforo = Revision::where('estado','R')
+        $revisiones_aforo = Revision::where('estado', 'R')
             ->where('revision_type', 'aforos')
-            ->join('revision_ofertas as ro', 'ro.id', '=', 'revisiones.revision_id')
-            ->with('revision', 'revision.subsistema','revision.revisionOferta', 'usuarioApertura', 'usuarioRevision')
+            ->join('revision_aforos as ro', 'ro.id', '=', 'revisiones.revision_id')
+            ->with('revision', 'revision.subsistema', 'revision.revisionAforo', 'usuarioApertura', 'usuarioRevision')
             ->count('revision_id');
-        $total_folios= Folio::where('active', 1)->count('id');
+        $total_folios = Folio::where('active', 1)->count('id');
         $folios_usados = Aspirante::count('folio');
         $porcentaje_folios = ($folios_usados / $total_folios) * 100;
 
         //consulta fechas y personas por dia para la grafica
-        $f= Aspirante::select(DB::raw('DISTINCT(DATE_FORMAT(created_at, "%Y-%m-%d")) as fecha'))
+        $f = Aspirante::select(DB::raw('DISTINCT(DATE_FORMAT(created_at, "%Y-%m-%d")) as fecha'))
             ->groupBy('id')
             ->pluck('fecha');
         $fechas_r = $f;
-        $dato= Aspirante::select(DB::raw('DISTINCT(DATE_FORMAT(created_at, "%Y-%m-%d")) as fecha, count(id) as personas_por_dia'))
+        $dato = Aspirante::select(DB::raw('DISTINCT(DATE_FORMAT(created_at, "%Y-%m-%d")) as fecha, count(id) as personas_por_dia'))
             ->groupBy('fecha')
             ->pluck('personas_por_dia');
 
@@ -113,12 +112,11 @@ class PanelController extends Controller
                     inner join subsistemas as sb on sb.id = t.subsistema_id 
                     where t.active = 1';
         $porcentaje_filtro = DB::select($porcentaje_f);
-        if ((Input::has('percent')))
-        {
-            if(((Input::get('percent'))== NULL)){
+        if ((Input::has('percent'))) {
+            if (((Input::get('percent')) == NULL)) {
 
-            }else{
-            $filtro = 'select sb.referencia, t.*,
+            } else {
+                $filtro = 'select sb.referencia, t.*,
                     (SELECT COUNT(of.id) 
                                 FROM ofertas_educativas as of
                                 WHERE of.plantel_id = t.id and of.active = 1
@@ -153,38 +151,38 @@ IFNULL((ROUND((SELECT COUNT(DISTINCT(pe.aspirante_id))
                                 )/(SELECT SUM(au.capacidad) 
                                 FROM aulas as au
                                 WHERE au.edificio_type= "plantel" and au.edificio_id = t.id
-                                )*100)),0) = '.Input::get('percent');
-            $plantelescomplet = DB::select($filtro);
+                                )*100)),0) = ' . Input::get('percent');
+                $plantelescomplet = DB::select($filtro);
             }
         }
 
-        return view('administracion.home', compact('especialidades','planteles','activar','aspirantes_hoy','total_aspirantes','revisiones_oferta',
-            'revisiones_aforo','total_folios', 'folios_usados', 'porcentaje_folios','fechas_r','plantelescomplet','porcentaje_filtro','dato'));
+        return view('administracion.home', compact('especialidades', 'planteles', 'activar', 'aspirantes_hoy', 'total_aspirantes', 'revisiones_oferta',
+            'revisiones_aforo', 'total_folios', 'folios_usados', 'porcentaje_folios', 'fechas_r', 'plantelescomplet', 'porcentaje_filtro', 'dato'));
     }
 
     public function cancelarOferta()
     {
         try {
-            OfertaEducativa::where('active',1)
+            OfertaEducativa::where('active', 1)
                 ->update(['active' => 0]);
             /*$ofertas = OfertaEducativa::all();
             $ofertas->map(function ($oferta){
                 $oferta->desactivar();
             });*/
             $data['meta'] = [
-                'status'  => 'success',
+                'status' => 'success',
                 'message' => 'OK',
-                'code'    => 200,
-                ];
+                'code' => 200,
+            ];
 
             //return redirect()->back();
 
         } catch (\Exception $e) {
 
             $data['meta'] = [
-                'status'  => 'error',
+                'status' => 'error',
                 'message' => $e->getMessage(),
-                'code'    => 500,
+                'code' => 500,
             ];
         }
 
@@ -199,16 +197,16 @@ IFNULL((ROUND((SELECT COUNT(DISTINCT(pe.aspirante_id))
                 ->update(['active' => 0]);
 
             $data['meta'] = [
-                'status'  => 'success',
+                'status' => 'success',
                 'message' => 'OK',
-                'code'    => 200,
+                'code' => 200,
             ];
 
         } catch (ModelNotFoundException $exception) {
             $data['meta'] = [
-                'status'  => 'error',
+                'status' => 'error',
                 'message' => $exception->getMessage(),
-                'code'    => 500,
+                'code' => 500,
             ];
         }
 
