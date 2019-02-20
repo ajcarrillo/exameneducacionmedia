@@ -70,7 +70,7 @@
 		</div>
 		<div class="form-group col-sm-4">
 			<label for="new_password">Reestablecer contraseña</label>
-			<input type="password" class="form-control" name="new_password" placeholder="Escriba la nueva contraseña">
+			<input type="password" class="form-control" name="new_password" maxlength="255" placeholder="Escriba la nueva contraseña">
 		</div>
 	</div>
 

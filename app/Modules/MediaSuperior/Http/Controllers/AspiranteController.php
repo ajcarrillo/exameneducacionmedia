@@ -15,7 +15,6 @@ use ExamenEducacionMedia\Http\Controllers\Controller;
 use ExamenEducacionMedia\User;
 use ExamenEducacionMedia\UserFilter;
 use Illuminate\Http\Request;
-use MediaSuperior\Models\Revision;
 
 class AspiranteController extends Controller
 {
@@ -63,19 +62,32 @@ class AspiranteController extends Controller
 
     /**
      * Update.
-     * Modificar los datos permitidos del aspirante.
+     * Modifica datos permitidos del aspirante.
      */
     public function update(Request $request, $id)
     {
-        dd($request);
+        $pass = $request->input('new_password');
+        $efectuado = $request->input('revision.efectuado');
+
         $aspirante = Aspirante::find($id);
         $aspirante->update($request->only('curp', 'fecha_nacimiento', 'sexo'));
 
         $user = $aspirante->user;
-        $user->update($request->user);
+        $user->update($request->input('user'));
+        if(empty($pass)) {
+        } else {
+            $user->update(['password' => bcrypt($pass)]);
+        }
 
         $revision = $aspirante->revision;
-        $revision->update($request->revision);
+        if ($revision->efectuado <> $efectuado) {
+            $revision->update(['efectuado' => $efectuado]);
+            $registro = $aspirante->revision->revision;
+            $registro->update([
+                'fecha_revision' => now(),
+                'usuario_revision' => \Auth::user()->id
+            ]);
+        }
 
         flash('Los datos fueron modificados correctamente.')->success();
         return redirect()->back();
