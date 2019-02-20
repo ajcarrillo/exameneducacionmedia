@@ -21,23 +21,24 @@ class PreferenciaPlantelController
         $t_filtro = "";
         $filtro = "";
 
-        $datos = DB::table('seleccion_ofertas_educativas')
-                    ->select('aspirantes.id','aspirantes.folio', DB::raw("concat(users.nombre,' ',users.primer_apellido,' ',segundo_apellido) as nombre_completo"), 'especialidades.referencia as primera_opcion', 'subsistemas.referencia as subsistema', 'geo.NOM_MUN as municipio', DB::raw('IF(revision_registros.efectuado = null, "Pagado", "Pendiente") as pago'), DB::raw('IF(pases_examen.id = null, "Concluido", "Concluso") as concluyo_registo'))
-                    ->join('aspirantes','aspirantes.id','=','seleccion_ofertas_educativas.aspirante_id')
-                    ->join('users','users.id','=','aspirantes.user_id')
-                    ->join('ofertas_educativas','ofertas_educativas.id','=','seleccion_ofertas_educativas.oferta_educativa_id')
-                    ->join('especialidades','especialidades.id','=', 'ofertas_educativas.especialidad_id')
-                    ->join('planteles','planteles.id','=','ofertas_educativas.plantel_id')
-                    ->join('subsistemas','subsistemas.id','=','planteles.subsistema_id')
-                    ->join('geodatabase.mun_loc_qroo_camp as geo','geo.CVE_MUN','=','planteles.cve_mun')
-                    ->leftjoin('revision_registros','revision_registros.aspirante_id','=','aspirantes.id')
-                    ->leftjoin('pases_examen','pases_examen.aspirante_id','=','aspirantes.id')
-                    ->where('seleccion_ofertas_educativas.preferencia',1)
+        $datos = DB::table('aspirantes')
+            ->select('aspirantes.id', 'aspirantes.folio', DB::raw("concat(users.nombre,' ',users.primer_apellido,' ',segundo_apellido) as nombre_completo"), 'especialidades.referencia as primera_opcion', 'subsistemas.referencia as subsistema', 'geo.NOM_MUN as municipio', DB::raw('IF(revision_registros.efectuado = null, "Pagado", "Pendiente") as pago'), DB::raw('IF(pases_examen.id = null, "Concluido", "Concluso") as concluyo_registo'))
+            ->leftjoin('seleccion_ofertas_educativas', function ($join) {
+                $join->on('aspirantes.id', '=', 'seleccion_ofertas_educativas.aspirante_id')
+                    ->where('seleccion_ofertas_educativas.preferencia', 1);
+            })
+            ->leftjoin('users', 'users.id', '=', 'aspirantes.user_id')
+            ->leftjoin('ofertas_educativas', 'ofertas_educativas.id', '=', 'seleccion_ofertas_educativas.oferta_educativa_id')
+            ->leftjoin('especialidades', 'especialidades.id', '=', 'ofertas_educativas.especialidad_id')
+            ->leftjoin('planteles', 'planteles.id', '=', 'ofertas_educativas.plantel_id')
+            ->leftjoin('subsistemas', 'subsistemas.id', '=', 'planteles.subsistema_id')
+            ->leftjoin('geodatabase.mun_loc_qroo_camp as geo', 'geo.CVE_MUN', '=', 'planteles.cve_mun')
+            ->leftjoin('revision_registros', 'revision_registros.aspirante_id', '=', 'aspirantes.id')
+            ->leftjoin('pases_examen', 'pases_examen.aspirante_id', '=', 'aspirantes.id')
+            ->groupBy('aspirantes.id');
+        //->paginate(10);
 
-                    ->groupBy('aspirantes.id');
-                    //->paginate(10);
-
-            switch (Auth::user()->roles[0]->name){
+            switch (Auth::user()->roles[0]->name) {
                 case 'plantel' :
                     $datos = $datos->where('planteles.id', Auth::user()->plantel->id)
                         ->paginate(10);
@@ -48,35 +49,36 @@ class PreferenciaPlantelController
                     break;
                 case  'departamento':
                     //$datos = $datos->paginate(10);
-                    switch ($request->get('t_filtro')){
+                    switch ($request->get('t_filtro')) {
                         case '':
                             $datos = $datos->paginate(10);
                             break;
                         case 'subsistema':
                             $t_filtro = $request->t_filtro;
                             $filtro = $request->filtro;
-                            $datos = $datos->where('subsistemas.referencia','LIKE', '%'.$request->get('filtro').'%')
+                            $datos = $datos->where('subsistemas.referencia', 'LIKE', '%' . $request->get('filtro') . '%')
                                 ->paginate(10);
                             break;
                         case 'plantel':
                             $t_filtro = $request->t_filtro;
                             $filtro = $request->filtro;
-                            $datos = $datos->where('planteles.descripcion','LIKE', '%'.$request->get('filtro').'%')
+                            $datos = $datos->where('planteles.descripcion', 'LIKE', '%' . $request->get('filtro') . '%')
                                 ->paginate(10);
                             break;
                     }
                     break;
             }
 
-        return view('media_superior.administracion.preferencia_plantel.index', compact('datos','t_filtro','filtro'));
+        return view('media_superior.administracion.preferencia_plantel.index', compact('datos', 't_filtro', 'filtro'));
     }
 
     public function descargarCsv(Request $request)
     {
-        return \Excel::download(new UsersExport(0,4,$request->get('t_filtro'),$request->get('filtro')), 'reporte_Preferencia_de_plantel.csv');
+        return \Excel::download(new UsersExport(0, 4, $request->get('t_filtro'), $request->get('filtro')), 'reporte_Preferencia_de_plantel.csv');
     }
 
-    public function descargarPdf(Request $request){
+    public function descargarPdf(Request $request)
+    {
         $pdf = app('snappy.pdf.wrapper');
         $pdf->setPaper('letter')
             ->setOrientation('landscape')
@@ -87,23 +89,24 @@ class PreferenciaPlantelController
             ->setOption('disable-smart-shrinking', true)
             ->setOption('zoom', '1');
 
-        $datos = DB::table('seleccion_ofertas_educativas')
-            ->select('aspirantes.id','aspirantes.folio', DB::raw("concat(users.nombre,' ',users.primer_apellido,' ',segundo_apellido) as nombre_completo"), 'especialidades.referencia as primera_opcion', 'subsistemas.referencia as subsistema', 'geo.NOM_MUN as municipio', DB::raw('IF(revision_registros.efectuado = null, "Pagado", "Pendiente") as pago'), DB::raw('IF(pases_examen.id = null, "Concluido", "Concluso") as concluyo_registo'))
-            ->join('aspirantes','aspirantes.id','=','seleccion_ofertas_educativas.aspirante_id')
-            ->join('users','users.id','=','aspirantes.user_id')
-            ->join('ofertas_educativas','ofertas_educativas.id','=','seleccion_ofertas_educativas.oferta_educativa_id')
-            ->join('especialidades','especialidades.id','=', 'ofertas_educativas.especialidad_id')
-            ->join('planteles','planteles.id','=','ofertas_educativas.plantel_id')
-            ->join('subsistemas','subsistemas.id','=','planteles.subsistema_id')
-            ->join('geodatabase.mun_loc_qroo_camp as geo','geo.CVE_MUN','=','planteles.cve_mun')
-            ->leftjoin('revision_registros','revision_registros.aspirante_id','=','aspirantes.id')
-            ->leftjoin('pases_examen','pases_examen.aspirante_id','=','aspirantes.id')
-            ->where('seleccion_ofertas_educativas.preferencia',1)
-
+        $datos = DB::table('aspirantes')
+            ->select('aspirantes.id', 'aspirantes.folio', DB::raw("concat(users.nombre,' ',users.primer_apellido,' ',segundo_apellido) as nombre_completo"), 'especialidades.referencia as primera_opcion', 'subsistemas.referencia as subsistema', 'geo.NOM_MUN as municipio', DB::raw('IF(revision_registros.efectuado = null, "Pagado", "Pendiente") as pago'), DB::raw('IF(pases_examen.id = null, "Concluido", "Concluso") as concluyo_registo'))
+            ->leftjoin('seleccion_ofertas_educativas', function ($join) {
+                $join->on('aspirantes.id', '=', 'seleccion_ofertas_educativas.aspirante_id')
+                    ->where('seleccion_ofertas_educativas.preferencia', 1);
+            })
+            ->leftjoin('users', 'users.id', '=', 'aspirantes.user_id')
+            ->leftjoin('ofertas_educativas', 'ofertas_educativas.id', '=', 'seleccion_ofertas_educativas.oferta_educativa_id')
+            ->leftjoin('especialidades', 'especialidades.id', '=', 'ofertas_educativas.especialidad_id')
+            ->leftjoin('planteles', 'planteles.id', '=', 'ofertas_educativas.plantel_id')
+            ->leftjoin('subsistemas', 'subsistemas.id', '=', 'planteles.subsistema_id')
+            ->leftjoin('geodatabase.mun_loc_qroo_camp as geo', 'geo.CVE_MUN', '=', 'planteles.cve_mun')
+            ->leftjoin('revision_registros', 'revision_registros.aspirante_id', '=', 'aspirantes.id')
+            ->leftjoin('pases_examen', 'pases_examen.aspirante_id', '=', 'aspirantes.id')
             ->groupBy('aspirantes.id');
         //->paginate(10);
 
-        switch (Auth::user()->roles[0]->name){
+        switch (Auth::user()->roles[0]->name) {
             case 'plantel' :
                 $datos = $datos->where('planteles.id', Auth::user()->plantel->id)
                     ->paginate(10);
@@ -114,20 +117,20 @@ class PreferenciaPlantelController
                 break;
             case  'departamento':
 
-                switch ($request->get('t_filtro')){
+                switch ($request->get('t_filtro')) {
                     case '':
                         $datos = $datos->get();
                         break;
                     case 'subsistema':
                         $t_filtro = $request->t_filtro;
                         $filtro = $request->filtro;
-                        $datos = $datos->where('subsistemas.referencia','LIKE', '%'.$request->get('filtro').'%')
+                        $datos = $datos->where('subsistemas.referencia', 'LIKE', '%' . $request->get('filtro') . '%')
                             ->get();
                         break;
                     case 'plantel':
                         $t_filtro = $request->t_filtro;
                         $filtro = $request->filtro;
-                        $datos = $datos->where('planteles.descripcion','LIKE', '%'.$request->get('filtro').'%')
+                        $datos = $datos->where('planteles.descripcion', 'LIKE', '%' . $request->get('filtro') . '%')
                             ->get();
                         break;
                 }
