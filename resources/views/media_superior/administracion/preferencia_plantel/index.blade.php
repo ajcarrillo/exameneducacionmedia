@@ -82,7 +82,7 @@
 
 
                             <div class="card-body float-right">
-                                {{-- $datos->links() --}}
+                                {{ $datos->links() }}
                             </div>
                         </div>
                     </div>

@@ -124,34 +124,36 @@ class UsersExport implements FromCollection, WithHeadings
             ->leftjoin('especialidades', 'especialidades.id', '=', 'ofertas_educativas.especialidad_id')
             ->leftjoin('planteles', 'planteles.id', '=', 'ofertas_educativas.plantel_id')
             ->leftjoin('subsistemas', 'subsistemas.id', '=', 'planteles.subsistema_id')
-            ->leftjoin('geodatabase.mun_loc_qroo_camp as geo', 'geo.CVE_MUN', '=', 'planteles.cve_mun')
+            ->leftjoin('geodatabase.municipios_view as geo', function ($join) {
+                $join->on('geo.CVE_MUN', '=', 'planteles.cve_mun')
+                    ->where('geo.CVE_ENT','=', 23);
+            })
             ->leftjoin('revision_registros', 'revision_registros.aspirante_id', '=', 'aspirantes.id')
-            ->leftjoin('pases_examen', 'pases_examen.aspirante_id', '=', 'aspirantes.id')
-            ->groupBy('aspirantes.id');
-        //->paginate(10);
+            ->leftjoin('pases_examen', 'pases_examen.aspirante_id', '=', 'aspirantes.id');
+
 
         switch (Auth::user()->roles[0]->name){
             case 'plantel' :
                 $datos = $datos->where('planteles.id', Auth::user()->plantel->id)
-                    ->paginate(10);
+                    ->get();
                 break;
             case  'subsistema':
                 $datos = $datos->where('subsistemas.id', Auth::user()->plantel->subsistema_id)
-                    ->paginate(10);
+                    ->get();
                 break;
             case  'departamento':
                 //$datos = $datos->paginate(10);
                 switch ($_GET['t_filtro']){
                     case '':
-                        $datos = $datos->paginate(10);
+                        $datos = $datos->paginate(10)->get();
                         break;
                     case 'subsistema':
                         $datos = $datos->where('subsistemas.referencia','LIKE', '%'.$_GET['filtro'].'%')
-                            ->paginate(10);
+                            ->get();
                         break;
                     case 'plantel':
                         $datos = $datos->where('planteles.descripcion','LIKE', '%'.$_GET['filtro'].'%')
-                            ->paginate(10);
+                            ->get();
                         break;
                 }
                 break;

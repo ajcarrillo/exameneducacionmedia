@@ -32,10 +32,12 @@ class PreferenciaPlantelController
             ->leftjoin('especialidades', 'especialidades.id', '=', 'ofertas_educativas.especialidad_id')
             ->leftjoin('planteles', 'planteles.id', '=', 'ofertas_educativas.plantel_id')
             ->leftjoin('subsistemas', 'subsistemas.id', '=', 'planteles.subsistema_id')
-            ->leftjoin('geodatabase.mun_loc_qroo_camp as geo', 'geo.CVE_MUN', '=', 'planteles.cve_mun')
+            ->leftjoin('geodatabase.municipios_view as geo', function ($join) {
+                $join->on('geo.CVE_MUN', '=', 'planteles.cve_mun')
+                    ->where('geo.CVE_ENT','=', 23);
+            })
             ->leftjoin('revision_registros', 'revision_registros.aspirante_id', '=', 'aspirantes.id')
-            ->leftjoin('pases_examen', 'pases_examen.aspirante_id', '=', 'aspirantes.id')
-            ->groupBy('aspirantes.id');
+            ->leftjoin('pases_examen', 'pases_examen.aspirante_id', '=', 'aspirantes.id');
         //->paginate(10);
 
             switch (Auth::user()->roles[0]->name) {
@@ -48,7 +50,6 @@ class PreferenciaPlantelController
                         ->paginate(10);
                     break;
                 case  'departamento':
-                    //$datos = $datos->paginate(10);
                     switch ($request->get('t_filtro')) {
                         case '':
                             $datos = $datos->paginate(10);
@@ -100,20 +101,20 @@ class PreferenciaPlantelController
             ->leftjoin('especialidades', 'especialidades.id', '=', 'ofertas_educativas.especialidad_id')
             ->leftjoin('planteles', 'planteles.id', '=', 'ofertas_educativas.plantel_id')
             ->leftjoin('subsistemas', 'subsistemas.id', '=', 'planteles.subsistema_id')
-            ->leftjoin('geodatabase.mun_loc_qroo_camp as geo', 'geo.CVE_MUN', '=', 'planteles.cve_mun')
+            ->leftjoin('geodatabase.municipios_view as geo', function ($join) {
+                $join->on('geo.CVE_MUN', '=', 'planteles.cve_mun')
+                    ->where('geo.CVE_ENT','=', 23);
+            })
             ->leftjoin('revision_registros', 'revision_registros.aspirante_id', '=', 'aspirantes.id')
-            ->leftjoin('pases_examen', 'pases_examen.aspirante_id', '=', 'aspirantes.id')
-            ->groupBy('aspirantes.id');
-        //->paginate(10);
+            ->leftjoin('pases_examen', 'pases_examen.aspirante_id', '=', 'aspirantes.id');
+
 
         switch (Auth::user()->roles[0]->name) {
             case 'plantel' :
-                $datos = $datos->where('planteles.id', Auth::user()->plantel->id)
-                    ->paginate(10);
+                $datos = $datos->where('planteles.id', Auth::user()->plantel->id)->get();
                 break;
             case  'subsistema':
-                $datos = $datos->where('subsistemas.id', Auth::user()->plantel->subsistema_id)
-                    ->paginate(10);
+                $datos = $datos->where('subsistemas.id', Auth::user()->plantel->subsistema_id)->get();
                 break;
             case  'departamento':
 
