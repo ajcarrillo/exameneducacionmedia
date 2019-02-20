@@ -42,4 +42,8 @@ class Domicilio extends Model
         return $this->hasOne(SedeAlterna::class, 'domicilio_id');
     }
 
+    public function getDireccionCompuestaAttribute()
+    {
+        return $this->calle . ', ' . $this->numero;
+    }
 }
