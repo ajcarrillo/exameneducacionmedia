@@ -15,6 +15,8 @@ use ExamenEducacionMedia\Http\Controllers\Controller;
 use ExamenEducacionMedia\User;
 use ExamenEducacionMedia\UserFilter;
 use Illuminate\Http\Request;
+use Exception;
+use DB;
 
 class AspiranteController extends Controller
 {
@@ -52,44 +54,56 @@ class AspiranteController extends Controller
         $ofertas  = $aspirante->opcionesEducativas;
         $revision = $aspirante->revision;
 
-        $conDomicilio    = empty($aspirante->domicilio) ? false : true;
-        $conRevision     = empty($aspirante->revision) ? false : true;
-        $sexos           = Aspirante::listaSexos();
-        $estadosPago     = RevisionRegistro::listaEstadosPago();
+        $conDomicilio = empty($aspirante->domicilio) ? false : true;
+        $conRevision  = empty($aspirante->revision) ? false : true;
+        $sexos        = Aspirante::listaSexos();
+        $estadosPago  = RevisionRegistro::listaEstadosPago();
 
         return view('administracion.aspirantes.show', compact('aspirante', 'ofertas', 'revision', 'conDomicilio', 'conRevision', 'sexos', 'estadosPago'));
     }
 
     /**
      * Update.
-     * Modifica datos permitidos del aspirante.
+     * Modifica datos permitidos del aspirante y de la revision.
      */
     public function update(Request $request, $id)
     {
-        $pass = $request->input('new_password');
-        $efectuado = $request->input('revision.efectuado');
+        try {
+            $pass      = $request->input('new_password');
+            $efectuado = $request->input('revision.efectuado');
 
-        $aspirante = Aspirante::find($id);
-        $aspirante->update($request->only('curp', 'fecha_nacimiento', 'sexo'));
+            DB::beginTransaction();
 
-        $user = $aspirante->user;
-        $user->update($request->input('user'));
-        if(empty($pass)) {
-        } else {
-            $user->update(['password' => bcrypt($pass)]);
+            $aspirante = Aspirante::find($id);
+            $aspirante->update($request->only('curp', 'fecha_nacimiento', 'sexo'));
+
+            $user = $aspirante->user;
+            $user->update($request->input('user'));
+            if (empty($pass)) {
+            } else {
+                $user->update([ 'password' => bcrypt($pass) ]);
+            }
+
+            $revision = $aspirante->revision;
+            if ($revision->efectuado <> $efectuado) {
+                $revision->update([ 'efectuado' => $efectuado ]);
+
+                $registro = $aspirante->revision->revision;
+                $registro->update([
+                    'fecha_revision'   => now(),
+                    'usuario_revision' => \Auth::user()->id,
+                ]);
+            }
+
+            DB::commit();
+            flash('Los datos fueron modificados correctamente.')->success();
+
+            return redirect()->back();
+        } catch (Exception $e) {
+            DB::rollback();
+            flash($e->getMessage())->warning();
+
+            return redirect()->back();
         }
-
-        $revision = $aspirante->revision;
-        if ($revision->efectuado <> $efectuado) {
-            $revision->update(['efectuado' => $efectuado]);
-            $registro = $aspirante->revision->revision;
-            $registro->update([
-                'fecha_revision' => now(),
-                'usuario_revision' => \Auth::user()->id
-            ]);
-        }
-
-        flash('Los datos fueron modificados correctamente.')->success();
-        return redirect()->back();
     }
 }
