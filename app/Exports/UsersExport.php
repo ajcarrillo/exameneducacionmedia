@@ -113,7 +113,7 @@ class UsersExport implements FromCollection, WithHeadings
     }
 
     public function dataPreferencias(){
-        $datos = DB::table('seleccion_ofertas_educativas')
+        $datos = DB::table('aspirantes')
             ->select('aspirantes.folio', DB::raw("concat(users.nombre,' ',users.primer_apellido,' ',segundo_apellido) as nombre_completo"), 'especialidades.referencia as primera_opcion_especialidad', 'subsistemas.referencia as subsistema', 'geo.NOM_MUN as municipio', DB::raw('IF(revision_registros.efectuado = null, "Pagado", "Pendiente") as pago'), DB::raw('IF(pases_examen.id = null, "Concluido", "Concluso") as concluyo_registo'))
             ->leftjoin('seleccion_ofertas_educativas', function ($join) {
                 $join->on('aspirantes.id', '=', 'seleccion_ofertas_educativas.aspirante_id')
