@@ -47,13 +47,11 @@ class PanelController extends Controller
         $total_aspirantes = Aspirante::count('id');
         $revisiones_oferta = Revision::where('estado','R')
             ->where('revision_type', 'ofertas')
-            //->where('ro.subsistema_id',$subsistema_id)
             ->join('revision_ofertas as ro', 'ro.id', '=', 'revisiones.revision_id')
             ->with('revision', 'revision.subsistema','revision.revisionOferta', 'usuarioApertura', 'usuarioRevision')
             ->count('revision_id');
         $revisiones_aforo = Revision::where('estado','R')
             ->where('revision_type', 'aforos')
-            //->where('ro.subsistema_id',$subsistema_id)
             ->join('revision_ofertas as ro', 'ro.id', '=', 'revisiones.revision_id')
             ->with('revision', 'revision.subsistema','revision.revisionOferta', 'usuarioApertura', 'usuarioRevision')
             ->count('revision_id');
