@@ -69,9 +69,6 @@ class AspiranteController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $pass      = $request->input('new_password');
-            $efectuado = $request->input('revision.efectuado');
-
             DB::beginTransaction();
 
             $aspirante = Aspirante::find($id);
@@ -79,20 +76,25 @@ class AspiranteController extends Controller
 
             $user = $aspirante->user;
             $user->update($request->input('user'));
+
+            $pass = $request->input('new_password');
             if (empty($pass)) {
             } else {
                 $user->update([ 'password' => bcrypt($pass) ]);
             }
 
-            $revision = $aspirante->revision;
-            if ($revision->efectuado <> $efectuado) {
-                $revision->update([ 'efectuado' => $efectuado ]);
+            if ($aspirante->revision()->exists()) {
+                $efectuado = $request->input('revision.efectuado');
+                $revision = $aspirante->revision;
+                if ($revision->efectuado <> $efectuado) {
+                    $revision->update([ 'efectuado' => $efectuado ]);
 
-                $registro = $aspirante->revision->revision;
-                $registro->update([
-                    'fecha_revision'   => now(),
-                    'usuario_revision' => \Auth::user()->id,
-                ]);
+                    $registro = $aspirante->revision->revision;
+                    $registro->update([
+                        'fecha_revision'   => now(),
+                        'usuario_revision' => \Auth::user()->id,
+                    ]);
+                }
             }
 
             DB::commit();
