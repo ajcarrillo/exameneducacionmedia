@@ -59,11 +59,11 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php $cont = 1; ?>
+
                                 @foreach($datos as $info)
 
                                     <tr>
-                                        <td>{{$cont++ }}</td>
+                                        <td>{{$loop->iteration }}</td>
                                         <td>{{$info->folio}}</td>
                                         <td>{{$info->nombre_completo}}</td>
 
