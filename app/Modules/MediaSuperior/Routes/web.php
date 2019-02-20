@@ -12,7 +12,7 @@ Route::middleware([ 'auth', 'role:departamento' ])
             ->group(function () {
                 Route::get('/', 'AspiranteController@index')->name('index');
                 Route::get('/show/{id}', 'AspiranteController@show')->name('show');
-                Route::post('/show/{id}', 'AspiranteController@update')->name('update');
+                Route::patch('/show/{id}', 'AspiranteController@update')->name('update');
             });
 
         Route::prefix('/enlaces')

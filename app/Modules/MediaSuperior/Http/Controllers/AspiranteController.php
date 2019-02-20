@@ -15,6 +15,7 @@ use ExamenEducacionMedia\Http\Controllers\Controller;
 use ExamenEducacionMedia\User;
 use ExamenEducacionMedia\UserFilter;
 use Illuminate\Http\Request;
+use MediaSuperior\Models\Revision;
 
 class AspiranteController extends Controller
 {
@@ -35,8 +36,8 @@ class AspiranteController extends Controller
     }
 
     /**
+     * Show
      * Mostrar expediente del aspirante
-     *
      */
     public function show($id)
     {
@@ -46,25 +47,37 @@ class AspiranteController extends Controller
             'paisNacimiento',
             'informacionProcedencia',
             'opcionesEducativas.seleccionOferta',
-            'revisiones.revision'
+            'revision.revision'
         )->find($id);
 
-        $ofertas    = $aspirante->opcionesEducativas;
-        $revisiones = $aspirante->revisiones;
+        $ofertas  = $aspirante->opcionesEducativas;
+        $revision = $aspirante->revision;
 
-        $conDomicilio = empty($aspirante->domicilio) ? false : true;
-        $sexos      = Aspirante::listaSexos();
-        $estados    = RevisionRegistro::listaEstadosPago();
+        $conDomicilio    = empty($aspirante->domicilio) ? false : true;
+        $conRevision     = empty($aspirante->revision) ? false : true;
+        $sexos           = Aspirante::listaSexos();
+        $estadosPago     = RevisionRegistro::listaEstadosPago();
 
-        return view('administracion.aspirantes.show', compact('aspirante', 'ofertas', 'revisiones', 'conDomicilio', 'sexos', 'estados'));
+        return view('administracion.aspirantes.show', compact('aspirante', 'ofertas', 'revision', 'conDomicilio', 'conRevision', 'sexos', 'estadosPago'));
     }
 
     /**
      * Update.
-     *
+     * Modificar los datos permitidos del aspirante.
      */
     public function update(Request $request, $id)
     {
-        dd('hey... trabajando');
+        dd($request);
+        $aspirante = Aspirante::find($id);
+        $aspirante->update($request->only('curp', 'fecha_nacimiento', 'sexo'));
+
+        $user = $aspirante->user;
+        $user->update($request->user);
+
+        $revision = $aspirante->revision;
+        $revision->update($request->revision);
+
+        flash('Los datos fueron modificados correctamente.')->success();
+        return redirect()->back();
     }
 }

@@ -41,9 +41,9 @@ class Aspirante extends Model
         return $this->hasMany(AspiranteRespuesta::class, 'aspirante_id');
     }
 
-    public function revisiones()
+    public function revision()
     {
-        return $this->hasMany(RevisionRegistro::class, 'aspirante_id');
+        return $this->hasOne(RevisionRegistro::class, 'aspirante_id');
     }
 
     public function paseExamen()

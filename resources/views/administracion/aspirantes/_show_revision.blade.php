@@ -6,32 +6,26 @@
 ?>
 
 <div class="card-body">
-	<div class="table-responsive-sm">
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>#</th>
-					<th>Fecha de envío</th>
-					<th>Estatus</th>
-					<th>Estatus del pago</th>
-				</tr>
-			</thead>
-			<tbody>
-				@forelse($revisiones as $revision)
-					<tr>
-						<td>{{ $loop->iteration }}</td>
-						<td>{{ $revision->revision->fecha_apertura }}</td>
-						<td>{{ $revision->revision->estado }}</td>
-						<td>
-							{!! Form::select('revisiones[efectuado]',$estados,$revision->efectuado,['class'=>'form-control']) !!}
-						</td>
-					</tr>
-				@empty
-					<tr>
-						<td colspan="4" class="text-center">No se encontraron registros</td>
-					</tr>
-				@endforelse
-			</tbody>
-		</table>
+	<div class="form-row">
+		@if($conRevision and $revision->revision)
+			<div class="form-group col-sm-4">
+				<label for="">Fecha de envío</label>
+				<p class="form-control-plaintext">
+					{{ $revision->revision->fecha_apertura }}
+				</p>
+			</div>
+			<div class="form-group col-sm-4">
+				<label for="">Estatus</label>
+				<p class="form-control-plaintext">
+					{{ $revision->revision->estadoTexto }}
+				</p>
+			</div>
+			<div class="form-group col-sm-4">
+				{!! Form::label('revisiones[efectuado]', 'Estatus del pago') !!}
+				{!! Form::select('revision[efectuado]',$estadosPago,$revision->efectuado,['class'=>'form-control']) !!}
+			</div>
+		@else
+			<p class="form-control-plaintext text-center">No se encontraron registros</p>
+		@endif
 	</div>
 </div>
