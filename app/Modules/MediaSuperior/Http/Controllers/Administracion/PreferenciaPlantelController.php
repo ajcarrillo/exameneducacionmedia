@@ -42,33 +42,30 @@ class PreferenciaPlantelController
 
             switch (Auth::user()->roles[0]->name) {
                 case 'plantel' :
-                    $datos = $datos->where('planteles.id', Auth::user()->plantel->id)
-                        ->paginate(10);
+                    $datos = $datos->where('planteles.id', Auth::user()->plantel->id);
                     break;
                 case  'subsistema':
-                    $datos = $datos->where('subsistemas.id', Auth::user()->plantel->subsistema_id)
-                        ->paginate(10);
+                    $datos = $datos->where('subsistemas.id', Auth::user()->plantel->subsistema_id);
                     break;
                 case  'departamento':
                     switch ($request->get('t_filtro')) {
                         case '':
-                            $datos = $datos->paginate(10);
+                            $datos = $datos;
                             break;
                         case 'subsistema':
                             $t_filtro = $request->t_filtro;
                             $filtro = $request->filtro;
-                            $datos = $datos->where('subsistemas.referencia', 'LIKE', '%' . $request->get('filtro') . '%')
-                                ->paginate(10);
+                            $datos = $datos->where('subsistemas.referencia', 'LIKE', '%' . $request->get('filtro') . '%');
                             break;
                         case 'plantel':
                             $t_filtro = $request->t_filtro;
                             $filtro = $request->filtro;
-                            $datos = $datos->where('planteles.descripcion', 'LIKE', '%' . $request->get('filtro') . '%')
-                                ->paginate(10);
+                            $datos = $datos->where('planteles.descripcion', 'LIKE', '%' . $request->get('filtro') . '%');
                             break;
                     }
                     break;
             }
+            $datos = $datos->paginate(10);
 
         return view('media_superior.administracion.preferencia_plantel.index', compact('datos', 't_filtro', 'filtro'));
     }
