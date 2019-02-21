@@ -28,7 +28,7 @@ class EnviarRegistroController extends Controller
 
                 $aspirante->crearRevision();
 
-                $revisionRegistro = $aspirante->revisiones()->first();
+                $revisionRegistro = $aspirante->revision;
 
                 $revisionRegistro->crearRevision();
             });

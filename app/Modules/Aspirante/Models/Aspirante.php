@@ -125,7 +125,7 @@ class Aspirante extends Model
             'efectuado' => false,
         ]);
 
-        $this->revisiones()->save($revisionRegistro);
+        $this->revision()->save($revisionRegistro);
     }
 
     protected function distribuirPase($aulas)

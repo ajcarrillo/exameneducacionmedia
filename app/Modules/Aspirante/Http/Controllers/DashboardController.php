@@ -48,12 +48,12 @@ class DashboardController
 
     protected function getRevision(Aspirante $aspirante)
     {
-        return $aspirante->revisiones()->first();
+        return $aspirante->revision;
     }
 
     protected function hasRevision(Aspirante $aspirante)
     {
-        return $aspirante->revisiones()->exists();
+        return $aspirante->revision()->exists();
     }
 
     protected function getPaseAlExamen(Aspirante $aspirante)
