@@ -145,6 +145,14 @@ Route::middleware([ 'auth', 'role:departamento' ])
             });
         //end
 
+        //Rutas reportes
+        Route::prefix('/reportes')
+            ->name('reportes.')
+            ->group(function () {
+                Route::get('/descargar', 'ReportesController@descargar')->name('descargar');
+            });
+        //end
+
     });
 
 Route::middleware(['auth', 'role:plantel|departamento'])
