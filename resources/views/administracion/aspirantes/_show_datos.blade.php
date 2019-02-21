@@ -23,7 +23,7 @@
 	<div class="form-row">
 		<div class="form-group col-sm-4">
 			{!! Form::label('curp', 'CURP') !!}
-			{!! Form::text('curp', NULL, ['class'=>'form-control']) !!}
+			{!! Form::text('curp', NULL, ['class'=>'form-control', 'maxlength'=> 18]) !!}
 		</div>
 		<div class="form-group col-sm-4">
 			{!! Form::label('fecha_nacimiento', 'Fecha nacimiento') !!}
@@ -69,8 +69,8 @@
 			{!! Form::email('user[email]', NULL, ['class'=>'form-control', 'required']) !!}
 		</div>
 		<div class="form-group col-sm-4">
-			<label for="">Reestablecer contraseña</label>
-			<input type="password" class="form-control" name="password">
+			<label for="new_password">Reestablecer contraseña</label>
+			<input type="password" class="form-control" name="new_password" maxlength="255" minlength="3" placeholder="Escriba la nueva contraseña">
 		</div>
 	</div>
 
