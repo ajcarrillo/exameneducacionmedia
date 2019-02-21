@@ -14,12 +14,17 @@
 @section('content')
 	<div class="container">
 		<div class="row">
+			<div class="col-sm-12">
+				@include('flash::message')
+			</div>
+		</div>
+		<div class="row">
 			<div class="col">
 				<div class="card card-primary card-outline">
 					<div class="card-header">
 						<h1 class="card-title">Expediente de aspirante</h1>
 					</div>
-					{!! Form::model($aspirante, ['route' => ['media.administracion.aspirantes.update', $aspirante->id], 'class'=>'form-horizontal', 'method'=>'POST']) !!}
+					{!! Form::model($aspirante, ['route' => ['media.administracion.aspirantes.update', $aspirante->id], 'class'=>'form-horizontal', 'method'=>'PATCH']) !!}
 					<div class="card-body">
 						<div class="card card-light">
 							<div class="card-header">

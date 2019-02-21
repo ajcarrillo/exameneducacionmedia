@@ -32,4 +32,20 @@ class Revision extends Model
         return $this->belongsTo(User::class,'usuario_revision');
     }
 
+    public function getEstadoTextoAttribute()
+    {
+        switch ($this->estado) {
+            case 'A':
+                $texto = 'Aceptado';
+                break;
+            case 'C':
+                $texto = 'Cancelado';
+                break;
+            case 'R':
+                $texto = 'Revisión';
+                break;
+        }
+
+        return $texto;
+    }
 }
