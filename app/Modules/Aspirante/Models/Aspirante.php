@@ -193,4 +193,30 @@ class Aspirante extends Model
 
         return $sexos;
     }
+
+    public static function dataForAspirantes1erOp()
+    {
+        return \DB::table('aspirantes')->select('aspirantes.folio',
+            \DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'),
+            \DB::raw('concat(planteles.clave," - ",planteles.descripcion) as plantel'),
+            'especialidades.referencia as especialidad',
+            'subsistemas.referencia as subsistema',
+            \DB::raw('concat(informacion_procedencias.clave_centro_trabajo," - ",informacion_procedencias.nombre_centro_trabajo) as nombre_centro_trabajo'),
+            \DB::raw('SUBSTRING(informacion_procedencias.clave_centro_trabajo,3,3) as modalidad'),
+            \DB::raw('IF(revision_registros.efectuado="1","SI","NO") as revision_efectuada'),
+            \DB::raw('IF(pases_examen.id,"SI","NO") as pase_examen'))
+            ->join('users', 'users.id', '=', 'aspirantes.user_id')
+            ->join('informacion_procedencias', 'informacion_procedencias.id', '=', 'aspirantes.informacion_procedencia_id')
+            ->leftjoin('pases_examen', 'pases_examen.aspirante_id', '=', 'aspirantes.id')
+            ->leftjoin('seleccion_ofertas_educativas', 'seleccion_ofertas_educativas.aspirante_id', '=', 'aspirantes.id')
+            ->leftjoin('ofertas_educativas', 'ofertas_educativas.id', '=', 'seleccion_ofertas_educativas.oferta_educativa_id')
+            ->leftjoin('planteles', 'planteles.id', '=', 'ofertas_educativas.plantel_id')
+            ->leftjoin('especialidades', 'especialidades.id', '=', 'ofertas_educativas.especialidad_id')
+            ->leftjoin('subsistemas', 'subsistemas.id', '=', 'planteles.subsistema_id')
+            ->leftjoin('revision_registros', 'revision_registros.aspirante_id', '=', 'aspirantes.id')
+            ->groupBy('aspirantes.id')
+            ->orderBy('informacion_procedencias.clave_centro_trabajo')
+            ->orderBy('users.primer_apellido')
+            ->get();
+    }
 }
