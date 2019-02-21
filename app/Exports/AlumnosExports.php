@@ -41,7 +41,9 @@ class AlumnosExports implements FromCollection, WithHeadings
                 $columns = [
                     'folio',
                     'nombre_completo',
-                    'primera_opción',
+                    'plantel',
+                    'especialidad',
+                    'subsistema',
                     'secundaria',
                     'modalidad',
                     'tiene_pago',

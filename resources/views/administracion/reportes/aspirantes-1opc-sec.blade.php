@@ -28,7 +28,7 @@
 			.tabledetll tr td {
 				border-bottom: 1px solid lightgrey;
 				text-align: center;
-				font-size: 9px;
+				font-size: 8px;
 			}
 
 			.tablegral thead .gral th {
@@ -39,7 +39,7 @@
 
 			.tabledetll thead tr th {
 				background-color: lightgrey;
-				font-size: 9px;
+				font-size: 8px;
 			}
 
 			.dtll {
@@ -68,7 +68,9 @@
 								<tr>
 									<th style="">Folio</th>
 									<th style="">Nombre completo</th>
-									<th style="">Primera opción</th>
+									<th style="">Plantel</th>
+									<th style="">Especialidad</th>
+									<th style="">Subsistema</th>
 									<th style="">Secundaria</th>
 									<th style="">Modalidad</th>
 									<th style="">Tiene pago</th>
@@ -80,7 +82,9 @@
 									<tr>
 										<td>{{ $aspirante->folio }}</td>
 										<td style="text-align: left">{{ $aspirante->nombre_completo }}</td>
-										<td>{{ $aspirante->opcion_educativa_clave }}</td>
+										<td>{{ $aspirante->plantel }}</td>
+										<td>{{ $aspirante->especialidad }}</td>
+										<td>{{ $aspirante->subsistema }}</td>
 										<td>{{ $aspirante->nombre_centro_trabajo }}</td>
 										<td>{{ $aspirante->modalidad }}</td>
 										<td>{{ $aspirante->revision_efectuada}}</td>
