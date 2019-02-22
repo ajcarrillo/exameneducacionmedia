@@ -18,7 +18,7 @@ trait RedirectTo
     public function redirectTo(User $user)
     {
         if ($user->hasRole('departamento')) {
-            return redirect()->intended($this->redirectTo);
+            return redirect()->intended('/administracion/panelAdministracion');
         }
 
         if ($user->hasRole('aspirante')) {
