@@ -12,6 +12,8 @@ INSERT INTO educacionmedia.ceneval_diccionarios (id, nombre) VALUES (15, 'ME_SUC
 INSERT INTO educacionmedia.ceneval_diccionarios (id, nombre) VALUES (19, 'NADA_HABIL_MUY_HABIL');
 INSERT INTO educacionmedia.ceneval_diccionarios (id, nombre) VALUES (9, 'NINGUNO_4_MAS');
 INSERT INTO educacionmedia.ceneval_diccionarios (id, nombre) VALUES (21, 'NIV_EDU_DIC');
+INSERT INTO educacionmedia.ceneval_diccionarios (id, nombre) VALUES (24, 'NO_HAY_EXCELENTE');
+INSERT INTO educacionmedia.ceneval_diccionarios (id, nombre) VALUES (23, 'NO_HAY_MUY_ADECUADOS');
 INSERT INTO educacionmedia.ceneval_diccionarios (id, nombre) VALUES (13, 'NO_LO_SE_HACER');
 INSERT INTO educacionmedia.ceneval_diccionarios (id, nombre) VALUES (10, 'NUNCA_SIEMPRE');
 INSERT INTO educacionmedia.ceneval_diccionarios (id, nombre) VALUES (18, 'POCO_NADA_MUCHO');
