@@ -3,23 +3,22 @@
 namespace MediaSuperior\Http\Controllers;
 
 use Aspirante\Models\Aspirante;
-use Auth;
 use DB;
 use ExamenEducacionMedia\Http\Controllers\Controller;
+use ExamenEducacionMedia\Models\EtapaProceso;
 use ExamenEducacionMedia\Modules\MediaSuperior\Models\Folio;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Input;
 use MediaSuperior\Models\Revision;
-use ExamenEducacionMedia\Models\EtapaProceso;
 use Subsistema\Models\OfertaEducativa;
 use Subsistema\Models\Plantel;
-use Illuminate\Http\JsonResponse;
 
 class PanelController extends Controller
 {
     public function index()
     {
-        $activar = 1;
+        $activar           = 1;
         switch (EtapaProceso::isAforo()) {
             case true:
                 $activar = 0;
@@ -49,14 +48,14 @@ class PanelController extends Controller
             ->join('revision_ofertas as ro', 'ro.id', '=', 'revisiones.revision_id')
             ->with('revision', 'revision.subsistema', 'revision.revisionOferta', 'usuarioApertura', 'usuarioRevision')
             ->count('revision_id');
-        $revisiones_aforo = Revision::where('estado', 'R')
+        $revisiones_aforo  = Revision::where('estado', 'R')
             ->where('revision_type', 'aforos')
             ->join('revision_aforos as ro', 'ro.id', '=', 'revisiones.revision_id')
             ->with('revision', 'revision.subsistema', 'revision.revisionAforo', 'usuarioApertura', 'usuarioRevision')
             ->count('revision_id');
-        $total_folios = Folio::where('active', 1)->count('id');
-        $folios_usados = Aspirante::count('folio');
-        $porcentaje_folios = ($folios_usados / $total_folios) * 100;
+        $total_folios      = Folio::where('active', 1)->count('id');
+        $folios_usados     = Aspirante::count('folio');
+        $porcentaje_folios = $total_folios == 0 ? 0 : ($folios_usados / $total_folios) * 100;
 
         //consulta fechas y personas por dia para la grafica
         $f = Aspirante::select(DB::raw('DISTINCT(DATE_FORMAT(created_at, "%Y-%m-%d")) as fecha'))
