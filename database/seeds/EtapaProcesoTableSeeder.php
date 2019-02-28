@@ -13,18 +13,21 @@ class EtapaProcesoTableSeeder extends Seeder
     {
         $etapas = [
             [
+                'id'          => 1,
                 'nombre'      => 'AFORO',
                 'descripcion' => 'AFORO',
                 'apertura'    => '2018-01-01',
                 'cierre'      => '2018-12-31',
             ],
             [
+                'id'          => 2,
                 'nombre'      => 'OFERTA',
                 'descripcion' => 'OFERTA',
                 'apertura'    => '2018-01-01',
                 'cierre'      => '2018-12-31',
             ],
             [
+                'id'          => 3,
                 'nombre'      => 'REGISTRO',
                 'descripcion' => 'REGISTRO',
                 'apertura'    => '2018-01-01',
