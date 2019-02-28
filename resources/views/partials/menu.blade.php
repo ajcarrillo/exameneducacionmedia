@@ -61,15 +61,15 @@
     <!------------------------------------------------>
         <!-----------------Configuración del proceso ------------------------------->
         @if(auth()->user()->hasRole('departamento'))
-            <li class="nav-item has-treeview menu">
+            <li class="nav-item has-treeview menu menu-open">
                 <a href="#" class="nav-link">
-                    <i></i>
+                    <i class="fas fa-cog"></i>
                     <p>
                         Configuración del proceso
                         <i class="right fa fa-angle-left"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview">
+                <ul class="nav nav-treeview" style="display: block">
                     <li class="nav-item">
                         <a href="{{ route('media.administracion.enlaces.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
@@ -94,15 +94,15 @@
     <!------------------------------------------------>
         <!-----------------Administración proceso ------------------------------->
         @if(auth()->user()->hasRole('departamento') )
-            <li class="nav-item has-treeview menu">
+            <li class="nav-item has-treeview menu menu-open">
                 <a href="#" class="nav-link">
-                    <i></i>
+                    <i class="fas fa-briefcase"></i>
                     <p>
                         Administración
                         <i class="right fa fa-angle-left"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview">
+                <ul class="nav nav-treeview" style="display: block">
                     <li class="nav-item">
                         <a href="{{ route('media.administracion.aspirantes.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
@@ -157,15 +157,15 @@
     <!------------------------------------------------>
         <!-----------------Revisión ------------------------------->
         @if(auth()->user()->hasRole('departamento'))
-            <li class="nav-item has-treeview menu">
+            <li class="nav-item has-treeview menu menu-open">
                 <a href="#" class="nav-link">
-                    <i></i>
+                    <i class="fas fa-tasks"></i>
                     <p>
                         Revisión
                         <i class="right fa fa-angle-left"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview">
+                <ul class="nav nav-treeview" style="display: block">
                     <li class="nav-item">
                         <a href="{{ route('media.administracion.revisiones.aforo.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
