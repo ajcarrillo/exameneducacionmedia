@@ -1,0 +1,10 @@
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE educacionmedia.roles;
+INSERT INTO educacionmedia.roles (id, name, guard_name, created_at, updated_at) VALUES (1, 'supermario', 'web', '2019-02-07 14:50:48', '2019-02-07 14:50:48');
+INSERT INTO educacionmedia.roles (id, name, guard_name, created_at, updated_at) VALUES (2, 'cordinador', 'web', '2019-02-07 14:50:48', '2019-02-07 14:50:48');
+INSERT INTO educacionmedia.roles (id, name, guard_name, created_at, updated_at) VALUES (3, 'departamento', 'web', '2019-02-07 14:50:48', '2019-02-07 14:50:48');
+INSERT INTO educacionmedia.roles (id, name, guard_name, created_at, updated_at) VALUES (4, 'subsistema', 'web', '2019-02-07 14:50:48', '2019-02-07 14:50:48');
+INSERT INTO educacionmedia.roles (id, name, guard_name, created_at, updated_at) VALUES (5, 'plantel', 'web', '2019-02-07 14:50:48', '2019-02-07 14:50:48');
+INSERT INTO educacionmedia.roles (id, name, guard_name, created_at, updated_at) VALUES (6, 'aspirante', 'web', '2019-02-07 14:50:48', '2019-02-07 14:50:48');
+INSERT INTO educacionmedia.roles (id, name, guard_name, created_at, updated_at) VALUES (7, 'invitado', 'web', '2019-02-07 14:50:48', '2019-02-07 14:50:48');
+SET FOREIGN_KEY_CHECKS = 1;
