@@ -52,7 +52,7 @@ class CreateSuperUser extends Command
             'password'         => $password,
         ];
 
-        $user = User::createUser($data, [ 'supermario' ]);
+        $user = User::createUser($data, [ 'supermario', 'departamento' ]);
 
         if ($user) {
             $this->info('El usuario se creó correctamente');
