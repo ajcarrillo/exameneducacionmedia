@@ -20,10 +20,15 @@
         @csrf
     </form>
 @else
+    <a class="dropdown-item">
+        <p class="text-center">Estas logeado como</p>
+        <p class="text-center"><b>{{ get_full_name_from_user($originalUser) }}</b></p>
+    </a>
+    <div class="dropdown-divider"></div>
     <a class="dropdown-item dropdown-footer" href="{{ route('logout') }}"
-       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-        Salir
+       onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+        <span>Salir</span>
+        <i class="fas fa-sign-out-alt"></i>
     </a>
     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf

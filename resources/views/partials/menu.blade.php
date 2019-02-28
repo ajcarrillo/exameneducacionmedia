@@ -3,7 +3,7 @@
         <!-----------------Cambiar contraseña------------------------------->
         <li class="nav-item has-treeview menu">
             <a href="#" class="nav-link">
-                <i></i>
+                <i class="fas fa-key"></i>
                 <p>
                     Cambiar contraseña
                 </p>
@@ -25,7 +25,7 @@
 	    @if(auth()->user()->hasRole('plantel'))
 		    <li class="nav-item has-treeview menu">
 			    <a href="{{ route('centro-descarga.cdescarga.index') }}" class="nav-link">
-				    <i></i>
+                    <i class="fas fa-cloud-download-alt"></i>
 				    <p>
 					    Centro de descarga
 				    </p>
@@ -39,7 +39,7 @@
         @if(auth()->user()->hasRole('departamento'))
             <li class="nav-item has-treeview menu">
                 <a href="{{ route('media.administracion.panelAdministracion.index') }}" class="nav-link">
-                    <i></i>
+                    <i class="fas fa-chart-bar"></i>
                     <p>
                         Panel de control DEMS
                     </p>
@@ -51,7 +51,7 @@
         @if(!auth()->user()->hasRole('aspirante'))
             <li class="nav-item has-treeview menu">
                 <a href="{{ route('media.administracion.enlaces.index') }}" class="nav-link">
-                    <i></i>
+                    <i class="far fa-file-alt"></i>
                     <p>
                         Reportes
                     </p>
