@@ -27,9 +27,9 @@ class CreateResultadosAsignacionTable extends Migration
             $table->string('opc_ed09', 5)->nullable();
             $table->string('opc_ed10', 5)->nullable();
             $table->string('expl_asi', 5)->nullable();
-            $table->integer('nsel', 5)->nullable();
-            $table->integer('nopc_asi')->nullable();
-            $table->integer('copc_asi')->nullable();
+            $table->integer('nsel', false)->nullable();
+            $table->integer('nopc_asi', false)->nullable();
+            $table->integer('copc_asi', false)->nullable();
             $table->timestamps();
         });
     }
