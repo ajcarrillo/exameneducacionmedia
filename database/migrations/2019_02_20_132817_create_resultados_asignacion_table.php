@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateResultadosAsignacionTable extends Migration
 {
@@ -14,7 +14,7 @@ class CreateResultadosAsignacionTable extends Migration
     public function up()
     {
         Schema::create('resultados_asignacion', function (Blueprint $table) {
-            $table->unsignedInteger('folio')->unique();
+            $table->unsignedInteger('folio')->primary();
             $table->foreign('folio')->references('folio')->on('aspirantes');
             $table->string('opc_ed01', 5)->nullable();
             $table->string('opc_ed02', 5)->nullable();
