@@ -13,6 +13,7 @@ class ResetDatabase extends Seeder
     {
         $files = [
             'database/queries/truncate_tables.sql',
+            'database/queries/etapas_proceso.sql',
             'database/queries/ceneval_diccionarios.sql',
             'database/queries/ceneval_preguntas.sql',
             'database/queries/ceneval_respuestas.sql',
