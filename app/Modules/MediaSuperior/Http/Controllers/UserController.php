@@ -33,7 +33,7 @@ class UserController extends Controller
 
         $users->appends($request->only([ 'role', 'search' ]));
 
-        $roles = $this->getRoles();
+        $roles = $this->getRolesToCreateUsers();
 
         return view('administracion.users.index', compact('users', 'roles'));
     }
@@ -65,11 +65,6 @@ class UserController extends Controller
         flash('El usuario se actualizó correctamente')->success();
 
         return back();
-    }
-
-    protected function getRoles()
-    {
-        return Role::pluck('name');
     }
 
     protected function getRolesToCreateUsers(): array

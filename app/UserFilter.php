@@ -17,7 +17,7 @@ class UserFilter extends QueryFilter
     public function rules(): array
     {
         return [
-            'role'   => 'filled|in:subsistema,plantel',
+            'role'   => 'filled|in:supermario,cordinador,departamento,subsistema,plantel,aspirante,invitado',
             'search' => 'filled',
             'curp'   => 'filled|min:4',
         ];
