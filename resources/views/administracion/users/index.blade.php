@@ -2,6 +2,12 @@
 
 @section('content')
     <div class="container-fluid">
+        <div class="row pb-3">
+            <div class="col">
+                <a href="{{ route('media.administracion.usuarios.create') }}"
+                   class="btn btn-primary">Crear</a>
+            </div>
+        </div>
         <div class="row">
             <div class="col">
                 <div class="card card-outline card-primary">

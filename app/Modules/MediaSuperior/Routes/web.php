@@ -89,7 +89,9 @@ Route::middleware([ 'auth', 'role:departamento' ])
         Route::prefix('/usuarios')
             ->name('usuarios.')
             ->group(function () {
-                Route::get('/', 'UserController')->name('index');
+                Route::get('/', 'UserController@index')->name('index');
+                Route::post('/', 'UserController@store')->name('store');
+                Route::get('/nuevo', 'UserController@create')->name('create');
             });
 
 
