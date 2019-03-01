@@ -49,7 +49,11 @@
                         @slot('tbody')
                             @forelse($users as $user)
                                 <tr>
-                                    <td>{{ get_full_name_from_user($user) }}</td>
+                                    <td>
+                                        <a href="{{ route('media.administracion.usuarios.edit', $user->id) }}">
+                                            {{ get_full_name_from_user($user) }}
+                                        </a>
+                                    </td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ collect($user->getRoleNames())->implode(', ') }}</td>
                                     <td>

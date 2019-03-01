@@ -14,6 +14,7 @@ use ExamenEducacionMedia\User;
 use ExamenEducacionMedia\UserFilter;
 use Illuminate\Http\Request;
 use MediaSuperior\Http\Requests\StoreUser;
+use MediaSuperior\Http\Requests\UpdateUser;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -39,9 +40,7 @@ class UserController extends Controller
 
     public function create()
     {
-        $roles = [ 'cordinador', 'departamento', 'subsistema', 'plantel', 'aspirante' ];
-
-        return view('administracion.users.create', compact('roles'));
+        return $this->form('administracion.users.create', new User);
     }
 
     public function store(StoreUser $request)
@@ -53,8 +52,39 @@ class UserController extends Controller
         return back();
     }
 
+    public function edit(User $user)
+    {
+        return $this->form('administracion.users.edit', $user, false);
+    }
+
+    public function update(UpdateUser $request, User $user)
+    {
+        $user->update($request->validated());
+        $user->syncRoles($request->input('roles'));
+
+        flash('El usuario se actualizó correctamente')->success();
+
+        return back();
+    }
+
     protected function getRoles()
     {
         return Role::pluck('name');
+    }
+
+    protected function getRolesToCreateUsers(): array
+    {
+        $roles = [ 'cordinador', 'departamento', 'subsistema', 'plantel' ];
+
+        return $roles;
+    }
+
+    protected function form($view, User $user, $isCreate = true)
+    {
+        return view($view, [
+            'roles'    => $this->getRolesToCreateUsers(),
+            'user'     => $user,
+            'isCreate' => $isCreate,
+        ]);
     }
 }

@@ -4,7 +4,7 @@
            name="nombre"
            id="nombre"
            class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}"
-           value="{{ old('nombre') }}"
+           value="{{ old('nombre', $user->nombre) }}"
            required
            autofocus>
     @errors(['field'=>'nombre'])
@@ -16,7 +16,7 @@
            name="primer_apellido"
            id="primer_apellido"
            class="form-control{{ $errors->has('primer_apellido') ? ' is-invalid' : '' }}"
-           value="{{ old('primer_apellido') }}"
+           value="{{ old('primer_apellido', $user->primer_apellido) }}"
            required>
     @errors(['field'=>'primer_apellido'])
     @enderrors
@@ -27,7 +27,7 @@
            name="segundo_apellido"
            id="segundo_apellido"
            class="form-control"
-           value="{{ old('segundo_apellido') }}">
+           value="{{ old('segundo_apellido', $user->segundo_apellido) }}">
 </div>
 <div class="form-group">
     <label for="email">Email</label>
@@ -35,30 +35,22 @@
            name="email"
            id="email"
            class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
-           value="{{ old('email') }}"
+           value="{{ old('email', $user->email) }}"
            required>
     @errors(['field'=>'email'])
     @enderrors
 </div>
-<div class="form-group">
-    <label for="password">Contraseña</label>
-    <input type="password"
-           name="password"
-           id="password"
-           class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-           required>
-    @errors(['field'=>'password'])
-    @enderrors
-</div>
+@includeWhen($isCreate, 'administracion.users._password_field')
 <div class="form-group">
     <label for="">Roles:</label>
     <br>
     @foreach($roles as $role)
         <label class="checkbox-inline pr-3">
             <input type="checkbox"
-                   name="roles[]"
+                   name="roles[{{ $role }}]"
                    id="{{ $role }}"
-                   value="{{$role}}">
+                   value="{{$role}}"
+                {{ $errors->any() ? old("roles.{$role}") : $user->roles()->pluck('name')->contains($role) ? 'checked' : '' }}>
             {{ $role }}
         </label>
     @endforeach

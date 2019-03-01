@@ -91,6 +91,8 @@ Route::middleware([ 'auth', 'role:departamento' ])
             ->group(function () {
                 Route::get('/', 'UserController@index')->name('index');
                 Route::post('/', 'UserController@store')->name('store');
+                Route::get('/{user}/editar', 'UserController@edit')->name('edit');
+                Route::patch('/{user}/', 'UserController@update')->name('update');
                 Route::get('/nuevo', 'UserController@create')->name('create');
             });
 
@@ -143,7 +145,6 @@ Route::middleware([ 'auth', 'role:departamento' ])
                 Route::get('/', 'PanelController@index')->name('index');
                 Route::post('/cancelarOferta', 'PanelController@cancelarOferta')->name('cancelarOferta');
                 Route::post('/desactivar-planteles', 'PanelController@desactivarPlanteles')->name('desactivar-planteles');
-
             });
         //end
 
@@ -157,14 +158,14 @@ Route::middleware([ 'auth', 'role:departamento' ])
 
     });
 
-Route::middleware(['auth', 'role:plantel|departamento'])
+Route::middleware([ 'auth', 'role:plantel|departamento' ])
     ->prefix('/administracion')
     ->name('administracion.')
     ->group(function () {
         Route::get('/problemas-curp', 'Administracion\ProblemaCurpController@index')->name('historico.curp');
         Route::get('/problemas-curp/descargar', 'Administracion\ProblemaCurpController@descargar')->name('historico.descargar');
     });
-Route::middleware(['auth', 'role:plantel|departamento|subsistema'])
+Route::middleware([ 'auth', 'role:plantel|departamento|subsistema' ])
     ->prefix('/administracion')
     ->name('administracion.')
     ->group(function () {
