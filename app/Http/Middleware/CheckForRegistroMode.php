@@ -17,7 +17,7 @@ class CheckForRegistroMode
     public function handle($request, Closure $next)
     {
         if ( ! EtapaProceso::isRegistro()) {
-            abort(500);
+            abort(403, "La etapa de registro aún no inicia");
         }
 
         return $next($request);

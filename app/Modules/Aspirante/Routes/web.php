@@ -10,11 +10,19 @@
 
 Route::post('/buscar-matricula', 'BuscarMatriculaController@index')->name('buscar.matricula');
 
-Route::get('/registro-externo', 'RegistroExternoController@index')->name('registro.externo');
-Route::post('/registro-externo', 'RegistroExternoController@store')->name('registro.externo');
+Route::get('/registro-externo', 'RegistroExternoController@index')
+    ->name('registro.externo')
+    ->middleware('isRegistro');
+Route::post('/registro-externo', 'RegistroExternoController@store')
+    ->name('registro.externo')
+    ->middleware('isRegistro');
 
-Route::get('/registro-matricula', 'RegistroMatriculaController@index')->name('registro.matricula');
-Route::post('/registro-matricula', 'RegistroMatriculaController@store')->name('registro.matricula');
+Route::get('/registro-matricula', 'RegistroMatriculaController@index')
+    ->name('registro.matricula')
+    ->middleware('isRegistro');
+Route::post('/registro-matricula', 'RegistroMatriculaController@store')
+    ->name('registro.matricula')
+    ->middleware('isRegistro');
 
 Route::middleware([ 'auth', 'role:aspirante' ])
     ->name('aspirante.profile')
