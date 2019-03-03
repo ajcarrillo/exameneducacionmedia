@@ -3,10 +3,12 @@
 namespace ExamenEducacionMedia\Http\Middleware;
 
 use Closure;
+use ExamenEducacionMedia\Traits\RedirectTo;
 use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
 {
+    use RedirectTo;
     /**
      * Handle an incoming request.
      *
@@ -18,7 +20,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            return $this->redirectTo(Auth::user());
         }
 
         return $next($request);

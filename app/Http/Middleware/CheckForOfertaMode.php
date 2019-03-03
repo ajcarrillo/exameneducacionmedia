@@ -17,7 +17,7 @@ class CheckForOfertaMode
     public function handle($request, Closure $next)
     {
         if ( ! EtapaProceso::isOferta()) {
-            abort(500);
+            abort(403, "La etapa de oferta aún no empieza o ha terminado");
         }
 
         return $next($request);

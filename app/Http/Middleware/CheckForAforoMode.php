@@ -17,7 +17,7 @@ class CheckForAforoMode
     public function handle($request, Closure $next)
     {
         if ( ! EtapaProceso::isAforo()) {
-            abort(500);
+            abort(403, "La etapa de aforo aún no empieza o ha terminado");
         }
 
         return $next($request);
