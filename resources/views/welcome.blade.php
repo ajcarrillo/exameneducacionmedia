@@ -67,11 +67,13 @@
                 </div>
                 <div class="logos-siem text-center">
                     <img
-                        class="img-fluid"
+                        style="width: 100%; max-width: 600px; margin: 0 auto"
+                        class="d-block"
                         src="{{ asset('img/paenms.png') }}"
                         alt="Secretaría de Educación de Quintana Roo">
                     <img
-                        style="width: 100%; max-width: 709px"
+                        style="width: 100%; max-width: 600px; margin: 0 auto"
+                        class="d-block"
                         src="{{ asset('img/lineas_colores.gif') }}"
                         alt="Departamento de Educación Media Superior">
                 </div>
@@ -102,6 +104,12 @@
                         </a>
                     </div>
                 @endif
+
+                <div class="mt-3 d-flex flex-column flex-sm-row justify-content-center">
+                    <a href="{{ route('login') }}" class="btn btn-info btn-lg">
+                        Entrar
+                    </a>
+                </div>
 
                 <div class="information mt-3 mb-3">
                     <h3 class="text-center mb-0">
