@@ -16,7 +16,7 @@ class CheckForPlantel
     public function handle($request, Closure $next)
     {
         if ( ! $request->user()->plantel) {
-            abort(401, "Usted no es responsable de un plantel");
+            abort(403, "Usted no es responsable de un plantel");
         }
 
         return $next($request);

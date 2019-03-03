@@ -16,7 +16,7 @@ class CheckForSubsistema
     public function handle($request, Closure $next)
     {
         if ( ! $request->user()->subsistema) {
-            abort(401, "Usted no es responsable de un subsistema");
+            abort(403, "Usted no es responsable de un subsistema");
         }
 
         return $next($request);
