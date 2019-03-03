@@ -4,96 +4,127 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('img/iconoseyc.png') }}">
+        <title>{{ env('APP_NAME') }}</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
         <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
+            body {
+                font-family: 'Nunito', 'serif';
             }
 
             .links > a {
                 color: #636b6f;
                 padding: 0 25px;
-                font-size: 12px;
+                font-size: 0.875rem;
                 font-weight: 600;
                 letter-spacing: .1rem;
-                text-decoration: none;
                 text-transform: uppercase;
             }
 
-            .m-b-md {
-                margin-bottom: 30px;
+            .register > a {
+                text-decoration: underline;
+                font-size: 1rem !important;
             }
+
+            @media (min-width: 576px) {
+                #descargables > a {
+                    width: 100%;
+                }
+            }
+
+            @media (min-width: 768px) {
+                #descargables > a {
+                    width: 33.333%;
+                }
+            }
+
+            @media (min-width: 992px) {
+
+            }
+
+            @media (min-width: 1200px) {
+
+            }
+
+
+
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                        <a href="#!">{{ Auth::user()->nombre_completo }}</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('login.jarvis') }}">Login SEQ</a>
-                        <a href="{{ route('login.oauth') }}">Login SIIE</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
+        <div class="container-fluid" id="app">
+            <main class="d-flex flex-column">
+                <div class="logos-gobierno text-center mt-3 mb-5">
+                    <img
+                        class="img-fluid"
+                        src="{{ asset('img/logos-institucionales.png') }}"
+                        alt="Gobierno del Estado de Quintana Roo - SEQ">
                 </div>
-            @endif
+                <div class="logos-siem text-center">
+                    <img
+                        class="img-fluid"
+                        src="{{ asset('img/paenms.png') }}"
+                        alt="Secretaría de Educación de Quintana Roo">
+                    <img
+                        style="width: 100%; max-width: 709px"
+                        src="{{ asset('img/lineas_colores.gif') }}"
+                        alt="Departamento de Educación Media Superior">
+                </div>
+                <div class="about text-center mt-5 mb-3">
+                    <h2
+                        class=""
+                        style="color: #938e94; font-size: 3rem; font-weight: 600;">Proceso de Asignación de Espacios</h2>
+                    <h2 class="mb-5"
+                        style="color: #666a6d; font-size: 3rem; font-weight: 600;">Nivel Medio Superior</h2>
+                    <h3
+                        class="mb-0"
+                        style="color: #666a6d"><strong>REGISTRO: 1</strong> de abril al <strong>16</strong> de junio</h3>
+                </div>
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
+                @if(is_etapa_registro())
+                    <div class="register mt-3 links d-flex flex-column flex-sm-row justify-content-center">
+                        <a href="/aspirantes/registro-matricula"
+                           class="text-center mb-3">
+                            Registro alumnos de Quintana Roo
+                        </a>
+                        <a href="/aspirantes/registro-externo"
+                           class="text-center mb-3">
+                            <span>Registro alumnos externos</span>
+                        </a>
+                        <a href="/aspirantes/registro-externo"
+                           class="text-center mb-3">
+                            <span>Registro alumnos extranjeros</span>
+                        </a>
+                    </div>
+                @endif
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div class="information mt-3 mb-3">
+                    <h3 class="text-center mb-0">
+                        <a href="">
+                            Convocatoria PAENMS 2019
+                        </a>
+                    </h3>
+
+                    <div class="mt-3 links d-flex flex-column flex-sm-row justify-content-center">
+                        <a class="text-center mb-3" href="http://qroo.gob.mx/seq/preparatoria-abierta-quintana-roo">Preparatoria abierta</a>
+                        <a class="text-center mb-3" href="http://www.prepaenlinea.sep.gob.mx/">Preparatoria en línea</a>
+                        <a class="text-center mb-3" href="http://www.facebook.com/paenmsqroo">Asesorías y dudas</a>
+                    </div>
+
+                    <div id="descargables" class="mt-3 links d-flex flex-column flex-sm-row justify-content-around">
+                        <a class="text-center mb-3 flex-fill" href="http://siem.seq.gob.mx/static/media/Guia_EXANI_I_2018.pdf">Guía de estudios EXANI-I CENEVAL</a>
+                        <a class="text-center mb-3 flex-fill" href="http://siem.seq.gob.mx/static/media/catalogo_opciones_educativas.pdf">Catálogo de preparatorias públicas en
+                            Quintana Roo</a>
+                        <a class="text-center mb-3 flex-fill" href="http://siem.seq.gob.mx/static/media/Preparatoria_Abierta_del_Colegio_de_Bachilleres_del_Estado_de_Quintana_Roo.pdf">Preparatoria
+                            Abierta en el Colegio de Bachilleres</a>
+                    </div>
                 </div>
-            </div>
+            </main>
         </div>
     </body>
 </html>

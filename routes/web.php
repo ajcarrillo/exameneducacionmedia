@@ -76,4 +76,4 @@ Route::get('login/oauth-password', 'Auth\LoginJarvisController@showLoginForm')->
 Route::post('login/oauth-password', 'Auth\LoginJarvisController@login')->name('login.jarvis');
 /*Login con jarvis*/
 
-Auth::routes();
+Auth::routes($options = [ 'register' => false, 'reset' => false ]);

@@ -27,3 +27,10 @@ if ( ! function_exists('get_full_name_from_user')) {
         return "{$user->nombre} {$user->primer_apellido} {$user->segundo_apellido}";
     }
 }
+
+if ( ! function_exists('is_etapa_registro')) {
+    function is_etapa_registro()
+    {
+        return \ExamenEducacionMedia\Models\EtapaProceso::isRegistro();
+    }
+}
