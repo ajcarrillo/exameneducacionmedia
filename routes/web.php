@@ -12,14 +12,14 @@
 */
 
 Route::post('/login-as-user', 'Auth\LoginAsController@loginAsUser')
-    ->middleware([ 'auth', 'role:departamento,admin' ])
+    ->middleware([ 'auth', 'role:departamento' ])
     ->name('login.as.user');
 
 Route::post('/logout-as-user', 'Auth\LoginAsController@logout')
     ->middleware([ 'auth' ])
     ->name('logout.as.user');
 
-Route::middleware([ 'auth', 'role:departamento' ])
+/*Route::middleware([ 'auth', 'role:departamento' ])
     ->prefix('/administracion')
     ->as('administracion.')
     ->group(function () {
@@ -32,7 +32,7 @@ Route::middleware([ 'auth', 'role:departamento' ])
                     ->where([ 'all' => '.*' ])
                     ->name('spa');
             });
-    });
+    });*/
 
 Route::middleware([ 'auth', 'role:plantel|subsistema|aspirante' ])
     ->prefix('/')
@@ -43,13 +43,13 @@ Route::middleware([ 'auth', 'role:plantel|subsistema|aspirante' ])
     });
 
 
-Route::view('/home', 'home')->middleware([ 'auth' ]);
+/*Route::view('/home', 'home')->middleware([ 'auth' ]);*/
 
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('/registro', function () {
+/*Route::get('/registro', function () {
     return view('welcome');
 })->middleware([ 'isRegistro' ]);
 
@@ -59,7 +59,7 @@ Route::get('/subsistema/aforo', function () {
 
 Route::get('/subsistema/oferta', function () {
     return view('subsistemas.home');
-})->middleware([ 'isOferta' ]);
+})->middleware([ 'isOferta' ]);*/
 
 
 Route::group([ 'prefix' => '/planteles', 'middleware' => [ 'auth', 'role:plantel', 'hasPlantel' ] ], function () {
