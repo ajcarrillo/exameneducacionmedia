@@ -41,6 +41,7 @@ $(document).ready(function () {
         }
 
         avisoUsuario.text(mensaje);
+        avisoUsuario.css("display", "block");
 
 
         if (mensaje.length === 0) {
