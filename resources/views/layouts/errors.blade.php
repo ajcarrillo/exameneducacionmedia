@@ -470,11 +470,17 @@
                         @yield('message')
                     </p>
 
-                    <a href="{{ app('router')->has('home') ? route('home') : url('/') }}">
+                    <a href="{{ url('/') }}">
                         <button class="bg-transparent text-grey-darkest font-bold uppercase tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
-                            {{ __('Go Home') }}
+                            Ir al inicio
                         </button>
                     </a>
+
+                    <div>
+                        <img src="{{ asset('img/logos-institucionales.png') }}"
+                             alt=""
+                             class="img-fluid">
+                    </div>
                 </div>
             </div>
 
