@@ -1,4 +1,4 @@
-@extends((( $name_role->name == 'aspirante') ? 'centro_de_descargas.centro_descarga_aspirantes' : 'layouts.app' ))
+@extends((( $name_role->name == 'aspirante') ? 'aspirante.layouts.aspirante' : 'layouts.app' ))
 @section('extra-head')
 	<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 @endsection
