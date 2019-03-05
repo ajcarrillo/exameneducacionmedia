@@ -1,7 +1,12 @@
 @extends('aspirante.layouts.aspirante')
 
 @section('content')
-    <div class="container-fluid pt-4">
+    <div class="container-fluid">
+        <div class="row justify-content-center py-3">
+            <div class="col">
+                @include('aspirante.partials.back_button')
+            </div>
+        </div>
         <div class="row">
             <div class="col d-flex">
                 <div class="alert alert-info align-self-stretch" role="alert">

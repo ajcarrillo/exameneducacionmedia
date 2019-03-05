@@ -6,6 +6,10 @@
         </a>
     </li>
     <li>
+        <a href="/aspirantes/captura-cuestionario"
+           class="btn btn-primary btn-sm">Cuestionario CENEVAL</a>
+    </li>
+    <li>
         <a href="/aspirantes/opciones-educativas"
            class="btn btn-primary btn-sm">Opciones educativas</a>
     </li>
