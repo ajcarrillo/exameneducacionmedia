@@ -85,7 +85,8 @@
                         style="color: #666a6d; font-size: 3rem; font-weight: 600;">Nivel Medio Superior</h2>
                     <h3
                         class="mb-0"
-                        style="color: #666a6d"><strong>REGISTRO: 1</strong> de abril al <strong>16</strong> de junio</h3>
+                        style="color: #666a6d"><b>REGISTRO: {{ get_etapa('registro')->fecha_apertura }} al {{ get_etapa('registro')->fecha_cierre }}</b></h3>
+
                 </div>
 
                 @if(is_etapa_registro())

@@ -34,3 +34,10 @@ if ( ! function_exists('is_etapa_registro')) {
         return \ExamenEducacionMedia\Models\EtapaProceso::isRegistro();
     }
 }
+
+if ( ! function_exists('get_etapa')) {
+    function get_etapa($nombre)
+    {
+        return \ExamenEducacionMedia\Models\EtapaProceso::getEtapa($nombre);
+    }
+}
