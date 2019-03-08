@@ -17,6 +17,8 @@ class CreateSubsistemasTable extends Migration
             $table->tinyIncrements('id');
             $table->string('referencia');
             $table->string('descripcion');
+            $table->unsignedInteger('responsable_id')->nullable();
+            $table->foreign('responsable_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
