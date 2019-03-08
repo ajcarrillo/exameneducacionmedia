@@ -14,6 +14,7 @@
                     <li><a class="mb-3" href="http://qroo.gob.mx/seq/preparatoria-abierta-quintana-roo">Preparatoria abierta</a></li>
                     <li><a class="mb-3" href="http://www.prepaenlinea.sep.gob.mx/">Preparatoria en línea</a></li>
                     <li><a class="mb-3" href="http://www.facebook.com/paenmsqroo">Asesorías y dudas</a></li>
+                    <li><a class="mb-3" href="/">Ir al inicio</a></li>
                 </ul>
                 <h2 class="mb-3">Descarga</h2>
                 <ul>
