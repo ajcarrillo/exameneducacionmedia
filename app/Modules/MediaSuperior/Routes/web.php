@@ -155,7 +155,13 @@ Route::middleware([ 'auth', 'role:departamento' ])
                 Route::get('/descargar', 'ReportesController@descargar')->name('descargar');
             });
         //end
-
+        Route::prefix('/planteles')
+            ->name('planteles.')
+            ->group(function () {
+                Route::patch('/{plantel}/descuento', 'UpdatePlantelDescuentoController@udpate')->name('update.descuento');
+                Route::patch('/{plantel}/opciones', 'UpdatePlantelOpcionesController@udpate')->name('update.opciones');
+                Route::get('/', 'PlantelController@index')->name('index');
+            });
     });
 
 Route::middleware([ 'auth', 'role:plantel|departamento' ])

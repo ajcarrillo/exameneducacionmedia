@@ -122,7 +122,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('media.administracion.responsablePlantel.index') }}" class="nav-link">
+                        <a href="{{ route('media.administracion.planteles.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Planteles</p>
                         </a>
