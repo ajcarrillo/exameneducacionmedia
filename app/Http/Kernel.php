@@ -2,13 +2,14 @@
 
 namespace ExamenEducacionMedia\Http;
 
+use Aspirante\Http\Middleware\VerifyFolios;
 use ExamenEducacionMedia\Http\Middleware\CheckCuestionario;
 use ExamenEducacionMedia\Http\Middleware\CheckForAforoMode;
 use ExamenEducacionMedia\Http\Middleware\CheckForOfertaMode;
 use ExamenEducacionMedia\Http\Middleware\CheckForPlantel;
 use ExamenEducacionMedia\Http\Middleware\CheckForRegistroMode;
-use Subsistema\Http\Middleware\CheckForSubsistema;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Subsistema\Http\Middleware\CheckForSubsistema;
 
 class Kernel extends HttpKernel
 {
@@ -75,5 +76,6 @@ class Kernel extends HttpKernel
         'role'               => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission'         => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
+        'existsFolios'       => VerifyFolios::class,
     ];
 }

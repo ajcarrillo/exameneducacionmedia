@@ -12,17 +12,19 @@ Route::post('/buscar-matricula', 'BuscarMatriculaController@index')->name('busca
 
 Route::get('/registro-externo', 'RegistroExternoController@index')
     ->name('registro.externo')
-    ->middleware('isRegistro');
+    ->middleware([ 'isRegistro', 'existsFolios' ]);
+
 Route::post('/registro-externo', 'RegistroExternoController@store')
     ->name('registro.externo')
-    ->middleware('isRegistro');
+    ->middleware([ 'isRegistro', 'existsFolios' ]);
 
 Route::get('/registro-matricula', 'RegistroMatriculaController@index')
     ->name('registro.matricula')
-    ->middleware('isRegistro');
+    ->middleware([ 'isRegistro', 'existsFolios' ]);
+
 Route::post('/registro-matricula', 'RegistroMatriculaController@store')
     ->name('registro.matricula')
-    ->middleware('isRegistro');
+    ->middleware([ 'isRegistro', 'existsFolios' ]);
 
 Route::middleware([ 'auth', 'role:aspirante' ])
     ->name('aspirante.profile')
