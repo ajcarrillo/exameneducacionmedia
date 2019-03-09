@@ -10,16 +10,23 @@ namespace MediaSuperior\Http\Controllers;
 
 
 use ExamenEducacionMedia\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Subsistema\Models\Filters\PlantelFilter;
 use Subsistema\Models\Plantel;
+use Subsistema\Models\Subsistema;
 
 class PlantelController extends Controller
 {
-    public function index()
+    public function index(Request $request, PlantelFilter $filters)
     {
         $planteles = Plantel::with('responsable', 'subsistema')
+            ->filterBy($filters, $request->only([ 'subsistema', 'search' ]))
             ->orderBy('descripcion')
             ->get();
 
-        return view('administracion.planteles.index', compact('planteles'));
+        $subsistemas = Subsistema::orderBy('referencia')
+            ->get([ 'id', 'referencia' ]);
+
+        return view('administracion.planteles.index', compact('planteles', 'subsistemas'));
     }
 }

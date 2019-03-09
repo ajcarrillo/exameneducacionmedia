@@ -24,6 +24,10 @@ if ( ! function_exists('get_aspirante')) {
 if ( ! function_exists('get_full_name_from_user')) {
     function get_full_name_from_user($user)
     {
+        if ( ! $user) {
+            return;
+        }
+
         return "{$user->nombre} {$user->primer_apellido} {$user->segundo_apellido}";
     }
 }

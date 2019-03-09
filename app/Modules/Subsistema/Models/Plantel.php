@@ -12,6 +12,7 @@ namespace Subsistema\Models;
 use Awobaz\Compoships\Compoships;
 use ExamenEducacionMedia\Models\Geodatabase\Localidad;
 use ExamenEducacionMedia\Models\Geodatabase\MunicipioView;
+use ExamenEducacionMedia\QueryFilter;
 use ExamenEducacionMedia\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -56,5 +57,10 @@ class Plantel extends Model
     public function scopeOnlyActive($query)
     {
         return $query->where('active', true);
+    }
+
+    public function scopeFilterBy($query, QueryFilter $filters, array $data)
+    {
+        return $filters->applyTo($query, $data);
     }
 }
