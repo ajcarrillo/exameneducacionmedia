@@ -76,7 +76,7 @@
                                 <td>
                                     {{ props.item.municipio.NOM_MUN }}
                                 </td>
-                                <td v-if="props.item.responsable">{{ props.item.responsable.nombre_completo }}</td>
+                                <td v-if="props.item.responsable">{{ `${props.item.responsable.nombre} ${props.item.responsable.primer_apellido} ${props.item.responsable.segundo_apellido}` }}</td>
                                 <td v-else>
                                     <router-link
                                         :to="{name:'subsistema.plantel.responsable', params:{plantelid: props.item.uuid}}">

@@ -18,7 +18,7 @@ class PlantelResponsableController extends Controller
         try {
             $p = Plantel::where('uuid', $plantel)->firstOrFail();
             $responsable = DB::transaction(function () use ($request, $p) {
-                $user = User::createUser($request->only([ 'nombre_completo', 'email', 'password' ]), [ 'plantel' ]);
+                $user = User::createUser($request->only([ 'nombre', 'primer_apellido', 'segundo_apellido', 'email', 'password' ]), [ 'plantel' ]);
                 $p->responsable()->associate($user)->save();
 
                 return $p->responsable;

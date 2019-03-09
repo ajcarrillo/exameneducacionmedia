@@ -57,7 +57,9 @@ export default {
     asignarResponsable(contex, payload) {
         return new Promise(function (resolve, reject) {
             axios.post(route('api.plantel.responsable', {plantel: payload.uuid}), {
-                nombre_completo: `${payload.responsable.nombre} ${payload.responsable.primer_apellido} ${payload.responsable.segundo_apellido}`,
+                nombre: payload.responsable.nombre,
+                primer_apellido: payload.responsable.primer_apellido,
+                segundo_apellido: payload.responsable.segundo_apellido,
                 email: payload.responsable.email,
                 username: payload.responsable.username,
                 password: payload.responsable.password,
