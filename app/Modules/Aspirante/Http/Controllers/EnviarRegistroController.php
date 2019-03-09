@@ -10,11 +10,9 @@ namespace Aspirante\Http\Controllers;
 
 
 use Aspirante\Http\Requests\StoreRevisionRegistro;
-use Aspirante\Models\RevisionRegistro;
-use Carbon\Carbon;
 use DB;
+use ExamenEducacionMedia\Classes\SolicitudPago;
 use ExamenEducacionMedia\Http\Controllers\Controller;
-use MediaSuperior\Models\Revision;
 
 class EnviarRegistroController extends Controller
 {
@@ -26,7 +24,14 @@ class EnviarRegistroController extends Controller
             DB::transaction(function () {
                 $aspirante = get_aspirante();
 
-                $aspirante->crearRevision();
+                $solicitud = new SolicitudPago($aspirante);
+
+                try {
+                    $id = $solicitud->enviar()->solicitudPagoId;
+                    $aspirante->crearRevision($id);
+                } catch (\Exception $e) {
+                    throw new \Exception($e->getMessage(), $e->getCode());
+                }
 
                 $revisionRegistro = $aspirante->revision;
 
@@ -34,8 +39,8 @@ class EnviarRegistroController extends Controller
             });
 
             flash('Tu registro se envió correctamente')->success();
-        } catch (\Throwable $e) {
-            flash('Lo sentimos ha ocurrido un error intenta de nuevo')->error();
+        } catch (\Exception $e) {
+            flash($e->getMessage())->error();
         }
 
         return back();

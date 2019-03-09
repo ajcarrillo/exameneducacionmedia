@@ -37,7 +37,7 @@ class RevisionRegistro extends Model
         $revision = new Revision([
             'fecha_apertura'   => Carbon::now(),
             'estado'           => 'R',
-            'usuario_apertura' => get_aspirante()->id,
+            'usuario_apertura' => \Auth::user()->id,
         ]);
 
         $this->revision()->save($revision);

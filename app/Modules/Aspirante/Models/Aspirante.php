@@ -119,10 +119,11 @@ class Aspirante extends Model
         return $asignado;
     }
 
-    public function crearRevision()
+    public function crearRevision($solicitudPagoId)
     {
         $revisionRegistro = new RevisionRegistro([
-            'efectuado' => false,
+            'efectuado'         => false,
+            'solicitud_pago_id' => $solicitudPagoId,
         ]);
 
         $this->revision()->save($revisionRegistro);
