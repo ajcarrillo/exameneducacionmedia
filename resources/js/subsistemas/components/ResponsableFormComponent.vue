@@ -83,6 +83,7 @@
                     uuid: this.plantelid
                 })
                     .then(res => {
+                        this.resetForm();
                         this.$notify({
                             group: 'notify',
                             title: 'Notificaciones',
@@ -98,6 +99,14 @@
                         });
                         console.log(err.response);
                     })
+            },
+            resetForm() {
+                this.model.nombre = '';
+                this.model.primer_apellido = '';
+                this.model.segundo_apellido = '';
+                this.model.email = '';
+                this.model.password = '';
+                this.model.username = '';
             }
         }
     }

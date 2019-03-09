@@ -56,10 +56,10 @@
 
                         </div>
                     </div>
-                    <div class="card-body p-0 table-responsive">
+                    <div class="card-body table-responsive p-0">
                         <planteles-table :items="planteles" :headers="headers">
                             <template slot="items" slot-scope="props">
-                                <td colspan="2">
+                                <td>
                                     <edit-name-form
                                         :plantelid="props.item.id"
                                         :plantelname="props.item.descripcion"
@@ -144,12 +144,11 @@
                 message: 'subsistema',
                 loadingData: true,
                 headers: [
-                    {text: '', value: '', align: 'left', width: '1%'},
-                    {text: 'Plantel', value: 'descripcion', align: 'left'},
-                    {text: 'Estatus', value: 'active', align: 'left'},
-                    {text: 'Municipio', value: '', align: 'left'},
-                    {text: 'Responsable', value: 'responsable_id', align: 'left'},
-                    {text: 'Opciones', value: '', align: 'center'},
+                    {width: '1%', text: 'Plantel', value: 'descripcion', align: 'left'},
+                    {width: '1%', text: 'Estatus', value: 'active', align: 'left'},
+                    {width: '5%', text: 'Municipio', value: '', align: 'left'},
+                    {width: '10%', text: 'Responsable', value: 'responsable_id', align: 'left'},
+                    {width: '5%', text: 'Opciones', value: '', align: 'center'},
                 ],
             }
         },

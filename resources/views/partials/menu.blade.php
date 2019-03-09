@@ -186,16 +186,16 @@
         @if(auth()->user()->hasRole('subsistema'))
 		    <li class="nav-item has-treeview menu">
 			    <a href="{{ route('centro-descarga.cdescarga.index') }}" class="nav-link">
-				    <i></i>
+                    <i class="fas fa-download"></i>
 				    <p>
 					    Centro de descargas
 				    </p>
 			    </a>
 		    </li>
 
-		    <li class="nav-item has-treeview menu">
+		    <li class="nav-item has-treeview menu menu-open">
                 <a href="#" class="nav-link">
-                    <i></i>
+                    <i class="fas fa-diagnoses"></i>
                     <p>
                         Subsistema
                         <i class="right fa fa-angle-left"></i>
@@ -206,6 +206,12 @@
                         <a href="{{ route('spa.subsistemas') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Planteles</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/subsistemas/especialidades" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Especialidades</p>
                         </a>
                     </li>
                 </ul>
