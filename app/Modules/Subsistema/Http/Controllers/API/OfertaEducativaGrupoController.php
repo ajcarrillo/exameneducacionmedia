@@ -22,7 +22,7 @@ class OfertaEducativaGrupoController extends BaseController
             [ 'oferta_educativa_id' => $ofertaId ],
             [ 'grupos' => request('grupos'), 'alumnos' => request('alumnos') ]
         );
-
-        return ok();
+        $oferta->load('grupos');
+        return ok(compact('oferta'));
     }
 }

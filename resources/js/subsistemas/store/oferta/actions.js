@@ -76,7 +76,7 @@ export default {
                 alumnos: payload.grupo.alumnos
             })
                 .then(res => {
-                    console.log(res);
+                    context.commit('setGrupos', res.data.oferta);
                     resolve(res);
                 })
                 .catch(err => {

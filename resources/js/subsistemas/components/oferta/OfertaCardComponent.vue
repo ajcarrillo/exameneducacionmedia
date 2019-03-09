@@ -1,15 +1,11 @@
 <template>
-    <li class="p-3">
-        <div class="row">
+    <li class="">
+        <div class="row pl-3 pt-3 pr-3">
             <div class="col">
                 <div class="d-sm-flex flex-sm-row align-items-center">
                     <div class="pr-3 d-inline-flex">
                         <button @click="desactivar(oferta.id)" class="btn btn-sm btn-info" v-if="oferta.active">{{ oferta.active|tagEstatus }}</button>
                         <button @click="activar(oferta.id)" class="btn btn-sm btn-danger" v-else>{{ oferta.active|tagEstatus }}</button>
-                    </div>
-                    <div class="pr-3 d-inline-flex">
-                        <button @click="$modal.show('grupos-'+oferta.id)" class="btn btn-primary btn-sm">Agregar grupo</button>
-                        <grupos-form :ofertaid="oferta.id" :uuid="uuid"></grupos-form>
                     </div>
                     <div class="pr-3 d-inline-flex">
                         <button @click="eliminarOferta(oferta.id)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
@@ -26,37 +22,52 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="d-flex flex-row align-items-center">
-                    <div class="pr-3">
-                        <label for="">Grupos:</label>
-                        <span>{{ grupos }}</span></div>
-                    <div class="pr-3">
-                        <label for="">Alumnos por grupo:</label>
-                        <span>{{ alumnosPorGrupo }}</span></div>
-                    <div class="pr-3">
-                        <label for="">Total:</label>
-                        <span>{{ total }}</span></div>
-                </div>
+        <div class="d-flex flex-row align-items-center bg-light p-3" v-if="!editGroups">
+            <div class="pr-3">
+                <label for="" class="mb-0">Grupos:</label>
+                <span>{{ grupos }}</span></div>
+            <div class="pr-3">
+                <label for="" class="mb-0">Alumnos por grupo:</label>
+                <span>{{ alumnosPorGrupo }}</span></div>
+            <div class="pr-3">
+                <label for="" class="mb-0">Total:</label>
+                <span>{{ total }}</span></div>
+            <div class="pr-3">
+                <button class="btn btn-primary btn-sm" @click="editGroups = !editGroups">Editar</button>
             </div>
+        </div>
+        <div class="d-flex flex-row align-items-center bg-light p-3" v-if="editGroups">
+            <form @submit.prevent="agregarGrupos" class="form-inline">
+                <label for="" class="mr-2">Grupos</label>
+                <input type="number" min="1" step="1" class="form-control mr-3 text-right" v-model="formGrupos.grupos">
+                <label for="" class="mr-2">Alumnos por grupo</label>
+                <input type="number" min="1" step="1" class="form-control mr-3 text-right" v-model="formGrupos.alumnos">
+                <label for="" class="mr-2">Total</label>
+                <input type="text" class="form-control mr-3 text-right" disabled :value="formGrupos.grupos*formGrupos.alumnos">
+                <button class="btn btn-success btn-sm mr-3">Guardar</button>
+                <button @click="editGroups = !editGroups" class="btn btn-danger btn-sm" type="button">Cerrar</button>
+            </form>
         </div>
     </li>
 </template>
 
 <script>
     import store from '../../store/store';
-    import GruposForm from './GrupoComponent';
 
     export default {
         name: "OfertaCardComponent",
         components: {
-            GruposForm
+
         },
         props: ['oferta'],
         data() {
             return {
-                expanded: false
+                expanded: false,
+                editGroups: false,
+                formGrupos: {
+                    alumnos: this.oferta.grupos ? this.oferta.grupos.alumnos : 0,
+                    grupos: this.oferta.grupos ? this.oferta.grupos.grupos : 0
+                }
             }
         },
         filters: {
@@ -82,6 +93,31 @@
             }
         },
         methods: {
+            agregarGrupos() {
+                let ofertaId = this.oferta.id;
+                let uuid = this.uuid;
+                let grupo = {
+                    grupos: this.formGrupos.grupos,
+                    alumnos: this.formGrupos.alumnos,
+                    oferta_educativa_id: ofertaId
+                };
+                store.dispatch('oferta/storeGrupo', {uuid, ofertaId, grupo})
+                    .then(res => {
+                        this.$notify({
+                            group: 'notify',
+                            title: 'Notificaciones',
+                            text: 'La oferta se guardó correctamente',
+                            type: 'success'
+                        });
+                    })
+                    .catch(err => {
+                        swal({
+                            type: 'error',
+                            title: 'Oops...',
+                            text: 'Lo sentimos, algo ha salido mal intenta de nuevo',
+                        })
+                    })
+            },
             activar(ofertaId) {
                 let uuid = this.uuid;
 
