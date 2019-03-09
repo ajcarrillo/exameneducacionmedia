@@ -17,6 +17,9 @@
 		<a href="{{ route('centro-descarga.cdescarga.index') }}"
 		   class="btn btn-primary btn-sm">Centro de descargas</a>
 	</li>
+    <li>
+        <a href="/aspirantes/enviar-solicitud">Enviar</a>
+    </li>
     @if($hasRevision)
         @if($revision->efectuado)
             @if(!$hasPaseAlExamen)

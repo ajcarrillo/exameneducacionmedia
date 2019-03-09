@@ -56,6 +56,8 @@ Route::middleware([ 'auth', 'role:aspirante' ])
         Route::post('/captura-cuestionario', 'CuestionarioController@store')->middleware('cuestionario')->name('guarda.cuestionario');
         Route::view('/aviso-aspirante', 'aspirante.cuestionario.aviso_aspirante')->name('aviso.aspirante');
         //-- End Igna
+
+        Route::get('/enviar-solicitud', 'SolicitudPagoController@send')->name('solicitud.pago');
     });
 
 
