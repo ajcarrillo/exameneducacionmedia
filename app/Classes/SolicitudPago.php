@@ -9,46 +9,54 @@
 namespace ExamenEducacionMedia\Classes;
 
 
+use Aspirante\Models\Aspirante;
 use ExamenEducacionMedia\Contracts\ProviderInterface;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Str;
 
 class SolicitudPago implements ProviderInterface
 {
     const CONCEPTO = '026';
     const CANTIDAD = 1;
+    const MESSAGE  = 'Por el momento no se puede genear tu ficha de deposito';
 
     protected $billyURL;
-    private   $vigencia, $nombre_completo, $curp, $municipio, $localidad, $colonia, $calle, $numero;
+    protected $vigencia;
+    protected $nombre_completo;
+    protected $curp;
+    protected $municipio;
+    protected $localidad;
+    protected $colonia;
+    protected $calle;
+    protected $numero;
+    protected $aspirante;
 
+    public $solicitudPagoId;
 
-    public function __construct($vigencia, $nombre_completo, $curp, $municipio, $localidad, $colonia, $calle, $numero)
+    public function __construct(Aspirante $aspirante)
     {
-        $this->billyURL        = env('BILLY_SERVICE_URL');
-        $this->vigencia        = $vigencia;
-        $this->nombre_completo = $nombre_completo;
-        $this->curp            = $curp;
-        $this->municipio       = $municipio;
-        $this->localidad       = $localidad;
-        $this->colonia         = $colonia;
-        $this->calle           = $calle;
-        $this->numero          = $numero;
+        $this->billyURL  = env('BILLY_SERVICE_URL');
+        $this->aspirante = $aspirante;
     }
 
     public function enviar()
     {
-        $json = $this->serializeToJson();
+        $json = $this->getSolicituPago();
 
-        $guzzle = new Client;
-
-        $response = $guzzle->request('POST', "{$this->billyURL}/solicitud-pago/", [
-            'json' => $json,
-        ]);
+        try {
+            $response = $this->generaSolicitudPago($json);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), $e->getCode());
+        }
 
         $location = $response->getHeader('Location')[0];
 
         $split = explode("/", $location);
 
-        return $split[2];
+        $this->solicitudPagoId = $split[2];
+
+        return $this;
     }
 
     public static function verificarPago($solicitudId)
@@ -123,8 +131,10 @@ class SolicitudPago implements ProviderInterface
     /**
      * @return array
      */
-    protected function serializeToJson(): array
+    protected function getSolicituPago(): array
     {
+        $this->mapSolicituPago();
+
         return [
             'concepto'      => self::CONCEPTO,
             'cantidad'      => self::CANTIDAD,
@@ -140,5 +150,52 @@ class SolicitudPago implements ProviderInterface
                 'numero'          => $this->numero,
             ],
         ];
+    }
+
+    protected function mapSolicituPago()
+    {
+        $registro              = get_etapa('REGISTRO');
+        $aspirante             = $this->aspirante;
+        $this->vigencia        = (string)$registro->cierre;
+        $this->nombre_completo = "{$aspirante->user->nombre} {$aspirante->user->primer_apellido} {$aspirante->user->segundo_apellido}";
+        $this->curp            = $aspirante->curp;
+        $this->municipio       = Str::substr($aspirante->domicilio->municipio->CVE_MUN, 1, 2);
+        $this->localidad       = $aspirante->domicilio->localidad->NOM_LOC;
+        $this->colonia         = $aspirante->domicilio->colonia;
+        $this->calle           = $aspirante->domicilio->calle;
+        $this->numero          = $aspirante->domicilio->numero;
+    }
+
+    /**
+     * @param array $json
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @throws \Exception
+     */
+    protected function generaSolicitudPago(array $json)
+    {
+        $guzzle = new Client;
+
+        try {
+            $response = $guzzle->request('POST', "{$this->billyURL}/solicitud-pago/", [
+                'json' => $json,
+            ]);
+        } catch (GuzzleException $e) {
+            \Log::info('*******************');
+            \Log::error($e->getMessage());
+            \Log::info('*******************');
+            throw new \Exception(self::MESSAGE, 422);
+        }
+
+        $status = $response->getStatusCode();
+
+        if ($status != 201) {
+            if ($status == 400) {
+                throw new \Exception((string)$response->getBody(), 400);
+            } else {
+                throw new \Exception(self::MESSAGE, 422);
+            }
+        }
+
+        return $response;
     }
 }
