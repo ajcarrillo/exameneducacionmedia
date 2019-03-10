@@ -10,6 +10,7 @@ namespace Aspirante\Models;
 
 
 use Awobaz\Compoships\Compoships;
+use ExamenEducacionMedia\Classes\SolicitudPago;
 use ExamenEducacionMedia\Models\Entidad;
 use ExamenEducacionMedia\Models\Geodatabase\Pais;
 use ExamenEducacionMedia\User;
@@ -219,5 +220,16 @@ class Aspirante extends Model
             ->orderBy('informacion_procedencias.clave_centro_trabajo')
             ->orderBy('users.primer_apellido')
             ->get();
+    }
+
+    public function updateFichaJson($solicitudPagoId)
+    {
+        try {
+            $fichaJson = SolicitudPago::getFichaPago($solicitudPagoId);
+            $this->revision()->update([ 'ficha_json' => $fichaJson ]);
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            throw new \Exception('Ocurrió un error al intentar obtener la información de la ficha de pago');
+        }
     }
 }

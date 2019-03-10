@@ -59,6 +59,30 @@ class SolicitudPago implements ProviderInterface
         return $this;
     }
 
+    public static function getFichaPago($solicitudId)
+    {
+        $guzzle = new Client;
+
+        $url = env('BILLY_SERVICE_URL');
+
+        try {
+            $response = $guzzle->get("{$url}/solicitud-pago/{$solicitudId}/");
+        } catch (\Exception $e) {
+            \Log::info('*****obtiendo-json-ficha******');
+            \Log::error($e->getMessage());
+            \Log::info('*****obtiendo-json-ficha******');
+            throw new \Exception("Error al conectar con billy", 422);
+        }
+
+        $status = $response->getStatusCode();
+
+        if ($status != 200) {
+            throw new \Exception('Por el momento no se puede obtener la información de la ficha de pago');
+        }
+
+        return $response->getBody();
+    }
+
     public static function verificarPago($solicitudId)
     {
         // TODO: Implement verificarPago() method.

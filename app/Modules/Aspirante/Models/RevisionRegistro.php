@@ -19,7 +19,8 @@ class RevisionRegistro extends Model
     protected $table   = 'revision_registros';
     protected $guarded = [];
     protected $casts   = [
-        'efectuado' => 'boolean',
+        'efectuado'  => 'boolean',
+        'ficha_json' => 'array',
     ];
 
     public function aspirante()
@@ -47,7 +48,7 @@ class RevisionRegistro extends Model
     {
         $estados = [
             1 => 'Si',
-            0 => 'No'
+            0 => 'No',
         ];
 
         return $estados;

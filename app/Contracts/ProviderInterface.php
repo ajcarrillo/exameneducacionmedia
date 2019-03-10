@@ -14,4 +14,6 @@ interface ProviderInterface
     public function enviar();
 
     public static function verificarPago($solicitudId);
+
+    public static function getFichaPago($solicitudId);
 }

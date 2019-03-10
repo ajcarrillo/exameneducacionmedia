@@ -9,19 +9,18 @@
 namespace Aspirante\Http\Controllers;
 
 
-use Aspirante\Http\Requests\StoreRevisionRegistro;
 use DB;
 use ExamenEducacionMedia\Classes\SolicitudPago;
 use ExamenEducacionMedia\Http\Controllers\Controller;
 
 class EnviarRegistroController extends Controller
 {
-    public function store(StoreRevisionRegistro $request)
+    public function store()
     {
-        $request->validated();
+        //$request->validated();
 
         try {
-            DB::transaction(function () {
+            $solicitudPagoId = DB::transaction(function () {
                 $aspirante = get_aspirante();
 
                 $solicitud = new SolicitudPago($aspirante);
@@ -36,7 +35,11 @@ class EnviarRegistroController extends Controller
                 $revisionRegistro = $aspirante->revision;
 
                 $revisionRegistro->crearRevision();
+
+                return $id;
             });
+
+            get_aspirante()->updateFichaJson($solicitudPagoId);
 
             flash('Tu registro se envió correctamente')->success();
         } catch (\Exception $e) {
