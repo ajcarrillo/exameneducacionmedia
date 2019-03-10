@@ -227,6 +227,8 @@ class Aspirante extends Model
         try {
             $fichaJson = SolicitudPago::getFichaPago($solicitudPagoId);
             $this->revision()->update([ 'ficha_json' => $fichaJson ]);
+
+            return $fichaJson;
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
             throw new \Exception('Ocurrió un error al intentar obtener la información de la ficha de pago');

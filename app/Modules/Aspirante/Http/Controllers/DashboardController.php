@@ -11,9 +11,11 @@ namespace Aspirante\Http\Controllers;
 
 use Aspirante\Models\Aspirante;
 use Aspirante\Models\Seleccion;
+use ExamenEducacionMedia\Classes\SolicitudPago;
+use ExamenEducacionMedia\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
-class DashboardController
+class DashboardController extends Controller
 {
     public function index()
     {
@@ -39,6 +41,17 @@ class DashboardController
         $paseAlExamen           = $this->getPaseAlExamen($aspirante);
         $hasPaseAlExamen        = $this->hasPaseAlExamen($aspirante);
         $hasInformacionCompleta = $aspirante->hasInformacionCompleta();
+
+        if ($hasRevision && ! $revision->efectuado) {
+            $fichaJson = $aspirante->updateFichaJson($this->getRevision($aspirante)->solicitud_pago_id);
+
+            $ficha = json_decode((string)$fichaJson, true);
+
+            if ( ! is_null($ficha['deposito'])) {
+                $revision->efectuado = 1;
+                $revision->save();
+            };
+        }
 
         return view('aspirante.dashboard', compact(
             'ofertas', 'ofertas_gral', 'revision', 'hasRevision',
