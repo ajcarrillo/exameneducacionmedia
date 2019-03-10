@@ -65,70 +65,6 @@ class SolicitudPago implements ProviderInterface
     }
 
     /**
-     * @return mixed
-     */
-    public function getVigencia()
-    {
-        return $this->vigencia;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getNombreCompleto()
-    {
-        return $this->nombre_completo;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCurp()
-    {
-        return $this->curp;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMunicipio()
-    {
-        return $this->municipio;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLocalidad()
-    {
-        return $this->localidad;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getColonia()
-    {
-        return $this->colonia;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCalle()
-    {
-        return $this->calle;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getNumero()
-    {
-        return $this->numero;
-    }
-
-    /**
      * @return array
      */
     protected function getSolicituPago(): array
@@ -197,5 +133,69 @@ class SolicitudPago implements ProviderInterface
         }
 
         return $response;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVigencia()
+    {
+        return $this->vigencia;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNombreCompleto()
+    {
+        return $this->nombre_completo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCurp()
+    {
+        return $this->curp;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMunicipio()
+    {
+        return $this->municipio;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLocalidad()
+    {
+        return $this->localidad;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getColonia()
+    {
+        return $this->colonia;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCalle()
+    {
+        return $this->calle;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNumero()
+    {
+        return $this->numero;
     }
 }
