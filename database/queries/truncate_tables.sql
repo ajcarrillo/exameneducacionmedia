@@ -15,7 +15,6 @@ TRUNCATE educacionmedia.especialidades;
 TRUNCATE educacionmedia.etapas_proceso;
 TRUNCATE educacionmedia.folios;
 TRUNCATE educacionmedia.informacion_procedencias;
-TRUNCATE educacionmedia.migrations;
 TRUNCATE educacionmedia.model_has_permissions;
 TRUNCATE educacionmedia.model_has_roles;
 TRUNCATE educacionmedia.niveles_demanda;
