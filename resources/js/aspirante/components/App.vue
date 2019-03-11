@@ -6,6 +6,7 @@
                     <div class="col col-md-10 col-lg-8">
                         <a href="/aspirantes" style="font-size: 2rem">
                             <i class="far fa-arrow-alt-circle-left"></i>
+                            Regresar
                         </a>
                     </div>
                 </div>
@@ -72,6 +73,11 @@
                 <div class="row justify-content-center">
                     <div class="col-md-10 col-lg-8">
                         <div class="card shadow-none border">
+                            <div class="card-header">
+                                <h1 class="card-title">
+                                    Datos de domicilio en el estado de quintana roo
+                                </h1>
+                            </div>
                             <div class="card-body">
                                 <create-domicilio :aspiranteid="aspirante.id"
                                                   :municipios="municipios"
