@@ -19,7 +19,8 @@ class CuestionarioController extends Controller
      */
     public function index(Request $request)
     {
-        $preguntas = Pregunta::with('hijos','hijos.diccionario','hijos.diccionario.respuestas')
+        $preguntas = Pregunta::has('hijos')
+            ->with('hijos', 'hijos.diccionario', 'hijos.diccionario.respuestas')
             ->whereNull('padre_id')
             ->orderBy('id')
             ->paginate(7);
