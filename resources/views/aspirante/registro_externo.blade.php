@@ -5,7 +5,13 @@
         <div class="row">
             <div class="col-12 col-md-8 offset-md-2">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body pb-0">
+                        <div class="alert alert-info" role="alert">
+                            <strong>¡Atención!</strong>
+                            Haz click <a href="/aspirantes/registro-matricula">AQUÍ</a> si ESTUDIAS o ESTUDIASTE algún grado en el estado de Quintana Roo
+                        </div>
+                    </div>
+                    <div class="card-body pt-0">
                         <form action="{{ route('registro.externo') }}" method="post">
                             @csrf
                             <div class="form-group">
