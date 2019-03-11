@@ -23,7 +23,7 @@
                 <li>
                     <a href="{{ route('aspirante.generar.pase') }}"
                        onclick="event.preventDefault(); document.getElementById('generar-pase-form').submit();"
-                       class="btn btn-primary btn-sm">Genera pase al examen</a>
+                       class="btn btn-primary btn-sm blink">Genera pase al examen</a>
                     <form id="generar-pase-form"
                           action="{{ route('aspirante.generar.pase') }}"
                           method="post"
@@ -34,14 +34,14 @@
             @else
                 <li>
                     <a href=""
-                       class="btn btn-primary btn-sm">Descargar pase al examen</a>
+                       class="btn btn-primary btn-sm blink">Descargar pase al examen</a>
                 </li>
             @endif
         @endif
     @else
         @if($hasInformacionCompleta)
             <li>
-                <a class="btn btn-primary btn-sm" href="{{ route('aspirante.enviar.registro') }}"
+                <a class="btn btn-primary btn-sm blink" href="{{ route('aspirante.enviar.registro') }}"
                    onclick="event.preventDefault();
                 document.getElementById('enviar-registro-form').submit();">
                     Enviar Registro

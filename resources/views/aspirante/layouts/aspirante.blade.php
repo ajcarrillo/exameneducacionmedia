@@ -16,6 +16,7 @@
         @yield('extra-head')
 
         <link rel="stylesheet" href="{{ mix('css/adminlte.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/blink.css') }}">
         @yield('extra-css')
         <style>
             body {
