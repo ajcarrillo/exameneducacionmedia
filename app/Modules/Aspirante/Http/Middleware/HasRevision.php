@@ -18,7 +18,7 @@ class HasRevision
         $aspirante = get_aspirante();
 
         if ($aspirante->revision()->exists()) {
-            abort(403, 'Tu registro ha sido enviado, no puedes modificar tus datos');
+            return redirect()->route('aspirante.mis.datos');
         }
 
         return $next($request);

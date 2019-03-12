@@ -58,6 +58,8 @@ Route::middleware([ 'auth', 'role:aspirante' ])
         //-- End Igna
 
         Route::get('/enviar-solicitud', 'SolicitudPagoController@send')->name('solicitud.pago');
+
+        Route::get('/mis-datos', 'ShowAspiranteController')->name('mis.datos');
     });
 
 
