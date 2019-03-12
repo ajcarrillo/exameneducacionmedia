@@ -4,6 +4,7 @@
             <informacion-procedencia-form
                 :aspiranteid="aspiranteid"
                 :informacion="informacion"
+                :saving="saving"
                 @save="save"
             ></informacion-procedencia-form>
         </div>
@@ -27,11 +28,13 @@
                     turno_id: '',
                     fecha_egreso: '',
                     primera_vez: false,
-                }
+                },
+                saving: false
             }
         },
         methods: {
             save(draft) {
+                this.saving = true;
                 axios.post(route('aspirante.informacion.store', this.aspiranteid), {
                     clave_centro_trabajo: draft.clave_centro_trabajo,
                     nombre_centro_trabajo: draft.nombre_centro_trabajo,
@@ -40,6 +43,7 @@
                     primera_vez: draft.primera_vez,
                 })
                     .then(res => {
+                        this.savingDone();
                         swal({
                             type: 'success',
                             text: 'La información ha sido guardada correctamente',
@@ -47,6 +51,7 @@
                         this.$emit('update', res.data.informacion);
                     })
                     .catch(err => {
+                        this.savingDone();
                         console.log(err.response);
                         swal({
                             type: 'error',
@@ -54,6 +59,9 @@
                             text: 'Lo sentimos, algo ha salido mal intenta de nuevo',
                         })
                     })
+            },
+            savingDone() {
+                this.saving = false
             }
         }
     }

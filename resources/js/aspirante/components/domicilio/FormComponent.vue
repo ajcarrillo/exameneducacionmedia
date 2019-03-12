@@ -49,7 +49,14 @@
             <input class="form-control" name="codigo_postal" type="text" v-model="draft.codigo_postal">
         </div>
         <div class="form-group mb-0">
-            <button class="btn btn-success">Guardar</button>
+            <button :disabled="saving" class="btn btn-success">
+                <template v-if="!saving">
+                    <span>Guardar</span>
+                </template>
+                <template v-else>
+                    <span>Guardando...</span>
+                </template>
+            </button>
         </div>
     </form>
 </template>
@@ -62,7 +69,7 @@
         components: {
             Multiselect
         },
-        props: ['domicilio', 'municipios'],
+        props: ['domicilio', 'municipios', 'saving'],
         data() {
             return {
                 draft: clone(this.domicilio),

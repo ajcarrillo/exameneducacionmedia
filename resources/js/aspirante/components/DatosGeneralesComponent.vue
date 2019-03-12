@@ -55,7 +55,14 @@
                     <small class="text-muted">Proporciona tu teléfono para tener una mejor comunicación contigo.</small>
                 </div>
                 <div class="form-group mb-0">
-                    <button class="btn btn-success">Guardar</button>
+                    <button :disabled="saving" class="btn btn-success">
+                        <template v-if="!saving">
+                            <span>Guardar</span>
+                        </template>
+                        <template v-else>
+                            <span>Guardando...</span>
+                        </template>
+                    </button>
                 </div>
             </form>
         </div>
@@ -80,7 +87,8 @@
                     curp: this.aspirante.curp,
                     curp_historica: '',
                     curp_valida: '',
-                }
+                },
+                saving: false,
             }
         },
         created() {
@@ -111,6 +119,7 @@
         },
         methods: {
             save() {
+                this.saving = true;
                 axios.patch(route('aspirante.update', this.aspirante.id), {
                     nombre: this.datos.nombre,
                     primer_apellido: this.datos.primer_apellido,
@@ -125,6 +134,7 @@
                     curp_valida: false,
                 })
                     .then(res => {
+                        this.savingDone();
                         this.aspirante.curp_historica = res.data.curp_historica;
                         this.aspirante.curp_valida = res.data.curp_valida;
                         this.aspirante.pais_nacimiento_id = res.data.pais_nacimiento_id;
@@ -134,10 +144,14 @@
                         })
                     })
                     .catch(err => {
+                        this.savingDone();
                         console.log(err.response)
                     })
+            },
+            savingDone() {
+                this.saving = false;
             }
-        }
+        },
     }
 </script>
 

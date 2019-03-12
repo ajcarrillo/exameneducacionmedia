@@ -37,7 +37,14 @@
             </div>
         </div>
         <div class="form-group mb-0">
-            <button class="btn btn-success">Guardar</button>
+            <button :disabled="saving" class="btn btn-success">
+                <template v-if="!saving">
+                    <span>Guardar</span>
+                </template>
+                <template v-else>
+                    <span>Guardando...</span>
+                </template>
+            </button>
         </div>
     </form>
 </template>
@@ -45,7 +52,7 @@
 <script>
     export default {
         name: "FormComponent",
-        props: ['informacion', 'aspiranteid'],
+        props: ['informacion', 'aspiranteid', 'saving'],
         data() {
             return {
                 draft: clone(this.informacion)
