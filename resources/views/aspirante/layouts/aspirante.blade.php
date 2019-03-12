@@ -34,16 +34,27 @@
                             CENEVAL: {{ get_aspirante()->folio }}</h5>
 
                     </div>
-
-                    <a class="btn bg-white"
-                       style="color: #1f2d3d!important"
-                       href="{{ route('logout') }}"
-                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        Salir
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
+                    @if ($hasImpersonate)
+                        <a class="btn bg-white" href="{{ route('logout.as.user') }}"
+                           style="color: #1f2d3d!important"
+                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-as-user-form').submit();">
+                            Regresar a mi sesión
+                        </a>
+                        <form id="logout-as-user-form" action="{{ route('logout.as.user') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    @else
+                        <a class="btn bg-white"
+                           style="color: #1f2d3d!important"
+                           href="{{ route('logout') }}"
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Salir
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    @endif
                 </div>
 
             </div>

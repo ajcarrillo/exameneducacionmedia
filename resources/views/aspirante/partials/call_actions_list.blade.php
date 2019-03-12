@@ -13,10 +13,10 @@
         <a href="/aspirantes/opciones-educativas"
            class="btn btn-primary btn-sm btn-block">3 - Opciones educativas</a>
     </li>
-	<li>
-		<a href="{{ route('centro-descarga.cdescarga.index') }}"
-		   class="btn btn-success btn-sm btn-block">Centro de descargas</a>
-	</li>
+    <li>
+        <a href="{{ route('centro-descarga.cdescarga.index') }}"
+           class="btn btn-success btn-sm btn-block">Centro de descargas</a>
+    </li>
     @if($hasRevision)
         @if($revision->efectuado)
             @if(!$hasPaseAlExamen)
@@ -37,6 +37,11 @@
                        class="btn btn-primary btn-sm blink">Descargar pase al examen</a>
                 </li>
             @endif
+        @else
+            <li>
+                <a href=""
+                   class="btn btn-primary btn-sm blink">Descarga ficha de depósito</a>
+            </li>
         @endif
     @else
         @if($hasInformacionCompleta)
