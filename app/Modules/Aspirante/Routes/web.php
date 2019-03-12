@@ -26,11 +26,11 @@ Route::post('/registro-matricula', 'RegistroMatriculaController@store')
     ->name('registro.matricula')
     ->middleware([ 'isRegistro', 'existsFolios' ]);
 
-Route::middleware([ 'auth', 'role:aspirante' ])
+Route::middleware([ 'auth', 'role:aspirante', 'hasRevision' ])
     ->name('aspirante.profile')
     ->get('/datos-generales', 'ProfileController');
 
-Route::middleware([ 'auth', 'role:aspirante' ])
+Route::middleware([ 'auth', 'role:aspirante', 'hasRevision' ])
     ->name('aspirantes.seleccion.oferta')
     ->get('/opciones-educativas', 'SeleccionOfertaController');
 

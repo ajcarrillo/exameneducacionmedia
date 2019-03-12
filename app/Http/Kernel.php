@@ -2,6 +2,7 @@
 
 namespace ExamenEducacionMedia\Http;
 
+use Aspirante\Http\Middleware\HasRevision;
 use Aspirante\Http\Middleware\VerifyFolios;
 use ExamenEducacionMedia\Http\Middleware\CheckCuestionario;
 use ExamenEducacionMedia\Http\Middleware\CheckForAforoMode;
@@ -77,5 +78,6 @@ class Kernel extends HttpKernel
         'permission'         => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
         'existsFolios'       => VerifyFolios::class,
+        'hasRevision'        => HasRevision::class,
     ];
 }
