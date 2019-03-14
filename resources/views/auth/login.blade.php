@@ -74,7 +74,7 @@
             <div class="col-md-7">
                 <img
                     class="img-fluid"
-                    src="{{ asset('img/logos-institucionales.png') }}"
+                    src="{{ asset('img/secretaria-sep.png') }}"
                     alt="Secretaría de Educación de Quintana Roo">
             </div>
         </div>

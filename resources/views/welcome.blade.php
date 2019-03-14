@@ -62,8 +62,8 @@
             <main class="d-flex flex-column">
                 <div class="logos-gobierno text-center mt-3 mb-5">
                     <img
-                        class="img-fluid"
-                        src="{{ asset('img/logos-institucionales.png') }}"
+                        style="width: 100%; height: auto; max-width: 788px"
+                        src="{{ asset('img/secretaria-sep.png') }}"
                         alt="Gobierno del Estado de Quintana Roo - SEQ">
                 </div>
                 <div class="logos-siem text-center">
