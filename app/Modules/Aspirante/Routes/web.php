@@ -62,6 +62,7 @@ Route::middleware([ 'auth', 'role:aspirante' ])
         Route::get('/mis-datos', 'ShowAspiranteController')->name('mis.datos');
 
         Route::get('/paseExamen/{id}', 'DescargaPaseExamenController@reportePaseExamen')->name('paseExamen');
+        Route::get('/fichaPago/{id}', 'DescargaPaseExamenController@fichaPago')->name('fichaPago');
         //end
     });
 
