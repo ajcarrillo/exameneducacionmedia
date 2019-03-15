@@ -201,7 +201,7 @@ use Carbon\Carbon;
                 </div>
             </div>
 
-            <div class="text-justify" style="font-size: 13px;padding: 10px">
+            <div class="text-justify" style="font-size: 13px;padding: 8px">
                 SE PAGARÁN ESTOS DERECHOS CON FUNDAMENTO EN EL ARTICULO 207-H DE LA LEY DE HACIENDA DEL ESTADO DE QUINTANA ROO, VIGENTE.
             </div>
 
@@ -244,13 +244,13 @@ use Carbon\Carbon;
                 Bonampak, entre Av. Chichen Itzá y García de la Torre), en un horario de 11:00 a 15:00 hrs.
             </div>
 
-            <table>
+            <table style="margin: 0 auto;">
                 <tr>
-                    <td width="300px" style="text-align: center" >
+                    <td width="300px" style="text-align: center; border: 3px solid rgba(217,216,216,0.7)" >
                         Fecha límite de la referencia:<br>
                         {{ $datos->referencia_pago->vigencia }}
                     </td>
-                    <td width=400px" style="background-color: rgba(217,216,216,0.7)">
+                    <td width=400px" style="background-color: rgba(217,216,216,0.7); border: 3px solid rgba(217,216,216,0.7)">
                         <p style="line-height: 12px; font-size: 13px; padding: 10px; text-align: justify">La boleta de pago es personal y tiene una clave de referencia
                         única por usuario, por lo que no deberá ser fotocopiado por el
                             pago de otro usuario.</p>
