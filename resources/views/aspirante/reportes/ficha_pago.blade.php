@@ -124,7 +124,6 @@ use Carbon\Carbon;
                     http://paenms.seq.gob.mx o http://siem.seq.gob.mx<br>
                     <b>Fecha de registro: </b>11 de marzo al 2 de mayo de 2019
                 </div>
-
             </div>
 
 
@@ -206,7 +205,7 @@ use Carbon\Carbon;
                 SE PAGARÁN ESTOS DERECHOS CON FUNDAMENTO EN EL ARTICULO 207-H DE LA LEY DE HACIENDA DEL ESTADO DE QUINTANA ROO, VIGENTE.
             </div>
 
-            <div class="text-center font-weight-bold" style="padding: 20px">
+            <div class="text-center font-weight-bold" style="padding: 10px">
                 CONCEPTO DE PAGO
             </div>
 
@@ -229,7 +228,7 @@ use Carbon\Carbon;
                 </tbody>
             </table>
 
-            <div class="text-right" style="padding: 20px">
+            <div class="text-right" style="padding: 10px">
                 <b>IMPORTE TOTAL A PAGAR: </b> ${{$datos->monto }}
             </div>
 
@@ -259,7 +258,7 @@ use Carbon\Carbon;
                 </tr>
             </table>
 
-            <div style="margin-top: 10px">
+            <div >
                 <p class="font-weight-bold" style="font-size:13px ">Convenio de pago</p>
                 <table>
                     <tr>
@@ -278,6 +277,14 @@ use Carbon\Carbon;
                         <td>{{ $datos->referencia_pago->referencia }}</td>
                     </tr>
                 </table>
+            </div>
+
+            <div class="text-justify">
+                <p style="font-size: 9px; line-height:1" class="mt-3">
+                    <i><strong>Nota:</strong>
+                        Después del pago efectuado,de 1 a 3 días, ingresa al portal de registro, para poder imprimir "Pase al Examen". Recuerda que después de la fecha límite de la referencia bancaria, no podrás realizar el pago.
+                    </i>
+                </p>
             </div>
 
         </div>
