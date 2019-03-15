@@ -33,13 +33,13 @@
                 </li>
             @else
                 <li>
-                    <a href=""
+                    <a href="{{ route('aspirante.paseExamen', get_aspirante()->id) }}"
                        class="btn btn-primary btn-sm blink">Descargar pase al examen</a>
                 </li>
             @endif
         @else
             <li>
-                <a href=""
+                <a href="{{ route('aspirante.fichaPago', get_aspirante()->id) }}"
                    class="btn btn-primary btn-sm blink">Descarga ficha de depósito</a>
             </li>
         @endif
