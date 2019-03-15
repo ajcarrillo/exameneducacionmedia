@@ -8,8 +8,6 @@
 
 namespace Aspirante\Http\Controllers;
 use Aspirante\Models\Aspirante;
-use Aspirante\Models\RevisionRegistro;
-use Illuminate\Http\Request;
 use DB;
 
 class DescargaPaseExamenController
@@ -30,7 +28,12 @@ class DescargaPaseExamenController
                         ->where('id', '=', 8)
                         ->orWhere('id', '=', 9)
                         ->get();
-        $aspirante = Aspirante::with('user','entidadNacimiento', 'informacionProcedencia', 'paseExamen.aula.edificio', 'domicilio.localidad','opcionesEducativas.seleccionOferta.plantel.localidad')->where('id',$id)->get();
+        $aspirante     = Aspirante::with('user', 'entidadNacimiento', 'informacionProcedencia', 'paseExamen.aula.edificio', 'domicilio.localidad')
+            ->with([ 'opcionesEducativas' => function ($query) {
+                $query->orderBy('preferencia');
+            } ])
+            ->with('opcionesEducativas.ofertaEducativa.plantel', 'opcionesEducativas.ofertaEducativa.especialidad')
+            ->where('id', $id)->get();
 
         $pdf->loadView('aspirante.reportes.pase_examen', compact('aspirante','configuracion'));
         return $pdf->inline('pase_examen.pdf');

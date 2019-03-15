@@ -8,7 +8,6 @@
 ?>
 
 <?php
-use Carbon\Carbon;
 ?>
 
         <!DOCTYPE html>
@@ -122,7 +121,7 @@ use Carbon\Carbon;
                         width="20%" >
                 <div style="float: right; text-align: center; width: 400px; background-color: lightgrey; padding: 9px; font-size: 13px ">
                     http://paenms.seq.gob.mx o http://siem.seq.gob.mx<br>
-                    <b>Fecha de registro: </b>11 de marzo al 2 de mayo de 2019
+                    <b>Fecha de registro: </b>1 de Abril al 15 de Mayo de 2019
                 </div>
             </div>
 
@@ -133,7 +132,7 @@ use Carbon\Carbon;
 
             <div style="text-align:center">
                 <div style="text-align: right; padding-right: 13px ">
-                    <b>Folio: </b>019356
+                    <b>Folio: </b>{{ get_aspirante()->folio }}
                 </div>
                 <div class="row" style="margin: auto; width: 100%;">
                     <div class="col-tit" style=" width: 70%;">NOMBRE(S), APELLIDO PATERNO, APELLIDO MATERNO</div>

@@ -20,8 +20,7 @@ class Aula extends Model
 
     public function edificio()
     {
-        //return $this->morphTo();
-        return $this->belongsTo(Plantel::class, 'id');
+        return $this->morphTo();
     }
     public function setReferenciaAttribute($value)
     {

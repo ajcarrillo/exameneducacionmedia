@@ -8,7 +8,6 @@
 ?>
 
 <?php
-use Carbon\Carbon;
 ?>
 
 <!DOCTYPE html>
@@ -122,7 +121,7 @@ use Carbon\Carbon;
                             width="20%" >
                     <div style="float: right; text-align: center; width: 400px; background-color: lightgrey; padding: 2px; font-size: 13px ">
                         http://paenms.seq.gob.mx o http://siem.seq.gob.mx<br>
-                        <b>Fecha de registro: </b>11 de marzo al 2 de mayo de 2019
+                        <b>Fecha de registro: </b>1 de Abril al 15 de Mayo de 2019
                     </div>
 
                 </div>
@@ -197,24 +196,20 @@ use Carbon\Carbon;
                             </tr>
                         </thead>
                         <tbody>
-
-
-                        @for($i=0; $i < 10; $i++)
-                            @if($i > count($aspirante[0]->opcionesEducativas)-1)
+                            @foreach($aspirante[0]->opcionesEducativas as $opcion)
                                 <tr>
-                                    <td>&nbsp</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ $opcion->preferencia }}</td>
+                                    <td>{{ $opcion->seleccionOferta->plantel->descripcion }}</td>
+                                    <td>{{ $opcion->seleccionOferta->especialidad->referencia }}</td>
                                 </tr>
-                            @else
+                            @endforeach
+                            @for ($i = 0; $i < 10 - $aspirante[0]->opcionesEducativas->count(); $i++)
                                 <tr>
-                                    <td>{{ $aspirante[0]->opcionesEducativas[$i]->preferencia }}</td>
-                                    <td>NOMBRE DE PLANTEL {{$i}}</td>
-                                    <td>NOMBRE DE PLANTEL {{$i}}</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
                                 </tr>
-                            @endif
-
-                        @endfor
+                            @endfor
                         </tbody>
 
                     </table>
@@ -239,10 +234,10 @@ use Carbon\Carbon;
                         <table>
                             <tr style="text-align: center; font-size:12px; font-weight: bold">
                                 <td style="width: 400px;">
-                                    {{ $aspirante[0]->opcionesEducativas[0]->seleccionOferta->plantel->localidad->NOM_LOC }}
+                                    {{ $aspirante[0]->opcionesEducativas()->where('preferencia', 1)->first()->seleccionOferta->plantel->localidad->NOM_LOC }}
                                 </td>
                                 <td style="width: 400px;">
-                                    {{ $aspirante[0]->opcionesEducativas[0]->seleccionOferta->plantel->localidad->NOM_MUN }}
+                                    {{ $aspirante[0]->opcionesEducativas()->where('preferencia', 1)->first()->seleccionOferta->plantel->localidad->NOM_MUN }}
                                 </td>
                             </tr>
                             <tr style="text-align: center; font-size:11px ">
@@ -296,7 +291,7 @@ use Carbon\Carbon;
                                 <td>{{ $aspirante[0]->folio }}</td>
                                 <td>{{strtoupper($configuracion[0]->valor.', '.$configuracion[1]->valor)}}</td>
                                 <td>{{ $aspirante[0]->paseExamen->aula->edificio->descripcion }}</td>
-                                <td>{{ $aspirante[0]->paseExamen->aula->edificio_type }}</td>
+                                <td>{{ $aspirante[0]->paseExamen->aula->referencia }}</td>
                                 <td>{{ $aspirante[0]->paseExamen->numero_lista }}</td>
                             </tr>
                         </table>
