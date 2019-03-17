@@ -34,7 +34,7 @@
                                     <label for="">Nombre:</label>
                                 </div>
                                 <div class="col">
-                                    <span v-text="persona.nombre_completo"></span>
+                                    <span v-text="nombreCompleto"></span>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -46,7 +46,7 @@
                             <div class="row mb-3">
                                 <div class="col col-md-3"><label for="">Fecha nacimiento</label></div>
                                 <div class="col" v-if="hasFechaNacimiento">
-                                    <span v-text="persona.fecha_nacimiento"></span>
+                                    <span v-text="estudiante.fecha_nacimiento"></span>
                                 </div>
                                 <div class="col" v-else>
                                     <input type="date" class="form-control" :class="{'is-invalid': formErrors.fecha_nacimiento}" name="fecha_nacimiento" v-model="form.fecha_nacimiento" required>

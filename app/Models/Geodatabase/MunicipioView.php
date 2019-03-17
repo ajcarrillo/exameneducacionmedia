@@ -18,7 +18,7 @@ class MunicipioView extends Model
     use Compoships;
 
     public    $incrementing = NULL;
-    protected $connection   = 'geo_db';
+    //protected $connection   = 'geo_db';
     protected $table        = 'municipios_view';
 
     public function planteles()

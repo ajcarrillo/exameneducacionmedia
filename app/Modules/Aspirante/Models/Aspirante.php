@@ -37,6 +37,11 @@ class Aspirante extends Model
         'is_aspirante_externo',
     ];
 
+    public function controlEscolar()
+    {
+        return $this->belongsTo(Estudiante::class, 'alumno_id');
+    }
+
     public function respuestasCeneval()
     {
         return $this->hasMany(AspiranteRespuesta::class, 'aspirante_id');

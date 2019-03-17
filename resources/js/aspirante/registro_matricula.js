@@ -23,17 +23,17 @@ const app = new Vue({
         isSearching: false
     },
     computed: {
-        persona() {
-            return _.isEmpty(this.estudiante) ? {} : this.estudiante.estudiante.persona;
-        },
         centroTrabajo() {
-            return _.isEmpty(this.estudiante) ? {} : `${this.estudiante.centro_trabajo.clave} ${this.estudiante.centro_trabajo.nombre}`
+            return _.isEmpty(this.estudiante) ? {} : `${this.estudiante.clave_centro_trabajo} ${this.estudiante.nombre_centro_trabajo}`
+        },
+        nombreCompleto() {
+            return _.isEmpty(this.estudiante) ? '' : `${this.estudiante.nombre} ${this.estudiante.primer_apellido} ${this.estudiante.segundo_apellido}`;
         },
         isEstudianteEmpty() {
             return _.isEmpty(this.estudiante);
         },
         hasFechaNacimiento(){
-            return this.persona.fecha_nacimiento !== '0000-00-00';
+            return this.estudiante.fecha_nacimiento !== '0000-00-00';
         }
     },
     methods: {
@@ -54,11 +54,24 @@ const app = new Vue({
                 matricula: this.matricula
             })
                 .then(res => {
-                    this.estudiante = res.data.alumno.estudiante;
-                    this.form.nombre = this.persona.nombre;
-                    this.form.primer_apellido = this.persona.primer_apellido;
-                    this.form.segundo_apellido = this.persona.segundo_apellido;
-                    this.form.fecha_nacimiento = this.persona.fecha_nacimiento;
+                    console.log(res.data);
+                    /*
+                        alumno_id: 126887
+                        clave_centro_trabajo: "23PES0066O"
+                        curp: "ROHM030304HDFDRGA9"
+                        fecha_nacimiento: "2004-01-01"
+                        matricula: "2003117644"
+                        nombre: "MIGUEL ANGEL"
+                        nombre_centro_trabajo: "JEAN PIAGET"
+                        primer_apellido: "RODRIGUEZ"
+                        segundo_apellido: "HERNANDEZ"
+                        turno_id: 1
+                    * */
+                    this.estudiante = res.data;
+                    this.form.nombre = this.estudiante.nombre;
+                    this.form.primer_apellido = this.estudiante.primer_apellido;
+                    this.form.segundo_apellido = this.estudiante.segundo_apellido;
+                    this.form.fecha_nacimiento = this.estudiante.fecha_nacimiento;
                     this.isSearching = false;
                 })
                 .catch(err => {
@@ -74,18 +87,15 @@ const app = new Vue({
         register() {
             axios.post(route('registro.matricula'), {
                 email: this.form.email,
-                curp: this.persona.curp,
-                sexo: this.persona.sexo,
+                curp: this.estudiante.curp,
                 nombre: this.form.nombre,
                 password: this.form.password,
-                alumno_id: this.estudiante.id,
+                alumno_id: this.estudiante.alumno_id,
                 primer_apellido: this.form.primer_apellido,
                 segundo_apellido: this.form.segundo_apellido,
                 fecha_nacimiento: this.form.fecha_nacimiento,
-                pais_nacimiento_id: this.persona.pais_nacimiento,
-                entidad_nacimiento_id: this.persona.entidad_nacimiento,
-                clave_centro_trabajo: this.estudiante.centro_trabajo.clave,
-                nombre_centro_trabajo: this.estudiante.centro_trabajo.nombre,
+                clave_centro_trabajo: this.estudiante.clave_centro_trabajo,
+                nombre_centro_trabajo: this.estudiante.nombre_centro_trabajo,
                 turno_id: this.estudiante.turno_id
             })
                 .then(res => {

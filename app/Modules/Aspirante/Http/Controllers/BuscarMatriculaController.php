@@ -8,14 +8,20 @@
 
 namespace Aspirante\Http\Controllers;
 
+use Aspirante\Models\Estudiante;
 use ExamenEducacionMedia\Http\Controllers\Controller;
-use GuzzleHttp\Client;
 
 
 class BuscarMatriculaController extends Controller
 {
-
     public function index()
+    {
+        $estudiante = Estudiante::whereMatricula(request('matricula'))->firstOrFail();
+
+        return $estudiante;
+    }
+
+    /*public function index()
     {
         $guzzle = new Client;
 
@@ -43,6 +49,6 @@ class BuscarMatriculaController extends Controller
         $alumno = json_decode((string)$response->getBody(), true);
 
         return ok(compact('alumno'));
-    }
+    }*/
 
 }

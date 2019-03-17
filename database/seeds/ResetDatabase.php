@@ -25,6 +25,7 @@ class ResetDatabase extends Seeder
             'database/queries/programas_estudio.sql',
             'database/queries/roles.sql',
             'database/queries/subsistemas.sql',
+            'database/queries/municipios_view.sql',
         ];
         foreach ($files as $path) {
             DB::unprepared(file_get_contents($path));
