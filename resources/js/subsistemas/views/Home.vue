@@ -57,50 +57,65 @@
                         </div>
                     </div>
                     <div class="card-body table-responsive p-0">
-                        <planteles-table :items="planteles" :headers="headers">
-                            <template slot="items" slot-scope="props">
-                                <td>
-                                    <edit-name-form
-                                        :plantelid="props.item.id"
-                                        :plantelname="props.item.descripcion"
-                                        @submit="updateName"
-                                    ></edit-name-form>
-                                </td>
-                                <td>
-                                    <button :data-tooltip-title="props.item.active|buttonTitle"
-                                            @click="updateStatus(props.item.id, props.item.active, props.index)"
-                                            class="btn btn-link" v-tooltip:top="">
-                                        <active-plantel :active="props.item.active"></active-plantel>
-                                    </button>
-                                </td>
-                                <td>
-                                    {{ props.item.municipio.NOM_MUN }}
-                                </td>
-                                <td v-if="props.item.responsable">{{ `${props.item.responsable.nombre} ${props.item.responsable.primer_apellido} ${props.item.responsable.segundo_apellido}` }}</td>
-                                <td v-else>
-                                    <router-link
-                                        :to="{name:'subsistema.plantel.responsable', params:{plantelid: props.item.uuid}}">
-                                        <button class="btn btn-primary btn-sm">Asignar</button>
-                                    </router-link>
-                                </td>
-                                <td class="text-center">
-                                    <router-link v-if="getState('oferta')==='sr' || getState('oferta')==='C'"
-                                        :to="{name:'subsistema.plantel.oferta', params:{plantelid: props.item.uuid}}">
-                                        <button class="btn btn-primary btn-sm">Oferta</button>
-                                    </router-link>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Plantel</th>
+                                    <th>Municipio</th>
+                                    <th>Responsable</th>
+                                    <th>Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template v-for="(plantel, index) in planteles">
+                                    <tr>
+                                        <td style="padding-bottom: 0!important;">
+                                            <edit-name-form
+                                                :plantelid="plantel.id"
+                                                :plantelname="plantel.descripcion"
+                                                @submit="updateName"
+                                            ></edit-name-form>
+                                        </td>
+                                        <td style="padding-bottom: 0!important;">
+                                            {{ plantel.municipio.NOM_MUN }}
+                                        </td>
+                                        <td style="padding-bottom: 0!important;" v-if="plantel.responsable">{{ `${plantel.responsable.nombre} ${plantel.responsable.primer_apellido} ${plantel.responsable.segundo_apellido}` }}</td>
+                                        <td style="padding-bottom: 0!important;" v-else>
+                                            <router-link
+                                                :to="{name:'subsistema.plantel.responsable', params:{plantelid: plantel.uuid}}">
+                                                <button class="btn btn-primary btn-sm">Asignar</button>
+                                            </router-link>
+                                        </td>
+                                        <td style="padding-bottom: 0!important;" class="text-center">
+                                            <router-link v-if="getState('oferta')==='sr' || getState('oferta')==='C'"
+                                                         :to="{name:'subsistema.plantel.oferta', params:{plantelid: plantel.uuid}}">
+                                                <button class="btn btn-primary btn-sm">Oferta</button>
+                                            </router-link>
 
-                                    <button v-if="getState('oferta')==='R' || getState('oferta')==='A'" @click="isValidForChange('oferta')" class="btn btn-primary btn-sm">Oferta</button>
+                                            <button v-if="getState('oferta')==='R' || getState('oferta')==='A'" @click="isValidForChange('oferta')" class="btn btn-primary btn-sm">Oferta</button>
 
-                                    <router-link v-if="getState('aforo')==='sr' || getState('aforo')==='C'"
-                                                 :to="{name:'subsistema.plantel.aforo', params: {plantelid: props.item.uuid}}">
-                                        <button class="btn btn-primary btn-sm">Aforo</button>
-                                    </router-link>
+                                            <router-link v-if="getState('aforo')==='sr' || getState('aforo')==='C'"
+                                                         :to="{name:'subsistema.plantel.aforo', params: {plantelid: plantel.uuid}}">
+                                                <button class="btn btn-primary btn-sm">Aforo</button>
+                                            </router-link>
 
-                                    <button v-if="getState('aforo')==='R' || getState('aforo')==='A'" @click="isValidForChange('aforo')" class="btn btn-primary btn-sm">Aforo</button>
+                                            <button v-if="getState('aforo')==='R' || getState('aforo')==='A'" @click="isValidForChange('aforo')" class="btn btn-primary btn-sm">Aforo</button>
 
-                                </td>
-                            </template>
-                        </planteles-table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="border-top-0" style="padding-top: 0!important; padding-bottom: 0!important;">
+                                            <div class="d-flex">
+                                                <button @click="updateStatus(plantel.id, plantel.active, index)"
+                                                        class="btn btn-link" v-tooltip:top="">
+                                                    <active-plantel :active="plantel.active"></active-plantel>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -119,7 +134,16 @@
     Vue.directive('tooltip', MyTooltip);
 
     Vue.component('active-plantel', {
-        template: '<i :class="classObject"></i>',
+        template: `
+            <span v-if="active" class="d-flex">
+                <span class="text-danger">Click para inhabilitar</span>
+                <span class="text-success ml-3">El plantel se encuentra habilitado</span>
+            </span>
+            <span v-else class="d-flex">
+                <span class="text-success">Click para habilitar</span>
+                <span class="text-danger ml-3">El plantel se encuentra inhabilitado</span>
+            </span>
+        `,
         props: ['active'],
         data() {
             return {}
@@ -145,7 +169,6 @@
                 loadingData: true,
                 headers: [
                     {width: '1%', text: 'Plantel', value: 'descripcion', align: 'left'},
-                    {width: '1%', text: 'Estatus', value: 'active', align: 'left'},
                     {width: '5%', text: 'Municipio', value: '', align: 'left'},
                     {width: '10%', text: 'Responsable', value: 'responsable_id', align: 'left'},
                     {width: '5%', text: 'Opciones', value: '', align: 'center'},
