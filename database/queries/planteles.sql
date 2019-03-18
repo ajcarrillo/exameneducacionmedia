@@ -157,4 +157,14 @@ INSERT INTO educacionmedia.planteles (id, uuid, descripcion, clave, cve_ent, cve
 INSERT INTO educacionmedia.planteles (id, uuid, descripcion, clave, cve_ent, cve_mun, cve_loc, nombre_entidad, nombre_municipio, nombre_localidad, calle_principal, calle_derecha, calle_posterior, calle_izquierda, colonia, codigo_postal, latitud, longitud, subsistema_id, responsable_id, sede_ceneval, descuento, pagina_web, telefono, opciones, active, created_at, updated_at) VALUES (155, '851dc086-d3fe-11e8-b8a5-0242ac110002', 'TELEBACHILLERATO RAMONAL', '23ETK0078N', '23', '004', '0073', null, null, null, 'CALLE NINGUNO', 'CALLE NINGUNO', 'CALLE NINGUNO', 'CALLE NINGUNO', 'NINGUNO', 77985, 0.00000000, 0.00000000, 12, null, null, 0, 'https://qroo.gob.mx/seq', null, 0, 0, null, null);
 INSERT INTO educacionmedia.planteles (id, uuid, descripcion, clave, cve_ent, cve_mun, cve_loc, nombre_entidad, nombre_municipio, nombre_localidad, calle_principal, calle_derecha, calle_posterior, calle_izquierda, colonia, codigo_postal, latitud, longitud, subsistema_id, responsable_id, sede_ceneval, descuento, pagina_web, telefono, opciones, active, created_at, updated_at) VALUES (156, '851dc6fe-d3fe-11e8-b8a5-0242ac110002', 'TELEBACHILLERATO SAN JUAN', '23ETK0079M', '23', '009', '0210', null, null, null, 'CALLE NINGUNO', 'CALLE NINGUNO', 'CALLE NINGUNO', 'CALLE NINGUNO', 'NINGUNO', 77794, 0.00000000, 0.00000000, 12, null, null, 0, 'https://qroo.gob.mx/seq', null, 0, 0, null, null);
 INSERT INTO educacionmedia.planteles (id, uuid, descripcion, clave, cve_ent, cve_mun, cve_loc, nombre_entidad, nombre_municipio, nombre_localidad, calle_principal, calle_derecha, calle_posterior, calle_izquierda, colonia, codigo_postal, latitud, longitud, subsistema_id, responsable_id, sede_ceneval, descuento, pagina_web, telefono, opciones, active, created_at, updated_at) VALUES (157, '853d942a-d3fe-11e8-b8a5-0242ac110002', 'CETMAR No.10  Extensión Puerto Morelos', '23XCM0002U', '23', '011', '0001', null, null, null, 'CALLE NINGUNO', 'CALLE NINGUNO', 'CALLE NINGUNO', 'CALLE NINGUNO', 'NINGUNO', 77580, 0.00000000, 0.00000000, 9, null, null, 0, 'https://qroo.gob.mx/seq', null, 0, 0, null, null);
+INSERT INTO educacionmedia.planteles (uuid, descripcion, clave, cve_ent, cve_mun, cve_loc, calle_principal, calle_derecha,
+                                      calle_posterior, calle_izquierda, colonia, codigo_postal, latitud, longitud, subsistema_id,
+                                      descuento, pagina_web, telefono, opciones, active)
+    VALUE (
+           UUID(), 'ÁLVARO OBREGÓN / CONALEP EXTENSIÓN ACADÉMICA RÍO HONDO', '23XPT0004S',
+           '23', '004', '0124',
+           'Av. Álvaro obregón', 'conocida', 'conocida', 'conocida', 'conocida',
+           77984, 17.9, -88.8667, 2, 0, 'http://www.conalepquintanaroo.edu.mx/', '9831020867',
+           0, 0
+    );
 SET FOREIGN_KEY_CHECKS = 1;
