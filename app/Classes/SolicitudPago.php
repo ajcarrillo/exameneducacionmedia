@@ -99,7 +99,7 @@ class SolicitudPago implements ProviderInterface
             'concepto'      => self::CONCEPTO,
             'cantidad'      => self::CANTIDAD,
             'vigencia'      => $this->vigencia,
-            'descuento'     => 0,
+            'descuento'     => $this->aspirante->opcionesEducativas()->where('preferencia', 1)->first()->ofertaEducativa->plantel->descuento,
             'contribuyente' => [
                 'nombre_completo' => $this->nombre_completo,
                 'curp'            => $this->curp,

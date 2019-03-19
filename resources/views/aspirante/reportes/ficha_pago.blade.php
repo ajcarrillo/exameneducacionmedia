@@ -228,7 +228,7 @@
             </table>
 
             <div class="text-right" style="padding: 10px">
-                <b>IMPORTE TOTAL A PAGAR: </b> ${{$datos->monto }}
+                <b>IMPORTE TOTAL A PAGAR: </b> ${{$datos->total }}
             </div>
 
             <div class="text-justify font-weight-bold" style="font-size: 13px;padding: 10px">
