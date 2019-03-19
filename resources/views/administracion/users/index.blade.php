@@ -57,7 +57,9 @@
                                     <td>{{ $user->email }}</td>
                                     <td>{{ collect($user->getRoleNames())->implode(', ') }}</td>
                                     <td>
-                                        @include('partials.login_as_user_form')
+                                        @if($user->id != Auth::user()->id)
+                                            @include('partials.login_as_user_form')
+                                        @endif
                                     </td>
                                 </tr>
                             @empty
