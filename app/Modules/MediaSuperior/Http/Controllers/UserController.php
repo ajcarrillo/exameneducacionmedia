@@ -23,10 +23,13 @@ class UserController extends Controller
     {
         $users = User::query()
             ->with('roles')
-            ->where('id', '!=', \Auth::user()->id)
+            ->notSeeMe()
             ->whereDoesntHave('roles', function ($query) {
-                $query->where('name', 'aspirante')
-                    ->orWhere('name', 'supermario');
+                $query->where('name', 'aspirante');
+
+                if ( ! \Auth::user()->hasRole('supermario')) {
+                    $query->orWhere('name', 'supermario');
+                }
             })
             ->filterBy($filters, $request->only([ 'role', 'search' ]))
             ->paginate(50);
