@@ -38,7 +38,7 @@ class PanelController extends Controller
         }
 
         //Datos generales
-        $especialidades = OfertaEducativa::with('activar')->where('active', 1)->count('especialidad_id');
+        $especialidades = OfertaEducativa::onlyActive()->count();
         $planteles = Plantel::where('active', 1)->count('id');
         $hoy = date("Y-m-d");
         $aspirantes_hoy = Aspirante::where('created_at', 'LIKE', '%' . $hoy . '%')->count('id');
