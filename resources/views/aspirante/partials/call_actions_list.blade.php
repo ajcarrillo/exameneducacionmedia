@@ -17,6 +17,10 @@
         <a href="{{ route('centro-descarga.cdescarga.index') }}"
            class="btn btn-success btn-sm btn-block">Centro de descargas</a>
     </li>
+    <li>
+        <a href="{{ route('update.password') }}"
+           class="btn btn-success btn-sm btn-block">Actualizar contraseña</a>
+    </li>
     @if($hasRevision)
         @if($revision->efectuado)
             @if(!$hasPaseAlExamen)

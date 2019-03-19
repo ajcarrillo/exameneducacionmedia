@@ -77,3 +77,6 @@ Route::post('login/oauth-password', 'Auth\LoginJarvisController@login')->name('l
 /*Login con jarvis*/
 
 Auth::routes($options = [ 'register' => false, 'reset' => false ]);
+
+Route::view('/cambiar-contrasena', 'update_password.index')->name('update.password');
+Route::patch('/cambiar-contrasena', 'UpdatePasswordController@update')->name('update.password');

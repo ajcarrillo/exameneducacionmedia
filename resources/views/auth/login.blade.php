@@ -61,9 +61,9 @@
                                     Entrar
                                 </button>
 
-                                <a class="btn btn-link" href="#!">
+                                {{--<a class="btn btn-link" href="#!">
                                     ¿Olvidaste tu contraseña?
-                                </a>
+                                </a>--}}
                             </div>
                         </form>
                     </div>
