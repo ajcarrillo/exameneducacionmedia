@@ -7,13 +7,17 @@
  */
 
 namespace Aspirante\Http\Controllers;
+use Aspirante\Http\Requests\DescargaFichaDepositoRequest;
+use Aspirante\Http\Requests\DescargaPaseAlExamenRequest;
 use Aspirante\Models\Aspirante;
 use DB;
 
 class DescargaPaseExamenController
 {
-    public function reportePaseExamen($id)
+    public function reportePaseExamen(DescargaPaseAlExamenRequest $request, $id)
     {
+        $request->validated();
+
         $pdf = app('snappy.pdf.wrapper');
         $pdf->setPaper('letter')
             ->setOption('margin-bottom', '0mm')
@@ -39,8 +43,10 @@ class DescargaPaseExamenController
         return $pdf->inline('pase_examen.pdf');
     }
 
-    public function fichaPago($id)
+    public function fichaPago(DescargaFichaDepositoRequest $request, $id)
     {
+        $request->validated();
+
         $pdf = app('snappy.pdf.wrapper');
         $pdf->setPaper('letter')
             ->setOption('margin-top', '0mm')
