@@ -141,7 +141,7 @@
                         <div class="col-tit" style=" width: 19%;">FOLIO CENEVAL</div>
                     </div>
                     <div class="row" style="margin: auto; width: 100%;">
-                        <div class="col-cont" style=" width: 19%;">{{ Carbon::parse($aspirante[0]->fecha_nacimiento)->format('d/m/Y')}}</div>
+                        <div class="col-cont" style=" width: 19%;">{{ \Carbon\Carbon::parse($aspirante[0]->fecha_nacimiento)->format('d/m/Y')}}</div>
                         <div class="col-cont" style=" width: 60%;">{{ $aspirante[0]->curp }}</div>
                         <div class="col-cont" style=" width: 19%;">{{ $aspirante[0]->folio }}</div>
                     </div>
@@ -268,7 +268,7 @@
                                     firma del alumno(a)
                                 </td>
                                 <td>
-                                    Firma del Representante de los Servicios Educativos en el municipio
+                                    Firma del Representante de los Servicios Educativos en el municipio @if($aspirante[0]->informacionProcedencia->fecha_egreso < 2018) o copia de certificado de estudio. @endif
                                 </td>
                                 <td>
                                     Firma del padre o tutor
