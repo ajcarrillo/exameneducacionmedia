@@ -26,31 +26,38 @@ class ReporteDinamicoController extends Controller
 
         $query = DB::table('aspirantes as a');
         $query->aspirantesFields($checkedAspiranteFields);
-
-        if ($checkedUserFields->count()) {
-            $query->join('users as u', 'a.user_id', '=', 'u.id');
-            $query->addSelect('u.id');
-            foreach ($checkedUserFields as $field) {
-                $query->addSelect("u.{$field}");
-            }
-        }
+        $query->usersFields($checkedUserFields);
 
         if ($checkedPreferencias->count()) {
-
             foreach ($checkedPreferencias as $preferencia) {
                 $subquery = DB::table("seleccion_ofertas_educativas as soe_{$preferencia}")
-                    ->selectRaw("soe_{$preferencia}.*")
+                    ->join('ofertas_educativas as ofer', "soe_{$preferencia}.oferta_educativa_id", '=', 'ofer.id')
+                    ->join('planteles as plan', 'ofer.plantel_id', '=', 'plan.id')
+                    ->join('especialidades as espe', 'ofer.especialidad_id', '=', 'espe.id')
+                    ->selectRaw("soe_{$preferencia}.aspirante_id, plan.descripcion, espe.referencia")
                     ->where("soe_{$preferencia}.preferencia", $preferencia);
 
-                $query->leftJoin(DB::raw("({$subquery->toSql()}) as soe_{$preferencia}"), function ($join) use ($preferencia) {
-                    $join->on('a.id', '=', "soe_{$preferencia}.aspirante_id");
-                });
+                $query->leftJoin(DB::raw("({$subquery->toSql()}) as subsoe_{$preferencia}"), function ($join) use ($preferencia) {
+                    $join->on('a.id', '=', "subsoe_{$preferencia}.aspirante_id");
+                })->mergeBindings($subquery);
 
-                $query->selectRaw("soe_{$preferencia}.*");
+                $query->selectRaw("subsoe_{$preferencia}.*");
             }
         }
 
-        $q = $query->where('a.id', 3)->toSql();
+        if ($request->filled('domicilio')) {
+            $query->leftJoin('domicilios as dom', 'a.domicilio_id', '=', 'dom.id')
+                ->join('geodatabase.mun_loc_qroo_camp as geo', function ($join) {
+                    $join->on('geo.CVE_ENT', '=', 'dom.cve_ent')
+                        ->on('geo.CVE_MUN', '=', 'dom.cve_mun')
+                        ->on('geo.CVE_LOC', '=', 'dom.cve_loc');
+                })
+                ->addSelect(
+                    DB::raw('geo.NOM_MUN as domicilio_mun, geo.NOM_LOC as domicilio_loc, dom.colonia as domicilio_colonia, dom.calle as domicilio_calle, dom.numero as domicilio_numero, dom.codigo_postal as domicilio_codigo_postal')
+                );
+        }
+        //$q = $query->get();
+        $q = $query->toSql();
 
         return view('administracion.reporte_dinamico.reporte_dinamico', compact(
             'aspiranteFields', 'checkedAspiranteFields',

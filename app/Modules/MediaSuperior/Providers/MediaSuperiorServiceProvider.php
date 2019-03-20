@@ -27,6 +27,16 @@ class MediaSuperiorServiceProvider extends ServiceProvider
                 $this->addSelect("a.{$field}");
             }
         });
+
+        Builder::macro('usersFields', function ($fields) {
+            if ($fields->count()) {
+                $this->join('users as u', 'a.user_id', '=', 'u.id');
+                $this->addSelect('u.id');
+                foreach ($fields as $field) {
+                    $this->addSelect("u.{$field}");
+                }
+            }
+        });
     }
 
     public function register()
