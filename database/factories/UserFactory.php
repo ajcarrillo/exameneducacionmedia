@@ -14,13 +14,14 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(ExamenEducacionMedia\User::class, function (Faker $faker) {
+    $email = $faker->unique()->email;
     return [
         'uuid'                         => $faker->uuid,
         'nombre'                       => $faker->name,
         'primer_apellido'              => $faker->firstName,
         'segundo_apellido'             => $faker->lastName,
-        'email'                        => $faker->unique()->email,
-        'username'                     => $faker->unique()->userName,
+        'email'                        => $email,
+        'username'                     => $email,
         'password'                     => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm',
         'api_token'                    => str_random(60),
         'active'                       => true,

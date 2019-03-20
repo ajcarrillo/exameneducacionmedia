@@ -16,17 +16,15 @@ use Faker\Generator as Faker;
 $factory->define(\Aspirante\Models\Aspirante::class, function (Faker $faker) {
 
     return [
-        'alumno_id'                  => NULL,
-        'telefono'                   => NULL,
-        'sexo'                       => NULL,
-        'folio'                      => random_int(1, 9999999999),
-        'pais_nacimiento_id'         => NULL,
-        'entidad_nacimiento_id'      => NULL,
-        'domicilio_id'               => NULL,
-        'informacion_procedencia_id' => NULL,
-        'fecha_nacimiento'           => NULL,
-        'curp'                       => NULL,
-        'curp_historica'             => NULL,
-        'curp_valida'                 => NULL,
+        'alumno_id'             => NULL,
+        'telefono'              => $faker->phoneNumber,
+        'sexo'                  => $faker->randomElement([ 'H', 'M' ]),
+        'folio'                 => random_int(1, 999999999),
+        'pais_nacimiento_id'    => \ExamenEducacionMedia\Models\Geodatabase\Pais::inRandomOrder()->first()->id,
+        'entidad_nacimiento_id' => \ExamenEducacionMedia\Models\Entidad::inRandomOrder()->first()->id,
+        'fecha_nacimiento'      => $faker->dateTimeBetween('-17 years', '-13 years'),
+        'curp'                  => NULL,
+        'curp_historica'        => NULL,
+        'curp_valida'           => NULL,
     ];
 });
