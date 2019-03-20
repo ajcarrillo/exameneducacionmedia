@@ -9,6 +9,7 @@
 namespace MediaSuperior\Providers;
 
 
+use DB;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\ServiceProvider;
@@ -31,7 +32,7 @@ class MediaSuperiorServiceProvider extends ServiceProvider
         Builder::macro('usersFields', function ($fields) {
             if ($fields->count()) {
                 $this->join('users as u', 'a.user_id', '=', 'u.id');
-                $this->addSelect('u.id');
+                $this->addSelect(DB::raw('u.id as user_id'));
                 foreach ($fields as $field) {
                     $this->addSelect("u.{$field}");
                 }
