@@ -4,12 +4,13 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col">
-                {{ $q }}
+
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <form action="" method="get">
+                <form action="" method="post">
+                    @csrf
                     <div class="form-group">
                         @include('administracion.reporte_dinamico._user_fields')
                     </div>
