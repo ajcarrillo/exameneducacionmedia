@@ -21,13 +21,21 @@
                     </div>
                     <div class="form-group">
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="domicilio" id="domicilio" value="1">
+                            <input type="checkbox"
+                                   name="domicilio"
+                                   id="domicilio"
+                                   value="1"
+                                {{ request('domicilio') ? 'checked': '' }}>
                             Incluir domicilio
                         </label>
                     </div>
                     <div class="form-group">
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="asignacion" id="asignacion" value="1">
+                            <input type="checkbox"
+                                   name="asignacion"
+                                   id="asignacion"
+                                   value="1"
+                                {{ request('asignacion') ? 'checked': '' }}>
                             Incluir asignación
                         </label>
                     </div>
