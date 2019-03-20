@@ -1,12 +1,12 @@
-<label for="" class="d-block">Campos disponibles del usuario:</label>
-@foreach($userFields as $field)
+<label for="" class="d-block">Campos disponibles del aspirante:</label>
+@foreach($aspiranteFields as $field)
     <div class="form-check form-check-inline">
-        <input name="usrfields[]"
+        <input name="aspfields[]"
                type="checkbox"
                class="form-check-input"
-               id="user_{{ $field }}"
+               id="aspirante_{{ $field }}"
                value="{{ $field }}"
-            {{ $checkedUserFields->contains($field) ? 'checked' : '' }}>
-        <label class="form-check-label" for="user_{{ $field }}">{{ $field }}</label>
+            {{ $checkedAspiranteFields->contains($field) ? 'checked' : '' }}>
+        <label class="form-check-label" for="aspirante_{{ $field }}">{{ $field }}</label>
     </div>
 @endforeach

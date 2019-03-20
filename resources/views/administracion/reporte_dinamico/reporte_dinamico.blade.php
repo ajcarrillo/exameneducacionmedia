@@ -11,10 +11,10 @@
             <div class="col">
                 <form action="" method="get">
                     <div class="form-group">
-                        @include('administracion.reporte_dinamico._aspirante_fields')
+                        @include('administracion.reporte_dinamico._user_fields')
                     </div>
                     <div class="form-group">
-                        @include('administracion.reporte_dinamico._user_fields')
+                        @include('administracion.reporte_dinamico._aspirante_fields')
                     </div>
                     <div class="form-group">
                         @include('administracion.reporte_dinamico._preferencia_fields')
@@ -29,7 +29,8 @@
                             Incluir domicilio
                         </label>
                     </div>
-                    <div class="form-group">
+                    {{--TODRES: Validar que exista asiganción y mostrar el control--}}
+                    {{--<div class="form-group">
                         <label class="checkbox-inline">
                             <input type="checkbox"
                                    name="asignacion"
@@ -38,7 +39,7 @@
                                 {{ request('asignacion') ? 'checked': '' }}>
                             Incluir asignación
                         </label>
-                    </div>
+                    </div>--}}
                     <div class="form-group">
                         <button class="btn btn-success">Generar</button>
                     </div>
