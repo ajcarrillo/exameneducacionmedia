@@ -1,13 +1,13 @@
 set FOREIGN_KEY_CHECKS = 0;
 TRUNCATE educacionmedia.subsistemas;
 INSERT INTO educacionmedia.subsistemas (id, referencia, descripcion, responsable_id, created_at, updated_at) VALUES (1, 'COBAQROO', 'COLEGIO DE BACHILLERES DEL ESTADO DE QUINTANA ROO', null, null, null);
-INSERT INTO educacionmedia.subsistemas (id, referencia, descripcion, responsable_id, created_at, updated_at) VALUES (2, 'CONALEP', 'COLEGIO NACIONAL DE EDUCACION PROFESIONAL TECNICA', null, null, null);
+INSERT INTO educacionmedia.subsistemas (id, referencia, descripcion, responsable_id, created_at, updated_at) VALUES (2, 'CONALEPQROO', 'COLEGIO NACIONAL DE EDUCACIÓN PROFESIONAL TÉCNICA DE QUINTANA ROO', null, null, null);
 INSERT INTO educacionmedia.subsistemas (id, referencia, descripcion, responsable_id, created_at, updated_at) VALUES (3, 'CEBT EVA SAMANO', 'CENTRO DE ESTUDIOS DE BACHILLERATO TECNICO "EVA SAMANO DE LOPEZ MATEOS"', null, null, null);
-INSERT INTO educacionmedia.subsistemas (id, referencia, descripcion, responsable_id, created_at, updated_at) VALUES (4, 'DGETA', 'DIRECCION GENERAL DE EDUCACION TECNOLOGICA AGROPECUARIA', null, null, null);
+INSERT INTO educacionmedia.subsistemas (id, referencia, descripcion, responsable_id, created_at, updated_at) VALUES (4, 'UEMSTAyCM', 'UNIDAD DE EDUCACIÓN MEDIA SUPERIOR TECNOLÓGICA AGROPECUARIA Y CIENCIAS DEL MAR', null, null, null);
 INSERT INTO educacionmedia.subsistemas (id, referencia, descripcion, responsable_id, created_at, updated_at) VALUES (5, 'CEB BACALAR', 'CENTRO DE ESTUDIOS DE BACHILLERATO 5/9 "JUSTO SIERRA MENDEZ"', null, null, null);
 INSERT INTO educacionmedia.subsistemas (id, referencia, descripcion, responsable_id, created_at, updated_at) VALUES (6, 'CEB FELIPE CARRILLO PUERTO', 'CENTRO DE ESTUDIOS DE BACHILLERATO 5/10', null, null, null);
-INSERT INTO educacionmedia.subsistemas (id, referencia, descripcion, responsable_id, created_at, updated_at) VALUES (7, 'DGETI', 'DIRECCION GENERAL DE EDUCACION TECNOLOGICA INDUSTRIAL', null, null, null);
+INSERT INTO educacionmedia.subsistemas (id, referencia, descripcion, responsable_id, created_at, updated_at) VALUES (7, 'UEMSTIS', 'UNIDAD DE EDUCACIÓN MEDIA SUPERIOR TECNOÓGICA INDUSTRIA Y DE SERVICIOS', null, null, null);
 INSERT INTO educacionmedia.subsistemas (id, referencia, descripcion, responsable_id, created_at, updated_at) VALUES (8, 'CECYTEQROO', 'COLEGIO DE ESTUDIOS CIENTIFICOS Y TECNOLOGICOS QUINTANA ROO', null, null, null);
-INSERT INTO educacionmedia.subsistemas (id, referencia, descripcion, responsable_id, created_at, updated_at) VALUES (9, 'CETMAR', 'CENTRO DE ESTUDIOS TECNOLOGICOS DEL MAR', null, null, null);
+INSERT INTO educacionmedia.subsistemas (id, referencia, descripcion, responsable_id, created_at, updated_at) VALUES (9, 'UEMSTAyCM', 'UNIDAD DE EDUCACIÓN MEDIA SUPERIOR TECNOLÓGICA AGROPECUARIA Y CIENCIAS DEL MAR', null, null, null);
 INSERT INTO educacionmedia.subsistemas (id, referencia, descripcion, responsable_id, created_at, updated_at) VALUES (12, 'TELEBACHILLERATO', 'TELEBACHILLERATO COMUNITARIO', null, null, null);
 SET FOREIGN_KEY_CHECKS = 1;
