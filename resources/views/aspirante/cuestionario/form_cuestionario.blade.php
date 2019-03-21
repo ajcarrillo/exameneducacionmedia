@@ -24,7 +24,7 @@
                 {!! Form::open(['class'=>'', 'method'=>'post', 'route'=>['aspirante.guarda.cuestionario'], 'name'=>'form-cuestionario', 'id' => 'form-cuestionario']) !!}
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <div class="card-title">CAPTURAR CUESTIONARIO CENEVAL</div>
+                        <div class="card-title">CUESTIONARIO CENEVAL</div>
                     </div>
                     <div class="card-body">
                         <div id="contenedor">
