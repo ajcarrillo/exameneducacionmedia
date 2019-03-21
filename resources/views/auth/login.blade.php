@@ -18,7 +18,7 @@
                 </ul>
                 <h2 class="mb-3">Descarga</h2>
                 <ul>
-                    <li><a class="text-center mb-3 flex-fill" href="http://siem.seq.gob.mx/static/media/Guia_EXANI_I_2018.pdf">Guía de estudios EXANI-I CENEVAL</a></li>
+                    <li><a class="text-center mb-3 flex-fill" href="{{ asset('descargas/guia_de_estudios.pdf') }}">Guía de estudios EXANI-I CENEVAL</a></li>
                     {{--<li><a class="text-center mb-3 flex-fill" href="http://siem.seq.gob.mx/static/media/catalogo_opciones_educativas.pdf">Catálogo de preparatorias públicas en
                             Quintana Roo</a></li>
                     <li>
