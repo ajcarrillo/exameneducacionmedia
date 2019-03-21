@@ -54,7 +54,6 @@
             }
 
 
-
         </style>
     </head>
     <body>
@@ -89,28 +88,28 @@
                         style="color: #666a6d"><b>REGISTRO: {{ get_etapa('registro')->fecha_apertura }} al {{ get_etapa('registro')->fecha_cierre }}</b></h3>
 
                 </div>
-
-                @if(is_etapa_registro())
-                    <div class="register mt-3 links d-flex flex-column flex-sm-row justify-content-center">
-                        <a href="/aspirantes/registro-matricula"
-                           class="text-center mb-3"
-                           data-toggle="tooltip"
-                           data-placement="top"
-                           title="Aspirantes que ESTUDIAN o ESTUDIARON algún grado en el estado de Quintana Roo"
-                        >
-                            Registro alumnos de Quintana Roo
-                        </a>
-                        <a href="/aspirantes/registro-externo"
-                           class="text-center mb-3">
-                            <span>Registro alumnos de otros estados</span>
-                        </a>
-                        <a href="/aspirantes/registro-externo"
-                           class="text-center mb-3">
-                            <span>Registro alumnos extranjeros</span>
-                        </a>
-                    </div>
-                @endif
-
+                @guest
+                    @if(is_etapa_registro())
+                        <div class="register mt-3 links d-flex flex-column flex-sm-row justify-content-center">
+                            <a href="/aspirantes/registro-matricula"
+                               class="text-center mb-3"
+                               data-toggle="tooltip"
+                               data-placement="top"
+                               title="Aspirantes que ESTUDIAN o ESTUDIARON algún grado en el estado de Quintana Roo"
+                            >
+                                Registro alumnos de Quintana Roo
+                            </a>
+                            <a href="/aspirantes/registro-externo"
+                               class="text-center mb-3">
+                                <span>Registro alumnos de otros estados</span>
+                            </a>
+                            <a href="/aspirantes/registro-externo"
+                               class="text-center mb-3">
+                                <span>Registro alumnos extranjeros</span>
+                            </a>
+                        </div>
+                    @endif
+                @endguest
                 <div class="mt-3 d-flex flex-column flex-sm-row justify-content-center">
                     <a href="{{ route('login') }}" class="btn btn-info btn-lg blink">
                         Entrar
@@ -119,7 +118,7 @@
 
                 <div class="information mt-3 mb-3">
                     <h3 class="text-center mb-0">
-                        <a href="">
+                        <a href="{{ asset('descargas/CONVOCATORIA_PAEMS_2019.pdf') }}">
                             Convocatoria PAENMS 2019
                         </a>
                     </h3>
@@ -131,11 +130,11 @@
                     </div>
 
                     <div id="descargables" class="mt-3 links d-flex flex-column flex-sm-row justify-content-around">
-                        <a class="text-center mb-3 flex-fill" href="http://siem.seq.gob.mx/static/media/Guia_EXANI_I_2018.pdf">Guía de estudios EXANI-I CENEVAL</a>
-                        <a class="text-center mb-3 flex-fill" href="http://siem.seq.gob.mx/static/media/catalogo_opciones_educativas.pdf">Catálogo de preparatorias públicas en
-                            Quintana Roo</a>
-                        <a class="text-center mb-3 flex-fill" href="http://siem.seq.gob.mx/static/media/Preparatoria_Abierta_del_Colegio_de_Bachilleres_del_Estado_de_Quintana_Roo.pdf">Preparatoria
-                            Abierta en el Colegio de Bachilleres</a>
+                        <a class="text-center mb-3 flex-fill" href="{{ asset('descargas/guia_de_estudios.pdf') }}" target="_blank">Guía de estudios EXANI-I CENEVAL</a>
+                        {{--<a class="text-center mb-3 flex-fill" href="http://siem.seq.gob.mx/static/media/catalogo_opciones_educativas.pdf">Catálogo de preparatorias públicas en
+                            Quintana Roo</a>--}}
+                        {{--<a class="text-center mb-3 flex-fill" href="http://siem.seq.gob.mx/static/media/Preparatoria_Abierta_del_Colegio_de_Bachilleres_del_Estado_de_Quintana_Roo.pdf">Preparatoria
+                            Abierta en el Colegio de Bachilleres</a>--}}
                     </div>
                 </div>
             </main>

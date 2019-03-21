@@ -8,7 +8,7 @@
 @endsection
 
 @section('navbar-title')
-    Plantel - Contenido
+    Panel de control
 @endsection
 
 @section('content')

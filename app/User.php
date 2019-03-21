@@ -37,6 +37,15 @@ class User extends Authenticatable
         'jarvis_user_token_type', 'jarvis_user_token_expires_in', 'jarvis_user_refresh_token',
     ];
 
+    public function scopeNotSeeMe($query)
+    {
+        if ( ! \Auth::user()->hasRole('supermario')) {
+            return $query->where('id', '!=', \Auth::user()->id);
+        }
+
+        return $query;
+    }
+
     public function scopeFilterBy($query, QueryFilter $filters, array $data)
     {
         return $filters->applyTo($query, $data);

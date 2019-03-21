@@ -17,13 +17,20 @@
         <a href="{{ route('centro-descarga.cdescarga.index') }}"
            class="btn btn-success btn-sm btn-block">Centro de descargas</a>
     </li>
+    <li>
+        <a href="{{ route('update.password') }}"
+           class="btn btn-success btn-sm btn-block">Actualizar contraseña</a>
+    </li>
     @if($hasRevision)
         @if($revision->efectuado)
             @if(!$hasPaseAlExamen)
                 <li>
-                    <a href="{{ route('aspirante.generar.pase') }}"
-                       onclick="event.preventDefault(); document.getElementById('generar-pase-form').submit();"
-                       class="btn btn-primary btn-sm blink">Genera pase al examen</a>
+                    <button class="btn btn-primary btn-sm blink"
+                            onclick="this.setAttribute('disabled', 'true'); this.innerHTML = 'Por favor espere...'; document.getElementById('generar-pase-form').submit();"
+                            type="button"
+                    >Generar pase al examen
+                    </button>
+
                     <form id="generar-pase-form"
                           action="{{ route('aspirante.generar.pase') }}"
                           method="post"
@@ -34,23 +41,25 @@
             @else
                 <li>
                     <a href="{{ route('aspirante.paseExamen', get_aspirante()->id) }}"
+                       target="_blank"
                        class="btn btn-primary btn-sm blink">Descargar pase al examen</a>
                 </li>
             @endif
         @else
             <li>
                 <a href="{{ route('aspirante.fichaPago', get_aspirante()->id) }}"
+                   target="_blank"
                    class="btn btn-primary btn-sm blink">Descarga ficha de depósito</a>
             </li>
         @endif
     @else
         @if($hasInformacionCompleta)
             <li>
-                <a class="btn btn-primary btn-sm blink" href="{{ route('aspirante.enviar.registro') }}"
-                   onclick="event.preventDefault();
-                document.getElementById('enviar-registro-form').submit();">
-                    Enviar Registro
-                </a>
+                <button class="btn btn-primary btn-sm blink"
+                        onclick="this.setAttribute('disabled', 'true'); this.innerHTML = 'Por favor espere...'; document.getElementById('enviar-registro-form').submit();"
+                        type="button"
+                >Enviar registro
+                </button>
                 <form id="enviar-registro-form"
                       action="{{ route('aspirante.enviar.registro') }}"
                       method="POST"

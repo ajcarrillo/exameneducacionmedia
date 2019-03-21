@@ -2,7 +2,7 @@
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-----------------Cambiar contraseña------------------------------->
         <li class="nav-item has-treeview menu">
-            <a href="#" class="nav-link">
+            <a href="{{ route('update.password') }}" class="nav-link">
                 <i class="fas fa-key"></i>
                 <p>
                     Cambiar contraseña

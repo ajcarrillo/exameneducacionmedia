@@ -10,7 +10,7 @@
             <div class="col-md-7">
                 <h1 class="mb-3">Sistema de Registro al Examen de Ingreso a la Educación Media</h1>
                 <ul>
-                    <li><a class="mb-3" href="">Convocatoria PAENMS 2019</a></li>
+                    <li><a class="mb-3" href="{{ asset('descargas/CONVOCATORIA_PAEMS_2019.pdf') }}">Convocatoria PAENMS 2019</a></li>
                     <li><a class="mb-3" href="http://qroo.gob.mx/seq/preparatoria-abierta-quintana-roo">Preparatoria abierta</a></li>
                     <li><a class="mb-3" href="http://www.prepaenlinea.sep.gob.mx/">Preparatoria en línea</a></li>
                     <li><a class="mb-3" href="http://www.facebook.com/paenmsqroo">Asesorías y dudas</a></li>
@@ -19,11 +19,11 @@
                 <h2 class="mb-3">Descarga</h2>
                 <ul>
                     <li><a class="text-center mb-3 flex-fill" href="http://siem.seq.gob.mx/static/media/Guia_EXANI_I_2018.pdf">Guía de estudios EXANI-I CENEVAL</a></li>
-                    <li><a class="text-center mb-3 flex-fill" href="http://siem.seq.gob.mx/static/media/catalogo_opciones_educativas.pdf">Catálogo de preparatorias públicas en
+                    {{--<li><a class="text-center mb-3 flex-fill" href="http://siem.seq.gob.mx/static/media/catalogo_opciones_educativas.pdf">Catálogo de preparatorias públicas en
                             Quintana Roo</a></li>
                     <li>
                         <a class="text-center mb-3 flex-fill" href="http://siem.seq.gob.mx/static/media/Preparatoria_Abierta_del_Colegio_de_Bachilleres_del_Estado_de_Quintana_Roo.pdf">Preparatoria
-                            Abierta en el Colegio de Bachilleres</a></li>
+                            Abierta en el Colegio de Bachilleres</a></li>--}}
                 </ul>
             </div>
             <div class="col-md-5">
@@ -61,9 +61,9 @@
                                     Entrar
                                 </button>
 
-                                <a class="btn btn-link" href="#!">
+                                {{--<a class="btn btn-link" href="#!">
                                     ¿Olvidaste tu contraseña?
-                                </a>
+                                </a>--}}
                             </div>
                         </form>
                     </div>

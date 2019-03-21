@@ -2,7 +2,14 @@
     <form @submit.prevent="submit">
         <vue-form-generator :model="model" :options="formOptions" :schema="schema"></vue-form-generator>
         <div class="form-group mb-0">
-            <button class="btn btn-primary">Guardar</button>
+            <button class="btn btn-primary" :disabled="isSaving">
+                <template v-if="!isSaving">
+                    Guardar
+                </template>
+                <template v-else>
+                    Guardando...
+                </template>
+            </button>
             <router-link :to="{name:'subsistemas.home'}">
                 <a class="btn btn-default">Regresar</a>
             </router-link>
@@ -22,6 +29,7 @@
         props: ['plantelid'],
         data() {
             return {
+                isSaving: false,
                 model: {
                     nombre: '',
                     primer_apellido: '',
@@ -78,6 +86,7 @@
         },
         methods: {
             submit() {
+                this.isSaving = true;
                 store.dispatch('home/asignarResponsable', {
                     responsable: this.model,
                     uuid: this.plantelid
@@ -90,8 +99,10 @@
                             text: 'El responsable del plantel se asignó correctamente',
                             type: 'success'
                         });
+                        this.$router.push({name: 'subsistemas.home'});
                     })
                     .catch(err => {
+                        this.savingFinished();
                         swal({
                             type: 'error',
                             title: 'Oops...',
@@ -101,12 +112,16 @@
                     })
             },
             resetForm() {
+                this.savingFinished();
                 this.model.nombre = '';
                 this.model.primer_apellido = '';
                 this.model.segundo_apellido = '';
                 this.model.email = '';
                 this.model.password = '';
                 this.model.username = '';
+            },
+            savingFinished(){
+                this.isSaving = false;
             }
         }
     }

@@ -36,4 +36,5 @@ TRUNCATE educacionmedia.sedes_alternas;
 TRUNCATE educacionmedia.seleccion_ofertas_educativas;
 TRUNCATE educacionmedia.subsistemas;
 TRUNCATE educacionmedia.users;
+TRUNCATE educacionmedia.municipios_view;
 SET FOREIGN_KEY_CHECKS = 1;

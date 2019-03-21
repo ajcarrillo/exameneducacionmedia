@@ -24,7 +24,6 @@ class StoreAspiranteConMatricula extends FormRequest
     {
 
         return [
-            'sexo'             => 'in:H,M',
             'email'            => 'required|email|unique:users',
             'nombre'           => 'required',
             'alumno_id'        => 'required|unique:aspirantes',

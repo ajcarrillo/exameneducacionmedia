@@ -22,11 +22,11 @@
                     <div class="col d-flex align-items-center">
                         <label class="mr-3" for="">Sexo:</label>
                         <label class="checkbox-inline pr-3">
-                            <input :disabled="!externo" name="sexo" required type="radio" v-model="datos.sexo" value="H">
+                            <input name="sexo" required type="radio" v-model="datos.sexo" value="H">
                             H
                         </label>
                         <label class="checkbox-inline">
-                            <input :disabled="!externo" name="sexo" required type="radio" v-model="datos.sexo" value="M">
+                            <input name="sexo" required type="radio" v-model="datos.sexo" value="M">
                             M
                         </label>
                     </div>

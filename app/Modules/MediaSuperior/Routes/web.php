@@ -3,6 +3,15 @@
  * Created by PhpStorm.
  * User: Igna
  */
+
+
+Route::prefix('/reporte-dinamico')
+    ->middleware([ 'auth', 'role:departamento' ])
+    ->group(function () {
+        Route::get('/', 'ReporteDinamicoController@index');
+        Route::post('/', 'ReporteDinamicoController@download');
+    });
+
 Route::middleware([ 'auth', 'role:departamento' ])
     ->prefix('/administracion')
     ->name('administracion.')
@@ -164,7 +173,7 @@ Route::middleware([ 'auth', 'role:departamento' ])
             });
     });
 
-Route::middleware([ 'auth', 'role:plantel|departamento' ])
+Route::middleware(['auth', 'role:plantel|departamento'])
     ->prefix('/administracion')
     ->name('administracion.')
     ->group(function () {
