@@ -221,8 +221,8 @@
                     <tr style="background-color: rgba(217,216,216,0.3)">
                         <td >{{$datos->concepto->descripcion }}</td>
                         <td >1</td>
-                        <td >2.14</td>
-                        <td >102.68</td>
+                        <td>2.34</td>
+                        <td>102.68</td>
                     </tr>
                 </tbody>
             </table>

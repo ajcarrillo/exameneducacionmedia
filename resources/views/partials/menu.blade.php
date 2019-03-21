@@ -48,7 +48,7 @@
         @endif
     <!------------------------------------------------>
         <!-----------------Panel de control DEMS ------------------------------->
-        @if(!auth()->user()->hasRole('aspirante'))
+        {{--@if(!auth()->user()->hasRole('aspirante'))
             <li class="nav-item has-treeview menu">
                 <a href="{{ route('media.administracion.enlaces.index') }}" class="nav-link">
                     <i class="far fa-file-alt"></i>
@@ -57,7 +57,7 @@
                     </p>
                 </a>
             </li>
-        @endif
+        @endif--}}
     <!------------------------------------------------>
         <!-----------------Configuración del proceso ------------------------------->
         @if(auth()->user()->hasRole('departamento'))
