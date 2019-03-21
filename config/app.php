@@ -160,6 +160,7 @@ return [
         ExamenEducacionMedia\Providers\AuthServiceProvider::class,
         // ExamenEducacionMedia\Providers\BroadcastServiceProvider::class,
         ExamenEducacionMedia\Providers\EventServiceProvider::class,
+        ExamenEducacionMedia\Providers\TelescopeServiceProvider::class,
         ExamenEducacionMedia\Providers\RouteServiceProvider::class,
         ExamenEducacionMedia\Providers\ComposerServiceProvider::class,
 
