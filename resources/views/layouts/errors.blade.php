@@ -476,8 +476,8 @@
                         </button>
                     </a>
 
-                    <div>
-                        <img src="{{ asset('img/logos-institucionales.png') }}"
+                    <div style="margin-top: 1rem">
+                        <img src="{{ asset('img/secretaria-seq.png') }}"
                              alt=""
                              class="img-fluid">
                     </div>
