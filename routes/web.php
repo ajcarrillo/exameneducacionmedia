@@ -11,6 +11,9 @@
 |
 */
 
+Route::view('/perfil', 'profile')
+    ->middleware([ 'auth' ]);
+
 Route::post('/login-as-user', 'Auth\LoginAsController@loginAsUser')
     ->middleware([ 'auth', 'role:departamento' ])
     ->name('login.as.user');
