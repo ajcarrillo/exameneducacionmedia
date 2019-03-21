@@ -13,7 +13,7 @@ use ExamenEducacionMedia\User;
 
 trait RedirectTo
 {
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/perfil';
 
     public function redirectTo(User $user)
     {
