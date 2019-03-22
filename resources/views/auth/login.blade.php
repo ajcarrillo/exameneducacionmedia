@@ -67,6 +67,9 @@
                             </div>
                         </form>
                     </div>
+                    <div class="card-body pb-0">
+                        <p>Para un funcionamiento óptimo del sistema utilizar el navegador Google Chrome</p>
+                    </div>
                 </div>
             </div>
         </div>

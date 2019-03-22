@@ -14,6 +14,8 @@
 Route::view('/perfil', 'profile')
     ->middleware([ 'auth' ]);
 
+Route::view('/aviso-privacidad', 'aviso_privacidad')->name('aviso.privacidad');
+
 Route::post('/login-as-user', 'Auth\LoginAsController@loginAsUser')
     ->middleware([ 'auth', 'role:departamento' ])
     ->name('login.as.user');

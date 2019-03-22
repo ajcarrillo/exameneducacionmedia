@@ -137,6 +137,10 @@
                             Abierta en el Colegio de Bachilleres</a>--}}
                     </div>
                 </div>
+
+                <div>
+                    <h5 class="text-center font-weight-bold">Para un funcionamiento óptimo del sistema utilizar el navegador Google Chrome</h5>
+                </div>
             </main>
         </div>
 
