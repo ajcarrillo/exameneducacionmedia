@@ -9,6 +9,7 @@
 namespace ExamenEducacionMedia\Modules\Subsistema\Repositories;
 
 
+use DB;
 use ExamenEducacionMedia\Classes\BaseRepository;
 use Subsistema\Models\Filters\OfertaEducativaFilters;
 use Subsistema\Models\OfertaEducativa;
@@ -48,6 +49,16 @@ class OfertaEducativaRepository extends BaseRepository
                 oeg.grupos               grupos,
                 oeg.alumnos * oeg.grupos total'
             );
+
+        return $query;
+    }
+
+    public function catalogoOpcionesEducativas()
+    {
+        $query = $this->all([]);
+        $query->addSelect(
+            DB::raw("UPPER(concat_ws(' ', p.calle_principal, 'ENTRE', p.calle_derecha, 'Y', p.calle_izquierda, 'colonia', p.colonia)) domicilio, p.telefono, p.pagina_web")
+        );
 
         return $query;
     }
