@@ -6,7 +6,7 @@
  * Time: 21:56
  */
 
-namespace ExamenEducacionMedia\Modules\Subsistema\Repositories;
+namespace Subsistema\Repositories;
 
 
 use DB;

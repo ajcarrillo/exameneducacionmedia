@@ -9,7 +9,7 @@
 namespace ExamenEducacionMedia\Exports;
 
 
-use ExamenEducacionMedia\Modules\Subsistema\Repositories\OfertaEducativaRepository;
+use Subsistema\Repositories\OfertaEducativaRepository;
 use Illuminate\Database\Query\Builder;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
