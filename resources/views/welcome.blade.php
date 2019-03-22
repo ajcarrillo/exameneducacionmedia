@@ -141,9 +141,6 @@
                 <div>
                     <h5 class="text-center font-weight-bold">Para un funcionamiento óptimo del sistema utilizar el navegador Google Chrome</h5>
                 </div>
-                @if(app()->isLocal())
-                    xxxx
-                @endif
             </main>
         </div>
 
