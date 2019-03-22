@@ -1,5 +1,15 @@
 <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        @if(auth()->user()->hasRole('supermario'))
+            <li class="nav-item has-treeview menu">
+                <a href="/telescope" class="nav-link">
+                    <i class="fas fa-bug"></i>
+                    <p>
+                        Telescope
+                    </p>
+                </a>
+            </li>
+        @endif
         <!-----------------Cambiar contraseña------------------------------->
         <li class="nav-item has-treeview menu">
             <a href="{{ route('update.password') }}" class="nav-link">
