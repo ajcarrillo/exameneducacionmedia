@@ -18,9 +18,9 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
     {
         Telescope::night();
 
-        $this->hideSensitiveRequestDetails();
+        //$this->hideSensitiveRequestDetails();
 
-        Telescope::filter(function (IncomingEntry $entry) {
+        /*Telescope::filter(function (IncomingEntry $entry) {
             if ($this->app->isLocal()) {
                 return true;
             }
@@ -29,7 +29,7 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
                    $entry->isFailedJob() ||
                    $entry->isScheduledTask() ||
                    $entry->hasMonitoredTag();
-        });
+        });*/
     }
 
     /**
