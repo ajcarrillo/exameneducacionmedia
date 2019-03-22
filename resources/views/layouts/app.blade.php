@@ -99,5 +99,6 @@
         </script>
 
         @yield('extra-scripts')
+        @includeWhen(!app()->isLocal(), 'ga')
     </body>
 </html>

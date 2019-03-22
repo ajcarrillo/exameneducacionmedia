@@ -155,5 +155,6 @@
                 $('[data-toggle="tooltip"]').tooltip()
             })
         </script>
+        @includeWhen(!app()->isLocal(), 'ga')
     </body>
 </html>
