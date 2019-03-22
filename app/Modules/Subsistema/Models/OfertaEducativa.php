@@ -10,11 +10,12 @@ namespace Subsistema\Models;
 
 
 use Awobaz\Compoships\Compoships;
+use ExamenEducacionMedia\Traits\FilterByTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class OfertaEducativa extends Model
 {
-    use Compoships;
+    use Compoships, FilterByTrait;
 
     protected $table    = 'ofertas_educativas';
     protected $fillable = [
