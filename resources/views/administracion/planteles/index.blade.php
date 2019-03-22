@@ -58,6 +58,7 @@
                                     <th width="5%">Plantel</th>
                                     <th width="5%">Responsable</th>
                                     <th width="5%">Subsistema</th>
+                                    <th width="5%">Acitvo</th>
                                     <th width="5%">Descuento</th>
                                     <th width="5%">Opciones</th>
                                 </tr>
@@ -71,6 +72,7 @@
                                             {{ get_full_name_from_user($plantel->responsable) ?? 'NO ASIGNADO' }}
                                         </td>
                                         <td class="align-middle">{{ $plantel->subsistema->referencia }}</td>
+                                        <td class="align-middle">{{ trans('sino.'.$plantel->active) }}</td>
                                         <td>
                                             <descuento-form :plantel="{{ json_encode($plantel) }}"></descuento-form>
                                         </td>
