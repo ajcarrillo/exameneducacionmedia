@@ -31,6 +31,8 @@ class OfertaEducativaRepository extends BaseRepository
             ->join('subsistemas as s', 'p.subsistema_id', '=', 's.id')
             ->join('especialidades as e', 'ofertas_educativas.especialidad_id', '=', 'e.id')
             ->filterBy(new OfertaEducativaFilters, $params)
+            ->where('p.active', 1)
+            ->where('ofertas_educativas.active', 1)
             ->orderBy('subsistema')
             ->orderBy('municipio')
             ->orderBy('localidad')
