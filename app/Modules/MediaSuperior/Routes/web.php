@@ -5,6 +5,14 @@
  */
 
 
+Route::prefix('/pagos')
+    ->name('pagos.')
+    ->middleware([ 'auth', 'role:departamento' ])
+    ->group(function () {
+        Route::post('/', 'SubirArchivoPagosController@store')->name('index');
+        Route::get('/', 'SubirArchivoPagosController@index')->name('index');
+    });
+
 Route::prefix('/reporte-dinamico')
     ->middleware([ 'auth', 'role:departamento' ])
     ->group(function () {
@@ -173,7 +181,7 @@ Route::middleware([ 'auth', 'role:departamento' ])
             });
     });
 
-Route::middleware(['auth', 'role:plantel|departamento'])
+Route::middleware([ 'auth', 'role:plantel|departamento' ])
     ->prefix('/administracion')
     ->name('administracion.')
     ->group(function () {
