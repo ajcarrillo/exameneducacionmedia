@@ -42,7 +42,8 @@ class UserFilter extends QueryFilter
     {
         return $query->whereHas('aspirante', function ($q) use ($curp) {
             return $q->where('curp', 'like', "%{$curp}%")
-                ->orWhere('folio', 'like', "%{$curp}%");
+                ->orWhere('folio', 'like', "%{$curp}%")
+                ->orWhere('matricula', 'like', "%{$curp}%");
         });
     }
 }
