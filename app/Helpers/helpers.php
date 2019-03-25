@@ -52,3 +52,17 @@ if ( ! function_exists('get_billy_url')) {
         return env('BILLY_SERVICE_URL');
     }
 }
+
+if ( ! function_exists('get_user')) {
+    function get_user(): \ExamenEducacionMedia\User
+    {
+        return Auth::user();
+    }
+}
+
+if ( ! function_exists('get_user_roles')) {
+    function get_user_roles(): \Illuminate\Support\Collection
+    {
+        return get_user()->getRoleNames();
+    }
+}
