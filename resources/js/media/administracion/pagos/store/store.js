@@ -53,9 +53,15 @@ export default new Vuex.Store({
             let billyUrl = JSON.parse(window.__INITIAL_STATE__) || {};
             context.commit('SET_BILLY_URL', billyUrl);
         },
-        buscarAspirnantes(context) {
+        buscarAspirnantes(context, payload) {
+            console.log(payload);
             return new Promise(function (resolve, reject) {
-                axios.get(route('media.administracion.aspirantes.buscar'))
+                axios.get(route('media.administracion.aspirantes.buscar'), {
+                    params: {
+                        search: payload.search,
+                        curp: payload.curp
+                    }
+                })
                     .then(res => {
                         context.commit('SEARCH_ASPIRANTES', res.data);
                         resolve(res);
