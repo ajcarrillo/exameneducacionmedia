@@ -45,3 +45,10 @@ if ( ! function_exists('get_etapa')) {
         return \ExamenEducacionMedia\Models\EtapaProceso::getEtapa($nombre);
     }
 }
+
+if ( ! function_exists('get_billy_url')) {
+    function get_billy_url()
+    {
+        return env('BILLY_SERVICE_URL');
+    }
+}

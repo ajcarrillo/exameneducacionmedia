@@ -9,6 +9,7 @@ Route::prefix('/pagos')
     ->name('pagos.')
     ->middleware([ 'auth', 'role:departamento' ])
     ->group(function () {
+        Route::get('/problema', 'ProblemaPagoController@index')->name('problema');
         Route::post('/', 'SubirArchivoPagosController@store')->name('index');
         Route::get('/', 'SubirArchivoPagosController@index')->name('index');
     });
@@ -28,6 +29,7 @@ Route::middleware([ 'auth', 'role:departamento' ])
             ->name('aspirantes.')
             ->group(function () {
                 Route::get('/', 'AspiranteController@index')->name('index');
+                Route::get('/buscar', 'SPA\BuscarAspiranteController@index')->name('buscar');
                 Route::get('/show/{id}', 'AspiranteController@show')->name('show');
                 Route::patch('/show/{id}', 'AspiranteController@update')->name('update');
             });

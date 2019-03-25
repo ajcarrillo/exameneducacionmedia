@@ -11,6 +11,15 @@ const mix = require('laravel-mix');
  |
  */
 
+mix.webpackConfig({
+    resolve: {
+        extensions: ['.js', '.vue', '.json'],
+        alias: {
+            '@': __dirname + '/resources/js'
+        },
+    },
+});
+
 mix.sass('resources/sass/adminlte.scss', 'public/css')
     .sass('resources/sass/base.scss', 'public/css')
     .sass('resources/sass/blink.scss', 'public/css');
@@ -23,7 +32,8 @@ mix.js('resources/js/adminlte.js', 'public/js')
     .js('resources/js/aspirante/profile.js', 'public/js/aspirante')
     .js('resources/js/aspirante/dashboard.js', 'public/js/aspirante')
     .js('resources/js/aspirante/seleccion_oferta.js', 'public/js/aspirante')
-    .js('resources/js/administracion/planteles.js', 'public/js/administracion/');
+    .js('resources/js/administracion/planteles.js', 'public/js/administracion/')
+    .js('resources/js/media/administracion/pagos/problema/app.js', 'public/js/administracion/pagos/problema');
 
 if (mix.inProduction()) {
     mix.version();
@@ -45,8 +55,6 @@ mix.js('resources/js/media/administracion/buscar_matricula/index.js', 'public/js
 mix.js('resources/js/aspirante/cuestionario/form_cuestionario.js', 'public/js/aspirante/cuestionario/form_cuestionario.js');
 //endIgna
 mix.js('resources/js/media/administracion/responsable_plantel/eliminar.js', 'public/js/media/administracion/responsable_plantel/eliminar.js');
-
-
 
 
 // ANTONIO
