@@ -32,8 +32,6 @@ class OfertaEducativaRepository extends BaseRepository
             ->join('subsistemas as s', 'p.subsistema_id', '=', 's.id')
             ->join('especialidades as e', 'ofertas_educativas.especialidad_id', '=', 'e.id')
             ->filterBy(new OfertaEducativaFilters, $params)
-            ->where('p.active', 1)
-            ->where('ofertas_educativas.active', 1)
             ->orderBy('subsistema')
             ->orderBy('municipio')
             ->orderBy('localidad')
@@ -47,7 +45,9 @@ class OfertaEducativaRepository extends BaseRepository
                 e.referencia             especialidad,
                 oeg.alumnos              alumos_por_grupo,
                 oeg.grupos               grupos,
-                oeg.alumnos * oeg.grupos total'
+                oeg.alumnos * oeg.grupos total,
+                if(p.active, \'Si\', \'No\')  plantel_activo,
+                if(ofertas_educativas.active, \'Si\', \'No\') oferta_activa'
             );
 
         return $query;
@@ -55,7 +55,7 @@ class OfertaEducativaRepository extends BaseRepository
 
     public function catalogoOpcionesEducativas()
     {
-        $query = $this->all([]);
+        $query = $this->all([ "inactivos" => "0" ]);
         $query->addSelect(
             DB::raw("UPPER(concat_ws(' ', p.calle_principal, 'ENTRE', p.calle_derecha, 'Y', p.calle_izquierda, 'colonia', p.colonia)) domicilio, p.telefono, p.pagina_web")
         );

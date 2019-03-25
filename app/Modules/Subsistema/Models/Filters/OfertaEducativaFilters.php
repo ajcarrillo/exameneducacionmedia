@@ -19,7 +19,14 @@ class OfertaEducativaFilters extends QueryFilter
         return [
             'subsistema' => 'filled',
             'plantel'    => 'filled',
+            'inactivos'  => 'filled',
+            'municipio'  => 'filled',
         ];
+    }
+
+    public function municipio($query, $municipio)
+    {
+        $query->where('geo.CVE_ENT', 23)->where('geo.CVE_MUN', $municipio);
     }
 
     public function subsistema($query, $subsistema)
@@ -30,5 +37,12 @@ class OfertaEducativaFilters extends QueryFilter
     public function plantel($query, $plantel)
     {
         $query->where('p.id', $plantel);
+    }
+
+    public function inactivos($query, $inactivos)
+    {
+        if ( ! $inactivos) {
+            $query->where('p.active', 1)->where('ofertas_educativas.active', 1);
+        }
     }
 }

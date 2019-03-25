@@ -9,11 +9,11 @@
 namespace ExamenEducacionMedia\Exports;
 
 
-use Subsistema\Repositories\OfertaEducativaRepository;
 use Illuminate\Database\Query\Builder;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Subsistema\Repositories\OfertaEducativaRepository;
 
 class OfertaEducativaExports implements FromQuery, WithHeadings
 {
@@ -23,22 +23,17 @@ class OfertaEducativaExports implements FromQuery, WithHeadings
     private $ofertas;
     private $plantelId;
     private $subsistemaId;
+    private $incluirInactivos = false;
+    private $params           = [];
 
     public function __construct(OfertaEducativaRepository $ofertas)
     {
         $this->ofertas = $ofertas;
     }
 
-    public function forPlantel(int $plantel)
+    public function params(array $params = [])
     {
-        $this->plantelId = $plantel;
-
-        return $this;
-    }
-
-    public function forSubsistema(int $subsistema)
-    {
-        $this->subsistemaId = $subsistema;
+        $this->params = $params;
 
         return $this;
     }
@@ -57,6 +52,8 @@ class OfertaEducativaExports implements FromQuery, WithHeadings
             'alumos_por_grupo',
             'grupos',
             'total',
+            'plantel_activo',
+            'oferta_activa',
         ];
     }
 
@@ -65,9 +62,6 @@ class OfertaEducativaExports implements FromQuery, WithHeadings
      */
     public function query()
     {
-        $subsistema = $this->subsistemaId;
-        $plantel    = $this->plantelId;
-
-        return $this->ofertas->all(compact('subsistema', 'plantel'));
+        return $this->ofertas->all($this->params);
     }
 }
