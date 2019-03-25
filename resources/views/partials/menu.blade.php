@@ -138,6 +138,18 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('media.pagos.problema') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Problema de pagos</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('media.pagos.reportes.depositos') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Reportes de pago</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('media.administracion.sedesAlternas.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Sedes alternas</p>

@@ -10,6 +10,7 @@ Route::prefix('/pagos')
     ->middleware([ 'auth', 'role:departamento' ])
     ->group(function () {
         Route::get('/problema', 'ProblemaPagoController@index')->name('problema');
+        Route::get('/reportes', 'ReporteDepositosController@index')->name('reportes.depositos');
         Route::post('/', 'SubirArchivoPagosController@store')->name('index');
         Route::get('/', 'SubirArchivoPagosController@index')->name('index');
     });
