@@ -28,7 +28,7 @@ class UsersExport implements FromCollection, WithHeadings
         //Consulta para obtener los datos de la oferta con las columnas de nombre del plantel, cct, localidad, domicilio,
         // especialidad, total de grupos, total de alumnos por grupo, total de alumnos
         return DB::table('educacionmedia.subsistemas as s')
-            ->select('p.descripcion', 'p.clave', 'ml.NOM_LOC',
+            ->select('p.descripcion', 'p.clave', 'ml.NOM_MUN','ml.NOM_LOC',
                 DB::raw('concat_ws(" ",p.calle_principal,p.calle_izquierda,p.calle_derecha,p.colonia,p.codigo_postal) as domicilio'),
                 'e.referencia', 'oeg.grupos', 'oeg.alumnos',
                 DB::raw('(oeg.grupos * oeg.alumnos) as total'))
@@ -193,6 +193,7 @@ class UsersExport implements FromCollection, WithHeadings
                 $columnas = [
                     'descripcion',
                     'clave',
+                    'nombre municipio',
                     'nombre localidad',
                     'domicilio',
                     'especialidad',
