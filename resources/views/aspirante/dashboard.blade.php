@@ -40,6 +40,18 @@
                     </div>
                 </div>
                 <div class="col">
+                    <div class="callout callout-info">
+                        <h5>¡ATENCIÓN!</h5>
+
+
+                        El registro es únicamente para que obtengas tu pase al examen.
+
+
+
+                        Los espacios se asignarán tomando en cuenta los aciertos obtenidos en el examen de admisión, y al orden seleccionado de acuerdo a la preferencia de plantel, habiéndose verificado la capacidad de espacios de cada uno de los planteles públicos.
+
+                        En caso de empate se tomará en cuenta los dictámenes de las áreas del examen diagnóstico.
+                    </div>
                     <div class="card card-primary card-outline">
                         <div class="card-header">
                             <h1 class="card-title">Información</h1>
