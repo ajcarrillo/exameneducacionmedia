@@ -11,6 +11,14 @@
 |
 */
 
+Route::prefix('/reportes')
+    ->middleware([ 'auth', 'role:departamento|subsistema|plantel' ])
+    ->name('reportes.')
+    ->group(function () {
+        Route::post('/oferta', 'ReporteController@oferta')->name('oferta');
+        Route::get('/', 'ReporteController@index')->name('index');
+    });
+
 Route::view('/perfil', 'profile')
     ->middleware([ 'auth' ]);
 
