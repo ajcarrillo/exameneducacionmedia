@@ -16,7 +16,7 @@ class ProblemaPagoController extends Controller
     public function index()
     {
         $billy = get_billy_url();
-        $url   = "{$billy}/pagos/referencia";
+        $url   = "{$billy}";
 
         return view('administracion.pagos.problema.index', compact('url'));
     }

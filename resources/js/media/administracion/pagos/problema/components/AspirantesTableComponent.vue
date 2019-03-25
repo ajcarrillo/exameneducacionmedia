@@ -45,7 +45,7 @@
                     cancelButtonText: 'Cancelar'
                 }).then((result) => {
                     if (result.value) {
-
+                        store.dispatch('asignarPago', {});
                     }
                 })
             }

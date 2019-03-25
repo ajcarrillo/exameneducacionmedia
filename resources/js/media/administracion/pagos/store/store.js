@@ -38,7 +38,7 @@ export default new Vuex.Store({
     actions: {
         buscarReferencia(context, payload) {
             return new Promise(function (resolve, reject) {
-                axios.get(`${payload.url}/${payload.referencia}`)
+                axios.get(`${payload.url}/pagos/referencia/${payload.referencia}`)
                     .then(res => {
                         context.commit('SEARCH_REFERENCIA', res.data);
                         resolve(res);
@@ -68,6 +68,36 @@ export default new Vuex.Store({
         },
         setDeposito(context, payload) {
             context.commit('SET_DEPOSITO', payload);
+        },
+        asignarPago(context, payload) {
+            return new Promise(function (resolve, reject) {
+                let url = context.state.billyURL;
+                axios.get(`${url}/pagos/asignar-deposito/`)
+                    .then(res => {
+
+                        resolve(res);
+                    })
+                    .catch(error => {
+                        if (error.response) {
+                            switch (error.response.status) {
+                                case 400:
+                                    swal({
+                                        type: 'error',
+                                        title: 'Oops...',
+                                        text: error.response.data,
+                                    });
+                                    break;
+                                default:
+                                    swal({
+                                        type: 'error',
+                                        title: 'Oops...',
+                                        text: 'Lo sentimos, algo ha salido mal intenta de nuevo',
+                                    })
+                            }
+                        }
+                        reject(error);
+                    })
+            })
         }
     }
 })
