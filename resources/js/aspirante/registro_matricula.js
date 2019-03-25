@@ -32,7 +32,7 @@ const app = new Vue({
         isEstudianteEmpty() {
             return _.isEmpty(this.estudiante);
         },
-        hasFechaNacimiento(){
+        hasFechaNacimiento() {
             return this.estudiante.fecha_nacimiento !== '0000-00-00';
         }
     },
@@ -96,6 +96,7 @@ const app = new Vue({
                 fecha_nacimiento: this.form.fecha_nacimiento,
                 clave_centro_trabajo: this.estudiante.clave_centro_trabajo,
                 nombre_centro_trabajo: this.estudiante.nombre_centro_trabajo,
+                matricula: this.estudiante.matricula,
                 turno_id: this.estudiante.turno_id
             })
                 .then(res => {

@@ -29,6 +29,7 @@ class StoreAspiranteConMatricula extends FormRequest
             'alumno_id'        => 'required|unique:aspirantes',
             'primer_apellido'  => 'required',
             'fecha_nacimiento' => [ new FechaNacimiento, ],
+            'matricula'        => 'required',
         ];
     }
 

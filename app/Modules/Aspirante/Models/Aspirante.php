@@ -26,7 +26,7 @@ class Aspirante extends Model
         'alumno_id', 'user_id', 'telefono', 'sexo', 'folio',
         'pais_nacimiento_id', 'entidad_nacimiento_id', 'domicilio_id',
         'informacion_procedencia_id', 'curp', 'fecha_nacimiento',
-        'curp_historica', 'curp_valida',
+        'curp_historica', 'curp_valida', 'matricula',
     ];
     protected $casts    = [
         'curp_historica'   => 'boolean',
