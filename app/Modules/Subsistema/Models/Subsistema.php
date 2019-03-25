@@ -9,7 +9,6 @@
 namespace Subsistema\Models;
 
 
-
 use ExamenEducacionMedia\Modules\Subsistema\Models\RevisionAforo;
 use ExamenEducacionMedia\User;
 use Illuminate\Database\Eloquent\Model;
@@ -42,8 +41,13 @@ class Subsistema extends Model
 
     public function revisiones()
     {
-        return $this->hasMany(RevisionOferta::class,'subsistema_id');
+        return $this->hasMany(RevisionOferta::class, 'subsistema_id');
     }
 
+    public static function getSubsistemas()
+    {
+        return static::orderBy('referencia')
+            ->get([ 'id', 'referencia' ]);
+    }
 
 }

@@ -31,4 +31,11 @@ class MunicipioView extends Model
         return $this->hasMany(Localidad::class, [ 'CVE_ENT', 'CVE_MUN' ], [ 'CVE_ENT', 'CVE_MUN' ]);
     }
 
+    public static function getMunicipios()
+    {
+        return static::orderBy('NOM_MUN')
+            ->where('CVE_ENT', 23)
+            ->get();
+    }
+
 }
