@@ -38,8 +38,6 @@ class ReporteController extends Controller
 
     public function oferta(Request $request, Excel $excel, OfertaEducativaExports $export)
     {
-        dump($request->only([ 'municipio', 'subsistema', 'inactivos' ]));
-
         return $excel->download($export->params($request->only([ 'municipio', 'subsistema', 'inactivos' ])), 'ofertas.xlsx');
     }
 
