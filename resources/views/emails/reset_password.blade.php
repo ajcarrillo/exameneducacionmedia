@@ -672,7 +672,7 @@ Sizes: [
                                                                 <tr>
                                                                     <td align="center" valign="middle" class="buttonContent"
                                                                         style="padding-top:15px;padding-bottom:15px;padding-right:15px;padding-left:15px;">
-                                                                        <a style="color:#fff; text-decoration:underline; font-weight:700" href='/reset-password'>CLICK AQUÍ PARA
+                                                                        <a style="color:#fff; text-decoration:underline; font-weight:700" href='{{ $url }}'>CLICK AQUÍ PARA
                                                                             CAMBIAR CONTRASEÑA</a>
                                                                     </td>
                                                                 </tr>
