@@ -200,3 +200,8 @@ Route::middleware([ 'auth', 'role:plantel|departamento|subsistema' ])
         Route::get('/preferencia-plantel/descargarPdf', 'Administracion\PreferenciaPlantelController@descargarPdf')->name('preferencia.plantel.descargarPdf');
     });
 
+Route::prefix('/reporte-opciones-educativas')
+    ->middleware([ 'auth', 'role:departamento' ])
+    ->group(function () {
+        Route::get('/', 'ReporteOpcionesEducativasController@index')->name('reporteOE');
+    });

@@ -40,7 +40,9 @@ class OfertaEducativaRepository extends BaseRepository
             ->orderBy('plantel')
             ->orderBy('especialidad')
             ->selectRaw(
-                'geo.NOM_MUN              municipio,
+                'geo.CVE_ENT              cve_ent,
+                geo.CVE_MUN              cve_mun,
+                geo.NOM_MUN              municipio,
                 geo.NOM_LOC              localidad,
                 p.descripcion            plantel,
                 s.referencia             subsistema,
