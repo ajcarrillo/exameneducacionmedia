@@ -6,7 +6,6 @@ use ExamenEducacionMedia\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ResetPasswordMail extends Mailable
 {
@@ -20,13 +19,13 @@ class ResetPasswordMail extends Mailable
     {
         $this->token   = $token;
         $this->user    = $user;
-        $this->baseURL = route('reset.password');
+        $this->baseURL = route('reset.password', $this->token);
     }
 
     public function build()
     {
 
-        $url            = "{$this->baseURL}/?token={$this->token}";
+        $url            = $this->baseURL;
         $user_full_name = get_full_name_from_user($this->user);
 
         return $this->view('emails.reset_password', compact('user_full_name', 'url'));

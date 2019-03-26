@@ -21,8 +21,8 @@ Route::get('/reset-password/faker', function () {
 Route::get('/olvide-contrasena', 'ResetPasswordController@index')->name('forgot.password');
 Route::post('/olvide-contrasena', 'ResetPasswordController@store')->name('forgot.password');
 
-Route::get('/restablecer-contrasena', 'ResetPasswordController@showResetForm')->name('reset.password');
-Route::post('/restablecer-contrasena', 'ResetPasswordController@resetPassword')->name('reset.password');
+Route::get('/restablecer-contrasena/{token}', 'ResetPasswordController@showResetForm')->name('reset.password');
+Route::post('/update-password', 'ResetPasswordController@resetPassword')->name('cambiar.contrasena');
 
 Route::prefix('/reportes')
     ->middleware([ 'auth', 'role:departamento|subsistema|plantel' ])
