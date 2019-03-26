@@ -239,4 +239,9 @@ class Aspirante extends Model
             throw new \Exception('Ocurrió un error al intentar obtener la información de la ficha de pago');
         }
     }
+
+    public function hasPaseAlExamen()
+    {
+        return $this->paseExamen()->exists();
+    }
 }

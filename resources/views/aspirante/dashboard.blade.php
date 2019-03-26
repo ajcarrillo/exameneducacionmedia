@@ -47,8 +47,8 @@
                         El registro es únicamente para que obtengas tu pase al examen.
 
 
-
-                        Los espacios se asignarán tomando en cuenta los aciertos obtenidos en el examen de admisión, y al orden seleccionado de acuerdo a la preferencia de plantel, habiéndose verificado la capacidad de espacios de cada uno de los planteles públicos.
+                        Los espacios se asignarán tomando en cuenta los aciertos obtenidos en el examen de admisión, y al orden seleccionado de acuerdo a la preferencia de plantel,
+                        habiéndose verificado la capacidad de espacios de cada uno de los planteles públicos.
 
                         En caso de empate se tomará en cuenta los dictámenes de las áreas del examen diagnóstico.
                     </div>
@@ -69,6 +69,7 @@
                                         </div>
                                     @else
                                         <div class="alert alert-success" role="alert">
+                                            <strong>¡ HAS FINALIZADO TU REGISTRO !</strong>
                                             Tu pase al examen ha sido generado correctamente, ahora procede a descargar tu pase al examen
                                         </div>
                                     @endif
