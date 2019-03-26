@@ -11,6 +11,16 @@
 |
 */
 
+Route::get('/reset-password/faker', function () {
+    return new \ExamenEducacionMedia\Mail\ResetPasswordMail();
+});
+
+Route::get('/olvide-contrasena', 'ResetPasswordController@index')->name('forgot.password');
+Route::post('/olvide-contrasena', 'ResetPasswordController@store')->name('forgot.password');
+
+Route::get('/restablecer-contraseña', 'ResetPasswordController@showResetForm')->name('reset.password');
+Route::post('/reset-password', 'ResetPasswordController@resetPassword')->name('reset.password');
+
 Route::prefix('/reportes')
     ->middleware([ 'auth', 'role:departamento|subsistema|plantel' ])
     ->name('reportes.')
