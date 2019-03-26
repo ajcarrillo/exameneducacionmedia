@@ -38,7 +38,7 @@ class ReportesController extends Controller
     {
         $pdf = app('snappy.pdf.wrapper');
         $pdf->setPaper('letter')
-            ->setOrientation('portrait')
+            ->setOrientation('landscape')
             ->setOption('margin-bottom', '0mm')
             ->setOption('margin-top', '0mm')
             ->setOption('margin-right', '0mm')
