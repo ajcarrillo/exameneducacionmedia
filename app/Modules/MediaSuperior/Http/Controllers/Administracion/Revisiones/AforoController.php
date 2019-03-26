@@ -89,7 +89,7 @@ class AforoController extends controller
 
     public function imprimir(Request $request)
     {
-        return \Excel::download(new UsersExport($request->get('subsistema_id'), $request->get('formato')), 'aforo.csv');
+        return \Excel::download(new UsersExport($request->get('subsistema_id'), $request->get('formato')), 'aforo.xlsx');
     }
 
 }

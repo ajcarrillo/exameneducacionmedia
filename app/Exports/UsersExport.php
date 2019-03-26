@@ -49,8 +49,11 @@ class UsersExport implements FromCollection, WithHeadings
     {
         //Consulta para obtener los datos del aforo con  las columnas de nombre del plantel, total de aulas registradas,
         // capacidad, lugares ocupados, lugares disponibles
-        return DB::table('educacionmedia.subsistemas as s')
-            ->select('p.descripcion',
+        $query =  DB::table('educacionmedia.subsistemas as s')
+            ->select(
+                DB::raw('geo.NOM_MUN municipio, geo.NOM_LOC localidad'),
+                's.referencia',
+                'p.descripcion',
                 DB::raw('count(a.id) as aulas'),
                 DB::raw('sum(a.capacidad) as capacidad, 
                 (SELECT count(p2.id)
@@ -71,7 +74,14 @@ class UsersExport implements FromCollection, WithHeadings
             })
             ->where('s.id', '=', $this->subsistema)
             ->where('a.edificio_type', '=', 'plantel')
-            ->get();
+            ->orderBy('geo.NOM_MUN')
+            ->orderBy('geo.NOM_LOC')
+            ->orderBy('p.descripcion')
+            ->groupBy(DB::raw('p.id, s.referencia, p.descripcion'));
+
+            $query->plantelConMunicipioLocalidad();
+
+            return $query->get();
     }
 
     public function dataAlumnos()
@@ -204,7 +214,10 @@ class UsersExport implements FromCollection, WithHeadings
                 break;
             case 2 :
                 $columnas = [
-                    'descripcion',
+                    'municipio',
+                    'localidad',
+                    'subsistema',
+                    'plantel',
                     'aulas',
                     'capacidad',
                     'ocupados',
