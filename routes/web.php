@@ -11,6 +11,19 @@
 |
 */
 
+Route::get('/reset-password/faker', function () {
+    $user  = \ExamenEducacionMedia\User::where('email', 'andresjch2804@gmail.com')->firstOrFail();
+    $token = str_random(60);
+
+    return new \ExamenEducacionMedia\Mail\ResetPasswordMail($user, $token);
+});
+
+Route::get('/olvide-contrasena', 'ResetPasswordController@index')->name('forgot.password');
+Route::post('/olvide-contrasena', 'ResetPasswordController@store')->name('forgot.password');
+
+Route::get('/restablecer-contrasena/{token}', 'ResetPasswordController@showResetForm')->name('reset.password');
+Route::post('/update-password', 'ResetPasswordController@resetPassword')->name('cambiar.contrasena');
+
 Route::prefix('/reportes')
     ->middleware([ 'auth', 'role:departamento|subsistema|plantel' ])
     ->name('reportes.')
