@@ -29,7 +29,15 @@
                         </li>
                     @endauth
                     <li class="nav-item d-none d-sm-inline-block">
-                        <a class="nav-link" data-widget="pushmenu" href="#">@yield('navbar-title')</a>
+                        <a class="nav-link" data-widget="pushmenu" href="#">
+                            @if(get_user()->plantel()->exists())
+                                {{ get_user()->plantel->descripcion }}
+                            @elseif(get_user()->subsistema()->exists())
+                                {{ get_user()->subsistema->referencia }}
+                            @else
+                                @yield('navbar-title')
+                            @endif
+                        </a>
                     </li>
                 </ul>
                 @auth
@@ -58,8 +66,8 @@
                         </div>
 
                         <!------------------------------------- Sidebar Menu -->
-                        @include('partials.menu')
-                        <!-- /.sidebar-menu -->
+                    @include('partials.menu')
+                    <!-- /.sidebar-menu -->
                     </div>
                     <!-- /.sidebar -->
                 </aside>
