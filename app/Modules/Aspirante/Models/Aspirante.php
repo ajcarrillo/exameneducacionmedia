@@ -13,13 +13,14 @@ use Awobaz\Compoships\Compoships;
 use ExamenEducacionMedia\Classes\SolicitudPago;
 use ExamenEducacionMedia\Models\Entidad;
 use ExamenEducacionMedia\Models\Geodatabase\Pais;
+use ExamenEducacionMedia\Traits\FilterByTrait;
 use ExamenEducacionMedia\User;
 use Illuminate\Database\Eloquent\Model;
 use Subsistema\Models\SedeAlterna;
 
 class Aspirante extends Model
 {
-    use Compoships;
+    use Compoships, FilterByTrait;
 
     protected $table    = 'aspirantes';
     protected $fillable = [
