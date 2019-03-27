@@ -35,4 +35,25 @@ class UserRepository extends BaseRepository
 
         return $users;
     }
+
+    public function usuariosPlanteles()
+    {
+        $users = $this->newQuery()
+            ->join('planteles', 'users.id', '=', 'planteles.responsable_id')
+            ->join('subsistemas', 'planteles.subsistema_id', '=', 'subsistemas.id')
+            ->plantelesConMunicipioLocalidad()
+            ->select('planteles.descripcion as plantel', 'geo.NOM_MUN as municipio', 'subsistemas.referencia as subsistema')
+            ->nombreCompletoUsuario()
+            ->addSelect('users.email as usuario')
+            ->where('planteles.active', 1)
+            ->orderBy('geo.NOM_MUN')
+            ->orderBy('subsistemas.referencia');
+
+        return $users;
+    }
+
+    public function usuariosSubsistemas()
+    {
+        //TODRES: Implementar la descarga de los usuarios de subsistemas
+    }
 }
