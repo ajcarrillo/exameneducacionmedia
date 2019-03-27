@@ -11,12 +11,12 @@ namespace MediaSuperior\Http\Controllers;
 
 use Aspirante\Models\Aspirante;
 use Aspirante\Models\RevisionRegistro;
+use DB;
 use ExamenEducacionMedia\Http\Controllers\Controller;
 use ExamenEducacionMedia\User;
 use ExamenEducacionMedia\UserFilter;
-use Illuminate\Http\Request;
 use Exception;
-use DB;
+use Illuminate\Http\Request;
 
 class AspiranteController extends Controller
 {
@@ -24,6 +24,7 @@ class AspiranteController extends Controller
     {
         $users = User::query()
             ->with('aspirante')
+            ->whereHas('aspirante')
             ->whereDoesntHave('roles', function ($query) {
                 $query->whereIn('name', [ 'supermario', 'cordinador', 'departamento',
                     'subsistema', 'plantel', 'invitado', ]);
