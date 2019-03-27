@@ -45,13 +45,15 @@ class UserRepository extends BaseRepository
             ->select('planteles.descripcion as plantel', 'geo.NOM_MUN as municipio', 'subsistemas.referencia as subsistema')
             ->nombreCompletoUsuario()
             ->addSelect('users.email as usuario')
-            ->where('planteles.active', 1);
+            ->where('planteles.active', 1)
+            ->orderBy('geo.NOM_MUN')
+            ->orderBy('subsistemas.referencia');
 
         return $users;
     }
 
     public function usuariosSubsistemas()
     {
-
+        //TODRES: Implementar la descarga de los usuarios de subsistemas
     }
 }

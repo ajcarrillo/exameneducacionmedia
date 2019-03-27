@@ -9,8 +9,10 @@
 namespace MediaSuperior\Http\Controllers;
 
 
+use ExamenEducacionMedia\Exports\PlantelUsersExport;
 use ExamenEducacionMedia\Http\Controllers\Controller;
 use ExamenEducacionMedia\UserRepository;
+use Maatwebsite\Excel\Excel;
 
 class DescargaUsuariosPlantelController extends Controller
 {
@@ -21,8 +23,8 @@ class DescargaUsuariosPlantelController extends Controller
         $this->repository = $repository;
     }
 
-    public function index()
+    public function index(Excel $excel, PlantelUsersExport $export)
     {
-        return $this->repository->usuariosPlanteles()->get();
+        return $excel->download($export, 'usuarios_plantel.xlsx');
     }
 }

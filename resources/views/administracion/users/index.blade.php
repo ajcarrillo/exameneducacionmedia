@@ -3,9 +3,14 @@
 @section('content')
     <div class="container-fluid">
         <div class="row pb-3">
-            <div class="col">
+            <div class="col d-flex">
                 <a href="{{ route('media.administracion.usuarios.create') }}"
-                   class="btn btn-primary">Crear</a>
+                   class="btn btn-primary mr-3">Crear</a>
+                <a href="{{ route('media.administracion.usuarios.descargar.planteles') }}"
+                   class="btn btn-success">
+                    <i class="fa fa-download"></i>
+                    Descargar usuarios de planteles
+                </a>
             </div>
         </div>
         <div class="row">
