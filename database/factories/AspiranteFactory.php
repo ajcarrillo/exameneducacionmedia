@@ -23,7 +23,8 @@ $factory->define(\Aspirante\Models\Aspirante::class, function (Faker $faker) {
         'pais_nacimiento_id'    => \ExamenEducacionMedia\Models\Geodatabase\Pais::inRandomOrder()->first()->id,
         'entidad_nacimiento_id' => \ExamenEducacionMedia\Models\Entidad::inRandomOrder()->first()->id,
         'fecha_nacimiento'      => $faker->dateTimeBetween('-17 years', '-13 years'),
-        'curp'                  => NULL,
+        'matricula'             => $faker->numerify('##########'),
+        'curp'                  => $faker->numerify('##################'),
         'curp_historica'        => NULL,
         'curp_valida'           => NULL,
     ];
