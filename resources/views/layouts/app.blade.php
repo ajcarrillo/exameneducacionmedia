@@ -30,13 +30,15 @@
                     @endauth
                     <li class="nav-item d-none d-sm-inline-block">
                         <a class="nav-link" data-widget="pushmenu" href="#">
-                            @if(get_user()->plantel()->exists())
-                                {{ get_user()->plantel->descripcion }}
-                            @elseif(get_user()->subsistema()->exists())
-                                {{ get_user()->subsistema->referencia }}
-                            @else
-                                @yield('navbar-title')
-                            @endif
+                            @auth
+                                @if(get_user()->plantel()->exists())
+                                    {{ get_user()->plantel->descripcion }}
+                                @elseif(get_user()->subsistema()->exists())
+                                    {{ get_user()->subsistema->referencia }}
+                                @else
+                                    @yield('navbar-title')
+                                @endif
+                            @endauth
                         </a>
                     </li>
                 </ul>
