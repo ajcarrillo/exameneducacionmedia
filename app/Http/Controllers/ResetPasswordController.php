@@ -11,11 +11,10 @@ namespace ExamenEducacionMedia\Http\Controllers;
 
 use Auth;
 use DB;
-use ExamenEducacionMedia\Mail\ResetPasswordMail;
+use ExamenEducacionMedia\Jobs\SendResetPasswordLink;
 use ExamenEducacionMedia\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class ResetPasswordController extends Controller
@@ -44,7 +43,9 @@ class ResetPasswordController extends Controller
 
         $user = User::where('email', $request->email)->firstOrFail();
 
-        Mail::to($user)->send(new ResetPasswordMail($user, $token));
+        SendResetPasswordLink::dispatch($user, $token)
+            ->onConnection('database_emails')
+            ->onQueue('emails');
 
         flash('Hemos enviado por correo electrónico su enlace de restablecimiento de contraseña!')->success();
 
