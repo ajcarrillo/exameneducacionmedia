@@ -24,7 +24,7 @@ class PanelController extends Controller
         $sqlof        = 'SELECT COUNT( DISTINCT t.aspirante_id) as aspirante_id
                 FROM seleccion_ofertas_educativas as t
                 LEFT JOIN ofertas_educativas as oe on t.oferta_educativa_id = oe.id
-                WHERE oe.plantel_id =' . $id_plantel;
+                WHERE t.preferencia = 1 and  oe.plantel_id =' . $id_plantel;
         $respuestaof  = DB::select($sqlof);
         foreach ($respuestaof as $r) {
             $total_demanda = $r->aspirante_id;
