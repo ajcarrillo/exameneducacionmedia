@@ -114,6 +114,7 @@ Route::middleware([ 'auth', 'role:departamento' ])
                 Route::get('/{user}/editar', 'UserController@edit')->name('edit');
                 Route::patch('/{user}/', 'UserController@update')->name('update');
                 Route::get('/nuevo', 'UserController@create')->name('create');
+                Route::get('/descargar-usuarios-plantles', 'DescargaUsuariosPlantelController@index')->name('descargar.planteles');
             });
 
 
