@@ -8,8 +8,9 @@
 
 namespace MediaSuperior\Http\Controllers;
 
+use DB;
 use Subsistema\Repositories\OfertaEducativaRepository;
-use Illuminate\Support\Facades\DB;
+
 
 class ReporteOpcionesEducativasController
 {
@@ -17,7 +18,7 @@ class ReporteOpcionesEducativasController
     {
 
         $datos = $repository->catalogoOpcionesEducativas()->get();
-        $mpios = $aulas = DB::table('geodatabase.municipios_view')->where('CVE_ENT', '23')->get();
+        $mpios = $aulas = DB::table('municipios_view')->where('CVE_ENT', '23')->get();
 
         $pdf = app('snappy.pdf.wrapper');
         header('Content-Type: application/pdf');
