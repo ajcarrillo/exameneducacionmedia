@@ -47,6 +47,8 @@
         .tablegral td {
             text-align: justify;
             font-size: 7px;
+            padding: 1.5em;
+            vertical-align:top;
 
         }
         .tablegral td a{
@@ -111,10 +113,10 @@
                     <table class="table table-bordered tablegral">
                         <thead>
                         <tr class="gral">
-                            <th width="250px">PLANTEL</th>
+                            <th width="300px">PLANTEL</th>
                             <th width="250px">ESPECIALIDAD</th>
-                            <th width="200px">DOMICILIO</th>
-                            <th width="100px">TELEFONO</th>
+                            <th width="250px">DOMICILIO</th>
+
                             <th width="150px">PAGINA WEB</th>
                         </tr>
                         </thead>
@@ -126,7 +128,7 @@
                                     <td>{{$dato->plantel}}</td>
                                     <td>{{$dato->especialidad}}</td>
                                     <td>{{$dato->domicilio}}</td>
-                                    <td>{{$dato->telefono}}</td>
+
                                     <td><a href="{{$dato->pagina_web}}">{{$dato->pagina_web}}</a></td>
                                 </tr>
                             @endif
