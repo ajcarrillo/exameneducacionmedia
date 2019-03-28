@@ -11,6 +11,14 @@
 |
 */
 
+Route::get('/prueba-stress', function (){
+    $repo = new \Subsistema\Repositories\OfertaEducativaRepository();
+
+    $json = $repo->catalogoOpcionesEducativas()->get();
+
+    return ok(compact('json'));
+});
+
 Route::get('/reset-password/faker', function () {
     $user  = \ExamenEducacionMedia\User::where('email', 'andresjch2804@gmail.com')->firstOrFail();
     $token = str_random(60);
