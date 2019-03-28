@@ -4,8 +4,10 @@ namespace ExamenEducacionMedia;
 
 use Aspirante\Models\Aspirante;
 use Awobaz\Compoships\Compoships;
+use Hash;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
 use Spatie\Permission\Traits\HasRoles;
 use Subsistema\Models\Plantel;
@@ -151,6 +153,15 @@ class User extends Authenticatable
     public function setSegundoApellidoAttribute($value)
     {
         $this->attributes['segundo_apellido'] = mb_strtoupper($value, 'UTF-8');
+    }
+
+    public function updatePassword($password)
+    {
+        $this->password = Hash::make($password);
+
+        $this->setRememberToken(Str::random(60));
+
+        $this->save();
     }
 
 }
