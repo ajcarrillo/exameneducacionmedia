@@ -13,10 +13,10 @@
         <a href="/aspirantes/opciones-educativas"
            class="btn btn-primary btn-sm btn-block">3 - Opciones educativas</a>
     </li>
-    <li>
+    {{--<li>
         <a href="{{ route('centro-descarga.cdescarga.index') }}"
            class="btn btn-success btn-sm btn-block">Centro de descargas</a>
-    </li>
+    </li>--}}
     <li>
         <a href="{{ route('update.password') }}"
            class="btn btn-success btn-sm btn-block">Actualizar contraseña</a>
