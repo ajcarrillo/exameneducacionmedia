@@ -44,11 +44,18 @@ class ReporteController extends Controller
     protected function reportes(): array
     {
         return [
-            'oferta' => [
-                'descripcion' => 'Oferta educativa',
-                'roles'       => [ 'departamento', 'subsistema', 'plantel' ],
-                'url'         => route('reportes.oferta'),
+            'oferta'            => [
+                'descripcion'  => 'Oferta educativa',
+                'roles'        => [ 'departamento', 'subsistema', 'plantel' ],
+                'url'          => route('reportes.oferta'),
+                'show_filters' => true,
             ],
+            'catalogo_opciones' => [
+                'descripcion'  => 'Catálogo de opciones educativas',
+                'roles'        => [ 'departamento', 'subsistema', 'plantel' ],
+                'url'          => route('media.reporteOE'),
+                'show_filters' => false,
+            ]
             /*'aforo'  => [
                 'descripcion' => 'Aforo',
                 'roles'       => [ 'departamento', 'subsistema', 'plantel' ],

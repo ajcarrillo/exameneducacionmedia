@@ -27,51 +27,56 @@
                                 <div class="filters-container">
                                     <form action="{{ $reporte['url'] }}" method="POST" class="d-flex">
                                         @csrf
-                                        @if($userRoles->contains('departamento'))
-                                            <div class="form-group mr-3">
-                                                <select name="municipio"
-                                                        id="municipio"
+                                        @if($reporte['show_filters'])
+                                            @if($userRoles->contains('departamento'))
+                                                <div class="form-group mr-3">
+                                                    <select name="municipio"
+                                                            id="municipio"
+                                                            class="form-control form-control-sm"
+                                                    >
+                                                        <option value="">Municipios</option>
+                                                        @foreach($municipios as $municipio)
+                                                            <option value="{{ $municipio->CVE_MUN }}">{{ $municipio->NOM_MUN }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group mr-3">
+                                                    <select
+                                                        name="subsistema"
+                                                        id="subsistema"
                                                         class="form-control form-control-sm"
-                                                >
-                                                    <option value="">Municipios</option>
-                                                    @foreach($municipios as $municipio)
-                                                        <option value="{{ $municipio->CVE_MUN }}">{{ $municipio->NOM_MUN }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                                    >
+                                                        <option value="">Subsistemas</option>
+                                                        @foreach($subsistemas as $subsistema)
+                                                            <option value="{{ $subsistema->id }}">{{ $subsistema->referencia }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            @else
+                                                <input type="hidden" name="subsistema" value="{{ get_user()->subsistema->id }}">
+                                            @endif
                                             <div class="form-group mr-3">
-                                                <select
-                                                    name="subsistema"
-                                                    id="subsistema"
-                                                    class="form-control form-control-sm"
+                                                <label for="" class="mr-3">Incluir planteles y ofertas inactivos:</label>
+                                                <label class="checkbox-inline">
+                                                    <input type="radio" name="inactivos" id="" value="0" checked>
+                                                    No
+                                                </label>
+                                                <label class="checkbox-inline">
+                                                    <input type="radio" name="inactivos" id="" value="1">
+                                                    Si
+                                                </label>
+                                            </div>
+                                            <div class="form-group">
+                                                <button
+                                                    class="btn btn-success btn-sm"
                                                 >
-                                                    <option value="">Subsistemas</option>
-                                                    @foreach($subsistemas as $subsistema)
-                                                        <option value="{{ $subsistema->id }}">{{ $subsistema->referencia }}</option>
-                                                    @endforeach
-                                                </select>
+                                                    Generar
+                                                </button>
                                             </div>
                                         @else
-                                            <input type="hidden" name="subsistema" value="{{ get_user()->subsistema->id }}">
+                                            <a href="{{ $reporte['url'] }}" target="_blank" class="btn btn-success btn-sm">Generar</a>
                                         @endif
-                                        <div class="form-group mr-3">
-                                            <label for="" class="mr-3">Incluir planteles y ofertas inactivos:</label>
-                                            <label class="checkbox-inline">
-                                                <input type="radio" name="inactivos" id="" value="0" checked>
-                                                No
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="radio" name="inactivos" id="" value="1">
-                                                Si
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <button
-                                                class="btn btn-success btn-sm"
-                                            >
-                                                Generar
-                                            </button>
-                                        </div>
+
                                     </form>
                                 </div>
                             </div>
