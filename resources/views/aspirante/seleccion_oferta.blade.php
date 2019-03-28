@@ -10,28 +10,32 @@
         <div class="row">
             <div class="col d-flex">
                 <div class="alert alert-info align-self-stretch" role="alert">
-                ¡Es importante que antes que envíes tus opciones educativas estés seguro de ellas, ya que una vez que las envíes no podrás modificarlas!
-            </div>
-            </div>
-            <div class="col d-flex">
-                <div class="alert alert-info align-self-stretch" role="alert">
-                *Por cada plantel, se podrá elegir máximo 3 especialidades.
-            </div>
+                    ¡Es importante que antes que envíes tus opciones educativas estés seguro de ellas, ya que una vez que las envíes no podrás modificarlas!
+                </div>
             </div>
             <div class="col d-flex">
                 <div class="alert alert-info align-self-stretch" role="alert">
-                *La selección de las opciones educativas será responsabilidad exclusiva del aspirante y de sus padres o tutores
-            </div>
+                    *Por cada plantel, se podrá elegir máximo 3 especialidades.
+                </div>
             </div>
             <div class="col d-flex">
                 <div class="alert alert-info align-self-stretch" role="alert">
-                Recuerda: la asignación de tu plantel dependerá del espacio disponible en cada uno de los planteles y el resultado obtenido en tu examen.
+                    *La selección de las opciones educativas será responsabilidad exclusiva del aspirante y de sus padres o tutores
+                </div>
             </div>
+            <div class="col d-flex">
+                <div class="alert alert-info align-self-stretch" role="alert">
+                    Recuerda: la asignación de tu plantel dependerá del espacio disponible en cada uno de los planteles y el resultado obtenido en tu examen.
+                </div>
             </div>
 
-
-
-
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-warning" role="alert">
+                    <strong>¡Atención!</strong> Si tu opción es "Bachilleres Ciudad Mujeres", selecciona el municipio de Isla Mujeres.
+                </div>
+            </div>
         </div>
     </div>
     <app
