@@ -41,7 +41,7 @@ class AspiranteRepository extends BaseRepository
             ->join('users', 'aspirantes.user_id', '=', 'users.id')
             ->filterBy(new AspiranteFilters, $params)
             ->select(
-                'aspirantes.id', DB::raw('users.id as user_id'), 'aspirantes.folio',
+                'aspirantes.id', DB::raw('users.id as user_id'), 'aspirantes.folio', 'users.uuid',
                 'aspirantes.curp', 'aspirantes.matricula', 'users.email',
                 DB::raw("UPPER(concat_ws(' ', nombre, primer_apellido, segundo_apellido)) as nombre_completo")
             );
