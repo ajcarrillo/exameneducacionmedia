@@ -34,13 +34,29 @@
     <!-----------------plantel------------------------------->
 	    @if(auth()->user()->hasRole('plantel'))
 		    <li class="nav-item has-treeview menu">
-			    <a href="{{ route('centro-descarga.cdescarga.index') }}" class="nav-link">
-                    <i class="fas fa-cloud-download-alt"></i>
+                <a href="{{ route('planteles.panel') }}" class="nav-link">
+                    <i class="fas fa-columns"></i>
 				    <p>
-					    Centro de descarga
-				    </p>
-			    </a>
-		    </li>
+                        Panel de control
+                    </p>
+                </a>
+            </li>
+                <li class="nav-item has-treeview menu">
+                    <a href="{{ route('centro-descarga.cdescarga.index') }}" class="nav-link">
+                        <i class="fas fa-cloud-download-alt"></i>
+                        <p>
+                            Centro de descarga
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview menu">
+                    <a href="{{ route('planteles.aspirantes') }}" class="nav-link">
+                        <i class="fas fa-user-graduate"></i>
+                        <p>
+                            Aspirantes
+                        </p>
+                    </a>
+                </li>
 	    @endif
     <!--------------------------endplantel---------------------->
     <!------------------------------------------------>

@@ -4,6 +4,9 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
+            <div class="col">@include('flash::message')</div>
+        </div>
+        <div class="row">
             <div class="col">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
@@ -30,31 +33,30 @@
                         </div>
                     </div>
                     <div class="card-body p-0 table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Nombre</th>
-                                    <th>Folio</th>
-                                    <th>Matrícula</th>
-                                    <th>CURP</th>
-                                    <th>Email</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($aspirantes as $aspirante)
-                                    <tr>
-                                        <td scope="row">{{$loop->iteration}}</td>
-                                        <td>{{ $aspirante->nombre_completo }}</td>
-                                        <td>{{ $aspirante->folio }}</td>
-                                        <td>{{ $aspirante->matricula }}</td>
-                                        <td>{{ $aspirante->curp }}</td>
-                                        <td>{{ $aspirante->email }}</td>
-                                    </tr>
-                                @empty
-                                @endforelse
-                            </tbody>
-                        </table>
+                        <ul class="list-unstyled">
+                            @forelse($aspirantes as $aspirante)
+                                <li class="py-3 px-3 border-bottom">
+                                    <div class="mb-3 d-flex align-items-center">
+                                        <h5 class="text-bold mb-0 mr-3">
+                                            {{$loop->iteration}} - {{ $aspirante->nombre_completo }}
+                                        </h5>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="mr-3"><span class="text-bold">Folio: </span>{{ $aspirante->folio }}</div>
+                                        <div class="mr-3"><span class="text-bold">Matrícula: </span>{{ $aspirante->matricula }}</div>
+                                        <div class="mr-3"><span class="text-bold">CURP: </span>{{ $aspirante->curp }}</div>
+                                        <div class="mr-3"><span class="text-bold">Email: </span>{{ $aspirante->email }}</div>
+                                    </div>
+                                    <div class="box-tools d-flex">
+                                        <a href="{{ route('planteles.aspirantes.show.form', $aspirante->uuid) }}">Reiniciar contraseña</a>
+                                    </div>
+                                </li>
+                            @empty
+                            @endforelse
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        {{ $aspirantes->links() }}
                     </div>
                 </div>
             </div>
