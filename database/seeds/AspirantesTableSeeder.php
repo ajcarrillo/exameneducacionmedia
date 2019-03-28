@@ -11,7 +11,7 @@ class AspirantesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\ExamenEducacionMedia\User::class, 1000)->create()->each(function ($user) {
+        factory(\ExamenEducacionMedia\User::class, 1)->create()->each(function ($user) {
             $user->assignRole('aspirante');
             $user->aspirante()->save(factory(\Aspirante\Models\Aspirante::class)->make());
 
