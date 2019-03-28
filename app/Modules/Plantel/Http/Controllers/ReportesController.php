@@ -78,4 +78,5 @@ class ReportesController extends Controller
 
         return $pdf->download($nombre_file . '.pdf');
     }
+
 }

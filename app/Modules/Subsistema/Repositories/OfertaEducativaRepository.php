@@ -57,7 +57,7 @@ class OfertaEducativaRepository extends BaseRepository
     {
         $query = $this->all([ "inactivos" => "0" ]);
         $query->addSelect(
-            DB::raw("UPPER(concat_ws(' ', p.calle_principal, 'ENTRE', p.calle_derecha, 'Y', p.calle_izquierda, 'colonia', p.colonia)) domicilio, p.telefono, p.pagina_web")
+            DB::raw("geo.CVE_ENT cve_ent, geo.CVE_MUN cve_mun,UPPER(concat_ws(' ', p.calle_principal, 'ENTRE', p.calle_derecha, 'Y', p.calle_izquierda, 'colonia', p.colonia)) domicilio, p.telefono, p.pagina_web")
         );
 
         return $query;
