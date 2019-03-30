@@ -43,7 +43,7 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
             return;
         }
 
-        Telescope::hideRequestParameters(['_token']);
+        Telescope::hideRequestParameters([ '_token' ]);
 
         Telescope::hideRequestHeaders([
             'cookie',
@@ -63,7 +63,8 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
     {
         Gate::define('viewTelescope', function ($user) {
             return in_array($user->email, [
-                'andresjch2804@gmail.com'
+                'andresjch2804@gmail.com',
+                'victor@gmail.com',
             ]);
         });
     }
