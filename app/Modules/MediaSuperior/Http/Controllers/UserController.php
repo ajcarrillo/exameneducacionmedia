@@ -13,6 +13,7 @@ use ExamenEducacionMedia\Http\Controllers\Controller;
 use ExamenEducacionMedia\User;
 use ExamenEducacionMedia\UserFilter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use MediaSuperior\Http\Requests\StoreUser;
 use MediaSuperior\Http\Requests\UpdateUser;
 use Spatie\Permission\Models\Role;
@@ -73,6 +74,10 @@ class UserController extends Controller
     protected function getRolesToCreateUsers(): array
     {
         $roles = [ 'cordinador', 'departamento', 'subsistema', 'plantel' ];
+
+        if (get_user_roles()->contains('supermario')) {
+            array_push($roles, 'supermario');
+        }
 
         return $roles;
     }

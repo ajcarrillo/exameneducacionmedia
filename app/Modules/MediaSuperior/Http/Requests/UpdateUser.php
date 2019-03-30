@@ -30,7 +30,7 @@ class UpdateUser extends FormRequest
                 Rule::unique('users')->ignore($this->user->id),
             ],
             'roles'            => 'required',
-            'roles.*'          => Rule::in([ 'cordinador', 'departamento', 'subsistema', 'plantel' ]),
+            'roles.*'          => Rule::in([ 'cordinador', 'departamento', 'subsistema', 'plantel', 'supermario' ]),
         ];
     }
 }

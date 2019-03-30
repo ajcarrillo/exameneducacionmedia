@@ -164,4 +164,12 @@ class User extends Authenticatable
         $this->save();
     }
 
+    public static function boot()
+    {
+        parent::boot();
+        static::updating(function ($model) {
+            $model->username = $model->email;
+        });
+    }
+
 }
