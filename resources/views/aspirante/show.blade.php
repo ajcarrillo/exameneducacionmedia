@@ -50,7 +50,7 @@
                         </div>
                         <div class="form-group row">
                             <label class="key col-md-2">Entidad nacimiento</label>
-                            <label class="value col-md-10 font-weight-normal">{{ $aspirante->entidadNacimiento->descripcion }}</label>
+                            <label class="value col-md-10 font-weight-normal">{{ optional($aspirante->entidadNacimiento)->descripcion }}</label>
                         </div>
                         <div class="form-group row mb-0">
                             <label class="key col-md-2">Domicilio</label>
