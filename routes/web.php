@@ -11,13 +11,20 @@
 |
 */
 
-Route::get('/prueba-stress', function (){
+Route::get('/prueba-stress', function () {
     $repo = new \Subsistema\Repositories\OfertaEducativaRepository();
 
     $json = $repo->catalogoOpcionesEducativas()->get();
 
     return ok(compact('json'));
 });
+
+Route::prefix('/developer-zone')
+    ->name('developer.')
+    ->middleware([ 'auth', 'role:supermario' ])
+    ->group(function () {
+        Route::view('/services', 'developer_zone.services')->name('services');
+    });
 
 Route::get('/reset-password/faker', function () {
     $user  = \ExamenEducacionMedia\User::where('email', 'andresjch2804@gmail.com')->firstOrFail();
