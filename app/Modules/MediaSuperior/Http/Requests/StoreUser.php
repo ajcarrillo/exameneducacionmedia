@@ -27,7 +27,7 @@ class StoreUser extends FormRequest
             'email'           => 'required|email|unique:users,email',
             'password'        => 'required',
             'roles'           => 'required',
-            'roles.*'         => Rule::in([ 'cordinador', 'departamento', 'subsistema', 'plantel', 'aspirante' ]),
+            'roles.*'         => Rule::in([ 'cordinador', 'departamento', 'subsistema', 'plantel', 'aspirante', 'supermario' ]),
         ];
     }
 }
