@@ -46,7 +46,7 @@
                         </div>
                         <div class="form-group row">
                             <label class="key col-md-2">País nacimiento</label>
-                            <label class="value col-md-10 font-weight-normal">{{ mb_strtoupper($aspirante->paisNacimiento->descripcion, 'utf-8') }}</label>
+                            <label class="value col-md-10 font-weight-normal">{{ mb_strtoupper(optional($aspirante->paisNacimiento)->descripcion, 'utf-8') }}</label>
                         </div>
                         <div class="form-group row">
                             <label class="key col-md-2">Entidad nacimiento</label>
