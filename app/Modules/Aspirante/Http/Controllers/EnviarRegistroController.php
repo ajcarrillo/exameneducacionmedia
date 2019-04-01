@@ -18,15 +18,15 @@ class EnviarRegistroController extends Controller
     public function store()
     {
         //$request->validated();
-        $aspirante = get_aspirante();
-
-        if ( ! $aspirante->paisNacimiento()->exists() || $aspirante->informacionProcedencia->fecha_egreso == NULL) {
-            throw new \Exception('Verifica que tu información esté completa en la opción Editar Perfil');
-        }
 
         try {
-            $solicitudPagoId = DB::transaction(function () use ($aspirante) {
+            $solicitudPagoId = DB::transaction(function () {
 
+                $aspirante = get_aspirante();
+
+                if ( ! $aspirante->paisNacimiento()->exists() || $aspirante->informacionProcedencia->fecha_egreso == NULL) {
+                    throw new \Exception('Verifica que tu información esté completa en la opción Editar Perfil');
+                }
 
                 $solicitud = new SolicitudPago($aspirante);
 
