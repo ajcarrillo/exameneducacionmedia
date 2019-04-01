@@ -18,10 +18,15 @@ class EnviarRegistroController extends Controller
     public function store()
     {
         //$request->validated();
+        $aspirante = get_aspirante();
+
+        if ( ! $aspirante->paisNacimiento()->exists()) {
+            throw new \Exception('Ingresa tu país de nacimiento, en la opción Editar Perfil');
+        }
 
         try {
-            $solicitudPagoId = DB::transaction(function () {
-                $aspirante = get_aspirante();
+            $solicitudPagoId = DB::transaction(function () use ($aspirante) {
+
 
                 $solicitud = new SolicitudPago($aspirante);
 
