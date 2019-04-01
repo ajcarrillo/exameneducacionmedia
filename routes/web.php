@@ -119,5 +119,9 @@ Route::post('login/oauth-password', 'Auth\LoginJarvisController@login')->name('l
 
 Auth::routes($options = [ 'register' => false, 'reset' => false ]);
 
-Route::view('/cambiar-contrasena', 'update_password.index')->name('update.password');
-Route::patch('/cambiar-contrasena', 'UpdatePasswordController@update')->name('update.password');
+Route::view('/cambiar-contrasena', 'update_password.index')
+    ->middleware([ 'auth' ])
+    ->name('update.password');
+Route::patch('/cambiar-contrasena', 'UpdatePasswordController@update')
+    ->middleware([ 'auth' ])
+    ->name('update.password');
