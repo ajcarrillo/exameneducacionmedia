@@ -30,7 +30,7 @@
                 <div class="card">
                     <div class="card-header">Entrar</div>
 
-                    <div class="card-body">
+                    <div class="card-body pb-0">
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
 
@@ -66,6 +66,30 @@
                                 </a>
                             </div>
                         </form>
+                    </div>
+                    <div class="card-body pb-0">
+                        @guest
+                            @if(is_etapa_registro())
+                                <div class="register links d-flex flex-column justify-content-center">
+                                    <a href="/aspirantes/registro-matricula"
+                                       class="mb-3"
+                                       data-toggle="tooltip"
+                                       data-placement="top"
+                                       title="Aspirantes que ESTUDIAN o ESTUDIARON algún grado en el estado de Quintana Roo"
+                                    >
+                                        Registro alumnos de Quintana Roo
+                                    </a>
+                                    <a href="/aspirantes/registro-externo"
+                                       class="mb-3">
+                                        <span>Registro alumnos de otros estados</span>
+                                    </a>
+                                    <a href="/aspirantes/registro-externo"
+                                       class="">
+                                        <span>Registro alumnos extranjeros</span>
+                                    </a>
+                                </div>
+                            @endif
+                        @endguest
                     </div>
                     <div class="card-body pb-0">
                         <p>Para un funcionamiento óptimo del sistema utilizar el navegador Google Chrome</p>
