@@ -26,7 +26,7 @@ class OfertaEducativaRepository extends BaseRepository
     public function all(array $params)
     {
         $query = $this->newQuery()
-            ->join('oferta_educativa_grupos as oeg', 'ofertas_educativas.id', '=', 'oeg.oferta_educativa_id')
+            ->leftJoin('oferta_educativa_grupos as oeg', 'ofertas_educativas.id', '=', 'oeg.oferta_educativa_id')
             ->join('planteles as p', 'ofertas_educativas.plantel_id', '=', 'p.id')
             ->plantelConMunicipioLocalidad()
             ->join('subsistemas as s', 'p.subsistema_id', '=', 's.id')
