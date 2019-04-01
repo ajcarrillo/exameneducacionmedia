@@ -9,8 +9,25 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item has-treeview menu menu-open">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-terminal"></i>
+                    <p>
+                        Developer zone
+                        <i class="right fa fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview" style="display: block">
+                    <li class="nav-item">
+                        <a href="{{ route('developer.services') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Servicios</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         @endif
-        <!-----------------Cambiar contraseña------------------------------->
+    <!-----------------Cambiar contraseña------------------------------->
         <li class="nav-item has-treeview menu">
             <a href="{{ route('update.password') }}" class="nav-link">
                 <i class="fas fa-key"></i>
@@ -32,34 +49,34 @@
             </li>
         @endif
     <!-----------------plantel------------------------------->
-	    @if(auth()->user()->hasRole('plantel'))
-		    <li class="nav-item has-treeview menu">
+        @if(auth()->user()->hasRole('plantel'))
+            <li class="nav-item has-treeview menu">
                 <a href="{{ route('planteles.panel') }}" class="nav-link">
                     <i class="fas fa-columns"></i>
-				    <p>
+                    <p>
                         Panel de control
                     </p>
                 </a>
             </li>
-                <li class="nav-item has-treeview menu">
-                    <a href="{{ route('centro-descarga.cdescarga.index') }}" class="nav-link">
-                        <i class="fas fa-cloud-download-alt"></i>
-                        <p>
-                            Centro de descarga
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item has-treeview menu">
-                    <a href="{{ route('planteles.aspirantes') }}" class="nav-link">
-                        <i class="fas fa-user-graduate"></i>
-                        <p>
-                            Aspirantes
-                        </p>
-                    </a>
-                </li>
-	    @endif
+            <li class="nav-item has-treeview menu">
+                <a href="{{ route('centro-descarga.cdescarga.index') }}" class="nav-link">
+                    <i class="fas fa-cloud-download-alt"></i>
+                    <p>
+                        Centro de descarga
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item has-treeview menu">
+                <a href="{{ route('planteles.aspirantes') }}" class="nav-link">
+                    <i class="fas fa-user-graduate"></i>
+                    <p>
+                        Aspirantes
+                    </p>
+                </a>
+            </li>
+        @endif
     <!--------------------------endplantel---------------------->
-    <!------------------------------------------------>
+        <!------------------------------------------------>
         <!-----------------Panel de control DEMS ------------------------------->
 
         @if(auth()->user()->hasRole('departamento'))
@@ -228,16 +245,16 @@
     <!------------------------------------------------>
         <!-----------------Subsistema ------------------------------->
         @if(auth()->user()->hasRole('subsistema'))
-		    <li class="nav-item has-treeview menu">
-			    <a href="{{ route('centro-descarga.cdescarga.index') }}" class="nav-link">
+            <li class="nav-item has-treeview menu">
+                <a href="{{ route('centro-descarga.cdescarga.index') }}" class="nav-link">
                     <i class="fas fa-download"></i>
-				    <p>
-					    Centro de descargas
-				    </p>
-			    </a>
-		    </li>
+                    <p>
+                        Centro de descargas
+                    </p>
+                </a>
+            </li>
 
-		    <li class="nav-item has-treeview menu menu-open">
+            <li class="nav-item has-treeview menu menu-open">
                 <a href="#" class="nav-link">
                     <i class="fas fa-diagnoses"></i>
                     <p>

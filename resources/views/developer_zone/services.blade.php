@@ -9,7 +9,7 @@
                         <div class="card-header">
                             <div class="card-title">Estatus billy</div>
                         </div>
-                        <div class="card-body table-responsive">
+                        <div class="card-body table-responsive p-0">
                             <table class="table">
                                 <thead>
                                     <tr>
