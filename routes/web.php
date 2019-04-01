@@ -23,7 +23,7 @@ Route::prefix('/developer-zone')
     ->name('developer.')
     ->middleware([ 'auth', 'role:supermario' ])
     ->group(function () {
-        Route::view('/services', 'developer_zone.services')->name('services');
+        Route::get('/services', 'Developer\ServicesController@index')->name('services');
     });
 
 Route::get('/reset-password/faker', function () {

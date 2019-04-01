@@ -1,18 +1,27 @@
 window.axios = require('axios');
 window.Vue = require('vue');
 
+let initialState = JSON.parse(window.__INITIAL_STATE__);
+
 let app = new Vue({
     el: '#app',
     data: {
-        billyStatus: false
+        billyStatus: false,
+        initialState: {},
     },
     computed: {
         billyStatusCaption() {
             return this.billyStatus ? 'OnLine' : 'Can\'t connect';
+        },
+        billyStatusBackCaption(){
+            return this.initialState.billyStatus ? 'OnLine' : 'Can\'t connect';
         }
     },
+    created() {
+        this.initialState = initialState;
+    },
     mounted() {
-        let billyServiceUrl = `${window.BILLY_SERVICE_URL}/check-service-on-line`;
+        let billyServiceUrl = `${this.initialState.billyServiceUrl}/check-service-on-line`;
 
         axios.get(billyServiceUrl)
             .then(res => {
