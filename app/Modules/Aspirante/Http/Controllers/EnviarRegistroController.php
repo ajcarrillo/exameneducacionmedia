@@ -20,8 +20,8 @@ class EnviarRegistroController extends Controller
         //$request->validated();
         $aspirante = get_aspirante();
 
-        if ( ! $aspirante->paisNacimiento()->exists()) {
-            throw new \Exception('Ingresa tu país de nacimiento, en la opción Editar Perfil');
+        if ( ! $aspirante->paisNacimiento()->exists() || $aspirante->informacionProcedencia->fecha_egreso == NULL) {
+            throw new \Exception('Verifica que tu información esté completa en la opción Editar Perfil');
         }
 
         try {
