@@ -73,35 +73,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                @if(count($ofertas) > 0)
-                    <div class="col">
-                        <div class="card">
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-                                    <div class="card text-center">
-                                        <gmap-map
-                                            ref="gmap"
-                                            :center="{ lat: {{$ofertas[0]->ofertaEducativa->plantel->latitud}}, lng: {{$ofertas[0]->ofertaEducativa->plantel->longitud}} }"
-                                            :zoom="8"
-                                            style="width:100%;  height: 500px;"
-                                        >
-                                            @foreach($ofertas_gral as $oferta)
-                                                <gmap-marker
-                                                    :position="google && new google.maps.LatLng({{ $oferta->latitud}}, {{ $oferta->longitud}})"
-                                                    @click="showInfoWindow()"
-                                                >
-                                                    <gmap-info-window :opened="visInfoWindow">{{ $oferta->plantel_desc }}</gmap-info-window>
-                                                </gmap-marker>
-                                            @endforeach
-                                        </gmap-map>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endif
-            </div>
         </div>
     </main>
 
