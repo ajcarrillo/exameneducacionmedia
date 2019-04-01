@@ -98,38 +98,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row p-3">
-                                @foreach($ofertas as $oferta)
-                                    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 d-flex">
-                                        <div class="card text-center align-self-stretch">
-                                            <gmap-map
-                                                ref="gmap"
-                                                :center="{ lat: {{ $oferta->ofertaEducativa->plantel->latitud}}, lng: {{ $oferta->ofertaEducativa->plantel->longitud}} }"
-                                                :zoom="17"
-                                                style="width:100%;  height: 300px;"
-                                            >
-                                                <gmap-marker
-                                                    :position="google && new google.maps.LatLng({{ $oferta->ofertaEducativa->plantel->latitud}}, {{ $oferta->ofertaEducativa->plantel->longitud}})"
-                                                ></gmap-marker>
-                                            </gmap-map>
-                                            <div class="card-body">
-                                                <h2>
-                                                    <span class="badge badge-pill badge-success">{{$oferta->preferencia}}</span>
-                                                </h2>
-                                                <div>
-                                                    <p class="card-title text-primary">
-                                                        <b>{{ $oferta->ofertaEducativa->especialidad->referencia }}</b></p>
-                                                    <p class="card-text">{{ $oferta->ofertaEducativa->plantel->descripcion }}</p>
-                                                </div>
-                                                <hr>
-                                                <p class="card-text text-justify">
-                                                    <b>Descripcion:</b><br>{{ $oferta->ofertaEducativa->especialidad->descripcion}}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
                         </div>
                     </div>
                 @endif
