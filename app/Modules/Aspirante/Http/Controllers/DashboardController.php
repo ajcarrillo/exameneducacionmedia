@@ -42,7 +42,7 @@ class DashboardController extends Controller
         $hasPaseAlExamen        = $this->hasPaseAlExamen($aspirante);
         $hasInformacionCompleta = $aspirante->hasInformacionCompleta();
 
-        try {
+        /*try {
             if ($hasRevision && ! $revision->efectuado) {
                 $fichaJson = $aspirante->updateFichaJson($this->getRevision($aspirante)->solicitud_pago_id);
 
@@ -54,7 +54,7 @@ class DashboardController extends Controller
                 };
             }
         } catch (\Exception $e) {
-        }
+        }*/
 
         return view('aspirante.dashboard', compact(
             'ofertas', 'ofertas_gral', 'revision', 'hasRevision',

@@ -6,6 +6,7 @@
             padding-bottom: 1rem;
         }
     </style>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"    />
 @endsection
 
 @section('content')
@@ -77,6 +78,9 @@
                 @if(count($ofertas) > 0)
                     <div class="col">
                         <div class="card">
+
+
+                            <div id="map" style="width: 100%; height: 400px; border: 1px solid grey" data-datos="{{$ofertas_gral}}" ></div>
                             {{--<div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                                     <div class="card text-center">
@@ -140,11 +144,14 @@
                 @endif
             </div>
         </div>
+
+
     </main>
 
 @endsection
 
 @section('extra-scripts')
+    <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
     <script src="{{ mix('js/aspirante/dashboard.js') }}"></script>
 @endsection
 
