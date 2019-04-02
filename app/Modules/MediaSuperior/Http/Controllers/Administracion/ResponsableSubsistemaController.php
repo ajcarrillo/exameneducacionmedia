@@ -27,7 +27,7 @@ class ResponsableSubsistemaController extends Controller
     public function edit(Subsistema $subsistema)
     {
         $usuariosDisponibles = DB::table('educacionmedia.users','educacionmedia.planteles','educacionmedia.model_has_roles' )
-            ->select('usuario.id',DB::raw("concat(usuario.nombre ,' ', usuario.primer_apellido ,' ', usuario.segundo_apellido) as nombreCompleto"),'usuario.username')
+            ->select('usuario.id',DB::raw("concat(usuario.nombre ,' ', usuario.primer_apellido ,' ', usuario.segundo_apellido) as nombreCompleto"),'usuario.email')
             ->from('educacionmedia.users as usuario')
             ->join('educacionmedia.model_has_roles AS rol', function ($join)
             {
