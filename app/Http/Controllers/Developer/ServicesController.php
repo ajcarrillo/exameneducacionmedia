@@ -26,9 +26,14 @@ class ServicesController extends Controller
     {
         $client = new Client([ 'base_uri' => env('BILLY_SERVICE_URL') ]);
 
-        $response = $client->get('/check-service-on-line');
+        try {
+            $response = $client->get('/check-service-on-line');
+            $status   = $response->getStatusCode();
+        } catch (\Exception $e) {
+            $status = NULL;
+        }
 
-        return $response->getStatusCode() == 200 ? true : false;
+        return $status == 200 ? true : false;
     }
 
 }
