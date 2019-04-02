@@ -6,6 +6,7 @@
             padding-bottom: 1rem;
         }
     </style>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"    />
 @endsection
 
 @section('content')
@@ -73,12 +74,84 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                @if(count($ofertas) > 0)
+                    <div class="col">
+                        <div class="card">
+
+
+                            <div id="map" style="width: 100%; height: 400px; border: 1px solid grey" data-datos="{{$ofertas_gral}}" ></div>
+                            {{--<div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                    <div class="card text-center">
+                                      <gmap-map
+                                            ref="gmap"
+                                            :center="{ lat: {{$ofertas[0]->ofertaEducativa->plantel->latitud}}, lng: {{$ofertas[0]->ofertaEducativa->plantel->longitud}} }"
+                                            :zoom="8"
+                                            style="width:100%;  height: 500px;"
+                                        >
+                                             @foreach($ofertas_gral as $oferta)
+                                                <gmap-marker
+                                                    :position="google && new google.maps.LatLng({{ $oferta->latitud}}, {{ $oferta->longitud}})"
+                                                    @click="showInfoWindow()"
+                                                >
+                                                    <gmap-info-window :opened="visInfoWindow">{{ $oferta->plantel_desc }}</gmap-info-window>
+                                                </gmap-marker>
+                                            @endforeach
+                                        </gmap-map>
+                                    </div>
+                                </div>
+                            </div> --}}
+                            <div class="row p-3">
+                                @foreach($ofertas as $oferta)
+                                    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 d-flex">
+                                        <div class="card text-center align-self-stretch">
+                                            <iframe width="425" height="350" frameborder="0" scrolling="no"
+                                                    marginheight="0" marginwidth="0"
+                                                    src="https://www.openstreetmap.org/export/embed.html?bbox={{ $oferta->ofertaEducativa->plantel->longitud + .0009}}%2C{{ $oferta->ofertaEducativa->plantel->latitud + .0009}}%2C{{ $oferta->ofertaEducativa->plantel->longitud}}%2C{{ $oferta->ofertaEducativa->plantel->latitud}}&amp;layer=mapnik&amp;marker={{ $oferta->ofertaEducativa->plantel->latitud}}%2C{{ $oferta->ofertaEducativa->plantel->longitud}}"
+                                                    ></iframe>
+
+                                            {{--<gmap-map
+                                                ref="gmap"
+                                                :center="{ lat: {{ $oferta->ofertaEducativa->plantel->latitud}}, lng: {{ $oferta->ofertaEducativa->plantel->longitud}} }"
+                                                :zoom="17"
+                                                style="width:100%;  height: 300px;"
+                                            >
+                                                <gmap-marker
+                                                    :position="google && new google.maps.LatLng({{ $oferta->ofertaEducativa->plantel->latitud}}, {{ $oferta->ofertaEducativa->plantel->longitud}})"
+                                                ></gmap-marker>
+                                            </gmap-map> --}}
+                                            <div class="card-body">
+                                                <h2>
+                                                    <span class="badge badge-pill badge-success">{{$oferta->preferencia}}</span>
+                                                </h2>
+                                                <div>
+                                                    <p class="card-title text-primary">
+                                                        <b>{{ $oferta->ofertaEducativa->especialidad->referencia }}</b></p>
+                                                    <p class="card-text">{{ $oferta->ofertaEducativa->plantel->descripcion }}</p>
+                                                </div>
+                                                <hr>
+                                                <p class="card-text text-justify">
+                                                    <b>Descripcion:</b><br>{{ $oferta->ofertaEducativa->especialidad->descripcion}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
         </div>
+
+
     </main>
 
 @endsection
 
 @section('extra-scripts')
+    <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
     <script src="{{ mix('js/aspirante/dashboard.js') }}"></script>
 @endsection
 
