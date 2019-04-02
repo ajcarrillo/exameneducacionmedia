@@ -18,7 +18,9 @@ class AspiranteFilters extends QueryFilter
     public function rules(): array
     {
         return [
-            'search' => 'filled|min:6',
+            'search'     => 'filled|min:6',
+            'plantel'    => 'filled',
+            'subsistema' => 'filled',
         ];
     }
 
@@ -29,6 +31,11 @@ class AspiranteFilters extends QueryFilter
             ->orWhere('aspirantes.matricula', 'like', "%{$search}%")
             ->orWhere('users.email', 'like', "%{$search}%")
             ->orWhere(DB::raw("concat_ws(' ', nombre, primer_apellido, segundo_apellido)"), 'like', "%{$search}%");
+    }
+
+    public function plantel($query, $plantel)
+    {
+        $query->where('planteles.id', $plantel);
     }
 
 
