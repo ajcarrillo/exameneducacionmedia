@@ -42,15 +42,18 @@ class DashboardController extends Controller
         $hasPaseAlExamen        = $this->hasPaseAlExamen($aspirante);
         $hasInformacionCompleta = $aspirante->hasInformacionCompleta();
 
-        if ($hasRevision && ! $revision->efectuado) {
-            $fichaJson = $aspirante->updateFichaJson($this->getRevision($aspirante)->solicitud_pago_id);
+        try {
+            if ($hasRevision && ! $revision->efectuado) {
+                $fichaJson = $aspirante->updateFichaJson($this->getRevision($aspirante)->solicitud_pago_id);
 
-            $ficha = json_decode((string)$fichaJson, true);
+                $ficha = json_decode((string)$fichaJson, true);
 
-            if ( ! is_null($ficha['deposito'])) {
-                $revision->efectuado = 1;
-                $revision->save();
-            };
+                if ( ! is_null($ficha['deposito'])) {
+                    $revision->efectuado = 1;
+                    $revision->save();
+                };
+            }
+        } catch (\Exception $e) {
         }
 
         return view('aspirante.dashboard', compact(
