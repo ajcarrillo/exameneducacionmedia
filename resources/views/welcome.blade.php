@@ -124,7 +124,7 @@
                     </h3>
 
                     <div class="mt-3 links d-flex flex-column flex-sm-row justify-content-center">
-                        <a class="text-center mb-3" href="http://qroo.gob.mx/seq/preparatoria-abierta-quintana-roo">Preparatoria abierta</a>
+                        <a class="text-center mb-3" href="{{ asset('img/prepa_abierta.jpg') }}" target="_blank">Preparatoria abierta</a>
                         <a class="text-center mb-3" href="http://www.prepaenlinea.sep.gob.mx/">Preparatoria en línea</a>
                         <a class="text-center mb-3" href="http://www.facebook.com/paenmsqroo">Asesorías y dudas</a>
                     </div>
