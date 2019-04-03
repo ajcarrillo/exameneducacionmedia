@@ -15,7 +15,7 @@
     <div class="content">
         <div class="row">
             <div class="col-md-3">
-                <div class="small-box @if($total_demanda>$stats[0]->oferta) bg-danger @else bg-danger @endif">
+                <div class="small-box @if($total_demanda>$stats[0]->oferta) bg-danger @else bg-success @endif">
                     <div class="inner">
                         <h3>{{ $total_demanda }}</h3>
 
