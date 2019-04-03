@@ -93,4 +93,36 @@ class PlantelRepository extends BaseRepository
 
         return $query;
     }
+
+    public function statsByPlantel($plantelId)
+    {
+        return DB::select($this->sqlEstadisticas(), [ $plantelId ]);
+    }
+
+    protected function sqlEstadisticas()
+    {
+        return 'SELECT `planteles`.`id`,
+`planteles`.`descripcion`                                                 AS `plantel`,
+`subsistemas`.`referencia`                                                AS `subsistema`,
+ifnull(plantel_demanda.demanda, 0)                                        AS demanda,
+ifnull(plantel_oferta.oferta, 0)                                          AS oferta,
+ifnull(floor((plantel_demanda.demanda * 100) / plantel_oferta.oferta), 0) AS porcentaje
+FROM `planteles`
+INNER JOIN `subsistemas` ON `planteles`.`subsistema_id` = `subsistemas`.`id`
+LEFT JOIN (SELECT planteles.id,
+count(planteles.id) AS demanda
+FROM `planteles`
+INNER JOIN `ofertas_educativas` ON `planteles`.`id` = `ofertas_educativas`.`plantel_id`
+INNER JOIN `seleccion_ofertas_educativas`
+ON `seleccion_ofertas_educativas`.`oferta_educativa_id` = `ofertas_educativas`.`id` AND `seleccion_ofertas_educativas`.`preferencia` = 1
+GROUP BY `planteles`.`id`) AS plantel_demanda ON `planteles`.`id` = `plantel_demanda`.`id`
+LEFT JOIN (SELECT planteles.id,
+sum((oferta_educativa_grupos.alumnos * oferta_educativa_grupos.grupos)) AS oferta
+FROM `planteles`
+INNER JOIN `ofertas_educativas` ON `planteles`.`id` = `ofertas_educativas`.`plantel_id`
+INNER JOIN `oferta_educativa_grupos` ON `ofertas_educativas`.`id` = `oferta_educativa_grupos`.`oferta_educativa_id`
+WHERE `planteles`.`active` = 1 AND `ofertas_educativas`.`active` = 1
+GROUP BY `planteles`.`id`) AS plantel_oferta ON `planteles`.`id` = `plantel_oferta`.`id`
+WHERE `planteles`.`id` = ? AND `planteles`.`active` = 1';
+    }
 }

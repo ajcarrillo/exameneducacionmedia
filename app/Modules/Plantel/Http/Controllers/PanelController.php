@@ -4,14 +4,20 @@ namespace Plantel\Http\Controllers;
 
 use Aspirante\Repositories\AspiranteRepository;
 use ExamenEducacionMedia\Http\Controllers\Controller;
+use Subsistema\Repositories\PlantelRepository;
 
 class PanelController extends Controller
 {
     private $repository;
+    /**
+     * @var PlantelRepository
+     */
+    private $plantelRepository;
 
-    public function __construct(AspiranteRepository $repository)
+    public function __construct(AspiranteRepository $repository, PlantelRepository $plantelRepository)
     {
-        $this->repository = $repository;
+        $this->repository        = $repository;
+        $this->plantelRepository = $plantelRepository;
     }
 
     public function index()
@@ -19,7 +25,9 @@ class PanelController extends Controller
         $plantel = get_user()->plantel;
         $params  = [ 'plantel' => $plantel->id ];
 
-        $total_oferta                = $plantel->ofertaEducativa()->where('active', 1)->count();
+        $stats = $this->plantelRepository->statsByPlantel($plantel->id);
+
+        $total_oferta = $plantel->ofertaEducativa()->where('active', 1)->count();;
         $nombre_plantel              = $plantel->descripcion;
         $total_demanda               = $this->repository->aspirantesConSeleccion($params)->count();
         $aspirantes_proceso_completo = $this->repository->aspirantesConProcesoCompleto($params)->count();
@@ -30,11 +38,12 @@ class PanelController extends Controller
         $aulas                       = $plantel->aulas()->count();
 
         //TODRES: Implementar calculo de porcentaje y sedes alternas
-        $porcentaje                  = 0;
-        $sedes                       = '';
+        $porcentaje = 0;
+        $sedes      = '';
 
 
         return view('planteles.home', compact(
+            'stats',
             'aulas',
             'sedes',
             'aforo_suma',

@@ -23,6 +23,11 @@ class PlantelesFilter extends QueryFilter
         ];
     }
 
+    public function plantel($query, $plantel)
+    {
+        return $query->where('planteles.id', $plantel);
+    }
+
     public function subsistema($query, $subsistema)
     {
         return $query->where('planteles.subsistema_id', $subsistema);

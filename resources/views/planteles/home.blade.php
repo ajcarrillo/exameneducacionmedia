@@ -15,7 +15,7 @@
     <div class="content">
         <div class="row">
             <div class="col-md-3">
-                <div class="small-box bg-green">
+                <div class="small-box @if($total_demanda>$stats[0]->oferta) bg-danger @else bg-danger @endif">
                     <div class="inner">
                         <h3>{{ $total_demanda }}</h3>
 
@@ -30,12 +30,25 @@
             <div class="col-md-3">
                 <div class="small-box bg-aqua">
                     <div class="inner">
-                        <h3>{{ $total_oferta }}</h3>
+                        <h3>{{ $stats[0]->oferta }}</h3>
 
-                        <p>Oferta Educativa</p>
+                        <p>Oferta</p>
                     </div>
                     <div class="icon">
-                        <i class="fa fa-battery-full"></i>
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <a href="#!" data-toggle="modal" data-target="#modelId" class="small-box-footer">Más información <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>{{ $total_oferta }}</h3>
+
+                        <p>Especialidades</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-book"></i>
                     </div>
                     <span class="small-box-footer"><i class="fa fa-info-circle"></i></span>
                 </div>
@@ -48,20 +61,7 @@
                         <p>Aforo</p>
                     </div>
                     <div class="icon">
-                        <i class="fa fa-battery-full"></i>
-                    </div>
-                    <span class="small-box-footer"><i class="fa fa-info-circle"></i></span>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="small-box bg-aqua">
-                    <div class="inner">
-                        <h3>{{ $aulas }}</h3>
-
-                        <p>Aulas</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-university"></i>
+                        <i class="fas fa-users"></i>
                     </div>
                     <span class="small-box-footer"><i class="fa fa-info-circle"></i></span>
                 </div>
