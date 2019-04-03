@@ -260,6 +260,14 @@
                 </a>
             </li>
             <li class="nav-item has-treeview menu">
+                <a href="{{ route('planteles.aspirantes') }}" class="nav-link">
+                    <i class="fas fa-user-graduate"></i>
+                    <p>
+                        Aspirantes
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item has-treeview menu">
                 <a href="{{ route('media.administracion.estudiante.buscar') }}" class="nav-link">
                     <i class="fas fa-search"></i>
                     <p>Buscar matricula</p>

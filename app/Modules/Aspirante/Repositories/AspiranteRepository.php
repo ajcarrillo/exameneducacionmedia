@@ -36,7 +36,7 @@ class AspiranteRepository extends BaseRepository
         return $query;
     }
 
-    public function listarAspirantesPorPlantel($plantel, array $params = [])
+    public function listarAspirantesPorPlantel(array $params = [])
     {
         $query = $this->listarAspirantes($params);
 
@@ -44,7 +44,7 @@ class AspiranteRepository extends BaseRepository
             $join->on('aspirantes.id', '=', 'seleccion_ofertas_educativas.aspirante_id')
                 ->where('seleccion_ofertas_educativas.preferencia', '=', 1);
         })->join('ofertas_educativas', 'seleccion_ofertas_educativas.oferta_educativa_id', '=', 'ofertas_educativas.id')
-            ->where('ofertas_educativas.plantel_id', $plantel);
+            ->join('planteles', 'ofertas_educativas.plantel_id', '=', 'planteles.id');
 
         return $query;
     }

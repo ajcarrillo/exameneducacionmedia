@@ -1,7 +1,7 @@
 <?php
 /* url: /planteles */
 
-Route::middleware([ 'auth', 'role:plantel', 'hasPlantel' ])
+Route::middleware([ 'auth', 'role:plantel|subsistema' ])
     ->group(function () {
         Route::get('/', 'PanelController@index')->name('planteles.panel');
         Route::get('/aspirantes', 'BuscarAspirantesController@index')->name('planteles.aspirantes');

@@ -6,6 +6,7 @@
         <div class="row">
             <div class="col">@include('flash::message')</div>
         </div>
+
         <div class="row">
             <div class="col">
                 <div class="card">

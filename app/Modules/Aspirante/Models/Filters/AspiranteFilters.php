@@ -38,5 +38,10 @@ class AspiranteFilters extends QueryFilter
         $query->where('planteles.id', $plantel);
     }
 
+    public function subsistema($query, $subsitema)
+    {
+        $query->where('planteles.subsistema_id', $subsitema);
+    }
+
 
 }
