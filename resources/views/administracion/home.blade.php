@@ -142,6 +142,17 @@
                             </div>
                             <!-- /.info-box-content -->
                         </div>
+                        <div class="info-box bg-aqua">
+                            <span class="info-box-icon bg-aqua-active">
+                                <i class="fas fa-id-card"></i>
+                            </span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Pases al examen generados</span>
+                                <span class="info-box-number">{{ $pases_al_examen }}</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
                     </div>
                 </div>
             </div>
