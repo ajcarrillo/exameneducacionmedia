@@ -13,9 +13,20 @@ use Illuminate\Support\Facades\Input;
 use MediaSuperior\Models\Revision;
 use Subsistema\Models\OfertaEducativa;
 use Subsistema\Models\Plantel;
+use Subsistema\Repositories\PlantelRepository;
 
 class PanelController extends Controller
 {
+    /**
+     * @var PlantelRepository
+     */
+    private $repository;
+
+    public function __construct(PlantelRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     public function index()
     {
         $activar           = 1;
@@ -67,96 +78,15 @@ class PanelController extends Controller
             ->pluck('personas_por_dia');
 
 
-        // consulta los planteles con demanda
-        $plnt = 'select sb.referencia, t.*,
-                    (SELECT COUNT(of.id) 
-                                FROM ofertas_educativas as of
-                                WHERE of.plantel_id = t.id and of.active = 1
-                                ) as ofertas,
-                    (SELECT COUNT(DISTINCT(sel.aspirante_id)) 
-                                FROM seleccion_ofertas_educativas as sel
-                                INNER JOIN ofertas_educativas as oe on oe.id = sel.oferta_educativa_id
-                                WHERE oe.plantel_id = t.id 
-                                ) as demanda,                                
-                    IFNULL((SELECT SUM(au.capacidad) 
-                                FROM aulas as au
-                                WHERE au.edificio_type= "plantel" and au.edificio_id = t.id
-                                ),0) as capacidad_aula,
-                    IFNULL((ROUND((SELECT COUNT(DISTINCT(pe.aspirante_id)) 
-                                FROM pases_examen as pe
-                                INNER JOIN seleccion_ofertas_educativas as sof on sof.aspirante_id = pe.aspirante_id
-                                INNER JOIN ofertas_educativas as oe on oe.id = sof.oferta_educativa_id
-                                WHERE oe.plantel_id = t.id 
-                                )/(SELECT SUM(au.capacidad) 
-                                FROM aulas as au
-                                WHERE au.edificio_type= "plantel" and au.edificio_id = t.id
-                                )*100)),0)as porcentaje
-                    from planteles as t
-                    inner join subsistemas as sb on sb.id = t.subsistema_id 
-                    where t.active = 1';
-        $plantelescomplet = DB::select($plnt);
 
-        //consulta para el filtro
-        $porcentaje_f = 'select DISTINCT
-                    IFNULL((ROUND((SELECT COUNT(DISTINCT(pe.aspirante_id)) 
-                                FROM pases_examen as pe
-                                INNER JOIN seleccion_ofertas_educativas as sof on sof.aspirante_id = pe.aspirante_id
-                                INNER JOIN ofertas_educativas as oe on oe.id = sof.oferta_educativa_id
-                                WHERE oe.plantel_id = t.id 
-                                )/(SELECT SUM(au.capacidad) 
-                                FROM aulas as au
-                                WHERE au.edificio_type= "plantel" and au.edificio_id = t.id
-                                )*100)),0)as porcentaje
-                    from planteles as t
-                    inner join subsistemas as sb on sb.id = t.subsistema_id 
-                    where t.active = 1';
-        $porcentaje_filtro = DB::select($porcentaje_f);
-        if ((Input::has('percent'))) {
-            if (((Input::get('percent')) == NULL)) {
 
-            } else {
-                $filtro = 'select sb.referencia, t.*,
-                    (SELECT COUNT(of.id) 
-                                FROM ofertas_educativas as of
-                                WHERE of.plantel_id = t.id and of.active = 1
-                                ) as ofertas,
-                    (SELECT COUNT(DISTINCT(sel.aspirante_id)) 
-                                FROM seleccion_ofertas_educativas as sel
-                                INNER JOIN ofertas_educativas as oe on oe.id = sel.oferta_educativa_id
-                                WHERE oe.plantel_id = t.id 
-                                ) as demanda,                                
-                    IFNULL((SELECT SUM(au.capacidad) 
-                                FROM aulas as au
-                                WHERE au.edificio_type= "plantel" and au.edificio_id = t.id
-                                ),0) as capacidad_aula,
-                    IFNULL((ROUND((SELECT COUNT(DISTINCT(pe.aspirante_id)) 
-                                FROM pases_examen as pe
-                                INNER JOIN seleccion_ofertas_educativas as sof on sof.aspirante_id = pe.aspirante_id
-                                INNER JOIN ofertas_educativas as oe on oe.id = sof.oferta_educativa_id
-                                WHERE oe.plantel_id = t.id 
-                                )/(SELECT SUM(au.capacidad) 
-                                FROM aulas as au
-                                WHERE au.edificio_type= "plantel" and au.edificio_id = t.id
-                                )*100)),0)as porcentaje
-                    from planteles as t
-                    inner join subsistemas as sb on sb.id = t.subsistema_id 
-                    where t.active = 1 AND 
-
-IFNULL((ROUND((SELECT COUNT(DISTINCT(pe.aspirante_id)) 
-                                FROM pases_examen as pe
-                                INNER JOIN seleccion_ofertas_educativas as sof on sof.aspirante_id = pe.aspirante_id
-                                INNER JOIN ofertas_educativas as oe on oe.id = sof.oferta_educativa_id
-                                WHERE oe.plantel_id = t.id 
-                                )/(SELECT SUM(au.capacidad) 
-                                FROM aulas as au
-                                WHERE au.edificio_type= "plantel" and au.edificio_id = t.id
-                                )*100)),0) = ' . Input::get('percent');
-                $plantelescomplet = DB::select($filtro);
-            }
-        }
+        $statsPlantel = $this->repository
+            ->estadisticasPlantel()
+            ->orderBy('planteles.descripcion')
+            ->get();
 
         return view('administracion.home', compact('especialidades', 'planteles', 'activar', 'aspirantes_hoy', 'total_aspirantes', 'revisiones_oferta',
-            'revisiones_aforo', 'total_folios', 'folios_usados', 'porcentaje_folios', 'fechas_r', 'plantelescomplet', 'porcentaje_filtro', 'dato'));
+            'revisiones_aforo', 'total_folios', 'folios_usados', 'porcentaje_folios', 'fechas_r', 'plantelescomplet', 'porcentaje_filtro', 'dato', 'statsPlantel'));
     }
 
     public function cancelarOferta()

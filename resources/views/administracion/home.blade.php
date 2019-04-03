@@ -2,8 +2,8 @@
 
 @section('extra-head')
 
-	<link rel="stylesheet" href="{{ mix('css/adminlte.css') }}">
-	@yield('extra-css')
+    <link rel="stylesheet" href="{{ mix('css/adminlte.css') }}">
+    @yield('extra-css')
 
 @endsection
 
@@ -12,20 +12,20 @@
 @endsection
 
 @section('content')
-    <div class="content">
-	    {{--<div class="row">
-		    <div class="col-md-3">
-			    @if($activar == 1)
-				    <a class="btn" style="background:#00a65a;color: white;font-size: 13pt" href="{{route('media.administracion.panelAdministracion.cancelarOferta')}}" id="btn_desactivar">Desactivar Ofertas</a>
-			    @endif
-		    </div>
-            <div class="col-md-3">
-                @if($activar == 1)
-                        <a class="btn" style="background:#00a65a;color: white;font-size: 13pt" href="#" id="btn_desactivar_planteles">Desactivar planteles</a>
-                @endif
-            </div>
-	    </div>--}}
-	    <br />
+    <div class="container-fluid">
+        {{--<div class="row">
+			<div class="col-md-3">
+				@if($activar == 1)
+					<a class="btn" style="background:#00a65a;color: white;font-size: 13pt" href="{{route('media.administracion.panelAdministracion.cancelarOferta')}}" id="btn_desactivar">Desactivar Ofertas</a>
+				@endif
+			</div>
+			<div class="col-md-3">
+				@if($activar == 1)
+						<a class="btn" style="background:#00a65a;color: white;font-size: 13pt" href="#" id="btn_desactivar_planteles">Desactivar planteles</a>
+				@endif
+			</div>
+		</div>--}}
+        <br/>
         <div class="row">
             <div class="col-md-3">
                 <div class="small-box bg-aqua">
@@ -154,46 +154,30 @@
                     <div class="card-header">
                         <div class="card-title">Planteles con demanda</div>
                         <form action="" method="get" class="d-flex flex-row justify-content-between justify-content-md-start align-items-center">
-                            <div class="pr-3">
-                                <select name="percent" id="percent" class="form-control">
-                                    <option value="">Seleccione un porcentaje</option>
-                                    @foreach($porcentaje_filtro as $pf)
-                                        <option value="{{$pf->porcentaje }}"{{ request('porcentaje') == $pf->porcentaje ? ' selected' : '' }}>{{ $pf->porcentaje }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div>
-                                <button class="btn btn-primary">Buscar</button>
-                            </div>
+
                         </form>
                     </div>
                     <div class="card-body">
                         <!--<div class="table-responsive-sm">-->
                         <table class="table table-hover table-responsive-sm">
                             <thead>
-                            <tr>
-                                <th>Nombre del plantel</th>
-                                <th>Subsistema</th>
-                                <th class="text-right">Oferta educativa</th>
-                                <th class="text-right">Demanda</th>
-                                <th class="text-right">Capacidad</th>
-                                <th class="text-right">Porcentaje ocupado</th>
-
-                            </tr>
+                                <tr>
+                                    <th>Nombre del plantel</th>
+                                    <th>Subsistema</th>
+                                    <th class="text-right">Oferta educativa</th>
+                                    <th class="text-right">Demanda</th>
+                                    <th class="text-right">Porcentaje solicitado</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <!-- foreach-->
-                            @foreach($plantelescomplet as $pl)
-                            <tr>
-                                <td rowspan="2">{{$pl->descripcion}}</td>
-                                <td>{{$pl->referencia}} </td>
-                                <td class="text-right">{{$pl->ofertas}} </td>
-                                <td class="text-right">{{$pl->demanda}} </td>
-                                <td class="text-right">{{$pl->capacidad_aula}} </td>
-                                <td class="text-right">{{$pl->porcentaje}} %</td>
-                            </tr>
-                            <tr>
-                            </tr>
+                                @foreach($statsPlantel as $pl)
+                                    <tr class="@if($pl->porcentaje > 90)table-danger @elseif($pl->porcentaje > 60)table-warning @endif">
+                                        <td>{{$pl->descripcion}}</td>
+                                        <td>{{$pl->referencia}} </td>
+                                        <td class="text-right">{{$pl->oferta}} </td>
+                                        <td class="text-right">{{$pl->demanda}} </td>
+                                        <td class="text-right">{{$pl->porcentaje}} %</td>
+                                    </tr>
                             @endforeach
                             <!-- end foreach-->
                             </tbody>
@@ -220,7 +204,7 @@
         var data = $('#fecha').val();
         var count = $('#persona').val();
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             var speedCanvas = document.getElementById("signup-stats");
             Chart.defaults.global.defaultFontFamily = "Lato";
             Chart.defaults.global.defaultFontSize = 18;
