@@ -11,6 +11,7 @@ namespace Subsistema\Repositories;
 
 use DB;
 use ExamenEducacionMedia\Classes\BaseRepository;
+use Subsistema\Models\Filters\PlantelFilter;
 use Subsistema\Models\Plantel;
 
 class PlantelRepository extends BaseRepository
@@ -21,12 +22,27 @@ class PlantelRepository extends BaseRepository
         return new Plantel();
     }
 
-    public function planteles()
+    public function planteles(array $params = [])
     {
         $query = $this->newQuery()
-            ->select('planteles.id', 'planteles.descripcion', 'subsistemas.referencia')
+            ->filterBy(new PlantelFilter, $params)
+            ->select('planteles.id', 'planteles.descripcion as plantel', 'subsistemas.referencia as subsistema')
             ->join('subsistemas', 'planteles.subsistema_id', '=', 'subsistemas.id')
             ->where('planteles.active', 1);
+
+        return $query;
+    }
+
+    public function ofertaEducativa(array $params = [])
+    {
+        $query = $this->planteles($params)
+            ->plantelesConMunicipioLocalidad()
+            ->join('ofertas_educativas', 'planteles.id', '=', 'ofertas_educativas.plantel_id')
+            ->join('oferta_educativa_grupos', 'ofertas_educativas.id', '=', 'oferta_educativa_grupos.oferta_educativa_id')
+            ->join('especialidades', 'ofertas_educativas.especialidad_id', '=', 'especialidades.id')
+            ->where('ofertas_educativas.active', 1)
+            ->where('planteles.active', 1)
+            ->addSelect(DB::raw('planteles.clave,geo.NOM_MUN AS municipio,geo.NOM_LOC AS localidad,especialidades.referencia as especialidad,oferta_educativa_grupos.grupos,oferta_educativa_grupos.alumnos,oferta_educativa_grupos.alumnos * oferta_educativa_grupos.grupos AS total'));
 
         return $query;
     }

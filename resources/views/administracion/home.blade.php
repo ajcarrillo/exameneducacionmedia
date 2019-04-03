@@ -183,8 +183,8 @@
                             <tbody>
                                 @foreach($statsPlantel as $pl)
                                     <tr class="@if($pl->porcentaje > 90)table-danger @elseif($pl->porcentaje > 60)table-warning @endif">
-                                        <td>{{$pl->descripcion}}</td>
-                                        <td>{{$pl->referencia}} </td>
+                                        <td>{{$pl->plantel}}</td>
+                                        <td>{{$pl->subsistema}} </td>
                                         <td class="text-right">{{$pl->oferta}} </td>
                                         <td class="text-right">{{$pl->demanda}} </td>
                                         <td class="text-right">{{$pl->porcentaje}} %</td>

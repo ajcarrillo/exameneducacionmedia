@@ -17,9 +17,15 @@ class PlantelFilter extends QueryFilter
     public function rules(): array
     {
         return [
-            'subsistema' => 'filled',
-            'search'     => 'filled',
+            'subsistema'   => 'filled',
+            'search'       => 'filled',
+            'subsistemaid' => 'filled',
         ];
+    }
+
+    public function subsistemaid($query, $subsistemaid)
+    {
+        return $query->where('planteles.subsistema_id', $subsistemaid);
     }
 
     public function subsistema($query, $subsistema)
