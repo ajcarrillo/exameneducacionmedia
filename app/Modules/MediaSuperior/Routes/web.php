@@ -22,6 +22,17 @@ Route::prefix('/reporte-dinamico')
         Route::post('/', 'ReporteDinamicoController@download');
     });
 
+Route::prefix('adminstracion/estudiante')
+    ->name('administracion.estudiante.')
+    ->middleware([ 'auth', 'role:departamento|subsistema|plantel' ])
+    ->group(function () {
+        Route::get('/', 'Administracion\BuscarMatriculaController@index')->name('index');
+        Route::post('/buscar', 'Administracion\BuscarMatriculaController@buscarEstudiante')->name('buscar');
+        Route::get('/buscar', function () {
+            return redirect()->route('media.administracion.estudiante.index');
+        });
+    });
+
 Route::middleware([ 'auth', 'role:departamento' ])
     ->prefix('/administracion')
     ->name('administracion.')
@@ -51,16 +62,6 @@ Route::middleware([ 'auth', 'role:departamento' ])
                 Route::get('/', 'Administracion\EtapaController@index')->name('index');
                 Route::get('/edit', 'Administracion\EtapaController@edit')->name('edit');
                 Route::post('/update', 'Administracion\EtapaController@update')->name('update');
-            });
-
-        Route::prefix('/estudiante')
-            ->name('estudiante.')
-            ->group(function () {
-                Route::get('/', 'Administracion\BuscarMatriculaController@index')->name('index');
-                Route::post('/buscar', 'Administracion\BuscarMatriculaController@buscarEstudiante')->name('buscar');
-                Route::get('/buscar', function () {
-                    return redirect()->route('media.administracion.estudiante.index');
-                });
             });
 
         Route::prefix('/sedes-alternas')
