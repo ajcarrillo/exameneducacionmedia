@@ -11,7 +11,7 @@ namespace Subsistema\Models\Filters;
 
 use ExamenEducacionMedia\QueryFilter;
 
-class PlantelFilter extends QueryFilter
+class PlantelesFilter extends QueryFilter
 {
 
     public function rules(): array
@@ -19,12 +19,13 @@ class PlantelFilter extends QueryFilter
         return [
             'subsistema' => 'filled',
             'search'     => 'filled',
+            'plantel'    => 'filled',
         ];
     }
 
     public function subsistema($query, $subsistema)
     {
-        return $query->where('subsistema_id', $subsistema);
+        return $query->where('planteles.subsistema_id', $subsistema);
     }
 
     public function search($query, $search)

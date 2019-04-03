@@ -11,7 +11,7 @@ namespace Subsistema\Repositories;
 
 use DB;
 use ExamenEducacionMedia\Classes\BaseRepository;
-use Subsistema\Models\Filters\PlantelFilter;
+use Subsistema\Models\Filters\PlantelesFilter;
 use Subsistema\Models\Plantel;
 
 class PlantelRepository extends BaseRepository
@@ -25,7 +25,7 @@ class PlantelRepository extends BaseRepository
     public function planteles(array $params = [])
     {
         $query = $this->newQuery()
-            ->filterBy(new PlantelFilter, $params)
+            ->filterBy(new PlantelesFilter, $params)
             ->select('planteles.id', 'planteles.descripcion as plantel', 'subsistemas.referencia as subsistema')
             ->join('subsistemas', 'planteles.subsistema_id', '=', 'subsistemas.id')
             ->where('planteles.active', 1);

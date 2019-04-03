@@ -13,17 +13,19 @@ use ExamenEducacionMedia\Exports\OfertaEducativaExports;
 use ExamenEducacionMedia\Models\Geodatabase\MunicipioView;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel;
-use Subsistema\Models\Filters\OfertaEducativaFilters;
 use Subsistema\Models\Subsistema;
 use Subsistema\Repositories\OfertaEducativaRepository;
+use Subsistema\Repositories\PlantelRepository;
 
 class ReporteController extends Controller
 {
     private $repository;
+    private $plantelRepository;
 
-    public function __construct(OfertaEducativaRepository $repository)
+    public function __construct(OfertaEducativaRepository $repository, PlantelRepository $plantelRepository)
     {
-        $this->repository = $repository;
+        $this->repository        = $repository;
+        $this->plantelRepository = $plantelRepository;
     }
 
     public function index()
