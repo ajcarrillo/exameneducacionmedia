@@ -69,5 +69,14 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+                <subsistema-oferta-demanda :datos="{{ json_encode($subsistemasDemandaOferta) }}"></subsistema-oferta-demanda>
+            </div>
+        </div>
     </div>
+@stop
+
+@section('extra-scripts')
+    <script src="{{ mix('js/coordinador/app.js') }}"></script>
 @stop
