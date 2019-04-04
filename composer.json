@@ -53,7 +53,8 @@
             "Aspirante\\": "app/Modules/Aspirante/",
             "MediaSuperior\\": "app/Modules/MediaSuperior/",
             "Plantel\\": "app/Modules/Plantel/",
-            "Subsistema\\": "app/Modules/Subsistema/"
+            "Subsistema\\": "app/Modules/Subsistema/",
+            "Coordinacion\\": "app/Modules/Coordinacion/"
         }
     },
     "autoload-dev": {

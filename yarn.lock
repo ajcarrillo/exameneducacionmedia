@@ -7293,6 +7293,11 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
+vue-chartjs@^3.4.2:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/vue-chartjs/-/vue-chartjs-3.4.2.tgz#0323e6a99a10a68f38d426899c3994f48596fd23"
+  integrity sha512-EhoXUJ17+9isMLhJpOliS++xE5z5FM8iAVytIqnKofByVMr8AISRL/SCy3zvWbvzhjgQPStd9y6adMF5bnWQdg==
+
 vue-form-generator@^2.3.3:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/vue-form-generator/-/vue-form-generator-2.3.3.tgz#8d8b5b115deaa43ac604f6835e33dbc2a62054ed"
