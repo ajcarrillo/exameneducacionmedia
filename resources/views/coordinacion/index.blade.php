@@ -84,6 +84,38 @@
                 </aspirante-sexo>
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">Top 20 especialidades con mayor de demanda</h1>
+                    </div>
+                    <div class="card-body table-responsive p-0">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Subsistema/Especialidad</th>
+                                    <th class="text-right">Total aspirantes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($topEspecialidades as $especialidad)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $especialidad->especialidad }}</td>
+                                        <td class="text-right">{{ $especialidad->total }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                        <p class="mb-0 text-bold">* Especialidades que fueron elegidas como primera opción por los aspirantes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @stop
 

@@ -49,6 +49,9 @@ class PanelControlController extends Controller
         $porEntidad               = $this->getAspirantesPorEntidad();
         $porPais                  = $this->getAspirantesPorPais();
         $nulos                    = $this->aspirantesNulos();
+        $topEspecialidades        = $this->topEspecialidades();
+
+        dump($topEspecialidades);
 
         return view('coordinacion.index', compact(
             'aspirantes',
@@ -61,7 +64,8 @@ class PanelControlController extends Controller
             'sexos',
             'porEntidad',
             'porPais',
-            'nulos'
+            'nulos',
+            'topEspecialidades'
         ));
     }
 
@@ -155,5 +159,19 @@ class PanelControlController extends Controller
             'noentidad' => Aspirante::whereNull('entidad_nacimiento_id')->count(),
             'nopais'    => Aspirante::whereNull('pais_nacimiento_id')->count(),
         ];
+    }
+
+    protected function topEspecialidades()
+    {
+        return DB::table('ofertas_educativas')
+            ->select(DB::raw('especialidades.id,concat_ws(" / ",subsistemas.referencia, especialidades.referencia) as especialidad,count(especialidades.id) as total'))
+            ->join('seleccion_ofertas_educativas', function ($join) {
+                $join->on('ofertas_educativas.id', '=', 'seleccion_ofertas_educativas.oferta_educativa_id')
+                    ->where('preferencia', 1);
+            })->join('especialidades', 'ofertas_educativas.especialidad_id', '=', 'especialidades.id')
+            ->join('subsistemas', 'especialidades.subsistema_id', '=', 'subsistemas.id')
+            ->groupBy('especialidades.id')
+            ->orderBy('total', 'desc')
+            ->take(20)->get();
     }
 }
