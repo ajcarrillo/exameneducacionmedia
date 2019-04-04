@@ -51,8 +51,6 @@ class PanelControlController extends Controller
         $nulos                    = $this->aspirantesNulos();
         $topEspecialidades        = $this->topEspecialidades();
 
-        dump($topEspecialidades);
-
         return view('coordinacion.index', compact(
             'aspirantes',
             'oferta',
