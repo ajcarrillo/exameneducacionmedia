@@ -26,7 +26,7 @@ class GeneraPaseAlExamenController extends Controller
         } catch (\Throwable $e) {
             \Log::info($e->getMessage());
             \Log::info($e->getTraceAsString());
-            flash('Por el momento no podemos generar tu pase al examen, intenta de nuevo')->error();
+            flash($e->getMessage())->error();
         }
 
         return back();

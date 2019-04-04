@@ -114,11 +114,18 @@ class Aspirante extends Model
 
         if ( ! $asignado) {
             $sedesAlternas = SedeAlterna::where('plantel_id', $plantel->id)->get();
+
+            if ( ! $sedesAlternas->count()) {
+                throw new \Exception('Por el momento, no se puede generar tu pase al examen, comunícate a SEQ Chetumal 83 5 07 70 Ext. 5006 o 5004');
+            }
+
             foreach ($sedesAlternas as $sede) {
                 $aulas = $sede->aulas;
                 if ($this->distribuirPase($aulas)) {
                     $asignado = true;
                     break;
+                } else {
+                    throw new \Exception('Por el momento, no se puede generar tu pase al examen, comunícate a SEQ Chetumal 83 5 07 70 Ext. 5006 o 5004');
                 }
             }
         }
@@ -145,7 +152,7 @@ class Aspirante extends Model
             $lugaresOcupados = $pase->count();
 
             if ($lugaresOcupados == $aula->capacidad) {
-                break;
+                continue;
             }
 
             if ( ! $pase->exists()) {
