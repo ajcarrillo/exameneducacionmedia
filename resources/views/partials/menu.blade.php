@@ -1,5 +1,16 @@
 <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-----------------Coordinación------------------------------->
+        @if(auth()->user()->hasRole('cordinador'))
+            <li class="nav-item has-treeview menu">
+                <a href="{{ route('dashboard.coordinacion') }}" class="nav-link">
+                    <i class="fas fa-chart-pie"></i>
+                    <p>
+                        Coordinador
+                    </p>
+                </a>
+            </li>
+        @endif
         @if(auth()->user()->hasRole('supermario'))
             <li class="nav-item has-treeview menu">
                 <a href="/telescope" class="nav-link">
@@ -37,17 +48,7 @@
             </a>
         </li>
         <!------------------------------------------------>
-        <!-----------------Coordinación------------------------------->
-        @if(auth()->user()->hasRole('cordinador'))
-            <li class="nav-item has-treeview menu">
-                <a href="#" class="nav-link">
-                    <i></i>
-                    <p>
-                        Coordinación
-                    </p>
-                </a>
-            </li>
-        @endif
+
     <!-----------------plantel------------------------------->
         @if(auth()->user()->hasRole('plantel'))
             <li class="nav-item has-treeview menu">

@@ -10,4 +10,5 @@
  */
 
 Route::get('/', 'PanelControlController')
-    ->middleware([ 'auth', 'role:cordinador|departamento|supermario' ]);
+    ->middleware([ 'auth', 'role:cordinador|departamento|supermario' ])
+    ->name('dashboard.coordinacion');
