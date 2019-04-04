@@ -79,6 +79,7 @@
                 <aspirante-sexo :datos="{{ json_encode($sexos)  }}"
                                 :porentidad="{{ json_encode($porEntidad) }}"
                                 :porpais="{{ json_encode($porPais) }}"
+                                :nulos="{{ json_encode($nulos) }}"
                 >
                 </aspirante-sexo>
             </div>

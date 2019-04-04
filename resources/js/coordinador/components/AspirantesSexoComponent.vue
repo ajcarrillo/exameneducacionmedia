@@ -15,6 +15,21 @@
                             <h4>{{ datos[0].total }} Hombres</h4>
                         </div>
                     </div>
+                    <div class="pt-3">
+                        <h5 class="text-center">Aspirantes sin información</h5>
+                        <div class="row">
+                            <div class="col-10"><p>Aspirantes sin seleccionar género:</p></div>
+                            <div class="col-2 text-right"><p>{{ nulos.nosexo }}</p></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-10"><p>Aspirantes sin seleccionar país:</p></div>
+                            <div class="col-2 text-right"><p>{{ nulos.nopais }}</p></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-10"><p>Aspirantes sin seleccionar entidad:</p></div>
+                            <div class="col-2 text-right"><p>{{ nulos.noentidad }}</p></div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col">
                     <div class="table-responsive" style="font-size: .875rem">
@@ -71,7 +86,7 @@
         components: {
             PieChart
         },
-        props: ['datos', 'porentidad', 'porpais'],
+        props: ['datos', 'porentidad', 'porpais', 'nulos'],
         data() {
             return {
                 chartData: {
@@ -79,7 +94,7 @@
                     datasets: [
                         {
                             data: _.map(this.datos, 'total'),
-                            backgroundColor: ['RGB(53, 162, 235)','RGB(255, 99, 132)']
+                            backgroundColor: ['RGB(53, 162, 235)', 'RGB(255, 99, 132)']
                         },
                     ]
                 },

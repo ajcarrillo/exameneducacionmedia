@@ -48,6 +48,7 @@ class PanelControlController extends Controller
         $sexos                    = $this->getSexos();
         $porEntidad               = $this->getAspirantesPorEntidad();
         $porPais                  = $this->getAspirantesPorPais();
+        $nulos                    = $this->aspirantesNulos();
 
         return view('coordinacion.index', compact(
             'aspirantes',
@@ -59,7 +60,8 @@ class PanelControlController extends Controller
             'subsistemasDemandaOferta',
             'sexos',
             'porEntidad',
-            'porPais'
+            'porPais',
+            'nulos'
         ));
     }
 
@@ -144,5 +146,14 @@ class PanelControlController extends Controller
             ->groupBy('pais_nacimiento_id')
             ->orderBy('total', 'desc')
             ->get();
+    }
+
+    protected function aspirantesNulos()
+    {
+        return [
+            'nosexo'    => Aspirante::whereNull('sexo')->whereNull('curp')->count(),
+            'noentidad' => Aspirante::whereNull('entidad_nacimiento_id')->count(),
+            'nopais'    => Aspirante::whereNull('pais_nacimiento_id')->count(),
+        ];
     }
 }
