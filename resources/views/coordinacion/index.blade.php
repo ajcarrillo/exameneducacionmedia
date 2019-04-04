@@ -76,7 +76,11 @@
         </div>
         <div class="row">
             <div class="col">
-
+                <aspirante-sexo :datos="{{ json_encode($sexos)  }}"
+                                :porentidad="{{ json_encode($porEntidad) }}"
+                                :porpais="{{ json_encode($porPais) }}"
+                >
+                </aspirante-sexo>
             </div>
         </div>
     </div>

@@ -46,6 +46,8 @@ class PanelControlController extends Controller
         $pases                    = $this->paseAlExamen();
         $sinPase                  = $this->sinPaseAlExamen();
         $sexos                    = $this->getSexos();
+        $porEntidad               = $this->getAspirantesPorEntidad();
+        $porPais                  = $this->getAspirantesPorPais();
 
         return view('coordinacion.index', compact(
             'aspirantes',
@@ -55,7 +57,9 @@ class PanelControlController extends Controller
             'sinPase',
             'topTen',
             'subsistemasDemandaOferta',
-            'sexos'
+            'sexos',
+            'porEntidad',
+            'porPais'
         ));
     }
 
@@ -118,5 +122,27 @@ class PanelControlController extends Controller
         $sexos = collect($sexos);
 
         return $sexos;
+    }
+
+    protected function getAspirantesPorEntidad()
+    {
+        return DB::table('aspirantes')
+            ->select(DB::raw('entidad_nacimiento_id,entidades.descripcion,count(entidad_nacimiento_id) as total'))
+            ->join('entidades', 'aspirantes.entidad_nacimiento_id', '=', 'entidades.id')
+            ->whereNotNull('entidad_nacimiento_id')
+            ->groupBy('entidad_nacimiento_id')
+            ->orderBy('total', 'desc')
+            ->get();
+    }
+
+    protected function getAspirantesPorPais()
+    {
+        return DB::table('aspirantes')
+            ->select(DB::raw('pais_nacimiento_id,upper(geo.descripcion) as pais,count(pais_nacimiento_id) as total'))
+            ->join('geodatabase.paises as geo', 'aspirantes.pais_nacimiento_id', '=', 'geo.id')
+            ->whereNotNull('pais_nacimiento_id')
+            ->groupBy('pais_nacimiento_id')
+            ->orderBy('total', 'desc')
+            ->get();
     }
 }
