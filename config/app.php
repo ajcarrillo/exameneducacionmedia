@@ -174,6 +174,7 @@ return [
         Barryvdh\Snappy\ServiceProvider::class,
         MediaSuperior\Providers\MediaSuperiorServiceProvider::class,
         MediaSuperior\Providers\MacroServiceProvider::class,
+        Coordinacion\Providers\RouteServiceProvider::class,
     ],
 
     /*

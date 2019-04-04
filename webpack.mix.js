@@ -34,7 +34,8 @@ mix.js('resources/js/adminlte.js', 'public/js')
     .js('resources/js/aspirante/seleccion_oferta.js', 'public/js/aspirante')
     .js('resources/js/administracion/planteles.js', 'public/js/administracion/')
     .js('resources/js/media/administracion/pagos/problema/app.js', 'public/js/administracion/pagos/problema')
-    .js('resources/js/developer_zone/services.js', 'public/js/developer_zone');
+    .js('resources/js/developer_zone/services.js', 'public/js/developer_zone')
+    .js('resources/js/coordinador/app.js', 'public/js/coordinador');
 
 if (mix.inProduction()) {
     mix.version();
