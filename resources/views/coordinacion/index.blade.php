@@ -74,6 +74,11 @@
                 <subsistema-oferta-demanda :datos="{{ json_encode($subsistemasDemandaOferta) }}"></subsistema-oferta-demanda>
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+
+            </div>
+        </div>
     </div>
 @stop
 

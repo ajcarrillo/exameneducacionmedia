@@ -37,8 +37,7 @@ class PanelControlController extends Controller
 
     public function __invoke()
     {
-        $planteles = $this->plantelRepository->estadisticasPlantel()->get();
-
+        $planteles                = $this->plantelRepository->estadisticasPlantel()->get();
         $topTen                   = $planteles->sortByDesc('porcentaje')->take(10);
         $subsistemasDemandaOferta = $this->subsistemaRepository->ofertaDemanda();
         $aspirantes               = $this->aspirantes();
@@ -46,6 +45,7 @@ class PanelControlController extends Controller
         $demanda                  = $this->demanda();
         $pases                    = $this->paseAlExamen();
         $sinPase                  = $this->sinPaseAlExamen();
+        $sexos                    = $this->getSexos();
 
         return view('coordinacion.index', compact(
             'aspirantes',
@@ -54,7 +54,8 @@ class PanelControlController extends Controller
             'pases',
             'sinPase',
             'topTen',
-            'subsistemasDemandaOferta'
+            'subsistemasDemandaOferta',
+            'sexos'
         ));
     }
 
@@ -83,5 +84,39 @@ class PanelControlController extends Controller
         return Aspirante::leftJoin('pases_examen', 'aspirantes.id', '=', 'pases_examen.aspirante_id')
             ->whereNull('pases_examen.id')
             ->count();
+    }
+
+    /**
+     * @return array|\Illuminate\Support\Collection
+     */
+    protected function getSexos()
+    {
+        $aspirantesSexo = DB::table('aspirantes')
+            ->select(DB::raw('sexo, count(sexo) as total'))
+            ->groupBy('sexo')
+            ->whereNotNull('sexo')
+            ->get();
+
+        $aspirantesSexoCurp = DB::table('aspirantes')
+            ->select(DB::raw('substring(curp, 11, 1) sexo, count(substring(curp, 11, 1)) total'))
+            ->whereNull('sexo')
+            ->whereNotNull('curp')
+            ->groupBy(DB::raw('substring(curp, 11, 1)'))
+            ->get();
+
+        $sexos = [
+            [
+                'sexo'  => 'H',
+                'total' => $aspirantesSexo[0]->total + $aspirantesSexoCurp[0]->total,
+            ],
+            [
+                'sexo'  => 'M',
+                'total' => $aspirantesSexo[1]->total + $aspirantesSexoCurp[1]->total,
+            ],
+        ];
+
+        $sexos = collect($sexos);
+
+        return $sexos;
     }
 }
