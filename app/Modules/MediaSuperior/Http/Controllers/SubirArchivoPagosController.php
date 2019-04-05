@@ -18,7 +18,18 @@ class SubirArchivoPagosController extends Controller
 {
     public function index()
     {
-        return view('administracion.pagos.index');
+        $reportes = [];
+
+        try {
+            $client   = new Client([ 'base_uri' => get_billy_url() ]);
+            $response = $client->request('get', '/pagos/reporte-pagos/');
+            $reportes = json_decode((string)$response->getBody(), true);
+            $reportes = $reportes['reportes'];
+        } catch (GuzzleException $e) {
+
+        }
+
+        return view('administracion.pagos.index', compact('reportes'));
     }
 
     public function store(Request $request)
@@ -33,14 +44,14 @@ class SubirArchivoPagosController extends Controller
                 'multipart' => [
                     [
                         'name'     => 'banco',
-                        'contents' => $banco
+                        'contents' => $banco,
                     ],
                     [
                         'name'     => 'archivo',
                         'filename' => $archivo->getClientOriginalName(),
-                        'contents' => fopen($archivo, 'r')
+                        'contents' => fopen($archivo, 'r'),
                     ],
-                ]
+                ],
             ]);
             flash($response->getBody()->getContents())->success();
         } catch (GuzzleException $e) {
