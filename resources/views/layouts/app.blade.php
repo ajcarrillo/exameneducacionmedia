@@ -100,6 +100,8 @@
             </footer>
         </div>
 
+        @include('partials.glosario')
+
         <script src="{{ mix('js/adminlte.js') }}"></script>
 
         <script type="text/javascript">
