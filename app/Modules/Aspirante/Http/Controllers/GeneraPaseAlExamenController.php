@@ -17,6 +17,7 @@ class GeneraPaseAlExamenController extends Controller
     public function store()
     {
         try {
+            throw new \Exception('Por el momento no se puede generar tu pase al examen');
             DB::transaction(function () {
                 $aspirante = get_aspirante();
 
