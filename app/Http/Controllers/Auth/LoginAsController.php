@@ -44,6 +44,10 @@ class LoginAsController extends Controller
         session()->forget($this->sessionKey);
         session()->forget('imporsonate.has_impersonated');
 
+        if (request()->server('HTTP_REFERER') == route('aspirante.dashboard.index')) {
+            return redirect()->route('media.administracion.aspirantes.index');
+        }
+
         return redirect()->route('media.administracion.usuarios.index');
     }
 
