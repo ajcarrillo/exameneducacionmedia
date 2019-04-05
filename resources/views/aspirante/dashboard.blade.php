@@ -6,7 +6,7 @@
             padding-bottom: 1rem;
         }
     </style>
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"    />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
 @endsection
 
 @section('content')
@@ -106,7 +106,7 @@
                                 @foreach($ofertas as $oferta)
                                     <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 d-flex">
                                         <div class="card text-center align-self-stretch">
-                                            <iframe width="425" height="350" frameborder="0" scrolling="no"
+                                            <iframe width="100%" height="350" frameborder="0" scrolling="no"
                                                     marginheight="0" marginwidth="0"
                                                     src="https://www.openstreetmap.org/export/embed.html?bbox={{ $oferta->ofertaEducativa->plantel->longitud + .0009}}%2C{{ $oferta->ofertaEducativa->plantel->latitud + .0009}}%2C{{ $oferta->ofertaEducativa->plantel->longitud}}%2C{{ $oferta->ofertaEducativa->plantel->latitud}}&amp;layer=mapnik&amp;marker={{ $oferta->ofertaEducativa->plantel->latitud}}%2C{{ $oferta->ofertaEducativa->plantel->longitud}}"
                                                     ></iframe>
@@ -151,7 +151,7 @@
 @endsection
 
 @section('extra-scripts')
-    <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
     <script src="{{ mix('js/aspirante/dashboard.js') }}"></script>
 @endsection
 

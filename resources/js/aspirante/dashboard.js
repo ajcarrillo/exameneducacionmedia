@@ -7,7 +7,7 @@ info.forEach(function(data, index) {
     planes.push(['<b>'+data.referencia+'</b><br>'+data.plantel_desc,data.latitud, data.longitud]);
 });
 
-var map = L.map('map').setView([info[0].latitud, info[0].longitud], 8);
+var map = L.map('map').setView([info[0].latitud, info[0].longitud], 13);
 mapLink ='<a href="https://qroo.gob.mx/seq">SEQ</a>';
 L.tileLayer(
     'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
