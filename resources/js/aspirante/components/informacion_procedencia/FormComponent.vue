@@ -21,7 +21,7 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="">Año de egreso (Año en el que saliste de la secundaria)</label>
+            <label for="">Año de egreso (¿En qué año sales o saliste de la secundaria?)</label>
             <select class="form-control" name="fecha_egreso" required v-model="draft.fecha_egreso">
                 <option value="">Seleccione...</option>
                 <option value="2019">2019</option>
