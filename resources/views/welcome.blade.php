@@ -131,8 +131,8 @@
 
                     <div id="descargables" class="mt-3 links d-flex flex-column flex-sm-row justify-content-around">
                         <a class="text-center mb-3 flex-fill" href="{{ asset('descargas/guia_de_estudios.pdf') }}" target="_blank">Guía de estudios EXANI-I CENEVAL</a>
-                        {{--<a class="text-center mb-3 flex-fill" href="http://siem.seq.gob.mx/static/media/catalogo_opciones_educativas.pdf">Catálogo de preparatorias públicas en
-                            Quintana Roo</a>--}}
+                        <a class="text-center mb-3 flex-fill" href="{{ asset('descargas/catalogo.pdf') }}">Catálogo de preparatorias públicas en
+                            Quintana Roo</a>
                         {{--<a class="text-center mb-3 flex-fill" href="http://siem.seq.gob.mx/static/media/Preparatoria_Abierta_del_Colegio_de_Bachilleres_del_Estado_de_Quintana_Roo.pdf">Preparatoria
                             Abierta en el Colegio de Bachilleres</a>--}}
                     </div>
