@@ -83,6 +83,55 @@ class PlantelRepository extends BaseRepository
         return $query;
     }
 
+    public function aspirantes_con_pase()
+    {
+        $query = DB::table('pases_examen')
+            ->select('planteles.id', DB::raw('count(planteles.id) as proceso_completo'))
+            ->join('aspirantes', 'pases_examen.aspirante_id', '=', 'aspirantes.id')
+            ->conPrimeraOpcion()
+            ->groupBy('planteles.id');
+
+        return $query;
+    }
+
+    public function aspirantes_con_pago($conPago = true)
+    {
+        $query = DB::table('revision_registros')
+            ->select('planteles.id', DB::raw('count(planteles.id) as con_pago'))
+            ->join('aspirantes', function ($join) use ($conPago) {
+                $join->on('revision_registros.aspirante_id', '=', 'aspirantes.id')
+                    ->where('efectuado', $conPago);
+            })
+            ->conPrimeraOpcion()
+            ->groupBy('planteles.id');
+
+        return $query;
+    }
+
+    public function aspirantes_con_registro_sin_pago()
+    {
+        return $this->aspirantes_con_pago(false);
+    }
+
+    public function aspirantes_sin_registro()
+    {
+        $query = DB::table('aspirantes')
+            ->select('planteles.id', DB::raw('count(planteles.id) as sin_registro'))
+            ->leftJoin('revision_registros', 'aspirantes.id', '=', 'revision_registros.aspirante_id')
+            ->conPrimeraOpcion()
+            ->whereNull('revision_registros.id')
+            ->groupBy('planteles.id');
+
+        return $query;
+    }
+
+    public function getDemanda()
+    {
+        return $this->demanda()
+            ->addSelect(DB::raw('planteles.id, count(planteles.id) as demanda'))
+            ->groupBy('planteles.id');
+    }
+
     protected function oferta()
     {
         $query = DB::table('planteles')
