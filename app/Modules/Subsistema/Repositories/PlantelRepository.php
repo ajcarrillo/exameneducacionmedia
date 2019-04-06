@@ -132,6 +132,19 @@ class PlantelRepository extends BaseRepository
             ->groupBy('planteles.id');
     }
 
+    public function getOferta()
+    {
+        $query = DB::table('planteles')
+            ->addSelect(DB::raw('planteles.id, sum((oferta_educativa_grupos.alumnos * oferta_educativa_grupos.grupos)) as oferta'))
+            ->join('ofertas_educativas', 'planteles.id', '=', 'ofertas_educativas.plantel_id')
+            ->join('oferta_educativa_grupos', 'ofertas_educativas.id', '=', 'oferta_educativa_grupos.oferta_educativa_id')
+            ->whereRaw('planteles.active = 1')
+            ->whereRaw('ofertas_educativas.active = 1')
+            ->groupBy('planteles.id');
+
+        return $query;
+    }
+
     protected function oferta()
     {
         $query = DB::table('planteles')
