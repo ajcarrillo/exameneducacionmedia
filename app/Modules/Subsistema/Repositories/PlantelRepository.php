@@ -161,6 +161,52 @@ class PlantelRepository extends BaseRepository
         return DB::select($this->sqlEstadisticas(), [ $plantelId ]);
     }
 
+    public function monitoreoPlanteles(array $params = [])
+    {
+        $sub                   = $this->aspirantes_con_pase();
+        $oferta                = $this->getOferta();
+        $demanda               = $this->getDemanda();
+        $con_pago              = $this->aspirantes_con_pago();
+        $sin_registro          = $this->aspirantes_sin_registro();
+        $con_registro_sin_pago = $this->aspirantes_con_registro_sin_pago();
+
+        $query = $this->planteles($params)
+            ->plantelesConMunicipioLocalidad()
+            ->leftJoin(DB::raw("({$sub->toSql()}) as aspirantes_con_pase"), function ($join) {
+                $join->on('planteles.id', '=', 'aspirantes_con_pase.id');
+            })
+            ->leftJoin(DB::raw("({$con_pago->toSql()}) as aspirantes_con_pago"), function ($join) {
+                $join->on('planteles.id', '=', 'aspirantes_con_pago.id');
+            })
+            ->leftJoin(DB::raw("({$sin_registro->toSql()}) as aspirantes_sin_registro"), function ($join) {
+                $join->on('planteles.id', '=', 'aspirantes_sin_registro.id');
+            })
+            ->leftJoin(DB::raw("({$con_registro_sin_pago->toSql()}) as aspirantes_con_registro_sin_pago"), function ($join) {
+                $join->on('planteles.id', '=', 'aspirantes_con_registro_sin_pago.id');
+            })
+            ->leftJoin(DB::raw("({$demanda->toSql()}) as demandas"), function ($join) {
+                $join->on('planteles.id', '=', 'demandas.id');
+            })
+            ->leftJoin(DB::raw("({$oferta->toSql()}) as ofertas"), function ($join) {
+                $join->on('planteles.id', '=', 'ofertas.id');
+            })
+            ->addSelect('aspirantes_con_pase.proceso_completo')
+            ->addSelect('aspirantes_con_pago.con_pago')
+            ->addSelect('aspirantes_sin_registro.sin_registro')
+            ->addSelect('aspirantes_con_registro_sin_pago.con_pago as con_registro_sin_pago')
+            ->addSelect('ofertas.oferta')
+            ->addSelect('geo.NOM_MUN as municipio')
+            ->addSelect('subsistemas.id as subsistema_id')
+            ->mergeBindings($sub)
+            ->mergeBindings($con_pago)
+            ->mergeBindings($sin_registro)
+            ->mergeBindings($con_registro_sin_pago)
+            ->mergeBindings($demanda)
+            ->mergeBindings($oferta);
+
+        return $query;
+    }
+
     protected function sqlEstadisticas()
     {
         return 'SELECT `planteles`.`id`,
