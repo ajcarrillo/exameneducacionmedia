@@ -194,6 +194,7 @@ class PlantelRepository extends BaseRepository
             ->addSelect('aspirantes_con_pago.con_pago')
             ->addSelect('aspirantes_sin_registro.sin_registro')
             ->addSelect('aspirantes_con_registro_sin_pago.con_pago as con_registro_sin_pago')
+            ->addSelect('demandas.demanda')
             ->addSelect('ofertas.oferta')
             ->addSelect('geo.NOM_MUN as municipio')
             ->addSelect('subsistemas.id as subsistema_id')
