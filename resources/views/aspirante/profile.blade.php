@@ -1,5 +1,9 @@
 @extends('aspirante.layouts.aspirante')
 
+@section('extra-head')
+    @includeWhen(!app()->isLocal(), 'fullstory')
+@stop
+
 @section('content')
     <app
         :asp="{{ json_encode($aspirante) }}"

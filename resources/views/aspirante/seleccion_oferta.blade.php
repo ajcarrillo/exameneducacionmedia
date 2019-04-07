@@ -1,5 +1,9 @@
 @extends('aspirante.layouts.aspirante')
 
+@section('extra-head')
+    @includeWhen(!app()->isLocal(), 'fullstory')
+@stop
+
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center py-3">
