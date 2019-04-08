@@ -81,7 +81,7 @@
                                 </div>
                             </div>
                         @endforeach
-
+                            <h5>Reporte de ofertas educativas</h5>
                         <form action="{{route('media.repOfertas')}}" method="get" class="d-flex">
                             <div class="form-group mr-3">
                                 <select name="municipio"
