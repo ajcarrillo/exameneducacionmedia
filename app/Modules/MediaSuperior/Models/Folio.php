@@ -20,7 +20,7 @@ class Folio extends Model
 
     public static function getFolio(): Folio
     {
-        return Folio::where('active', 1)->firstOrFail();
+        return Folio::where('active', 1)->inRandomOrder()->firstOrFail();
     }
 
     public function desactivar()

@@ -33,8 +33,17 @@ class MacroServiceProvider extends ServiceProvider
             });
         });
 
-        Builder::macro('nombreCompletoUsuario', function (){
+        Builder::macro('nombreCompletoUsuario', function () {
             $this->addSelect(DB::raw("concat_ws(' ', nombre, primer_apellido, segundo_apellido) as nombre_completo"));
+        });
+
+        Builder::macro('conPrimeraOpcion', function () {
+            return $this->join('seleccion_ofertas_educativas', function ($join) {
+                $join->on('aspirantes.id', '=', 'seleccion_ofertas_educativas.aspirante_id')
+                    ->where('seleccion_ofertas_educativas.preferencia', 1);
+            })
+                ->join('ofertas_educativas', 'seleccion_ofertas_educativas.oferta_educativa_id', '=', 'ofertas_educativas.id')
+                ->join('planteles', 'ofertas_educativas.plantel_id', '=', 'planteles.id');
         });
     }
 

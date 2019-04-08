@@ -184,7 +184,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('media.pagos.reportes.depositos') }}" class="nav-link">
+                        <a href="{{ route('media.pagos.index') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Reportes de pago</p>
                         </a>

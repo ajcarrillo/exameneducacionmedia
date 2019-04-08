@@ -89,6 +89,17 @@
                     curp_valida: '',
                 },
                 saving: false,
+                errors: [],
+                fields: [
+                    'nombre',
+                    'primer_apellido',
+                    'telefono',
+                    'sexo',
+                    'pais_nacimiento_id',
+                    'entidad_nacimiento_id',
+                    'fecha_nacimiento',
+                    'curp',
+                ]
             }
         },
         created() {
@@ -119,6 +130,7 @@
         },
         methods: {
             save() {
+                this.errors = [];
                 this.saving = true;
                 axios.patch(route('aspirante.update', this.aspirante.id), {
                     nombre: this.datos.nombre,
@@ -145,6 +157,18 @@
                     })
                     .catch(err => {
                         this.savingDone();
+                        let msg = '<p>Verifica que tus datos estén correctos</p>';
+                        this.errors = err.response.data.errors;
+                        for (let field in this.errors) {
+                            msg+='<ul class="list-unstyled">';
+                            msg += `<li>${this.errors[field]}</li>`;
+                            msg+='</ul>';
+                        }
+                        swal({
+                            type: 'warning',
+                            title: '¡Atención!',
+                            html: msg,
+                        });
                         console.log(err.response)
                     })
             },

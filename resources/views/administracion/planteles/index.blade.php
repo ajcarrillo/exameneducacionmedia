@@ -69,7 +69,9 @@
                                         <td class="align-middle" scope="row">{{ $plantel->clave }}</td>
                                         <td class="align-middle">{{ $plantel->descripcion }}</td>
                                         <td class="align-middle">
+                                            <a href="{{ route('media.administracion.usuarios.index', ['search'=> get_full_name_from_user($plantel->responsable) ?? '']) }}">
                                             {{ get_full_name_from_user($plantel->responsable) ?? 'NO ASIGNADO' }}
+                                            </a>
                                         </td>
                                         <td class="align-middle">{{ $plantel->subsistema->referencia }}</td>
                                         <td class="align-middle">{{ trans('sino.'.$plantel->active) }}</td>

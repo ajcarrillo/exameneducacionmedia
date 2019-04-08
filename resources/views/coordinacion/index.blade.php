@@ -12,23 +12,38 @@
                     <div class="card-body d-flex justify-content-around">
                         <div class="text-center">
                             <h1>{{ $aspirantes }}</h1>
-                            <p class="mb-0">Aspirantes</p>
+                            <p class="mb-0" style="cursor: pointer" data-toggle="modal" data-target="#modal-glosario">
+                                Aspirantes
+                                <i class="far fa-question-circle"></i>
+                            </p>
                         </div>
                         <div class="text-center">
                             <h1>{{ $oferta }}</h1>
-                            <p class="mb-0">Oferta</p>
+                            <p class="mb-0" style="cursor: pointer" data-toggle="modal" data-target="#modal-glosario">
+                                Oferta
+                                <i class="far fa-question-circle"></i>
+                            </p>
                         </div>
                         <div class="text-center">
                             <h1>{{ $demanda }}</h1>
-                            <p class="mb-0">Demanda</p>
+                            <p class="mb-0" style="cursor: pointer" data-toggle="modal" data-target="#modal-glosario">
+                                Demanda
+                                <i class="far fa-question-circle"></i>
+                            </p>
                         </div>
                         <div class="text-center">
                             <h1>{{ $pases }}</h1>
-                            <p class="mb-0">Aspirantes con pase</p>
+                            <p class="mb-0" style="cursor: pointer" data-toggle="modal" data-target="#modal-glosario">
+                                Aspirantes con pase
+                                <i class="far fa-question-circle"></i>
+                            </p>
                         </div>
                         <div class="text-center">
                             <h1>{{ $sinPase }}</h1>
-                            <p class="mb-0">Aspirantes sin pase</p>
+                            <p class="mb-0" style="cursor: pointer" data-toggle="modal" data-target="#modal-glosario">
+                                Aspirantes sin pase
+                                <i class="far fa-question-circle"></i>
+                            </p>
                         </div>
                     </div>
                 </div>

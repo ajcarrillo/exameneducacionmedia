@@ -27,20 +27,10 @@
                                 <input type="text"
                                        class="form-control"
                                        name="search"
-                                       placeholder="Ingresa nombre o email"
+                                       placeholder="Ingresa: nombre, matrícula, email, folio o curp"
                                        minlength="4"
                                        value="{{ request('search') }}"
                                        autofocus
-                                >
-                                <small class="text-muted">Mínimo 4 caracteres</small>
-                            </div>
-                            <div class="pr-3 flex-fill">
-                                <input type="text"
-                                       class="form-control"
-                                       name="curp"
-                                       placeholder="Ingresa folio o curp"
-                                       value="{{ request('curp') }}"
-                                       minlength="4"
                                 >
                                 <small class="text-muted">Mínimo 4 caracteres</small>
                             </div>
@@ -54,6 +44,7 @@
                         @slot('thead')
                             <tr>
                                 <th>Nombre</th>
+                                <th>Matrícula</th>
                                 <th>Folio</th>
                                 <th>Email</th>
                                 <th>CURP</th>
@@ -61,23 +52,31 @@
                             </tr>
                         @endslot
                         @slot('tbody')
-                            @forelse($users as $user)
+                            @forelse($aspirantes as $aspirante)
                                 <tr>
                                     <td>
-                                        <a href="{{ route('media.administracion.aspirantes.show', $user->aspirante->id) }}">
+                                        <a href="{{ route('media.administracion.aspirantes.show', $aspirante->id) }}">
                                             <i class="far fa-id-card pr-2"></i>
-                                            {{ get_full_name_from_user($user) }}
+                                            {{ $aspirante->nombre_completo }}
                                         </a>
                                     </td>
                                     <td>
-                                        {{ $user->aspirante->folio }}
-                                    </td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>
-                                        {{ $user->aspirante->curp }}
+                                        {{ $aspirante->matricula }}
                                     </td>
                                     <td>
-                                        @include('partials.login_as_user_form')
+                                        {{ $aspirante->folio }}
+                                    </td>
+                                    <td>{{ $aspirante->email }}</td>
+                                    <td>
+                                        {{ $aspirante->curp }}
+                                    </td>
+                                    <td>
+                                        <form action="{{ route('login.as.user', ['userId'=>$aspirante->user_id]) }}" method="post">
+                                            @csrf
+                                            <button class="btn btn-success" type="submit">
+                                                Iniciar sesión
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @empty
@@ -89,7 +88,7 @@
                         @endtable
                     </div>
                     <div class="card-footer">
-                        {{ $users->links() }}
+                        {{ $aspirantes->links() }}
                     </div>
                 </div>
             </div>
