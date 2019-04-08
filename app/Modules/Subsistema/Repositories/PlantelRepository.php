@@ -164,6 +164,7 @@ class PlantelRepository extends BaseRepository
     public function monitoreoPlanteles(array $params = [])
     {
         $sub                   = $this->aspirantes_con_pase();
+        $aforo                 = $this->aforo();
         $oferta                = $this->getOferta();
         $demanda               = $this->getDemanda();
         $con_pago              = $this->aspirantes_con_pago();
@@ -190,12 +191,16 @@ class PlantelRepository extends BaseRepository
             ->leftJoin(DB::raw("({$oferta->toSql()}) as ofertas"), function ($join) {
                 $join->on('planteles.id', '=', 'ofertas.id');
             })
+            ->leftJoin(DB::raw("({$aforo->toSql()}) as aforos"), function ($join) {
+                $join->on('planteles.id', '=', 'aforos.id');
+            })
             ->addSelect('aspirantes_con_pase.proceso_completo')
             ->addSelect('aspirantes_con_pago.con_pago')
             ->addSelect('aspirantes_sin_registro.sin_registro')
             ->addSelect('aspirantes_con_registro_sin_pago.con_pago as con_registro_sin_pago')
             ->addSelect('demandas.demanda')
             ->addSelect('ofertas.oferta')
+            ->addSelect('aforos.aforo')
             ->addSelect('geo.NOM_MUN as municipio')
             ->addSelect('subsistemas.id as subsistema_id')
             ->mergeBindings($sub)
@@ -206,6 +211,15 @@ class PlantelRepository extends BaseRepository
             ->mergeBindings($oferta);
 
         return $query;
+    }
+
+    public function aforo()
+    {
+        return DB::table('aulas')
+            ->select('planteles.id', DB::raw('sum(aulas.capacidad) as aforo'))
+            ->join('planteles', 'aulas.edificio_id', '=', 'planteles.id')
+            ->whereRaw('aulas.edificio_type="plantel"')
+            ->groupBy('planteles.id');
     }
 
     protected function sqlEstadisticas()
