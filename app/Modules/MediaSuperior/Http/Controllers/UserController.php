@@ -13,10 +13,9 @@ use ExamenEducacionMedia\Http\Controllers\Controller;
 use ExamenEducacionMedia\User;
 use ExamenEducacionMedia\UserFilter;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use MediaSuperior\Http\Requests\StoreUser;
 use MediaSuperior\Http\Requests\UpdateUser;
-use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -37,9 +36,10 @@ class UserController extends Controller
 
         $users->appends($request->only([ 'role', 'search' ]));
 
-        $roles = $this->getRolesToCreateUsers();
+        $roles       = $this->getRolesToCreateUsers();
+        $permissions = $this->getPermissionsToCreateUsers();
 
-        return view('administracion.users.index', compact('users', 'roles'));
+        return view('administracion.users.index', compact('users', 'roles', 'permissions'));
     }
 
     public function create()
@@ -49,7 +49,7 @@ class UserController extends Controller
 
     public function store(StoreUser $request)
     {
-        User::createUser($request->input(), $request->input('roles'));
+        User::createUser($request->input(), $request->input('roles'), $request->input('permissions'));
 
         flash('El usuario se creó correctamente')->success();
 
@@ -65,6 +65,7 @@ class UserController extends Controller
     {
         $user->update($request->validated());
         $user->syncRoles($request->input('roles'));
+        $user->syncPermissions($request->input('permissions'));
 
         flash('El usuario se actualizó correctamente')->success();
 
@@ -82,12 +83,18 @@ class UserController extends Controller
         return $roles;
     }
 
+    protected function getPermissionsToCreateUsers(): array
+    {
+        return Permission::pluck('name')->toArray();
+    }
+
     protected function form($view, User $user, $isCreate = true)
     {
         return view($view, [
-            'roles'    => $this->getRolesToCreateUsers(),
-            'user'     => $user,
-            'isCreate' => $isCreate,
+            'roles'       => $this->getRolesToCreateUsers(),
+            'permissions' => $this->getPermissionsToCreateUsers(),
+            'user'        => $user,
+            'isCreate'    => $isCreate,
         ]);
     }
 }
