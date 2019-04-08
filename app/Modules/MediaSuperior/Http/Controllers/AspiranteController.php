@@ -14,8 +14,6 @@ use Aspirante\Models\RevisionRegistro;
 use Aspirante\Repositories\AspiranteRepository;
 use DB;
 use ExamenEducacionMedia\Http\Controllers\Controller;
-use ExamenEducacionMedia\User;
-use ExamenEducacionMedia\UserFilter;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -99,6 +97,7 @@ class AspiranteController extends Controller
                     $registro->update([
                         'fecha_revision'   => now(),
                         'usuario_revision' => \Auth::user()->id,
+                        'comentario'       => 'CONDONADO',
                     ]);
                 }
             }
