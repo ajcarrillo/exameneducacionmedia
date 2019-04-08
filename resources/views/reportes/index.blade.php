@@ -81,6 +81,49 @@
                                 </div>
                             </div>
                         @endforeach
+
+                        <form action="{{route('media.repOfertas')}}" method="get" class="d-flex">
+                            <div class="form-group mr-3">
+                                <select name="municipio"
+                                        id="municipio"
+                                        class="form-control form-control-sm"
+                                >
+                                    <option value="">Municipios</option>
+                                    @foreach($municipios as $municipio)
+                                        <option value="{{ $municipio->CVE_MUN }}">{{ $municipio->NOM_MUN }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group mr-3">
+                                <select
+                                        name="subsistema_ofertas"
+                                        id="subsistema"
+                                        class="form-control form-control-sm"
+                                >
+                                    <option value="">Subsistemas</option>
+                                    @foreach($subsistemas as $subsistema)
+                                        <option value="{{ $subsistema->id }}">{{ $subsistema->referencia }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group mr-3">
+                                <select
+                                        name="plantel_ofertas"
+                                        id="plantel"
+                                        class="form-control form-control-sm"
+                                >
+                                    <option value="">Planteles</option>
+                                    @foreach($planteles as $plantel)
+                                        <option value="{{ $plantel->id }}">{{ $plantel->descripcion }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <button class="btn btn-success btn-sm">Generar</button>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>

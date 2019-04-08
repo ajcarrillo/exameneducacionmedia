@@ -9,6 +9,7 @@
 namespace MediaSuperior\Http\Controllers;
 
 use DB;
+use Illuminate\Http\Request;
 use Subsistema\Repositories\OfertaEducativaRepository;
 use Subsistema\Repositories\PlantelRepository;
 
@@ -40,9 +41,12 @@ class ReporteOpcionesEducativasController
         return $pdf->inline('opciones_educativas.pdf');
     }
 
-    public function prb(PlantelRepository $plantelRepository){
-        $datos = $plantelRepository->ofertaEducativa(['subsistema'=>1])->get();
-        
+    public function reporteOferta(Request $request, PlantelRepository $plantelRepository){
+        $datos = $plantelRepository->ofertaEducativa(['subsitema'=>$request->subsistema_ofertas, 'plantel'=>$request->plantel_ofertas, 'municipio'=>$request->municipio])->get();
+        //$datos = $plantelRepository->ofertaEducativa()->get();
+        //dd($datos);
+        $graf = [];
+        //return $datos->groupBy('municipio');
 
         $pdf = app('snappy.pdf.wrapper');
         header('Content-Type: application/pdf');
@@ -59,8 +63,11 @@ class ReporteOpcionesEducativasController
             ->setOption('encoding', 'utf-8')
             ->setOption('zoom', '1');
 
-        $pdf->loadView('media_superior.administracion.ofertaEducativa.reporte', compact('datos'));
-        return $pdf->inline('ofertas_educativas.pdf');
+        $pdf->loadView('media_superior.administracion.ofertaEducativa.reporte', compact('datos','graf'));
+        if($datos->count() > 0){
+            return $pdf->download('ofertas_educativas.pdf');
+        }
+
     }
 
 }
