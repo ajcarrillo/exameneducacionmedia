@@ -9,6 +9,7 @@
 namespace ExamenEducacionMedia\Http\Controllers;
 
 
+use DB;
 use ExamenEducacionMedia\Exports\OfertaEducativaExports;
 use ExamenEducacionMedia\Models\Geodatabase\MunicipioView;
 use Illuminate\Http\Request;
@@ -41,6 +42,25 @@ class ReporteController extends Controller
     public function oferta(Request $request, Excel $excel, OfertaEducativaExports $export)
     {
         return $excel->download($export->params($request->only([ 'municipio', 'subsistema', 'inactivos' ])), 'ofertas.xlsx');
+    }
+
+    public function reporteGeneralPorSubsistema()
+    {
+        $query = $this->plantelRepository->monitoreoPlanteles([])
+            ->select(
+                'subsistemas.id', 'subsistemas.referencia as subsistema',
+                DB::raw('sum(proceso_completo) as proceso_completo'),
+                DB::raw('sum(aspirantes_con_pago.con_pago) as con_pago'),
+                DB::raw('sum(sin_registro) as sin_registro'),
+                DB::raw('sum(aspirantes_con_registro_sin_pago.con_pago) as con_registro_sin_pago'),
+                DB::raw('sum(demanda) as demanda'),
+                DB::raw('sum(oferta) as oferta'),
+                DB::raw('sum(aforo) as aforo')
+            )
+            ->groupBy('subsistemas.id')
+            ->get();
+
+        return $query;
     }
 
     protected function reportes(): array
