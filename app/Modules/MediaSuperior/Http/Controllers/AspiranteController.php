@@ -97,7 +97,7 @@ class AspiranteController extends Controller
                     $registro->update([
                         'fecha_revision'   => now(),
                         'usuario_revision' => \Auth::user()->id,
-                        'comentario'       => 'CONDONADO',
+                        'comentario'       => $efectuado ? 'CONDONADO' : '',
                     ]);
                 }
             }
