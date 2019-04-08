@@ -90,6 +90,7 @@ class PanelControlController extends Controller
     protected function sinPaseAlExamen()
     {
         return Aspirante::leftJoin('pases_examen', 'aspirantes.id', '=', 'pases_examen.aspirante_id')
+            ->conPrimeraOpcion()
             ->whereNull('pases_examen.id')
             ->count();
     }
