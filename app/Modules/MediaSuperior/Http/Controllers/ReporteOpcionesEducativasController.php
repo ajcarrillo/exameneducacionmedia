@@ -42,11 +42,10 @@ class ReporteOpcionesEducativasController
     }
 
     public function reporteOferta(Request $request, PlantelRepository $plantelRepository){
-        $datos = $plantelRepository->ofertaEducativa(['subsitema'=>$request->subsistema_ofertas, 'plantel'=>$request->plantel_ofertas, 'municipio'=>$request->municipio])->get();
-        //$datos = $plantelRepository->ofertaEducativa()->get();
-        //dd($datos);
+        $datos = $plantelRepository->ofertaEducativa(['subsistema'=>$request->subsistema_ofertas, 'plantel'=>$request->plantel_ofertas, 'municipio'=>$request->municipio])->get();
+
         $graf = [];
-        //return $datos->groupBy('municipio');
+        
 
         $pdf = app('snappy.pdf.wrapper');
         header('Content-Type: application/pdf');
