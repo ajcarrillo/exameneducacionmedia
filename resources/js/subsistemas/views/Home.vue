@@ -120,6 +120,11 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+                <monitoreo-planteles></monitoreo-planteles>
+            </div>
+        </div>
     </div>
 
 </template>
@@ -130,6 +135,7 @@
     import PlantelesTable from '../../components/TableComponent'
     import MyTooltip from '../../directives/TooltipDirective'
     import EditNameForm from '../components/EditPlantelNameFormComponent';
+    import MonitoreoPlanteles from '../components/MonitoreoComponent';
 
     Vue.directive('tooltip', MyTooltip);
 
@@ -161,7 +167,8 @@
     export default {
         components: {
             PlantelesTable,
-            EditNameForm
+            EditNameForm,
+            MonitoreoPlanteles
         },
         data() {
             return {

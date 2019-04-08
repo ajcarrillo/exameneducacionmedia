@@ -11,6 +11,7 @@ namespace MediaSuperior\Http\Controllers;
 
 use Aspirante\Models\Aspirante;
 use Aspirante\Models\RevisionRegistro;
+use Aspirante\Repositories\AspiranteRepository;
 use DB;
 use ExamenEducacionMedia\Http\Controllers\Controller;
 use ExamenEducacionMedia\User;
@@ -20,21 +21,25 @@ use Illuminate\Http\Request;
 
 class AspiranteController extends Controller
 {
-    public function index(Request $request, UserFilter $filters)
+    /**
+     * @var AspiranteRepository
+     */
+    private $aspiranteRepository;
+
+    public function __construct(AspiranteRepository $aspiranteRepository)
     {
-        $users = User::query()
-            ->with('aspirante')
-            ->whereHas('aspirante')
-            ->whereDoesntHave('roles', function ($query) {
-                $query->whereIn('name', [ 'supermario', 'cordinador', 'departamento',
-                    'subsistema', 'plantel', 'invitado', ]);
-            })
-            ->filterBy($filters, $request->only([ 'search', 'curp' ]))
-            ->paginate(50);
+        $this->aspiranteRepository = $aspiranteRepository;
+    }
 
-        $users->appends($request->only([ 'curp', 'search' ]));
+    public function index(Request $request)
+    {
+        $params = $request->only([ 'search' ]);
 
-        return view('administracion.aspirantes.index', compact('users'));
+        $aspirantes = $this->aspiranteRepository->listarAspirantes($params)->paginate(50);
+
+        $aspirantes->appends($params);
+
+        return view('administracion.aspirantes.index', compact('aspirantes'));
     }
 
     /**
@@ -86,7 +91,7 @@ class AspiranteController extends Controller
 
             if ($aspirante->revision()->exists()) {
                 $efectuado = $request->input('revision.efectuado');
-                $revision = $aspirante->revision;
+                $revision  = $aspirante->revision;
                 if ($revision->efectuado <> $efectuado) {
                     $revision->update([ 'efectuado' => $efectuado ]);
 

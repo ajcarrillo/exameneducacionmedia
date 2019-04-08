@@ -1,11 +1,8 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: igna
- */
-?>
-
 @extends('aspirante.layouts.aspirante')
+
+@section('extra-head')
+    @includeWhen(!app()->isLocal(), 'fullstory')
+@stop
 
 @section('content')
     <div class="container">

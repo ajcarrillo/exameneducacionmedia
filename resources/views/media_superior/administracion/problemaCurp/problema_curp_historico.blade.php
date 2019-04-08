@@ -41,6 +41,9 @@
                                         <td>{{$aspirante->nombre.' '.$aspirante->primer_apellido.' '.$aspirante->segundo_apellido}}</td>
                                         <td>
                                             <ul>
+                                                <li><b>CURP:</b><br>{{$aspirante->curp}}</li>
+                                                <li><b>Folio ceneval:</b><br>{{$aspirante->folio}}</li>
+                                                <li><b>Matrícula:</b><br>{{$aspirante->matricula}}</li>
                                                 <li><b>Correo Electronico:</b><br>{{$aspirante->email}}</li>
                                                 <li><b>Telefono:</b><br>{{$aspirante->telefono}}</li>
                                                 <li>

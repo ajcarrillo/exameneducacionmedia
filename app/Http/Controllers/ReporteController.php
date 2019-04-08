@@ -9,6 +9,7 @@
 namespace ExamenEducacionMedia\Http\Controllers;
 
 
+use DB;
 use ExamenEducacionMedia\Exports\OfertaEducativaExports;
 use ExamenEducacionMedia\Models\Geodatabase\MunicipioView;
 use Illuminate\Http\Request;

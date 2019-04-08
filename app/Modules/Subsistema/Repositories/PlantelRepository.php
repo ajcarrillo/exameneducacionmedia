@@ -83,6 +83,68 @@ class PlantelRepository extends BaseRepository
         return $query;
     }
 
+    public function aspirantes_con_pase()
+    {
+        $query = DB::table('pases_examen')
+            ->select('planteles.id', DB::raw('count(planteles.id) as proceso_completo'))
+            ->join('aspirantes', 'pases_examen.aspirante_id', '=', 'aspirantes.id')
+            ->conPrimeraOpcion()
+            ->groupBy('planteles.id');
+
+        return $query;
+    }
+
+    public function aspirantes_con_pago($conPago = true)
+    {
+        $query = DB::table('revision_registros')
+            ->select('planteles.id', DB::raw('count(planteles.id) as con_pago'))
+            ->join('aspirantes', function ($join) use ($conPago) {
+                $join->on('revision_registros.aspirante_id', '=', 'aspirantes.id')
+                    ->where('efectuado', $conPago);
+            })
+            ->conPrimeraOpcion()
+            ->groupBy('planteles.id');
+
+        return $query;
+    }
+
+    public function aspirantes_con_registro_sin_pago()
+    {
+        return $this->aspirantes_con_pago(false);
+    }
+
+    public function aspirantes_sin_registro()
+    {
+        $query = DB::table('aspirantes')
+            ->select('planteles.id', DB::raw('count(planteles.id) as sin_registro'))
+            ->leftJoin('revision_registros', 'aspirantes.id', '=', 'revision_registros.aspirante_id')
+            ->conPrimeraOpcion()
+            ->whereNull('revision_registros.id')
+            ->groupBy('planteles.id');
+
+        return $query;
+    }
+
+    public function getDemanda()
+    {
+        return $this->demanda()
+            ->addSelect(DB::raw('planteles.id, count(planteles.id) as demanda'))
+            ->groupBy('planteles.id');
+    }
+
+    public function getOferta()
+    {
+        $query = DB::table('planteles')
+            ->addSelect(DB::raw('planteles.id, sum((oferta_educativa_grupos.alumnos * oferta_educativa_grupos.grupos)) as oferta'))
+            ->join('ofertas_educativas', 'planteles.id', '=', 'ofertas_educativas.plantel_id')
+            ->join('oferta_educativa_grupos', 'ofertas_educativas.id', '=', 'oferta_educativa_grupos.oferta_educativa_id')
+            ->whereRaw('planteles.active = 1')
+            ->whereRaw('ofertas_educativas.active = 1')
+            ->groupBy('planteles.id');
+
+        return $query;
+    }
+
     protected function oferta()
     {
         $query = DB::table('planteles')
@@ -97,6 +159,67 @@ class PlantelRepository extends BaseRepository
     public function statsByPlantel($plantelId)
     {
         return DB::select($this->sqlEstadisticas(), [ $plantelId ]);
+    }
+
+    public function monitoreoPlanteles(array $params = [])
+    {
+        $sub                   = $this->aspirantes_con_pase();
+        $aforo                 = $this->aforo();
+        $oferta                = $this->getOferta();
+        $demanda               = $this->getDemanda();
+        $con_pago              = $this->aspirantes_con_pago();
+        $sin_registro          = $this->aspirantes_sin_registro();
+        $con_registro_sin_pago = $this->aspirantes_con_registro_sin_pago();
+
+        $query = $this->planteles($params)
+            ->plantelesConMunicipioLocalidad()
+            ->leftJoin(DB::raw("({$sub->toSql()}) as aspirantes_con_pase"), function ($join) {
+                $join->on('planteles.id', '=', 'aspirantes_con_pase.id');
+            })
+            ->leftJoin(DB::raw("({$con_pago->toSql()}) as aspirantes_con_pago"), function ($join) {
+                $join->on('planteles.id', '=', 'aspirantes_con_pago.id');
+            })
+            ->leftJoin(DB::raw("({$sin_registro->toSql()}) as aspirantes_sin_registro"), function ($join) {
+                $join->on('planteles.id', '=', 'aspirantes_sin_registro.id');
+            })
+            ->leftJoin(DB::raw("({$con_registro_sin_pago->toSql()}) as aspirantes_con_registro_sin_pago"), function ($join) {
+                $join->on('planteles.id', '=', 'aspirantes_con_registro_sin_pago.id');
+            })
+            ->leftJoin(DB::raw("({$demanda->toSql()}) as demandas"), function ($join) {
+                $join->on('planteles.id', '=', 'demandas.id');
+            })
+            ->leftJoin(DB::raw("({$oferta->toSql()}) as ofertas"), function ($join) {
+                $join->on('planteles.id', '=', 'ofertas.id');
+            })
+            ->leftJoin(DB::raw("({$aforo->toSql()}) as aforos"), function ($join) {
+                $join->on('planteles.id', '=', 'aforos.id');
+            })
+            ->addSelect('aspirantes_con_pase.proceso_completo')
+            ->addSelect('aspirantes_con_pago.con_pago')
+            ->addSelect('aspirantes_sin_registro.sin_registro')
+            ->addSelect('aspirantes_con_registro_sin_pago.con_pago as con_registro_sin_pago')
+            ->addSelect('demandas.demanda')
+            ->addSelect('ofertas.oferta')
+            ->addSelect('aforos.aforo')
+            ->addSelect('geo.NOM_MUN as municipio')
+            ->addSelect('subsistemas.id as subsistema_id')
+            ->mergeBindings($sub)
+            ->mergeBindings($con_pago)
+            ->mergeBindings($sin_registro)
+            ->mergeBindings($con_registro_sin_pago)
+            ->mergeBindings($demanda)
+            ->mergeBindings($oferta);
+
+        return $query;
+    }
+
+    public function aforo()
+    {
+        return DB::table('aulas')
+            ->select('planteles.id', DB::raw('sum(aulas.capacidad) as aforo'))
+            ->join('planteles', 'aulas.edificio_id', '=', 'planteles.id')
+            ->whereRaw('aulas.edificio_type="plantel"')
+            ->groupBy('planteles.id');
     }
 
     protected function sqlEstadisticas()
