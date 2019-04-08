@@ -45,7 +45,7 @@ class ReporteOpcionesEducativasController
         $datos = $plantelRepository->ofertaEducativa(['subsistema'=>$request->subsistema_ofertas, 'plantel'=>$request->plantel_ofertas, 'municipio'=>$request->municipio])->get();
 
         $graf = [];
-        
+
 
         $pdf = app('snappy.pdf.wrapper');
         header('Content-Type: application/pdf');

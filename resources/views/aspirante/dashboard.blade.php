@@ -70,6 +70,23 @@
                                     @endif
                                 @endif
                             @endif
+                            <h4>Pasos a seguir para obtener tu pase al examen.</h4>
+
+                            <ol>
+                                <li>
+                                    <strong>Editar perfil:</strong> Responde cada pregunta, guarda todos los datos  y da clic en “REGRESAR”  al portal de bienvenido para continuar.
+                                </li>
+                                <li>
+                                    <strong>Cuestionario Ceneval:</strong> Responde cada pregunta de las 3 páginas, da siguiente y guarda todos los datos,  hasta que el sistema indique  “El cuestionario ceneval, fue respondido exitosamente”  da clic en “REGRESAR”.
+                                </li>
+                                <li>
+                                    <strong>Opciones Educativas:</strong> Inicia seleccionando el municipio donde se encuentra el plantel donde quieres estudiar, la localidad, plantel, especialidad y agrega. Así lo harás con cada opción a elegir, hasta que hayan sido la cantidad de opciones que indica en opciones a elegir “GUARDA” y “REGRESA” da clic en “ENVIAR REGISTRO” ( si no aparece esta opción, te hace falta información de las pasos 1 y 2, o ambas).
+                                </li>
+                            </ol>
+                                <p><strong>**Genera y descarga tu boleta pago de derecho a examen.</strong></p>
+
+                                Después del pago efectuado, de 2 a 3 días hábiles, ingresa al portal de registro <a href="http://paenms.seq.gob.mx">http://paenms.seq.gob.mx</a>  y entra con tu usuario, que es el correo electrónico que diste de alta, cuando creaste tu cuenta PAENMS, para descargar e imprimir el pase al examen,  esté indicará el  plantel,  fecha,  hora y aula del día del examen.
+
                         </div>
                     </div>
                 </div>
@@ -80,7 +97,7 @@
                         <div class="card">
 
 
-                            {{-- <div id="map" style="width: 100%; height: 400px; border: 1px solid grey" data-datos="{{$ofertas_gral}}" ></div>--}}
+                            <div id="map" style="width: 100%; height: 400px; border: 1px solid grey" data-datos="{{$ofertas_gral}}"></div>
                             {{--<div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                                     <div class="card text-center">
@@ -109,7 +126,7 @@
                                             <iframe width="100%" height="350" frameborder="0" scrolling="no"
                                                     marginheight="0" marginwidth="0"
                                                     src="https://www.openstreetmap.org/export/embed.html?bbox={{ $oferta->ofertaEducativa->plantel->longitud + .0009}}%2C{{ $oferta->ofertaEducativa->plantel->latitud + .0009}}%2C{{ $oferta->ofertaEducativa->plantel->longitud}}%2C{{ $oferta->ofertaEducativa->plantel->latitud}}&amp;layer=mapnik&amp;marker={{ $oferta->ofertaEducativa->plantel->latitud}}%2C{{ $oferta->ofertaEducativa->plantel->longitud}}"
-                                                    ></iframe>
+                                            ></iframe>
 
                                             {{--<gmap-map
                                                 ref="gmap"
