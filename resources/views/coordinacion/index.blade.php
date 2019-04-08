@@ -131,9 +131,17 @@
                 </div>
             </div>
         </div>
+        @can('show_me_the_money')
+            <div class="row">
+                <div class="col">
+                    <pagos></pagos>
+                </div>
+            </div>
+        @endcan
     </div>
 @stop
 
 @section('extra-scripts')
+    @routes
     <script src="{{ mix('js/coordinador/app.js') }}"></script>
 @stop
