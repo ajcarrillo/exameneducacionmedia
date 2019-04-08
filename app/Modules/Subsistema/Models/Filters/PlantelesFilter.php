@@ -20,6 +20,7 @@ class PlantelesFilter extends QueryFilter
             'subsistema' => 'filled',
             'search'     => 'filled',
             'plantel'    => 'filled',
+            'municipio' => 'filled',
         ];
     }
 
@@ -31,6 +32,11 @@ class PlantelesFilter extends QueryFilter
     public function subsistema($query, $subsistema)
     {
         return $query->where('planteles.subsistema_id', $subsistema);
+    }
+
+    public function municipio($query, $municipio)
+    {
+        return $query->where('geo.CVE_MUN', $municipio);
     }
 
     public function search($query, $search)

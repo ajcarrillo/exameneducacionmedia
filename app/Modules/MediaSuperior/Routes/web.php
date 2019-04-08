@@ -206,4 +206,5 @@ Route::prefix('/reporte-opciones-educativas')
     ->middleware([ 'auth', 'role:departamento' ])
     ->group(function () {
         Route::get('/', 'ReporteOpcionesEducativasController@index')->name('reporteOE');
+        Route::get('/reporte-ofertas-educativas', 'ReporteOpcionesEducativasController@reporteOferta')->name('repOfertas');
     });

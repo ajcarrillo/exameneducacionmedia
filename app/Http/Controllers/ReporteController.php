@@ -15,6 +15,7 @@ use ExamenEducacionMedia\Models\Geodatabase\MunicipioView;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel;
 use Subsistema\Models\Subsistema;
+use Subsistema\Models\Plantel;
 use Subsistema\Repositories\OfertaEducativaRepository;
 use Subsistema\Repositories\PlantelRepository;
 
@@ -35,8 +36,9 @@ class ReporteController extends Controller
         $userRoles   = get_user_roles();
         $subsistemas = Subsistema::getSubsistemas();
         $municipios  = MunicipioView::getMunicipios();
+        $planteles   = Plantel::getPlanteles();
 
-        return view('reportes.index', compact('reportes', 'userRoles', 'municipios', 'subsistemas'));
+        return view('reportes.index', compact('reportes', 'userRoles', 'municipios', 'subsistemas','planteles'));
     }
 
     public function oferta(Request $request, Excel $excel, OfertaEducativaExports $export)
