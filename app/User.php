@@ -73,7 +73,7 @@ class User extends Authenticatable
         return $this->hasOne(Plantel::class, 'responsable_id');
     }
 
-    public static function createUser(array $data, array $roles): User
+    public static function createUser(array $data, array $roles, array $permissions = []): User
     {
         $user = User::create([
             'uuid'             => Uuid::uuid4()->toString(),
@@ -88,6 +88,7 @@ class User extends Authenticatable
         ]);
 
         $user->assignRole($roles);
+        $user->syncPermissions($permissions);
 
         return $user;
     }
