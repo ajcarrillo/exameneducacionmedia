@@ -44,6 +44,9 @@ class ReporteOpcionesEducativasController
     public function reporteOferta(Request $request, PlantelRepository $plantelRepository){
         $datos = $plantelRepository->ofertaEducativa(['subsistema'=>$request->subsistema_ofertas, 'plantel'=>$request->plantel_ofertas, 'municipio'=>$request->municipio])->get();
 
+        //$datos =  $datos->groupBy('subsistema');
+        //return $datos->groupBy('subsistema');
+
         $graf = [];
 
 
@@ -57,14 +60,14 @@ class ReporteOpcionesEducativasController
             ->setOption('margin-left', '0mm')
             ->setOption('disable-smart-shrinking', true)
             ->setOption('footer-font-size', 10)
-            ->setOption('header-html', view('media_superior.administracion.opciones_educativas.header'))
+            ->setOption('header-html', view('media_superior.administracion.ofertaEducativa.header'))
             ->setOption('footer-center',utf8_decode('Página [page] de [topage]'))
             ->setOption('encoding', 'utf-8')
             ->setOption('zoom', '1');
 
         $pdf->loadView('media_superior.administracion.ofertaEducativa.reporte', compact('datos','graf'));
         if($datos->count() > 0){
-            return $pdf->download('ofertas_educativas.pdf');
+            return $pdf->inline('ofertas_educativas.pdf');
         }
 
     }
