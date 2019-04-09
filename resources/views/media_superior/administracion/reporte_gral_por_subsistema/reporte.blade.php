@@ -18,7 +18,7 @@
 
         h5 {
             font-weight: bold;
-            font-size: 9px;
+            font-size: 15px;
             letter-spacing: 2px;
 
         }
@@ -29,7 +29,7 @@
 
         .tablegral {
             margin: auto;
-            font-size: 9px;
+            font-size: 11px;
             font-family: "Trebuchet MS";
             font-weight: bold;
             letter-spacing: 2px;
@@ -46,7 +46,7 @@
         }
         .tablegral td {
             text-align: justify;
-            font-size: 7px;
+            font-size: 8px;
             padding: 1.5em;
             vertical-align:top;
             text-align: center;
@@ -129,11 +129,11 @@
                         @foreach($query as $datos)
                             <tr>
                                 <td>{{$datos->subsistema}}</td>
-                                <td>{{$datos->proceso_completo ? $datos->proceso_completo : 0}}</td>
+                                <td>{{$datos->proceso_completo}}</td>
                                 <td>{{$datos->aforo}}</td>
-                                <td>{{$datos->demanda ? $datos->demanda : 0}}</td>
-                                <td>{{$datos->con_registro_sin_pago ? $datos->con_registro_sin_pago : 0}}</td>
-                                <td>{{$datos->con_pago ? $datos->con_pago : 0}}</td>
+                                <td>{{$datos->demanda}}</td>
+                                <td>{{$datos->con_registro_sin_pago}}</td>
+                                <td>{{$datos->con_pago}}</td>
                                 <td>{{$datos->oferta}}</td>
                                 <td>{{ round(($datos->demanda * 100)/ $datos->oferta) }}</td>
                                 <td>{{ round(($datos->proceso_completo * 100)/ $datos->aforo) }}</td>

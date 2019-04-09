@@ -130,29 +130,26 @@
                                     @if($userRoles->contains('plantel'))
                                        <input type="hidden" name="plantel_ofertas" value="{{ get_user()->plantel->id }}">
                                     @endif
-
-                                    {{--@if($userRoles->contains('subsistema'))--}}
                                 @endif
-
-
-
-                            {{--<div class="form-group mr-3">
-                                <select
-                                        name="plantel_ofertas"
-                                        id="plantel"
-                                        class="form-control form-control-sm"
-                                >
-                                    <option value="">Planteles</option>
-                                    @foreach($planteles as $plantel)
-                                        <option value="{{ $plantel->id }}">{{ $plantel->descripcion }}</option>
-                                    @endforeach
-                                </select>
-                            </div>--}}
 
                             <div class="form-group">
                                 <button class="btn btn-success btn-sm">Generar</button>
                             </div>
                         </form>
+
+                        @if($userRoles->contains('departamento'))
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5>Reporte general por subsistema</h5>
+                                </div>
+                                <div class="col-4">
+                                    <a href="{{ route('media.reporteGralSubsistema') }}" target="_blank" class="btn btn-success btn-sm">Generar</a>
+                                </div>
+                            </div>
+
+
+
+                        @endif
 
                     </div>
                 </div>

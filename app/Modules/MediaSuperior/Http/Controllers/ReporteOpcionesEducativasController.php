@@ -73,21 +73,17 @@ class ReporteOpcionesEducativasController
         $query = $plantelRepository->monitoreoPlanteles([])
             ->select(
                 'subsistemas.id', 'subsistemas.referencia as subsistema',
-                DB::raw('IF(IsNull(proceso_completo) , 0, sum(proceso_completo))  as proceso_completo'),
-                DB::raw('sum(aspirantes_con_pago.con_pago) as con_pago'),
-                DB::raw('sum(sin_registro) as sin_registro'),
-                DB::raw('sum(aspirantes_con_registro_sin_pago.con_pago) as con_registro_sin_pago'),
-                DB::raw('IF(IsNull(demanda), 0,sum(demanda)) as demanda'),
-                DB::raw('sum(oferta) as oferta'),
-                DB::raw('sum(aforo) as aforo')
+                DB::raw('IF(IsNull(sum(proceso_completo)) , 0, sum(proceso_completo))  as proceso_completo'),
+                DB::raw('IF(IsNull(sum(aspirantes_con_pago.con_pago)), 0, sum(aspirantes_con_pago.con_pago))  as con_pago'),
+                DB::raw('IF(IsNull(sum(sin_registro)),0,sum(sin_registro))  as sin_registro'),
+                DB::raw('IF(IsNull(sum(aspirantes_con_registro_sin_pago.con_pago)),0,sum(aspirantes_con_registro_sin_pago.con_pago)) as con_registro_sin_pago'),
+                DB::raw('IF(IsNull(sum(demanda)), 0,sum(demanda)) as demanda'),
+                DB::raw('IF(IsNull(sum(oferta)),0, sum(oferta)) as oferta'),
+                DB::raw('IF(IsNull(sum(aforo)),0, sum(aforo)) as aforo')
             )
             ->groupBy('subsistemas.id')
             ->get();
-        //return $query->sum('proceso_completo');
-        /*$total = $query->sum(function ($order) {
-            if $order->items->sum('proceso_completo') ? $order->items->sum('proceso_completo') : 0 ;
-        });
-        return $total;*/
+
 
 
         $pdf = app('snappy.pdf.wrapper');
