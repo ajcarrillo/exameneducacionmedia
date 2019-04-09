@@ -61,3 +61,17 @@
         </span>
     @endif
 </div>
+<div class="form-group">
+    <label for="">Permisos:</label>
+    <br>
+    @foreach($permissions as $permission)
+        <label class="checkbox-inline pr-3">
+            <input type="checkbox"
+                   name="permissions[{{ $permission }}]"
+                   id="{{ $permission }}"
+                   value="{{$permission}}"
+                {{ $errors->any() ? old("permissions.{$permission}") : $user->permissions()->pluck('name')->contains($permission) ? 'checked' : '' }}>
+            {{ $permission }}
+        </label>
+    @endforeach
+</div>

@@ -45,7 +45,7 @@
                         <strong>Aspirantes sin pase: </strong>
                     </div>
                     <div class="col-md-9">
-                        <p>Aspirantes con o sin oferta educativa sin pase al examen</p>
+                        <p>Aspirantes con oferta educativa sin pase al examen</p>
                     </div>
                 </div>
                 <div class="row">
