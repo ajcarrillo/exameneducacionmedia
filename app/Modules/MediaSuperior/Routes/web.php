@@ -203,7 +203,14 @@ Route::middleware([ 'auth', 'role:plantel|departamento|subsistema' ])
     });
 
 Route::prefix('/reporte-opciones-educativas')
-    ->middleware([ 'auth', 'role:departamento' ])
+    ->middleware([ 'auth', 'role:departamento|subsistema|plantel' ])
     ->group(function () {
         Route::get('/', 'ReporteOpcionesEducativasController@index')->name('reporteOE');
+        Route::get('/reporte-ofertas-educativas', 'ReporteOpcionesEducativasController@reporteOferta')->name('repOfertas');
+    });
+
+Route::prefix('/reporte-opciones-educativas')
+    ->middleware([ 'auth', 'role:departamento' ])
+    ->group(function () {
+        Route::get('/reporte-gral-subsistema', 'ReporteOpcionesEducativasController@reporteGralsubsistema')->name('reporteGralSubsistema');
     });
