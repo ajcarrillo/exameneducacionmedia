@@ -175,6 +175,7 @@ return [
         MediaSuperior\Providers\MediaSuperiorServiceProvider::class,
         MediaSuperior\Providers\MacroServiceProvider::class,
         Coordinacion\Providers\RouteServiceProvider::class,
+        Billy\Providers\RouteServiceProvider::class,
     ],
 
     /*

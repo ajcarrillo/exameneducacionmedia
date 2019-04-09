@@ -52,6 +52,19 @@ let app = new Vue({
                 })
                 .catch(err => {
                     this.searching = false;
+                    if(err.response.status == 404){
+                        swal({
+                            type: 'warning',
+                            title: '404',
+                            text: 'No se encontró la referencia',
+                        })
+                    }else{
+                        swal({
+                            type: 'error',
+                            title: 'Oops...',
+                            text: 'Lo sentimos, algo ha salido mal intenta de nuevo',
+                        })
+                    }
                 })
         },
         asignar(payload) {

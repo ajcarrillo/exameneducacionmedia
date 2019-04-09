@@ -54,7 +54,8 @@
             "MediaSuperior\\": "app/Modules/MediaSuperior/",
             "Plantel\\": "app/Modules/Plantel/",
             "Subsistema\\": "app/Modules/Subsistema/",
-            "Coordinacion\\": "app/Modules/Coordinacion/"
+            "Coordinacion\\": "app/Modules/Coordinacion/",
+            "Billy\\": "app/Modules/Billy/"
         }
     },
     "autoload-dev": {

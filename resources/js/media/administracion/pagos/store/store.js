@@ -38,9 +38,9 @@ export default new Vuex.Store({
     actions: {
         buscarReferencia(context, payload) {
             return new Promise(function (resolve, reject) {
-                axios.get(`${payload.url}/pagos/referencia/${payload.referencia}`)
+                axios.get(`/api/billy/buscar-referencia/${payload.referencia}`)
                     .then(res => {
-                        context.commit('SEARCH_REFERENCIA', res.data);
+                        context.commit('SEARCH_REFERENCIA', res.data.data);
                         resolve(res);
                     })
                     .catch(err => {
