@@ -176,7 +176,7 @@
                                         <tr>
                                             <td colspan="4" style="text-align: right; font-weight: bold">SUBTOTAL:</td>
                                             <td style="border-top: 3px solid grey;" >{{collect($key)->sum('grupos')}}</td>
-                                            <td style="border-top: 3px solid grey">{{collect($key)->sum('alumnos')}}</td>
+                                            <td style="border-top: 3px solid grey">{{--collect($key)->sum('alumnos')--}}</td>
                                             <td style="border-top: 3px solid grey">{{collect($key)->sum('total')}}</td>
                                         </tr>
 
@@ -186,7 +186,7 @@
                         <tr>
                             <td colspan="4" style="text-align: right; font-weight: bold">TOTAL:</td>
                             <td style="border-top: 3px solid grey;" >{{collect($dato)->sum('grupos')}}</td>
-                            <td style="border-top: 3px solid grey">{{collect($dato)->sum('alumnos')}}</td>
+                            <td style="border-top: 3px solid grey">{{--collect($dato)->sum('alumnos')--}}</td>
                             <td style="border-top: 3px solid grey">{{collect($dato)->sum('total')}}</td>
                         </tr>
                     <tbody>
