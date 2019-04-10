@@ -125,6 +125,18 @@ class PlantelRepository extends BaseRepository
         return $query;
     }
 
+    protected function aspirantes_sin_pase()
+    {
+        $query = DB::table('aspirantes')
+            ->select('planteles.id', DB::raw('count(planteles.id) as sin_pase'))
+            ->leftJoin('pases_examen', 'aspirantes.id', '=', 'pases_examen.aspirante_id')
+            ->conPrimeraOpcion()
+            ->whereNull('pases_examen.id')
+            ->groupBy('planteles.id');
+
+        return $query;
+    }
+
     public function getDemanda()
     {
         return $this->demanda()
@@ -167,6 +179,7 @@ class PlantelRepository extends BaseRepository
         $aforo                 = $this->aforo();
         $oferta                = $this->getOferta();
         $demanda               = $this->getDemanda();
+        $sin_pase              = $this->aspirantes_sin_pase();
         $con_pago              = $this->aspirantes_con_pago();
         $sin_registro          = $this->aspirantes_sin_registro();
         $con_registro_sin_pago = $this->aspirantes_con_registro_sin_pago();
@@ -194,7 +207,11 @@ class PlantelRepository extends BaseRepository
             ->leftJoin(DB::raw("({$aforo->toSql()}) as aforos"), function ($join) {
                 $join->on('planteles.id', '=', 'aforos.id');
             })
+            ->leftJoin(DB::raw("({$sin_pase->toSql()}) as aspirantes_sin_pase"), function ($join) {
+                $join->on('planteles.id', '=', 'aspirantes_sin_pase.id');
+            })
             ->addSelect('aspirantes_con_pase.proceso_completo')
+            ->addSelect('aspirantes_sin_pase.sin_pase')
             ->addSelect('aspirantes_con_pago.con_pago')
             ->addSelect('aspirantes_sin_registro.sin_registro')
             ->addSelect('aspirantes_con_registro_sin_pago.con_pago as con_registro_sin_pago')
@@ -208,7 +225,8 @@ class PlantelRepository extends BaseRepository
             ->mergeBindings($sin_registro)
             ->mergeBindings($con_registro_sin_pago)
             ->mergeBindings($demanda)
-            ->mergeBindings($oferta);
+            ->mergeBindings($oferta)
+            ->mergeBindings($sin_pase);
 
         return $query;
     }
