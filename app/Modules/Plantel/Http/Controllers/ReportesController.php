@@ -36,16 +36,6 @@ class ReportesController extends Controller
             ->groupBy('aulas.id')
             ->get();
 
-        /*$query = DB::table('ofertas_educativas')
-            //->select('pases_examen.numero_lista',DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'),'especialidades.referencia')
-            ->join('planteles', 'ofertas_educativas.plantel_id', '=', 'planteles.id')
-            ->join('especialidades', 'ofertas_educativas.especialidad_id', '=', 'especialidades.id')
-            ->join('aulas', 'planteles.id', '=', 'aulas.edificio_id')
-            ->join('pases_examen', 'pases_examen.aula_id', '=', 'aulas.id')
-            ->join('aspirantes', 'aspirantes.id', '=', 'pases_examen.aspirante_id')
-            ->join('users', 'users.id', '=', 'aspirantes.user_id')
-            ->where('planteles.id', Auth::user()->plantel->id);*/
-
           $query = DB::table('pases_examen')
             ->join('aspirantes', 'pases_examen.aspirante_id', '=', 'aspirantes.id')
             ->join('users', 'users.id', '=', 'aspirantes.user_id')
@@ -61,16 +51,6 @@ class ReportesController extends Controller
                       ->where('aulas.edificio_type', 'plantel');
               })
             ->where('planteles.id', Auth::user()->plantel->id);
-         /*FROM pases_examen
-INNER JOIN aspirantes on pases_examen.aspirante_id = aspirantes.id
-INNER JOIN users on users.id = aspirantes.user_id
-INNER JOIN seleccion_ofertas_educativas on acontacts.user_idseleccion_ofertas_educativas.preferenciaspirantes.id = seleccion_ofertas_educativas.id AND seleccion_ofertas_educativas.preferencia = 1
-INNER JOIN ofertas_educativas ON seleccion_ofertas_educativas.oferta_educativa_id = ofertas_educativas.id
-INNER JOIN planteles on ofertas_educativas.plantel_id = planteles.id
-INNER JOIN especialidades ON ofertas_educativas.especialidad_id = especialidades.id
-INNER JOIN aulas on planteles.id = aulas.edificio_id AND aulas.edificio_type = "plantel"
-WHERE planteles.id = 12
-*/
 
 
         $formato = $request->formato;
@@ -82,7 +62,7 @@ WHERE planteles.id = 12
                     //->groupBy('aulas.id', 'users.id')
                     ->orderBy('pases_examen.numero_lista', 'asc')
                     ->get();
-                //return $query;
+                
                 $pdf->setOption('header-html', view('planteles.header'))
                     ->setOption('footer-html', view('planteles.footer'))
                     ->setOption('margin-bottom', '20mm')
