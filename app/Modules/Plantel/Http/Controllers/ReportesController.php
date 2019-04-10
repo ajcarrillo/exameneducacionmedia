@@ -21,11 +21,10 @@ class ReportesController extends Controller
         $pdf = app('snappy.pdf.wrapper');
         $pdf->setPaper('letter')
             ->setOrientation('portrait')
-            ->setOption('margin-bottom', '0mm')
-            ->setOption('margin-top', '0mm')
-            ->setOption('margin-right', '0mm')
-            ->setOption('margin-left', '0mm')
-            ->setOption('disable-smart-shrinking', true)
+            //->setOption('disable-smart-shrinking', true)
+            ->setOption('footer-font-size', 10)
+
+            ->setOption('encoding', 'utf-8')
             ->setOption('zoom', '1');
 
         $aulas = DB::table('planteles')
@@ -38,6 +37,7 @@ class ReportesController extends Controller
             ->get();
 
         $query = DB::table('ofertas_educativas')
+            //->select('pases_examen.numero_lista',DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'),'especialidades.referencia')
             ->join('planteles', 'ofertas_educativas.plantel_id', '=', 'planteles.id')
             ->join('especialidades', 'ofertas_educativas.especialidad_id', '=', 'especialidades.id')
             ->join('aulas', 'planteles.id', '=', 'aulas.edificio_id')
@@ -45,15 +45,24 @@ class ReportesController extends Controller
             ->join('aspirantes', 'aspirantes.id', '=', 'pases_examen.aspirante_id')
             ->join('users', 'users.id', '=', 'aspirantes.user_id')
             ->where('planteles.id', Auth::user()->plantel->id);
-
+        //return  Auth::user()->plantel->id;
         $formato = $request->formato;
         switch ($formato) {
 
             case 1 :
                 $nombre_file = 'Listado_Alumnos_por_Aula';
                 $query       = $query->select('pases_examen.numero_lista', DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'), 'aspirantes.folio as folio_ceneval', 'aulas.id as no_aula', 'aulas.capacidad', 'especialidades.referencia as especialidad', 'aulas.id')
-                    ->groupBy('aulas.id', 'users.id')
+                    //->groupBy('aulas.id', 'users.id')
                     ->get();
+                //return  ;
+                $pdf->setOption('header-html', view('planteles.header'))
+                    ->setOption('footer-html', view('planteles.footer'))
+                    //->setOption('footer-center', utf8_decode('Página [page] de [topage]'))
+                    //->setOption('footer-center',utf8_decode('Página [page] de [topage]'))
+                    ->setOption('margin-bottom', '20mm')
+                    ->setOption('margin-top', '30mm')
+                    ->setOption('margin-right', '0mm')
+                    ->setOption('margin-left', '0mm');
                 $pdf->loadView('planteles.reportes1', compact('query', 'aulas'));
                 break;
             case 2:
@@ -76,7 +85,7 @@ class ReportesController extends Controller
                 break;
         }
 
-        return $pdf->download($nombre_file . '.pdf');
+        return $pdf->inline($nombre_file . '.pdf');
     }
 
 }
