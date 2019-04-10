@@ -45,7 +45,7 @@ class ReportesController extends Controller
             ->join('aspirantes', 'aspirantes.id', '=', 'pases_examen.aspirante_id')
             ->join('users', 'users.id', '=', 'aspirantes.user_id')
             ->where('planteles.id', Auth::user()->plantel->id);
-        //return  Auth::user()->plantel->id;
+
         $formato = $request->formato;
         switch ($formato) {
 
@@ -54,11 +54,9 @@ class ReportesController extends Controller
                 $query       = $query->select('pases_examen.numero_lista', DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'), 'aspirantes.folio as folio_ceneval', 'aulas.id as no_aula', 'aulas.capacidad', 'especialidades.referencia as especialidad', 'aulas.id')
                     //->groupBy('aulas.id', 'users.id')
                     ->get();
-                //return  ;
+
                 $pdf->setOption('header-html', view('planteles.header'))
                     ->setOption('footer-html', view('planteles.footer'))
-                    //->setOption('footer-center', utf8_decode('Página [page] de [topage]'))
-                    //->setOption('footer-center',utf8_decode('Página [page] de [topage]'))
                     ->setOption('margin-bottom', '20mm')
                     ->setOption('margin-top', '30mm')
                     ->setOption('margin-right', '0mm')
