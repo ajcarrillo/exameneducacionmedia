@@ -34,9 +34,9 @@
     </script>
 </head>
 <body style="border:0; margin: 0;" onload="subst()">
-<div style="text-align: center">{{'*** Aspirantes con derecho a presentar examen que no concluyeron su registro en línea en el plazo especificado. ***'}} <br>
+<div style="text-align: center"> <br>
     {{Jenssegers\Date\Date::parse(\Carbon\Carbon::now())->format('j \\d\\e F Y')}}<br>
-    Página <span class="page"></span> of <span class="topage"></span>
+    Página <span class="page"></span> de <span class="topage"></span>
 
 </div>
 </body>

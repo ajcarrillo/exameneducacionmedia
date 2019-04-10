@@ -117,9 +117,9 @@ use Carbon\Carbon;
 								</tr>
 									<tr>
 										<th style="width: 100px;">No. de Lista</th>
-										<th style="width: 400px">Nombre del alumno</th>
+										<th style="width: 400px; text-align: left">Nombre del alumno</th>
 										<th style="width: 170px">Folio CENEVAL</th>
-										<th style="width: 300px">Especialidad</th>
+										<th style="width: 300px; text-align: left">Especialidad</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -129,9 +129,9 @@ use Carbon\Carbon;
 
 											<tr>
 												<td>{{$aspirante->numero_lista}}</td>
-												<td>{{ $aspirante->nombre_completo }}</td>
+												<td style="text-align: left">{{ $aspirante->nombre_completo }}</td>
 												<td>{{ $aspirante->folio_ceneval }}</td>
-												<td style="text-align: justify">{{ $aspirante->especialidad }}</td>
+												<td style="text-align: left">{{ $aspirante->especialidad }}</td>
 											</tr>
 										@endif
 									@endforeach
