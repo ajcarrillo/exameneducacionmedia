@@ -125,6 +125,11 @@
                 <monitoreo-planteles></monitoreo-planteles>
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+                <monitoreo-especialidades></monitoreo-especialidades>
+            </div>
+        </div>
     </div>
 
 </template>
@@ -136,6 +141,7 @@
     import MyTooltip from '../../directives/TooltipDirective'
     import EditNameForm from '../components/EditPlantelNameFormComponent';
     import MonitoreoPlanteles from '../components/MonitoreoComponent';
+    import MonitoreoEspecialidades from '../components/MonitoreoEspecialidadComponent';
 
     Vue.directive('tooltip', MyTooltip);
 
@@ -168,7 +174,8 @@
         components: {
             PlantelesTable,
             EditNameForm,
-            MonitoreoPlanteles
+            MonitoreoPlanteles,
+            MonitoreoEspecialidades
         },
         data() {
             return {

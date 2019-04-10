@@ -22,6 +22,32 @@ class OfertaEducativaRepository extends BaseRepository
         return new OfertaEducativa();
     }
 
+    public function ofertas(array $params = [])
+    {
+        return $this->newQuery()
+            ->join('planteles', 'ofertas_educativas.plantel_id', '=', 'planteles.id')
+            ->join('subsistemas', 'planteles.subsistema_id', '=', 'subsistemas.id')
+            ->join('especialidades', 'ofertas_educativas.especialidad_id', '=', 'especialidades.id')
+            ->plantelesConMunicipioLocalidad()
+            ->filterBy(new OfertaEducativaFilters, $params);
+    }
+
+    public function monitoreoOferta(array $params = [])
+    {
+        $query = $this->ofertas($params)
+            ->leftJoin('seleccion_ofertas_educativas', function ($join) {
+                $join->on('ofertas_educativas.id', '=', 'seleccion_ofertas_educativas.oferta_educativa_id')
+                    ->whereRaw('preferencia = 1');
+            })
+            ->groupBy('geo.NOM_MUN', 'subsistemas.referencia', 'planteles.descripcion', 'especialidades.referencia')
+            ->addSelect('geo.NOM_MUN as municipio', 'subsistemas.referencia',
+                'planteles.descripcion', 'especialidades.referencia',
+                DB::raw('count(especialidades.id) aspirantes')
+            )
+            ->orderBy('aspirantes', 'DESC');
+
+        return $query;
+    }
 
     public function all(array $params)
     {

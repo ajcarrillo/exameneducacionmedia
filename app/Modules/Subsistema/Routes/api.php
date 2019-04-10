@@ -12,6 +12,10 @@ Route::get('/monitoreo', 'API\MonitoreoController@index')
     ->middleware([ 'auth:api' ])
     ->name('api.subsistema.monitoreo');
 
+Route::get('/monitoreo/especialidades', 'API\MonitoreoEspecialidadesController@index')
+    ->middleware([ 'auth:api' ])
+    ->name('api.subsistema.monitoreo.especialidades');
+
 Route::resource('especialidades', 'API\EspecialidadController')
     ->parameter('especialidades', 'especialidad')
     ->only([ 'index', 'show', 'store', 'update', 'destroy' ])

@@ -17,10 +17,12 @@ class OfertaEducativaFilters extends QueryFilter
     public function rules(): array
     {
         return [
-            'subsistema' => 'filled',
-            'plantel'    => 'filled',
-            'inactivos'  => 'filled',
-            'municipio'  => 'filled',
+            'subsistema'   => 'filled',
+            'subsistemaid' => 'filled',
+            'plantel'      => 'filled',
+            'plantelid'    => 'filled',
+            'inactivos'    => 'filled',
+            'municipio'    => 'filled',
         ];
     }
 
@@ -34,9 +36,19 @@ class OfertaEducativaFilters extends QueryFilter
         $query->where('s.id', $subsistema);
     }
 
+    public function subsistemaid($query, $subsistemaid)
+    {
+        $query->where('subsistemas.id', $subsistemaid);
+    }
+
     public function plantel($query, $plantel)
     {
         $query->where('p.id', $plantel);
+    }
+
+    public function plantelid($query, $plantelid)
+    {
+        $query->where('planteles.id', $plantelid);
     }
 
     public function inactivos($query, $inactivos)
