@@ -38,7 +38,6 @@
 
         .tablegral, .tablegral th{
 
-            text-align: center;
         }
 
         .tablegral tr{
@@ -49,7 +48,6 @@
             font-size: 8px;
             padding: 1.5em;
             vertical-align:top;
-            text-align: center;
 
         }
         .tablegral td a{
@@ -60,7 +58,6 @@
         .tablegral thead .gral th {
 
             background-color: lightgrey;
-            text-align: center;
 
         }
 
@@ -107,48 +104,47 @@
 
     <div style="padding: 0.5cm" class="page">
         <div class="dtll">
-            <div style="text-align:center;">
+            <div style="">
 
 
                     <div style="text-align: left"><b></b></div>
                     <table class="table table-bordered tablegral">
                         <thead>
                         <tr class="gral">
-                            <th width="150px">SUBSISTEMA</th>
-                            <th width="100px">REGISTRO</th>
-                            <th width="80px">AFORO</th>
-                            <th width="80px">DEMANDA</th>
-                            <th width="100px">SIN PAGO</th>
-                            <th width="150px">CON PAGO SIN PASE</th>
-                            <th width="150px">OFERTA EDUCATIVA</th>
-                            <th width="70px">% OFERTA</th>
-                            <th width="70px">% AFORO</th>
+                            <th style="text-align: left!important;" width="150px">SUBSISTEMA</th>
+                            <th style="text-align: right!important;" width="100px">REGISTRO</th>
+                            <th style="text-align: right!important;" width="80px">AFORO</th>
+                            <th style="text-align: right!important;" width="80px">DEMANDA</th>
+                            <th style="text-align: right!important;" width="150px">SIN PASE</th>
+                            <th style="text-align: right!important;" width="100px">SIN PAGO</th>
+                            <th style="text-align: right!important;" width="150px">OFERTA EDUCATIVA</th>
+                            <th style="text-align: right!important;" width="70px">% OFERTA</th>
+                            <th style="text-align: right!important;" width="70px">% AFORO</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($query as $datos)
                             <tr>
-                                <td>{{$datos->subsistema}}</td>
-                                <td>{{$datos->proceso_completo}}</td>
-                                <td>{{$datos->aforo}}</td>
-                                <td>{{$datos->demanda}}</td>
-                                <td>{{$datos->con_registro_sin_pago}}</td>
-                                <td>{{$datos->con_pago}}</td>
-                                <td>{{$datos->oferta}}</td>
-                                <td>{{ round(($datos->demanda * 100)/ $datos->oferta) }}</td>
-                                <td>{{ round(($datos->proceso_completo * 100)/ $datos->aforo) }}</td>
+                                <td class="text-left">{{$datos->subsistema}}</td>
+                                <td style="text-align: right!important;">{{$datos->proceso_completo}}</td>
+                                <td style="text-align: right!important;">{{$datos->aforo}}</td>
+                                <td style="text-align: right!important;">{{$datos->demanda}}</td>
+                                <td style="text-align: right!important;">{{$datos->sin_pase}}</td>
+                                <td style="text-align: right!important;">{{$datos->con_registro_sin_pago}}</td>
+                                <td style="text-align: right!important;">{{$datos->oferta}}</td>
+                                <td style="text-align: right!important;">{{ round(($datos->demanda * 100)/ $datos->oferta) }}</td>
+                                <td style="text-align: right!important;">{{ round(($datos->proceso_completo * 100)/ $datos->aforo) }}</td>
                             </tr>
 
                         @endforeach
                         <tr style="border-top: 2px solid lightslategrey">
-                            <td><b>TOTAL</b></td>
-                            <td>{{$query->sum('proceso_completo')}}</td>
-                            <td>{{$query->sum('aforo')}}</td>
-                            <td>{{$query->sum('demanda')}}</td>
-                            <td>{{$query->sum('con_registro_sin_pago')}}</td>
-                            <td>{{$query->sum('con_pago')}}</td>
-
-                            <td>{{$query->sum('oferta')}}</td>
+                            <td style="text-align: right!important;"><b>TOTAL</b></td>
+                            <td style="text-align: right!important;">{{$query->sum('proceso_completo')}}</td>
+                            <td style="text-align: right!important;">{{$query->sum('aforo')}}</td>
+                            <td style="text-align: right!important;">{{$query->sum('demanda')}}</td>
+                            <td style="text-align: right!important;">{{$query->sum('sin_pase')}}</td>
+                            <td style="text-align: right!important;">{{$query->sum('con_registro_sin_pago')}}</td>
+                            <td style="text-align: right!important;">{{$query->sum('oferta')}}</td>
                         </tr>
                         </tbody>
                     </table>

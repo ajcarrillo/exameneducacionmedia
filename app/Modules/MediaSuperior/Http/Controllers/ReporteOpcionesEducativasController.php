@@ -77,7 +77,7 @@ class ReporteOpcionesEducativasController
             ->select(
                 'subsistemas.id', 'subsistemas.referencia as subsistema',
                 DB::raw('IF(IsNull(sum(proceso_completo)) , 0, sum(proceso_completo))  as proceso_completo'),
-                DB::raw('IF(IsNull(sum(aspirantes_con_pago.con_pago)), 0, sum(aspirantes_con_pago.con_pago))  as con_pago'),
+                DB::raw('IF(IsNull(sum(aspirantes_sin_pase.sin_pase)), 0, sum(aspirantes_sin_pase.sin_pase))  as sin_pase'),
                 DB::raw('IF(IsNull(sum(sin_registro)),0,sum(sin_registro))  as sin_registro'),
                 DB::raw('IF(IsNull(sum(aspirantes_con_registro_sin_pago.con_pago)),0,sum(aspirantes_con_registro_sin_pago.con_pago)) as con_registro_sin_pago'),
                 DB::raw('IF(IsNull(sum(demanda)), 0,sum(demanda)) as demanda'),
