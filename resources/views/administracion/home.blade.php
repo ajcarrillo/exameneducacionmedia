@@ -137,8 +137,8 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="info-box bg-aqua">
-                            <span class="info-box-icon bg-aqua-active"><i class="fa fa-bar-chart"></i></span>
+                        <div class="info-box @if($porcentaje_folios >= 70)bg-warning @elseif($porcentaje_folios >= 90)bg-danger @else bg-success @endif">
+                            <span class="info-box-icon"><i class="fa fa-bar-chart"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Folios</span>
@@ -152,10 +152,9 @@
                             <!-- /.info-box-content -->
                         </div>
                         <div class="info-box bg-aqua">
-                            <span class="info-box-icon bg-aqua-active">
+                            <span class="info-box-icon">
                                 <i class="fas fa-id-card"></i>
                             </span>
-
                             <div class="info-box-content">
                                 <span class="info-box-text">Pases al examen generados</span>
                                 <span class="info-box-number">{{ $pases_al_examen }}</span>
