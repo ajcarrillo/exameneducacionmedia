@@ -215,7 +215,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($aforos as $aforo)
-                                    <tr class="@if($aforo->porcentaje > 90)table-danger @elseif($aforo->porcentaje > 60)table-warning @endif">
+                                    <tr class="@if($aforo->porcentaje >= 90)table-danger @elseif($aforo->porcentaje >= 60)table-warning @endif">
                                         <td scope="row">{{ $aforo->descripcion }}</td>
                                         <td class="text-right">{{ $aforo->pases }}</td>
                                         <td class="text-right">{{ $aforo->aforo }}</td>
