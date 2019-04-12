@@ -63,4 +63,10 @@ class Plantel extends Model
     {
         return $filters->applyTo($query, $data);
     }
+
+    public static function getPlanteles()
+    {
+        return static::orderBy('descripcion')
+            ->get([ 'id', 'descripcion' ]);
+    }
 }
