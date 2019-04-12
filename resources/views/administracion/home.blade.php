@@ -157,8 +157,6 @@
                 </div>
             </div>
         </div>
-
-
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-primary card-outline">
@@ -196,6 +194,37 @@
                         <!--</div>-->
                     </div>
                     <div class="card-footer"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">Monitoreo de aforo</h1>
+                    </div>
+                    <div class="card-body p-0 table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Plantel</th>
+                                    <th class="text-right">Pases</th>
+                                    <th class="text-right">Aforo</th>
+                                    <th class="text-right">Porcentaje de ocupación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($aforos as $aforo)
+                                    <tr class="@if($aforo->porcentaje > 90)table-danger @elseif($aforo->porcentaje > 60)table-warning @endif">
+                                        <td scope="row">{{ $aforo->descripcion }}</td>
+                                        <td class="text-right">{{ $aforo->pases }}</td>
+                                        <td class="text-right">{{ $aforo->aforo }}</td>
+                                        <td class="text-right">{{ $aforo->porcentaje }}%</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
