@@ -25,7 +25,16 @@
 				@endif
 			</div>
 		</div>--}}
-        <br/>
+        <div class="row">
+            <div class="col">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#monitoreo-aforo">Monitoreo aforo</a></li>
+                    <li class="breadcrumb-item"><a href="#monitoreo-demanda">Monitoreo demanda</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('media.administracion.aspirantes.index') }}">Aspirantes</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('media.administracion.usuarios.index') }}">Usuarios</a></li>
+                </ol>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-3">
                 <div class="small-box bg-aqua">
@@ -128,8 +137,8 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="info-box bg-aqua">
-                            <span class="info-box-icon bg-aqua-active"><i class="fa fa-bar-chart"></i></span>
+                        <div class="info-box @if($porcentaje_folios >= 70)bg-warning @elseif($porcentaje_folios >= 90)bg-danger @else bg-success @endif">
+                            <span class="info-box-icon"><i class="fa fa-bar-chart"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Folios</span>
@@ -143,10 +152,9 @@
                             <!-- /.info-box-content -->
                         </div>
                         <div class="info-box bg-aqua">
-                            <span class="info-box-icon bg-aqua-active">
+                            <span class="info-box-icon">
                                 <i class="fas fa-id-card"></i>
                             </span>
-
                             <div class="info-box-content">
                                 <span class="info-box-text">Pases al examen generados</span>
                                 <span class="info-box-number">{{ $pases_al_examen }}</span>
@@ -157,13 +165,13 @@
                 </div>
             </div>
         </div>
-
-
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <div class="card-title">Planteles con demanda</div>
+                        <div class="card-title">
+                            <h1 class="card-title" id="monitoreo-demanda">Planteles con demanda</h1>
+                        </div>
                         <form action="" method="get" class="d-flex flex-row justify-content-between justify-content-md-start align-items-center">
 
                         </form>
@@ -196,6 +204,37 @@
                         <!--</div>-->
                     </div>
                     <div class="card-footer"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title" id="monitoreo-aforo">Monitoreo de aforo</h1>
+                    </div>
+                    <div class="card-body p-0 table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Plantel</th>
+                                    <th class="text-right">Pases</th>
+                                    <th class="text-right">Aforo</th>
+                                    <th class="text-right">Porcentaje de ocupación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($aforos as $aforo)
+                                    <tr class="@if($aforo->porcentaje >= 90)table-danger @elseif($aforo->porcentaje >= 60)table-warning @endif">
+                                        <td scope="row">{{ $aforo->descripcion }}</td>
+                                        <td class="text-right">{{ $aforo->pases }}</td>
+                                        <td class="text-right">{{ $aforo->aforo }}</td>
+                                        <td class="text-right">{{ $aforo->porcentaje }}%</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

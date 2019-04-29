@@ -4,6 +4,7 @@ namespace MediaSuperior\Http\Controllers;
 
 use Aspirante\Models\Aspirante;
 use Aspirante\Models\Pase;
+use Aspirante\Repositories\PaseRepository;
 use DB;
 use ExamenEducacionMedia\Http\Controllers\Controller;
 use ExamenEducacionMedia\Models\EtapaProceso;
@@ -22,10 +23,15 @@ class PanelController extends Controller
      * @var PlantelRepository
      */
     private $repository;
+    /**
+     * @var PaseRepository
+     */
+    private $paseRepository;
 
-    public function __construct(PlantelRepository $repository)
+    public function __construct(PlantelRepository $repository, PaseRepository $paseRepository)
     {
-        $this->repository = $repository;
+        $this->repository     = $repository;
+        $this->paseRepository = $paseRepository;
     }
 
     public function index()
@@ -68,8 +74,18 @@ class PanelController extends Controller
             ->orderBy('planteles.descripcion')
             ->get();
 
-        return view('administracion.home', compact('especialidades', 'planteles', 'aspirantes_hoy', 'total_aspirantes', 'revisiones_oferta',
-            'revisiones_aforo', 'total_folios', 'folios_usados', 'porcentaje_folios', 'fechas_r', 'plantelescomplet', 'porcentaje_filtro', 'dato', 'statsPlantel', 'pases_al_examen'));
+        $aforos = $this->paseRepository
+            ->monitoreo_aforo()
+            ->orderBy('porcentaje', 'DESC')
+            ->get();
+
+        return view('administracion.home', compact(
+                'especialidades', 'planteles', 'aspirantes_hoy', 'total_aspirantes', 'revisiones_oferta',
+                'revisiones_aforo', 'total_folios', 'folios_usados', 'porcentaje_folios', 'fechas_r',
+                'plantelescomplet', 'porcentaje_filtro', 'dato', 'statsPlantel', 'pases_al_examen',
+                'aforos'
+            )
+        );
     }
 
     public function cancelarOferta()
