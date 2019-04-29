@@ -62,7 +62,7 @@ class ReportesController extends Controller
                     //->groupBy('aulas.id', 'users.id')
                     ->orderBy('pases_examen.numero_lista', 'asc')
                     ->get();
-                
+
                 $pdf->setOption('header-html', view('planteles.header'))
                     ->setOption('footer-html', view('planteles.footer'))
                     ->setOption('margin-bottom', '20mm')
