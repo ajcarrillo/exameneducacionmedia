@@ -11,6 +11,9 @@
 |
 */
 
+Route::post('/aspirantes-listado-general', 'Reportes\AspiranteController@export')
+    ->name('reporte.general.aspirnates');
+
 Route::get('/prueba-stress', function () {
     $repo = new \Subsistema\Repositories\OfertaEducativaRepository();
 
