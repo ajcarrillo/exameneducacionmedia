@@ -147,8 +147,8 @@
 								@endif
 							@endforeach
 						</table>
-						<label>firma del responsable</label>
-						<hr style ="margin-top: 38px " color="black" size=0.5 width="300">
+						<hr style ="margin-top: 120px " color="black" size=0.5 width="300">
+						<p style="padding-top:10px;margin-top: 10px" class="font-weight-light">Firma del responsable</p>
 					</div>
 					@if(!$loop->last)
 						<div class="page1"></div>
