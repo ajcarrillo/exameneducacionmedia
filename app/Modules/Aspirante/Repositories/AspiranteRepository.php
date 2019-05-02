@@ -102,4 +102,64 @@ class AspiranteRepository extends BaseRepository
 
         return $query;
     }
+
+    public function listadoAspirantesPorPlantel()
+    {
+        return "SELECT aspirantes.folio,
+concat_ws(' ', users.nombre, users.primer_apellido, users.segundo_apellido) AS nombre_completo,
+aspirantes.curp,
+users.email,
+upper(concat_ws(' ', domicilios.calle, concat(', NÚMERO: ', domicilios.numero, ', '), concat_ws(' / ', geo.NOM_LOC, geo.NOM_MUN))) as domicilio,
+IF((SELECT aspirante_id
+FROM revision_registros
+WHERE efectuado = 1 AND revision_registros.aspirante_id = aspirantes.id) IS NOT NULL, 'SI', 'NO') AS tiene_pago,
+if((SELECT aspirante_id
+FROM revision_registros
+WHERE revision_registros.aspirante_id = aspirantes.id) IS NOT NULL, 'SI', 'NO') AS envio_registro,
+if((SELECT aspirante_id
+FROM pases_examen
+WHERE pases_examen.aspirante_id = aspirantes.id) IS NOT NULL, 'SI', 'NO') AS con_pase,
+concat_ws(' - ', planteles.descripcion, especialidades.referencia) AS primera_opcion,
+planteles.nombre_municipio
+FROM aspirantes
+INNER JOIN users ON aspirantes.user_id = users.id
+INNER JOIN seleccion_ofertas_educativas soe ON aspirantes.id = soe.aspirante_id AND preferencia = 1
+INNER JOIN ofertas_educativas ON soe.oferta_educativa_id = ofertas_educativas.id
+INNER JOIN planteles ON ofertas_educativas.plantel_id = planteles.id
+INNER JOIN especialidades ON ofertas_educativas.especialidad_id = especialidades.id
+INNER JOIN subsistemas ON planteles.subsistema_id = subsistemas.id
+LEFT JOIN domicilios ON aspirantes.domicilio_id = domicilios.id
+LEFT JOIN geodatabase.mun_loc_qroo_camp AS geo ON geo.CVE_ENT = domicilios.cve_ent AND geo.CVE_MUN = domicilios.cve_mun AND geo.CVE_LOC = domicilios.cve_loc
+WHERE planteles.id = ?";
+    }
+
+    public function listadoAspirantesPorSubsistema()
+    {
+        return "SELECT aspirantes.folio,
+concat_ws(' ', users.nombre, users.primer_apellido, users.segundo_apellido) AS nombre_completo,
+aspirantes.curp,
+users.email,
+upper(concat_ws(' ', domicilios.calle, concat(', NÚMERO: ', domicilios.numero, ', '), concat_ws(' / ', geo.NOM_LOC, geo.NOM_MUN))) as domicilio,
+IF((SELECT aspirante_id
+FROM revision_registros
+WHERE efectuado = 1 AND revision_registros.aspirante_id = aspirantes.id) IS NOT NULL, 'SI', 'NO') AS tiene_pago,
+if((SELECT aspirante_id
+FROM revision_registros
+WHERE revision_registros.aspirante_id = aspirantes.id) IS NOT NULL, 'SI', 'NO') AS envio_registro,
+if((SELECT aspirante_id
+FROM pases_examen
+WHERE pases_examen.aspirante_id = aspirantes.id) IS NOT NULL, 'SI', 'NO') AS con_pase,
+concat_ws(' - ', planteles.descripcion, especialidades.referencia) AS primera_opcion,
+planteles.nombre_municipio
+FROM aspirantes
+INNER JOIN users ON aspirantes.user_id = users.id
+INNER JOIN seleccion_ofertas_educativas soe ON aspirantes.id = soe.aspirante_id AND preferencia = 1
+INNER JOIN ofertas_educativas ON soe.oferta_educativa_id = ofertas_educativas.id
+INNER JOIN planteles ON ofertas_educativas.plantel_id = planteles.id
+INNER JOIN especialidades ON ofertas_educativas.especialidad_id = especialidades.id
+INNER JOIN subsistemas ON planteles.subsistema_id = subsistemas.id
+INNER JOIN domicilios ON aspirantes.domicilio_id = domicilios.id
+INNER JOIN geodatabase.mun_loc_qroo_camp AS geo ON geo.CVE_ENT = domicilios.cve_ent AND geo.CVE_MUN = domicilios.cve_mun AND geo.CVE_LOC = domicilios.cve_loc
+WHERE subsistemas.id = ?";
+    }
 }
