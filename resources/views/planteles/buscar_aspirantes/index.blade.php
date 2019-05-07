@@ -6,7 +6,16 @@
         <div class="row">
             <div class="col">@include('flash::message')</div>
         </div>
-
+        <div class="row mb-3">
+            <div class="col">
+                <form action="{{ route('reporte.general.aspirnates') }}" method="post">
+                    @csrf()
+                    <button class="btn btn-success">
+                        Descargar listado
+                    </button>
+                </form>
+            </div>
+        </div>
         <div class="row">
             <div class="col">
                 <div class="card">
