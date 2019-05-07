@@ -147,6 +147,15 @@
                                 </div>
                             </div>
 
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <h5>Reporte de demandas, ofertas, registros y aforos por plantel</h5>
+                                </div>
+                                <div class="col-4">
+                                    <a href="{{ route('media.reporteDemanda') }}" target="_blank" class="btn btn-success btn-sm">Generar</a>
+                                </div>
+                            </div>
+
 
 
                         @endif
