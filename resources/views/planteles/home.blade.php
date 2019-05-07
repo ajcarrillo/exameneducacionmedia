@@ -170,7 +170,7 @@
             <div class="col">
                 <a class="btn" style="background:#00a65a;color: white;font-size: 13pt" href="{{route('planteles.reporte',['formato'=>2])}}" id="btn_imprimir">Listado
                     de Acuse</a>
-                <a class="btn" style="background:#00a65a;color: white;font-size: 13pt" href="{{route('planteles.reporte',['formato'=>3])}}" id="btn_imprimir">Listado
+                <a class="btn" style="background:#00a65a;color: white;font-size: 13pt" href="{{route('planteles.reporte',['formato'=>3])}}" id="btn_imprimir" target="_blank">Listado
                     General</a>
                 <a class="btn" style="background:#00a65a;color: white;font-size: 13pt" href="{{route('planteles.reporte',['formato'=>1])}}" id="btn_imprimir">Listado
                     de Alumnos</a>

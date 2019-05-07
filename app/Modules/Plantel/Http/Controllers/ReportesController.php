@@ -62,7 +62,7 @@ class ReportesController extends Controller
                     //->groupBy('aulas.id', 'users.id')
                     ->orderBy('pases_examen.numero_lista', 'asc')
                     ->get();
-                
+
                 $pdf->setOption('header-html', view('planteles.header'))
                     ->setOption('footer-html', view('planteles.footer'))
                     ->setOption('margin-bottom', '20mm')
@@ -87,6 +87,10 @@ class ReportesController extends Controller
                     ->orderBy('users.primer_apellido', 'asc')
                     ->groupBy('aulas.id', 'users.id')
                     ->get();
+                $pdf->setOption('header-html', view('planteles.header3', compact('plantel')))
+                    ->setOption('footer-html', view('planteles.footer'))
+                    ->setOption('margin-bottom', '20mm')
+                    ->setOption('margin-top', '35mm');
                 $pdf->loadView('planteles.reportes3', compact('query', 'plantel'));
                 break;
         }
