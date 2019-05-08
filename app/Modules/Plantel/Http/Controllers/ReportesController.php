@@ -23,7 +23,6 @@ class ReportesController extends Controller
             ->setOrientation('portrait')
             //->setOption('disable-smart-shrinking', true)
             ->setOption('footer-font-size', 10)
-
             ->setOption('encoding', 'utf-8')
             ->setOption('zoom', '1');
 
@@ -36,20 +35,20 @@ class ReportesController extends Controller
             ->groupBy('aulas.id')
             ->get();
 
-          $query = DB::table('pases_examen')
+        $query = DB::table('pases_examen')
             ->join('aspirantes', 'pases_examen.aspirante_id', '=', 'aspirantes.id')
             ->join('users', 'users.id', '=', 'aspirantes.user_id')
             ->join('seleccion_ofertas_educativas', function ($join) {
-                  $join->on('aspirantes.id', '=', 'seleccion_ofertas_educativas.aspirante_id')
-                      ->where('seleccion_ofertas_educativas.preferencia', '=', 1);
-              })
+                $join->on('aspirantes.id', '=', 'seleccion_ofertas_educativas.aspirante_id')
+                    ->where('seleccion_ofertas_educativas.preferencia', '=', 1);
+            })
             ->join('ofertas_educativas', 'seleccion_ofertas_educativas.oferta_educativa_id', '=', 'ofertas_educativas.id')
             ->join('planteles', 'ofertas_educativas.plantel_id', '=', 'planteles.id')
             ->join('especialidades', 'ofertas_educativas.especialidad_id', '=', 'especialidades.id')
             ->join('aulas', function ($join) {
-                  $join->on('pases_examen.aula_id', '=', 'aulas.id')
-                      ->where('aulas.edificio_type', 'plantel');
-              })
+                $join->on('pases_examen.aula_id', '=', 'aulas.id')
+                    ->where('aulas.edificio_type', 'plantel');
+            })
             ->where('planteles.id', Auth::user()->plantel->id);
 
 
@@ -58,11 +57,11 @@ class ReportesController extends Controller
 
             case 1 :
                 $nombre_file = 'Listado_Alumnos_por_Aula';
-                $query       = $query->select('aspirantes.id as aspirante','pases_examen.numero_lista', DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'), 'aspirantes.folio as folio_ceneval', 'aulas.id as no_aula', 'aulas.capacidad', 'especialidades.referencia as especialidad', 'aulas.id')
+                $query       = $query->select('aspirantes.id as aspirante', 'pases_examen.numero_lista', DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'), 'aspirantes.folio as folio_ceneval', 'aulas.id as no_aula', 'aulas.capacidad', 'especialidades.referencia as especialidad', 'aulas.id')
                     //->groupBy('aulas.id', 'users.id')
                     ->orderBy('pases_examen.numero_lista', 'asc')
                     ->get();
-                
+
                 $pdf->setOption('header-html', view('planteles.header'))
                     ->setOption('footer-html', view('planteles.footer'))
                     ->setOption('margin-bottom', '20mm')
@@ -73,8 +72,14 @@ class ReportesController extends Controller
                 break;
             case 2:
                 $nombre_file = 'reporte_de_acuse';
-                $query       = $query->select('aulas.id', 'aulas.referencia', 'pases_examen.numero_lista', 'aulas.capacidad', DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'), 'aulas.id as no_aula', 'aspirantes.folio', 'planteles.descripcion')->groupBy('aulas.id', 'users.id')->get();
-                $pdf->setOrientation('landscape');
+                $query       = $query->select('aulas.id', 'aulas.referencia', 'pases_examen.numero_lista', 'aulas.capacidad', DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'), 'aulas.id as no_aula', 'aspirantes.folio', 'planteles.descripcion')->groupBy('aulas.id', 'users.id')
+                    ->orderBy('pases_examen.numero_lista', 'asc')->get();
+                $pdf->setOption('header-html', view('planteles.header'))
+                    ->setOption('footer-html', view('planteles.footer'))
+                    ->setOption('margin-top', '34mm')
+                    ->setOption('margin-bottom', '20mm')
+                    ->setOrientation('landscape');
+
                 $pdf->loadView('planteles.reportes2', compact('query', 'aulas'));
                 break;
             case 3:
