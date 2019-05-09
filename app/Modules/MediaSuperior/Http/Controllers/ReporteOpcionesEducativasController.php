@@ -138,4 +138,32 @@ class ReporteOpcionesEducativasController
 
     }
 
+    public function reporteAspirantexSubsistema(Request $request, PlantelRepository $repository){
+
+        $query = $repository->aspirantes_eligieron_subsistema(['subsistema'=>$request->subsistema_aspirantes])->get();
+        $collection = collect($query);
+        $datos = $collection->groupBy('cve_mun');
+        $graf = [];
+
+        //return $datos;
+        $pdf = app('snappy.pdf.wrapper');
+        header('Content-Type: application/pdf');
+        $pdf->setPaper('letter')
+            //->setOrientation('landscape')
+            ->setOption('margin-bottom', '10mm')
+            ->setOption('margin-top', '30mm')
+            ->setOption('margin-right', '10mm')
+            ->setOption('margin-left', '10mm')
+            ->setOption('disable-smart-shrinking', true)
+            ->setOption('footer-font-size', 10)
+            ->setOption('header-html', view('media_superior.administracion.reporte_aspirantes_pra_opcion_subsitema.header', compact('datos')))
+            ->setOption('footer-center',utf8_decode('Página [page] de [topage]'))
+            ->setOption('encoding', 'utf-8')
+            ->setOption('zoom', '1');
+
+        $pdf->loadView('media_superior.administracion.reporte_aspirantes_pra_opcion_subsitema.reporte', compact('datos','graf'));
+        return $pdf->inline('reporte_gral_por_subsistema.pdf');
+
+    }
+
 }

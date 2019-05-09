@@ -266,4 +266,23 @@ WHERE `planteles`.`active` = 1 AND `ofertas_educativas`.`active` = 1
 GROUP BY `planteles`.`id`) AS plantel_oferta ON `planteles`.`id` = `plantel_oferta`.`id`
 WHERE `planteles`.`id` = ? AND `planteles`.`active` = 1';
     }
+
+    public function aspirantes_eligieron_subsistema(array $params = []){
+
+        $query = $this->newQuery()
+            ->filterBy(new PlantelesFilter, $params)
+            ->select('planteles.cve_mun','planteles.nombre_municipio', 'planteles.descripcion', 'especialidades.referencia', DB::raw('count(pases_examen.aspirante_id)  concluidos'), DB::raw('count(seleccion_ofertas_educativas.aspirante_id)  seleccion'), 'planteles.subsistema_id', DB::raw('subsistemas.referencia as subsistema'), DB::raw('subsistemas.descripcion as subsistema_desc'))
+            ->join('ofertas_educativas', 'planteles.id', '=', 'ofertas_educativas.plantel_id')
+            ->join('especialidades', 'especialidades.id', '=', 'ofertas_educativas.especialidad_id')
+            ->join('subsistemas', 'subsistemas.id', '=', 'planteles.subsistema_id')
+            ->leftJoin('seleccion_ofertas_educativas', function ($join) {
+                $join->on('ofertas_educativas.id','=','seleccion_ofertas_educativas.oferta_educativa_id')
+                    ->whereRaw('seleccion_ofertas_educativas.preferencia = 1');
+            })
+            ->leftjoin('pases_examen','seleccion_ofertas_educativas.aspirante_id','=','pases_examen.aspirante_id')
+            ->orderBy('planteles.nombre_municipio','planteles.descripcion','planteles.nombre_municipio', 'especialidades.referencia')
+            ->groupBy('planteles.nombre_municipio','planteles.descripcion','planteles.nombre_municipio', 'especialidades.referencia','planteles.subsistema_id','planteles.cve_mun');
+
+        return $query;
+    }
 }

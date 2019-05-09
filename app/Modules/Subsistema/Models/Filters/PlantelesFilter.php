@@ -46,4 +46,5 @@ class PlantelesFilter extends QueryFilter
                 ->orWhere('clave', 'like', "%{$search}%");
         });
     }
+
 }

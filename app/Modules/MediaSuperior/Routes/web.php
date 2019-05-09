@@ -216,5 +216,7 @@ Route::prefix('/reporte-opciones-educativas')
         Route::get('/reporte-gral-subsistema', 'ReporteOpcionesEducativasController@reporteGralsubsistema')->name('reporteGralSubsistema');
         Route::get('/reporte-demanda', 'ReporteOpcionesEducativasController@reporteDemandaOferta')->name('reporteDemanda');
 
+        Route::get('/aspirantes-por-subsistema', 'ReporteOpcionesEducativasController@reporteAspirantexSubsistema')->name('reporteAspirantes');
+
     });
 
