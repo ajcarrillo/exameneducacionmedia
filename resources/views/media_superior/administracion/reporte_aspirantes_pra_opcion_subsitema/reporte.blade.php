@@ -116,17 +116,24 @@
             </table>
             <div class="page"></div>
         @endforeach
+
+            @php($tot = collect($graf))
+            <div style="background-color: lightgrey;text-align: center; padding-top: 30px; padding-bottom: 30px">
+                TOTAL GENERAL DE ASPIRANTES:<br><b>{{$tot->sum('y')}}</b>
+            </div>
+    <div id="container" data-info="{{json_encode($graf)}}" style="width: 700px"></div>
+
     <table>
         <tr>
             <td>
-                <div id="container" data-info="{{json_encode($graf)}}" style="width: 400px"></div>
+
             </td>
-            <td width="300px">
+            {{--<td width="300px">
                 @php($tot = collect($graf))
                 <div style="background-color: lightgrey;text-align: center">
                     TOTAL GENERAL DE ASPIRANTES:<br><b>{{$tot->sum('y')}}</b>
                 </div>
-            </td>
+            </td>--}}
         </tr>
     </table>
 </div>
@@ -157,11 +164,27 @@
             align: 'right',
             verticalAlign: 'middle'
         },
+        /*plotOptions: {
+            pie: {
+                connectorAllowed: false,
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                }
+            }
+        },*/
 
         plotOptions: {
             series: {
-                label: {
-                    connectorAllowed: false
+                /*label: {
+                    connectorAllowed: false,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                },*/
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
                 },
                 pointStart: 2010,
                 animation: false
