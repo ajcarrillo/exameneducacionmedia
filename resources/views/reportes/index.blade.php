@@ -156,6 +156,59 @@
                                 </div>
                             </div>
 
+                            <div class="row mt-3">
+                                <form action="{{route('media.reporteAspirantes')}}" method="get">
+                                <div class="col-12">
+                                   <h5>Reporte del total de aspirantes según susbsistema como primera opción</h5>
+                                </div>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <select
+                                                    name="subsistema_aspirantes"
+                                                    id="subsistema"
+                                                    class="form-control form-control-sm"
+                                            >
+                                                <option value="">Subsistemas</option>
+                                                @foreach($subsistemas as $subsistema)
+                                                    <option value="{{ $subsistema->id }}">{{ $subsistema->referencia }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-4">
+                                            <button class="btn btn-success btn-sm">Generar</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                </form>
+                            </div>
+
+                                {{--<h5>Reporte del total de aspirantes según susbsistema como primera opción</h5>
+                                <form action="{{route('media.repOfertas')}}" method="get" class="d-flex">
+
+                                </form>--}}
+
+                                        {{--<div class="row">
+                                            <h5>Reporte del total de aspirantes según susbsistema como primera opción</h5>
+                                        </div>
+                                        <div class="row">
+                                                <select
+                                                        name="subsistema_ofertas"
+                                                        id="subsistema"
+                                                        class="form-control form-control-sm"
+                                                >
+                                                    <option value="">Subsistemas</option>
+                                                    @foreach($subsistemas as $subsistema)
+                                                        <option value="{{ $subsistema->id }}">{{ $subsistema->referencia }}</option>
+                                                    @endforeach
+                                                </select>
+
+                                        </div>--}}
+
+
+
+
 
 
                         @endif
