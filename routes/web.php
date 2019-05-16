@@ -14,6 +14,9 @@
 Route::post('/aspirantes-listado-general', 'Reportes\AspiranteController@export')
     ->name('reporte.general.aspirnates');
 
+Route::post('/listado-general-mslp', 'Reportes\AspiranteController@listadoGeneralSMLP')
+    ->name('reporte.general.mslp');
+
 Route::get('/prueba-stress', function () {
     $repo = new \Subsistema\Repositories\OfertaEducativaRepository();
 

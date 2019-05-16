@@ -83,54 +83,54 @@
                                 </div>
                             </div>
                         @endforeach
-                            <h5>Reporte de ofertas educativas</h5>
+                        <h5>Reporte de ofertas educativas</h5>
                         <form action="{{route('media.repOfertas')}}" method="get" class="d-flex">
 
 
-                                @if($userRoles->contains('departamento'))
-                                    <div class="form-group mr-3">
-                                        <select name="municipio"
-                                                id="municipio"
-                                                class="form-control form-control-sm"
-                                        >
-                                            <option value="">Municipios</option>
-                                            @foreach($municipios as $municipio)
-                                                <option value="{{ $municipio->CVE_MUN }}">{{ $municipio->NOM_MUN }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group mr-3">
-                                        <select
-                                                name="subsistema_ofertas"
-                                                id="subsistema"
-                                                class="form-control form-control-sm"
-                                        >
-                                            <option value="">Subsistemas</option>
-                                            @foreach($subsistemas as $subsistema)
-                                                <option value="{{ $subsistema->id }}">{{ $subsistema->referencia }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group mr-3">
-                                        <select
-                                                name="plantel_ofertas"
-                                                id="plantel"
-                                                class="form-control form-control-sm"
-                                        >
-                                            <option value="">Planteles</option>
-                                            @foreach($planteles as $plantel)
-                                                <option value="{{ $plantel->id }}">{{ $plantel->descripcion }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                @else
-                                    @if($userRoles->contains('subsistema'))
-                                        <input type="hidden" name="subsistema_ofertas" value="{{ get_user()->subsistema->id }}">
-                                    @endif
-                                    @if($userRoles->contains('plantel'))
-                                       <input type="hidden" name="plantel_ofertas" value="{{ get_user()->plantel->id }}">
-                                    @endif
+                            @if($userRoles->contains('departamento'))
+                                <div class="form-group mr-3">
+                                    <select name="municipio"
+                                            id="municipio"
+                                            class="form-control form-control-sm"
+                                    >
+                                        <option value="">Municipios</option>
+                                        @foreach($municipios as $municipio)
+                                            <option value="{{ $municipio->CVE_MUN }}">{{ $municipio->NOM_MUN }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group mr-3">
+                                    <select
+                                        name="subsistema_ofertas"
+                                        id="subsistema"
+                                        class="form-control form-control-sm"
+                                    >
+                                        <option value="">Subsistemas</option>
+                                        @foreach($subsistemas as $subsistema)
+                                            <option value="{{ $subsistema->id }}">{{ $subsistema->referencia }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group mr-3">
+                                    <select
+                                        name="plantel_ofertas"
+                                        id="plantel"
+                                        class="form-control form-control-sm"
+                                    >
+                                        <option value="">Planteles</option>
+                                        @foreach($planteles as $plantel)
+                                            <option value="{{ $plantel->id }}">{{ $plantel->descripcion }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @else
+                                @if($userRoles->contains('subsistema'))
+                                    <input type="hidden" name="subsistema_ofertas" value="{{ get_user()->subsistema->id }}">
                                 @endif
+                                @if($userRoles->contains('plantel'))
+                                    <input type="hidden" name="plantel_ofertas" value="{{ get_user()->plantel->id }}">
+                                @endif
+                            @endif
 
                             <div class="form-group">
                                 <button class="btn btn-success btn-sm">Generar</button>
@@ -158,61 +158,47 @@
 
                             <div class="row mt-3">
                                 <form action="{{route('media.reporteAspirantes')}}" method="get">
-                                <div class="col-12">
-                                   <h5>Reporte del total de aspirantes según susbsistema como primera opción</h5>
-                                </div>
-                                <div class="col-12">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <select
+                                    <div class="col-12">
+                                        <h5>Reporte del total de aspirantes según susbsistema como primera opción</h5>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <select
                                                     name="subsistema_aspirantes"
                                                     id="subsistema"
                                                     class="form-control form-control-sm"
-                                            >
-                                                <option value="">Subsistemas</option>
-                                                @foreach($subsistemas as $subsistema)
-                                                    <option value="{{ $subsistema->id }}">{{ $subsistema->referencia }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-4">
-                                            <button class="btn btn-success btn-sm">Generar</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                </form>
-                            </div>
-
-                                {{--<h5>Reporte del total de aspirantes según susbsistema como primera opción</h5>
-                                <form action="{{route('media.repOfertas')}}" method="get" class="d-flex">
-
-                                </form>--}}
-
-                                        {{--<div class="row">
-                                            <h5>Reporte del total de aspirantes según susbsistema como primera opción</h5>
-                                        </div>
-                                        <div class="row">
-                                                <select
-                                                        name="subsistema_ofertas"
-                                                        id="subsistema"
-                                                        class="form-control form-control-sm"
                                                 >
                                                     <option value="">Subsistemas</option>
                                                     @foreach($subsistemas as $subsistema)
                                                         <option value="{{ $subsistema->id }}">{{ $subsistema->referencia }}</option>
                                                     @endforeach
                                                 </select>
+                                            </div>
+                                            <div class="col-4">
+                                                <button class="btn btn-success btn-sm">Generar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
 
-                                        </div>--}}
-
-
-
-
-
-
+                            <div class="row mt-3">
+                                <form action="{{route('reporte.general.mslp')}}" method="post">
+                                    @csrf
+                                    <div class="col-12">
+                                        <h5>Reporte general por municipio, subsistema, localidad y plantel</h5>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <button class="btn btn-success btn-sm">Generar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         @endif
-
                     </div>
                 </div>
             </div>

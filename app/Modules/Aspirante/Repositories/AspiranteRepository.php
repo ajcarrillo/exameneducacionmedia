@@ -182,4 +182,101 @@ FROM aspirantes
     LEFT JOIN informacion_procedencias ip ON aspirantes.informacion_procedencia_id = ip.id
 WHERE subsistemas.id = ?";
     }
+
+    public function listadoGeneralPorMunSubLocPlantel()
+    {
+        return "SELECT planteles.nombre_municipio,
+subsistemas.referencia AS subsistema,
+planteles.nombre_localidad,
+planteles.descripcion plantel,
+IF(IsNull(sum(proceso_completo)), 0, sum(proceso_completo)) AS proceso_completo,
+IF(IsNull(sum(aspirantes_sin_pase.sin_pase)), 0, sum(aspirantes_sin_pase.sin_pase)) AS sin_pase,
+IF(IsNull(sum(sin_registro)), 0, sum(sin_registro)) AS sin_registro,
+IF(IsNull(sum(aspirantes_con_registro_sin_pago.con_pago)), 0, sum(aspirantes_con_registro_sin_pago.con_pago)) AS con_registro_sin_pago,
+IF(IsNull(sum(demanda)), 0, sum(demanda)) AS demanda,
+IF(IsNull(sum(oferta)), 0, sum(oferta)) AS oferta,
+IF(IsNull(sum(aforo)), 0, sum(aforo)) AS aforo
+FROM planteles
+INNER JOIN subsistemas ON planteles.subsistema_id = subsistemas.id
+INNER JOIN geodatabase.mun_loc_qroo_camp AS geo
+ON planteles.cve_ent = geo.CVE_ENT AND planteles.cve_mun = geo.CVE_MUN AND planteles.cve_loc = geo.CVE_LOC
+
+LEFT JOIN (SELECT planteles.id,
+count(planteles.id) AS proceso_completo
+FROM pases_examen
+INNER JOIN aspirantes ON pases_examen.aspirante_id = aspirantes.id
+INNER JOIN seleccion_ofertas_educativas ON aspirantes.id = seleccion_ofertas_educativas.aspirante_id AND
+                              seleccion_ofertas_educativas.preferencia = 1
+INNER JOIN ofertas_educativas ON seleccion_ofertas_educativas.oferta_educativa_id = ofertas_educativas.id
+INNER JOIN planteles ON ofertas_educativas.plantel_id = planteles.id
+GROUP BY planteles.id) AS aspirantes_con_pase ON planteles.id = aspirantes_con_pase.id
+
+LEFT JOIN (SELECT planteles.id,
+count(planteles.id) AS con_pago
+FROM revision_registros
+INNER JOIN aspirantes ON revision_registros.aspirante_id = aspirantes.id AND efectuado = 1
+INNER JOIN seleccion_ofertas_educativas ON aspirantes.id = seleccion_ofertas_educativas.aspirante_id AND
+                              seleccion_ofertas_educativas.preferencia = 1
+INNER JOIN ofertas_educativas ON seleccion_ofertas_educativas.oferta_educativa_id = ofertas_educativas.id
+INNER JOIN planteles ON ofertas_educativas.plantel_id = planteles.id
+GROUP BY planteles.id) AS aspirantes_con_pago ON planteles.id = aspirantes_con_pago.id
+
+LEFT JOIN (SELECT planteles.id,
+count(planteles.id) AS sin_registro
+FROM aspirantes
+LEFT JOIN revision_registros ON aspirantes.id = revision_registros.aspirante_id
+INNER JOIN seleccion_ofertas_educativas ON aspirantes.id = seleccion_ofertas_educativas.aspirante_id AND
+                              seleccion_ofertas_educativas.preferencia = 1
+INNER JOIN ofertas_educativas ON seleccion_ofertas_educativas.oferta_educativa_id = ofertas_educativas.id
+INNER JOIN planteles ON ofertas_educativas.plantel_id = planteles.id
+WHERE revision_registros.id IS NULL
+GROUP BY planteles.id) AS aspirantes_sin_registro ON planteles.id = aspirantes_sin_registro.id
+
+LEFT JOIN (SELECT planteles.id,
+count(planteles.id) AS con_pago
+FROM revision_registros
+INNER JOIN aspirantes ON revision_registros.aspirante_id = aspirantes.id AND efectuado = 0
+INNER JOIN seleccion_ofertas_educativas ON aspirantes.id = seleccion_ofertas_educativas.aspirante_id AND
+                              seleccion_ofertas_educativas.preferencia = 1
+INNER JOIN ofertas_educativas ON seleccion_ofertas_educativas.oferta_educativa_id = ofertas_educativas.id
+INNER JOIN planteles ON ofertas_educativas.plantel_id = planteles.id
+GROUP BY planteles.id) AS aspirantes_con_registro_sin_pago ON planteles.id = aspirantes_con_registro_sin_pago.id
+
+LEFT JOIN (SELECT planteles.id,
+count(planteles.id) AS demanda
+FROM planteles
+INNER JOIN ofertas_educativas ON planteles.id = ofertas_educativas.plantel_id
+INNER JOIN seleccion_ofertas_educativas
+ON seleccion_ofertas_educativas.oferta_educativa_id = ofertas_educativas.id AND
+seleccion_ofertas_educativas.preferencia = 1
+GROUP BY planteles.id) AS demandas ON planteles.id = demandas.id
+
+LEFT JOIN (SELECT planteles.id,
+sum((oferta_educativa_grupos.alumnos * oferta_educativa_grupos.grupos)) AS oferta
+FROM planteles
+INNER JOIN ofertas_educativas ON planteles.id = ofertas_educativas.plantel_id
+INNER JOIN oferta_educativa_grupos ON ofertas_educativas.id = oferta_educativa_grupos.oferta_educativa_id
+WHERE planteles.active = 1 AND ofertas_educativas.active = 1
+GROUP BY planteles.id) AS ofertas ON planteles.id = ofertas.id
+
+LEFT JOIN (SELECT planteles.id,
+sum(aulas.capacidad) AS aforo
+FROM aulas
+INNER JOIN planteles ON aulas.edificio_id = planteles.id
+WHERE aulas.edificio_type = \"plantel\"
+GROUP BY planteles.id) AS aforos ON planteles.id = aforos.id
+LEFT JOIN (SELECT planteles.id,
+count(planteles.id) AS sin_pase
+FROM aspirantes
+LEFT JOIN pases_examen ON aspirantes.id = pases_examen.aspirante_id
+INNER JOIN seleccion_ofertas_educativas ON aspirantes.id = seleccion_ofertas_educativas.aspirante_id AND
+                              seleccion_ofertas_educativas.preferencia = 1
+INNER JOIN ofertas_educativas ON seleccion_ofertas_educativas.oferta_educativa_id = ofertas_educativas.id
+INNER JOIN planteles ON ofertas_educativas.plantel_id = planteles.id
+WHERE pases_examen.id IS NULL
+GROUP BY planteles.id) AS aspirantes_sin_pase ON planteles.id = aspirantes_sin_pase.id
+WHERE planteles.active = 1
+GROUP BY subsistemas.referencia, nombre_municipio, nombre_localidad, planteles.descripcion
+ORDER BY nombre_municipio, subsistemas.referencia, nombre_localidad, planteles.descripcion";
+    }
 }
