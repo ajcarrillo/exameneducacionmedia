@@ -109,23 +109,35 @@ class SedeAlternaController extends Controller
         DB::beginTransaction();
 
         try {
-            SedeAlterna::find($request->input('id'))->update($request->all());
-            Domicilio::find($request->input('domicilio_id'))->update($request->all());
+            SedeAlterna::find($id)->update($request->input());
+
+            Domicilio::find($request->input('domicilio_id'))
+                ->update($request->only(
+                    'cve_ent',
+                    'cve_mun',
+                    'cve_loc',
+                    'colonia',
+                    'calle',
+                    'numero',
+                    'codigo_postal'
+                ));
 
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
             $error = true;
+            flash($e->getMessage())->success();
         } catch (\Throwable $e) {
             DB::rollback();
             $error = true;
+            flash($e->getMessage())->success();
         }
 
-        if ( ! $error)
+        if ( ! $error) {
             flash('La sede alterna se actualizo correctamente')->success();
+        }
 
-
-        return redirect(route('media.administracion.sedesAlternas.index'));
+        return back();
     }
 
     protected function getMunicipios()
