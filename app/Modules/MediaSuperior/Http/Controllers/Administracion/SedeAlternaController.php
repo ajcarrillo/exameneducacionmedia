@@ -167,9 +167,9 @@ class SedeAlternaController extends Controller
 
     public function aulas($sede_id)
     {
-
-        $aulas       = Aula::where('edificio_id', $sede_id)->get();
         $sedeAlterna = SedeAlterna::find($sede_id);
+
+        $aulas = $sedeAlterna->aulas;
 
         return view('media_superior.administracion.sedesAlternas.aulas', compact('sedeAlterna', 'aulas'));
     }
