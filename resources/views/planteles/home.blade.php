@@ -205,13 +205,13 @@
                                             {{ floor(($sede->totalPases()/$sede->capacidadTotal()) * 100) }}%
                                         </td>
                                     </tr>
-                                    <tr>
+                                    {{--<tr>
                                         <td colspan="5">
                                             <a href="#" class="btn btn-success">Listado acuse</a>
                                             <a href="#" class="btn btn-success">Listado general</a>
                                             <a href="#" class="btn btn-success">Listado alumnos</a>
                                         </td>
-                                    </tr>
+                                    </tr>--}}
                                 @endforeach
                             </tbody>
                         </table>
