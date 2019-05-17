@@ -39,7 +39,7 @@ class PanelController extends Controller
 
         //TODRES: Implementar calculo de porcentaje y sedes alternas
         $porcentaje = 0;
-        $sedes      = '';
+        $sedes      = $plantel->sedesAlternas;
 
 
         return view('planteles.home', compact(

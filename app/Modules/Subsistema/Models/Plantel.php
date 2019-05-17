@@ -24,6 +24,11 @@ class Plantel extends Model
     protected $table      = 'planteles';
     protected $guarded    = [];
 
+    public function sedesAlternas()
+    {
+        return $this->hasMany(SedeAlterna::class, 'plantel_id');
+    }
+
     public function responsable()
     {
         return $this->belongsTo(User::class, 'responsable_id');

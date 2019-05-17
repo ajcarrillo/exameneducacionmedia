@@ -183,9 +183,8 @@
                     <div class="card-header">
                         <div class="card-title">Sedes alternas</div>
                     </div>
-                    <div class="card-body">
-                        <!--<div class="table-responsive-sm">-->
-                        <table class="table table-hover table-responsive-sm">
+                    <div class="card-body table-responsive">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th>Sede</th>
@@ -196,24 +195,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{--
-																@foreach($sedes as $sede)
-																	<tr>
-																		<td rowspan="2">{{ $sede->sede }}</td>
-																		<td class="text-right">{{ $sede->capacidad_aula }}</td>
-																		<td class="text-right">{{ $sede->aulas }}</td>
-																		<td class="text-right">{{ $sede->capacidad_ocupada }}</td>
-																		<td class="text-right">{{ ($sede->capacidad_ocupada / $sede->capacidad_aula)*100 }} %</td>
-																	</tr>
-																	<tr>
-																	</tr>
-																@endforeach
-								--}}
+                                @foreach($sedes as $sede)
+                                    <tr>
+                                        <td>{{ $sede->descripcion }}</td>
+                                        <td class="text-right">{{ $sede->capacidadTotal() }}</td>
+                                        <td class="text-right">{{ $sede->totalAulas() }}</td>
+                                        <td class="text-right">{{ $sede->totalPases() }}</td>
+                                        <td class="text-right">
+                                            {{ floor(($sede->totalPases()/$sede->capacidadTotal()) * 100) }}%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <a href="#" class="btn btn-success">Listado acuse</a>
+                                            <a href="#" class="btn btn-success">Listado general</a>
+                                            <a href="#" class="btn btn-success">Listado alumnos</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
-                        <!--</div>-->
                     </div>
-                    <div class="card-footer"></div>
                 </div>
             </div>
         </div>

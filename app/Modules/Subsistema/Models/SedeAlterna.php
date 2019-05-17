@@ -19,7 +19,7 @@ class SedeAlterna extends Model
 
     protected $table    = 'sedes_alternas';
     protected $fillable = [
-        'descripcion', 'domicilio_id', 'plantel_id', 'sede_ceneval'
+        'descripcion', 'domicilio_id', 'plantel_id', 'sede_ceneval',
     ];
 
 
@@ -36,5 +36,25 @@ class SedeAlterna extends Model
     public function aulas()
     {
         return $this->morphMany(Aula::class, 'edificio');
+    }
+
+    public function capacidadTotal()
+    {
+        return $this->aulas()->sum('capacidad');
+    }
+
+    public function totalAulas()
+    {
+        return $this->aulas()->count();
+    }
+
+    public function totalPases()
+    {
+        $total = 0;
+        foreach ($this->aulas as $aula) {
+            $total += $aula->totalPasesExamen();
+        }
+
+        return $total;
     }
 }

@@ -9,6 +9,7 @@
 namespace Subsistema\Models;
 
 
+use Aspirante\Models\Pase;
 use Illuminate\Database\Eloquent\Model;
 
 class Aula extends Model
@@ -18,10 +19,21 @@ class Aula extends Model
         'referencia', 'capacidad',
     ];
 
+    public function pasesAlExamen()
+    {
+        return $this->hasMany(Pase::class, 'aula_id');
+    }
+
+    public function totalPasesExamen()
+    {
+        return $this->pasesAlExamen()->count();
+    }
+
     public function edificio()
     {
         return $this->morphTo();
     }
+
     public function setReferenciaAttribute($value)
     {
         $this->attributes['referencia'] = strtoupper($value);
