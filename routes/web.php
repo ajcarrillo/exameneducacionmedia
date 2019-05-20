@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('mailable', function () {
+    return ok([]);
+});
+
 Route::post('/aspirantes-listado-general', 'Reportes\AspiranteController@export')
     ->name('reporte.general.aspirnates');
 

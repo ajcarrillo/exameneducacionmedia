@@ -31,7 +31,7 @@ class AspiranteController extends Controller
 
     public function index(Request $request)
     {
-        $params = $request->only([ 'search' ]);
+        $params = $request->only([ 'search', 'conpagosinpase' ]);
 
         $aspirantes = $this->aspiranteRepository->listarAspirantes($params)->paginate(50);
 

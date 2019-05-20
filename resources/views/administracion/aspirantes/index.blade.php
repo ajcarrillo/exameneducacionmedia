@@ -6,10 +6,27 @@
 
 @section('content')
     <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                @include('flash::message')
+            </div>
+        </div>
         <div class="row pb-3">
             <div class="col">
                 <a href="{{ route('media.administracion.historico.curp') }}"
                    class="btn btn-primary">Ver aspirantes con problemas con curp</a>
+                <form action="{{ route('media.administracion.aspirantes.generar.pases.automaticos') }}"
+                      method="post"
+                      class="d-inline-block"
+                >
+                    @csrf
+                    @method('PATCH')
+                    <input type="hidden" name="conpagosinpase" value="1">
+                    <button class="btn btn-success">Generar pases al examen</button>
+                </form>
+            </div>
+            <div class="col">
+
             </div>
         </div>
         <div class="row">
@@ -22,8 +39,17 @@
                     </div>
                     <div class="card-body">
                         <form action="" method="get"
-                              class="d-flex">
+                              class="d-flex align-items-center">
                             <div class="pr-3 flex-fill">
+                                <label class="checkbox-inline">
+                                    <input type="radio"
+                                           name="conpagosinpase"
+                                           id="conpagosinpase"
+                                           value="1"
+                                        {{ !request('conpagosinpase') ?: 'checked' }}
+                                    >
+                                    Aspirantes con pago sin pase
+                                </label>
                                 <input type="text"
                                        class="form-control"
                                        name="search"
@@ -34,7 +60,7 @@
                                 >
                                 <small class="text-muted">Mínimo 4 caracteres</small>
                             </div>
-                            <div>
+                            <div class="align-self-center">
                                 <button class="btn btn-primary">Buscar</button>
                             </div>
                         </form>
