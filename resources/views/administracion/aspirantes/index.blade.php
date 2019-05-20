@@ -22,8 +22,17 @@
                     </div>
                     <div class="card-body">
                         <form action="" method="get"
-                              class="d-flex">
+                              class="d-flex align-items-center">
                             <div class="pr-3 flex-fill">
+                                <label class="checkbox-inline">
+                                    <input type="radio"
+                                           name="conpagosinpase"
+                                           id="conpagosinpase"
+                                           value="1"
+                                        {{ !request('conpagosinpase') ?: 'checked' }}
+                                    >
+                                    Aspirantes con pago sin pase
+                                </label>
                                 <input type="text"
                                        class="form-control"
                                        name="search"
@@ -34,7 +43,7 @@
                                 >
                                 <small class="text-muted">Mínimo 4 caracteres</small>
                             </div>
-                            <div>
+                            <div class="align-self-center">
                                 <button class="btn btn-primary">Buscar</button>
                             </div>
                         </form>
