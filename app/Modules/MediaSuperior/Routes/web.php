@@ -42,6 +42,7 @@ Route::middleware([ 'auth', 'role:departamento' ])
             ->group(function () {
                 Route::get('/', 'AspiranteController@index')->name('index');
                 Route::get('/buscar', 'SPA\BuscarAspiranteController@index')->name('buscar');
+                Route::patch('/generar-pases-automaticos', 'GenerarPaseAutomaticoController@update')->name('generar.pases.automaticos');
                 Route::get('/show/{id}', 'AspiranteController@show')->name('show');
                 Route::patch('/show/{id}', 'AspiranteController@update')->name('update');
             });

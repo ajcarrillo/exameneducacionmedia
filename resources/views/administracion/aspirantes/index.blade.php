@@ -6,10 +6,27 @@
 
 @section('content')
     <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                @include('flash::message')
+            </div>
+        </div>
         <div class="row pb-3">
             <div class="col">
                 <a href="{{ route('media.administracion.historico.curp') }}"
                    class="btn btn-primary">Ver aspirantes con problemas con curp</a>
+                <form action="{{ route('media.administracion.aspirantes.generar.pases.automaticos') }}"
+                      method="post"
+                      class="d-inline-block"
+                >
+                    @csrf
+                    @method('PATCH')
+                    <input type="hidden" name="conpagosinpase" value="1">
+                    <button class="btn btn-success">Generar pases al examen</button>
+                </form>
+            </div>
+            <div class="col">
+
             </div>
         </div>
         <div class="row">
