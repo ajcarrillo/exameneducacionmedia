@@ -33,7 +33,7 @@ class GenerarPaseAutomaticoController extends Controller
             ->onConnection('database_pases_automaticos')
             ->onQueue('pases_automaticos');
 
-        flash('Los pases al examen se están generando')->success();
+        flash('Los pases al examen se están generando, al terminar se enviará los resultados a tu correo electrónico')->success();
 
         return back();
     }

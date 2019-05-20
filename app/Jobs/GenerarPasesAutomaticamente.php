@@ -4,11 +4,14 @@ namespace ExamenEducacionMedia\Jobs;
 
 use Aspirante\Models\Aspirante;
 use Aspirante\Repositories\AspiranteRepository;
+use ExamenEducacionMedia\Mail\EnviarInformacionPasesAutomaticosMail;
+use ExamenEducacionMedia\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Mail;
 use Throwable;
 
 class GenerarPasesAutomaticamente implements ShouldQueue
@@ -39,13 +42,29 @@ class GenerarPasesAutomaticamente implements ShouldQueue
      */
     public function handle()
     {
-        try {
-            foreach ($this->aspirantes as $a) {
+        $totalAspirantes = $this->aspirantes->count();
+        $generados       = 0;
+        $planteles       = [];
+        foreach ($this->aspirantes as $a) {
+            try {
                 $aspirante = Aspirante::find($a->id);
-
                 $aspirante->asignarPase();
+                $generados += 1;
+            } catch (\Exception $e) {
+                $opcion = Aspirante::query()
+                    ->find($a->id)
+                    ->opcionesEducativas()
+                    ->with('ofertaEducativa', 'ofertaEducativa.plantel:id,descripcion')
+                    ->where('preferencia', 1)
+                    ->first();
+
+                array_push($planteles, $opcion->ofertaEducativa->plantel->descripcion);
             }
-        } catch (\Exception $e) {
         }
+
+        $user = User::whereIn('email', [ 'paenms.media@gmail.com', 'andresjch2804@gmail.com' ])->get();
+
+        Mail::to($user)
+            ->send(new EnviarInformacionPasesAutomaticosMail($totalAspirantes, $generados, $planteles));
     }
 }
