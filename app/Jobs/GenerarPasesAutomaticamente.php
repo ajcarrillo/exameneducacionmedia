@@ -21,17 +21,16 @@ class GenerarPasesAutomaticamente implements ShouldQueue
      * @var AspiranteRepository
      */
     private $aspiranteRepository;
-    private $aspirantes;
 
     /**
      * Create a new job instance.
      *
-     * @param $aspirantes
+     * @param AspiranteRepository $aspiranteRepository
      */
-    public function __construct($aspirantes)
+    public function __construct(AspiranteRepository $aspiranteRepository)
     {
 
-        $this->aspirantes = $aspirantes;
+        $this->aspiranteRepository = $aspiranteRepository;
     }
 
     /**
@@ -42,25 +41,28 @@ class GenerarPasesAutomaticamente implements ShouldQueue
      */
     public function handle()
     {
-        $totalAspirantes = $this->aspirantes->count();
+        $totalAspirantes = $this->aspiranteRepository->listarAspirantes([ 'conpagosinpase' => 1 ])->count();
         $generados       = 0;
         $planteles       = [];
-        foreach ($this->aspirantes as $a) {
-            try {
-                $aspirante = Aspirante::find($a->id);
-                $aspirante->asignarPase();
-                $generados += 1;
-            } catch (\Exception $e) {
-                $opcion = Aspirante::query()
-                    ->find($a->id)
-                    ->opcionesEducativas()
-                    ->with('ofertaEducativa', 'ofertaEducativa.plantel:id,descripcion')
-                    ->where('preferencia', 1)
-                    ->first();
 
-                array_push($planteles, $opcion->ofertaEducativa->plantel->descripcion);
+        $this->aspiranteRepository->listarAspirantes([ 'conpagosinpase' => 1 ])->chunk(300, function ($aspirantes) use ($generados, $planteles) {
+            foreach ($aspirantes as $a) {
+                try {
+                    $aspirante = Aspirante::find($a->id);
+                    $aspirante->asignarPase();
+                    $generados += 1;
+                } catch (\Exception $e) {
+                    $opcion = Aspirante::query()
+                        ->find($a->id)
+                        ->opcionesEducativas()
+                        ->with('ofertaEducativa', 'ofertaEducativa.plantel:id,descripcion')
+                        ->where('preferencia', 1)
+                        ->first();
+
+                    array_push($planteles, $opcion->ofertaEducativa->plantel->descripcion);
+                }
             }
-        }
+        });
 
         $user = User::whereIn('email', [ 'paenms.media@gmail.com', 'andresjch2804@gmail.com' ])->get();
 

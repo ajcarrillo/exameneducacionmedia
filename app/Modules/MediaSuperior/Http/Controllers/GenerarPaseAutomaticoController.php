@@ -27,9 +27,9 @@ class GenerarPaseAutomaticoController extends Controller
 
     public function update()
     {
-        $aspirantes = $this->aspiranteRepository->listarAspirantes([ 'conpagosinpase' => 1 ])->get();
+        //$aspirantes = $this->aspiranteRepository->listarAspirantes([ 'conpagosinpase' => 1 ])->get();
 
-        GenerarPasesAutomaticamente::dispatch($aspirantes)
+        GenerarPasesAutomaticamente::dispatch($this->aspiranteRepository)
             ->onConnection('database_pases_automaticos')
             ->onQueue('pases_automaticos');
 
