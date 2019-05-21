@@ -15,15 +15,17 @@
             <div class="col">
                 <a href="{{ route('media.administracion.historico.curp') }}"
                    class="btn btn-primary">Ver aspirantes con problemas con curp</a>
-                <form action="{{ route('media.administracion.aspirantes.generar.pases.automaticos') }}"
-                      method="post"
-                      class="d-inline-block"
-                >
-                    @csrf
-                    @method('PATCH')
-                    <input type="hidden" name="conpagosinpase" value="1">
-                    <button class="btn btn-success">Generar pases al examen</button>
-                </form>
+                @can('generar_pases_automaticos')
+                    <form action="{{ route('media.administracion.aspirantes.generar.pases.automaticos') }}"
+                          method="post"
+                          class="d-inline-block"
+                    >
+                        @csrf
+                        @method('PATCH')
+                        <input type="hidden" name="conpagosinpase" value="1">
+                        <button class="btn btn-success">Generar pases al examen</button>
+                    </form>
+                @endcan
             </div>
             <div class="col">
 
