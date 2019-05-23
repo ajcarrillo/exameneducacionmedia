@@ -110,7 +110,7 @@
 								<th>LUGARES LIBRES</th>
 							</tr>
 							<tr>
-								<td>{{$aula->id}}</td>
+								<td>{{$aula->referencia}}</td>
 								<td>{{$aula->capacidad}}</td>
 								<td>{{$aula->lugares_ocupados}} </td>
 								<td>{{$aula->capacidad- $aula->lugares_ocupados}}</td>

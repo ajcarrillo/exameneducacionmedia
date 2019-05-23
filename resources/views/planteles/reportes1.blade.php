@@ -100,7 +100,7 @@ use Carbon\Carbon;
 								</thead>
 								<tbody>
 									<tr>
-										<td>{{$aula->id}}</td>
+										<td>{{$aula->referencia}}</td>
 										<td>{{$aula->capacidad}}</td>
 										<td>{{$aula->lugares_ocupados}}</td>
 										<td>{{$aula->capacidad - $aula->lugares_ocupados  }}</td>
@@ -113,7 +113,7 @@ use Carbon\Carbon;
 							<table class="table table-bordered tabledetll">
 								<thead>
 								<tr>
-									<th colspan="4" style="text-align: justify; background-color: white;"><h2>Aula: {{$aula->id}}</h2></th>
+									<th colspan="4" style="text-align: justify; background-color: white;"><h2>Aula: {{$aula->referencia}}</h2></th>
 								</tr>
 									<tr>
 										<th style="width: 100px;">No. de Lista</th>

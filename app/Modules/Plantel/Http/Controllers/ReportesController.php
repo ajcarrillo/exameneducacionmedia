@@ -28,7 +28,7 @@ class ReportesController extends Controller
             ->setOption('zoom', '1');
 
         $aulas = DB::table('planteles')
-            ->select(DB::raw('count(aspirantes.id) as lugares_ocupados, aulas.id, aulas.capacidad, planteles.descripcion'))
+            ->select(DB::raw('count(aspirantes.id) as lugares_ocupados, aulas.id, aulas.capacidad, planteles.descripcion, aulas.referencia'))
             ->join('aulas', 'planteles.id', '=', 'aulas.edificio_id')
             ->join('pases_examen', 'pases_examen.aula_id', '=', 'aulas.id')
             ->join('aspirantes', 'aspirantes.id', '=', 'pases_examen.aspirante_id')
@@ -57,7 +57,7 @@ class ReportesController extends Controller
         $formato = $request->formato;
         if($formato == 11 || $formato == 22 || $formato == 33){
             $aulas = DB::table('planteles')
-                ->select(DB::raw('count(aspirantes.id) as lugares_ocupados, aulas.id, aulas.capacidad, planteles.descripcion'))
+                ->select(DB::raw('count(aspirantes.id) as lugares_ocupados, aulas.id, aulas.capacidad, planteles.descripcion, aulas.referencia'))
                 ->join('sedes_alternas', function ($join) {
                     $join->on('sedes_alternas.plantel_id', '=', 'planteles.id')
                         ->where('sedes_alternas.id', Input::get('sede_alterna'));
@@ -99,7 +99,7 @@ class ReportesController extends Controller
 
             case 1 :
                 $nombre_file = 'Listado_Alumnos_por_Aula';
-                $query       = $query->select('aspirantes.id as aspirante', 'pases_examen.numero_lista', DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'), 'aspirantes.folio as folio_ceneval', 'aulas.id as no_aula', 'aulas.capacidad', 'especialidades.referencia as especialidad', 'aulas.id')
+                $query       = $query->select('aspirantes.id as aspirante', 'pases_examen.numero_lista', DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'), 'aspirantes.folio as folio_ceneval', 'aulas.id as no_aula', 'aulas.capacidad', 'especialidades.referencia as especialidad', 'aulas.id', 'aulas.referencia')
                     //->groupBy('aulas.id', 'users.id')
                     ->orderBy('pases_examen.numero_lista', 'asc')
                     ->get();
@@ -116,7 +116,7 @@ class ReportesController extends Controller
             case 11 :
                 $nombre_file = 'Listado_Alumnos_por_Aula';
 
-                $query = $query->select('aspirantes.id as aspirante', 'pases_examen.numero_lista', DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'), 'aspirantes.folio as folio_ceneval', 'aulas.id as no_aula', 'aulas.capacidad', 'especialidades.referencia as especialidad', 'aulas.id')
+                $query = $query->select('aspirantes.id as aspirante', 'pases_examen.numero_lista', DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'), 'aspirantes.folio as folio_ceneval', 'aulas.id as no_aula', 'aulas.capacidad', 'especialidades.referencia as especialidad', 'aulas.id', 'aulas.referencia')
                     ->orderBy('pases_examen.numero_lista', 'asc')
                     ->get();
 
