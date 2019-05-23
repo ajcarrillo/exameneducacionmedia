@@ -13,6 +13,7 @@ use ExamenEducacionMedia\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Subsistema\Models\Plantel;
+use Illuminate\Support\Facades\Input;
 
 class ReportesController extends Controller
 {
@@ -27,13 +28,14 @@ class ReportesController extends Controller
             ->setOption('zoom', '1');
 
         $aulas = DB::table('planteles')
-            ->select(DB::raw('count(aspirantes.id) as lugares_ocupados, aulas.id, aulas.capacidad, planteles.descripcion'))
+            ->select(DB::raw('count(aspirantes.id) as lugares_ocupados, aulas.id, aulas.capacidad, planteles.descripcion, aulas.referencia'))
             ->join('aulas', 'planteles.id', '=', 'aulas.edificio_id')
             ->join('pases_examen', 'pases_examen.aula_id', '=', 'aulas.id')
             ->join('aspirantes', 'aspirantes.id', '=', 'pases_examen.aspirante_id')
             ->where('planteles.id', Auth::user()->plantel->id)
             ->groupBy('aulas.id')
             ->get();
+
 
         $query = DB::table('pases_examen')
             ->join('aspirantes', 'pases_examen.aspirante_id', '=', 'aspirantes.id')
@@ -53,11 +55,51 @@ class ReportesController extends Controller
 
 
         $formato = $request->formato;
+        if($formato == 11 || $formato == 22 || $formato == 33){
+            $aulas = DB::table('planteles')
+                ->select(DB::raw('count(aspirantes.id) as lugares_ocupados, aulas.id, aulas.capacidad, planteles.descripcion, aulas.referencia'))
+                ->join('sedes_alternas', function ($join) {
+                    $join->on('sedes_alternas.plantel_id', '=', 'planteles.id')
+                        ->where('sedes_alternas.id', Input::get('sede_alterna'));
+                })
+                ->join('aulas', function ($join) {
+                    $join->on('aulas.edificio_id', '=', 'sedes_alternas.id')
+                        ->where('aulas.edificio_type', 'sede_alterna');
+                })
+
+                ->join('pases_examen', 'pases_examen.aula_id', '=', 'aulas.id')
+                ->join('aspirantes', 'aspirantes.id', '=', 'pases_examen.aspirante_id')
+                ->where('planteles.id', Auth::user()->plantel->id)
+                ->groupBy('aulas.id')
+                ->get();
+
+            $query = DB::table('planteles')
+                ->join('sedes_alternas', function ($join) {
+                    $join->on('sedes_alternas.plantel_id', '=', 'planteles.id')
+                        ->where('sedes_alternas.id', Input::get('sede_alterna'));
+                })
+                ->join('aulas', function ($join) {
+                    $join->on('aulas.edificio_id', '=', 'sedes_alternas.id')
+                        ->where('aulas.edificio_type', 'sede_alterna');
+                })
+
+                ->join('pases_examen', 'pases_examen.aula_id', '=', 'aulas.id')
+                ->join('aspirantes', 'aspirantes.id', '=', 'pases_examen.aspirante_id')
+                ->join('users', 'users.id','=', 'aspirantes.user_id')
+                ->join('seleccion_ofertas_educativas', function ($join) {
+                    $join->on('aspirantes.id','=','seleccion_ofertas_educativas.aspirante_id')
+                        ->where('seleccion_ofertas_educativas.preferencia', 1);
+                })
+                ->join('ofertas_educativas', 'seleccion_ofertas_educativas.oferta_educativa_id','=','ofertas_educativas.id')
+                ->join('especialidades','especialidades.id','=','ofertas_educativas.especialidad_id')
+                ->where('planteles.id', Auth::user()->plantel->id);
+        }
+
         switch ($formato) {
 
             case 1 :
                 $nombre_file = 'Listado_Alumnos_por_Aula';
-                $query       = $query->select('aspirantes.id as aspirante', 'pases_examen.numero_lista', DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'), 'aspirantes.folio as folio_ceneval', 'aulas.id as no_aula', 'aulas.capacidad', 'especialidades.referencia as especialidad', 'aulas.id')
+                $query       = $query->select('aspirantes.id as aspirante', 'pases_examen.numero_lista', DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'), 'aspirantes.folio as folio_ceneval', 'aulas.id as no_aula', 'aulas.capacidad', 'especialidades.referencia as especialidad', 'aulas.id', 'aulas.referencia')
                     //->groupBy('aulas.id', 'users.id')
                     ->orderBy('pases_examen.numero_lista', 'asc')
                     ->get();
@@ -70,9 +112,28 @@ class ReportesController extends Controller
                     ->setOption('margin-left', '0mm');
                 $pdf->loadView('planteles.reportes1', compact('query', 'aulas'));
                 break;
+
+            case 11 :
+                $nombre_file = 'Listado_Alumnos_por_Aula';
+
+                $query = $query->select('aspirantes.id as aspirante', 'pases_examen.numero_lista', DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'), 'aspirantes.folio as folio_ceneval', 'aulas.id as no_aula', 'aulas.capacidad', 'especialidades.referencia as especialidad', 'aulas.id', 'aulas.referencia')
+                    ->orderBy('pases_examen.numero_lista', 'asc')
+                    ->get();
+
+                $pdf->setOption('header-html', view('planteles.header'))
+                    ->setOption('footer-html', view('planteles.footer'))
+                    ->setOption('margin-bottom', '20mm')
+                    ->setOption('margin-top', '30mm')
+                    ->setOption('margin-right', '0mm')
+                    ->setOption('margin-left', '0mm');
+                $pdf->loadView('planteles.reportes1', compact('query', 'aulas'));
+
+                break;
+
             case 2:
                 $nombre_file = 'reporte_de_acuse';
-                $query       = $query->select('aulas.id', 'aulas.referencia', 'pases_examen.numero_lista', 'aulas.capacidad', DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'), 'aulas.id as no_aula', 'aspirantes.folio', 'planteles.descripcion')->groupBy('aulas.id', 'users.id')
+                $query       = $query->select('aulas.id', 'aulas.referencia', 'pases_examen.numero_lista', 'aulas.capacidad', DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'), 'aulas.id as no_aula', 'aspirantes.folio', 'planteles.descripcion')
+                    ->groupBy('aulas.id', 'users.id')
                     ->orderBy('pases_examen.numero_lista', 'asc')->get();
                 $pdf->setOption('header-html', view('planteles.header'))
                     ->setOption('footer-html', view('planteles.footer'))
@@ -82,6 +143,23 @@ class ReportesController extends Controller
 
                 $pdf->loadView('planteles.reportes2', compact('query', 'aulas'));
                 break;
+
+            case 22:
+                $nombre_file = 'reporte_de_acuse';
+
+                $query = $query->select('aulas.id', 'aulas.referencia', 'pases_examen.numero_lista', 'aulas.capacidad', DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'), 'aulas.id as no_aula', 'aspirantes.folio', 'planteles.descripcion')
+                    ->groupBy('aulas.id', 'users.id')
+                    ->orderBy('pases_examen.numero_lista', 'asc')->get();
+
+                $pdf->setOption('header-html', view('planteles.header'))
+                    ->setOption('footer-html', view('planteles.footer'))
+                    ->setOption('margin-top', '34mm')
+                    ->setOption('margin-bottom', '20mm')
+                    ->setOrientation('landscape');
+
+                $pdf->loadView('planteles.reportes2', compact('query', 'aulas'));
+                break;
+
             case 3:
                 $nombre_file = 'Listado_General_de_Alumnos';
                 $plantel     = Plantel::find(Auth::user()->plantel->id);
@@ -92,6 +170,24 @@ class ReportesController extends Controller
                     ->orderBy('users.primer_apellido', 'asc')
                     ->groupBy('aulas.id', 'users.id')
                     ->get();
+                $pdf->setOption('header-html', view('planteles.header3', compact('plantel')))
+                    ->setOption('footer-html', view('planteles.footer'))
+                    ->setOption('margin-bottom', '20mm')
+                    ->setOption('margin-top', '35mm');
+                $pdf->loadView('planteles.reportes3', compact('query', 'plantel'));
+                break;
+
+            case 33:
+                $nombre_file = 'Listado_General_de_Alumnos';
+                $plantel     = Plantel::find(Auth::user()->plantel->id);
+                $query = $query->select(DB::raw('concat(users.primer_apellido," ",users.segundo_apellido," ",users.nombre) as nombre_completo'),
+                        'users.primer_apellido', 'users.segundo_apellido',
+                        'users.nombre', 'aspirantes.folio as folio_ceneval', 'especialidades.referencia as especialidad',
+                        'aulas.id as no_aula', 'aulas.id', 'aulas.referencia as aula_descripcion')
+                    ->orderBy('users.primer_apellido', 'asc')
+                    ->groupBy('aulas.id', 'users.id')
+                    ->get();
+
                 $pdf->setOption('header-html', view('planteles.header3', compact('plantel')))
                     ->setOption('footer-html', view('planteles.footer'))
                     ->setOption('margin-bottom', '20mm')
