@@ -65,9 +65,15 @@
                                     ¿Olvidaste tu contraseña?
                                 </a>
                             </div>
+
+                            <div class="form-group row mb-0 mt-3">
+                                <a href="{{ route('aviso.privacidad') }}">
+                                    Aviso de privacidad
+                                </a>
+                            </div>
                         </form>
                     </div>
-                    <div class="card-body pb-0">
+                    <div class="card-body pb-0 pt-0">
                         @guest
                             @if(is_etapa_registro())
                                 <div class="register links d-flex flex-column justify-content-center">
