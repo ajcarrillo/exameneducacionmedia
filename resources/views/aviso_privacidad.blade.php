@@ -17,8 +17,20 @@
         <div class="container-fluid" id="app">
             <h2 class="text-center">Aviso de privacidad</h2>
             <p>
-                Conforme a lo establecido en la Ley General de Protección de Datos Personales en Posesión de los Sujetos Obligados y la Ley de Protección de Datos Personales en Personales en Posesión de Sujetos Obligados en Quintana Roo, los datos personales recabados serán protegidos y se incorporarán y tratarán en el sistema de datos del proceso de asignación de la Secretaría de Educación. Serán utilizados únicamente para los propósitos del proceso de asignación, así como para fines estadísticos, de investigación y planeación. (Consulta el Aviso de Privacidad en:
-                <a href="http://qroo.gob.mx/seq">http://qroo.gob.mx/seq</a> en la sección  “Datos personales”). <a href="{{ Request::server('HTTP_REFERER', '/') }}">Regresar</a>
+                En cumplimiento a Ley General de Protección de Datos Personales en Posesión de los
+                Sujetos Obligados y la Ley de Protección de Datos Personales en Posesión de Sujetos
+                Obligados de Quintana Roo, los Servicios Educativos de Quintana Roo, con domicilio en
+                la avenida Insurgentes, número 600, colonia Gonzalo Guerrero, código postal 77020, de
+                la Ciudad de Chetumal, Quintana Roo, en su calidad de Sujeto Obligado informa que es el
+                responsable del tratamiento de los Datos Personales que nos proporcione, los cuales
+                serán protegidos de conformidad a lo dispuesto por la citada Ley y demás normatividad
+                que resulte aplicable. Los Datos Personales que recabamos de Usted, los utilizaremos
+                principalmente para el control interno, la elaboración de informes sobre el servicio
+                brindado y con fines estadísticos; para generar solicitud de examen de ingreso al Nivel
+                Medio Superior, asumiendo la obligación de cumplir con las medidas legales y de
+                seguridad suficientes para proteger los Datos Personales que se hayan recabado. Para
+                mayor detalle consulte, nuestro Aviso de Privacidad Integral en: <a href="http://qroo.gob.mx/seq">http://qroo.gob.mx/seq</a>
+                en la sección “Datos Personales”. <a href="{{ Request::server('HTTP_REFERER', '/') }}">Regresar</a>
             </p>
             <div class="row justify-content-center mt-3">
                 <div class="col-3">
