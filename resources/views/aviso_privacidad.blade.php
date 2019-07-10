@@ -17,18 +17,13 @@
         <div class="container-fluid" id="app">
             <h2 class="text-center">Aviso de privacidad</h2>
             <p>
-                En cumplimiento a Ley General de Protección de Datos Personales en Posesión de los
-                Sujetos Obligados y la Ley de Protección de Datos Personales en Posesión de Sujetos
-                Obligados de Quintana Roo, los Servicios Educativos de Quintana Roo, con domicilio en
-                la avenida Insurgentes, número 600, colonia Gonzalo Guerrero, código postal 77020, de
-                la Ciudad de Chetumal, Quintana Roo, en su calidad de Sujeto Obligado informa que es el
-                responsable del tratamiento de los Datos Personales que nos proporcione, los cuales
-                serán protegidos de conformidad a lo dispuesto por la citada Ley y demás normatividad
-                que resulte aplicable. Los Datos Personales que recabamos de Usted, los utilizaremos
-                principalmente para el control interno, la elaboración de informes sobre el servicio
-                brindado y con fines estadísticos; para generar solicitud de examen de ingreso al Nivel
-                Medio Superior, asumiendo la obligación de cumplir con las medidas legales y de
-                seguridad suficientes para proteger los Datos Personales que se hayan recabado. Para
+                En cumplimiento a Ley General de Protección de Datos Personales en Posesión de los Sujetos Obligados y la Ley de Protección de Datos Personales en Posesión de
+                Sujetos Obligados de Quintana Roo, los Servicios Educativos de Quintana Roo, con domicilio en la avenida Insurgentes, número 600, colonia Gonzalo Guerrero, código
+                postal 77020, de la Ciudad de Chetumal, Quintana Roo, en su calidad de Sujeto Obligado informa que es el responsable del tratamiento de los Datos Personales que nos
+                proporcione, los cuales serán protegidos de conformidad a lo dispuesto por la citada Ley y demás normatividad que resulte aplicable. Los Datos Personales que
+                recabamos de Usted, los utilizaremos principalmente para el control interno, la elaboración de informes sobre el servicio brindado y con fines estadísticos; para
+                generar solicitud de examen de ingreso al Nivel Medio Superior y los resultados de Asignación de Espacios al Nivel Medio Superior, asumiendo la obligación de
+                cumplir con las medidas legales y de seguridad suficientes para proteger los Datos Personales que se hayan recabado. Para
                 mayor detalle consulte, nuestro Aviso de Privacidad Integral en: <a href="http://qroo.gob.mx/seq">http://qroo.gob.mx/seq</a>
                 en la sección “Datos Personales”. <a href="{{ Request::server('HTTP_REFERER', '/') }}">Regresar</a>
             </p>
