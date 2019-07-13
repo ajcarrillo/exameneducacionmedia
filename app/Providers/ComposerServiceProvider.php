@@ -21,7 +21,11 @@ class ComposerServiceProvider extends ServiceProvider
     {
         View::composer('*', LoginAsUserComposer::class);
         View::composer('aspirante.dashboard', AsignacionComposer::class);
-        View::composer([ 'aspirante.dashboard', 'welcome' ], AsignacionesPublicadasComposer::class);
+        View::composer([
+            'aspirante.dashboard',
+            'auth.login',
+            'welcome',
+        ], AsignacionesPublicadasComposer::class);
     }
 
     public function register()

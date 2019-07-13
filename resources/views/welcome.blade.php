@@ -110,6 +110,15 @@
                         </div>
                     @endif
                 @endguest
+
+                @if($asignacionesPublicadas)
+                    <div class="information mt-3">
+                        <div class="alert alert-success text-center" role="alert">
+                            <strong>LOS RESULTADOS HAN SIDO PUBLICADOS</strong>
+                        </div>
+                    </div>
+                @endif
+
                 <div class="mt-3 d-flex flex-column flex-sm-row justify-content-center">
                     <a href="{{ route('login') }}" class="btn btn-info btn-lg blink">
                         Entrar

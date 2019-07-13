@@ -33,7 +33,13 @@
                     <div class="card-body pb-0">
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
-
+                            @if($asignacionesPublicadas)
+                                <div class="information mt-3">
+                                    <div class="alert alert-success text-center" role="alert">
+                                        <strong>LOS RESULTADOS HAN SIDO PUBLICADOS</strong>
+                                    </div>
+                                </div>
+                            @endif
                             <div class="form-group row">
                                 <label for="email">Correo electrónico</label>
                                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
