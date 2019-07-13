@@ -108,6 +108,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'asignaciones_publicadas' => env('ASIGNACIONES_PUBLICADAS', false),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

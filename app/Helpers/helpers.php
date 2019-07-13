@@ -66,3 +66,13 @@ if ( ! function_exists('get_user_roles')) {
         return get_user()->getRoleNames();
     }
 }
+
+if ( ! function_exists('get_numero_opcion')) {
+    function get_numero_opcion()
+    {
+        return DB::table('seleccion_ofertas_educativas')
+            ->where('aspirante_id', get_aspirante()->id)
+            ->where('oferta_educativa_id', get_aspirante()->asignacion->oferta_educativa_id)
+            ->value('preferencia');
+    }
+}

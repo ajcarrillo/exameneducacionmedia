@@ -6,7 +6,7 @@
             padding-bottom: 1rem;
         }
     </style>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"/>
 @endsection
 
 @section('content')
@@ -51,43 +51,90 @@
                         <div class="card-header">
                             <h1 class="card-title">Información</h1>
                         </div>
-                        <div class="card-body">
-                            @if($hasRevision)
-                                @if(!$revision->efectuado)
-                                    <div class="alert alert-success" role="alert">
-                                        Descarga tu ficha de pago, paga en banco y espera 72hrs para ver reflejado tu depósito.
-                                    </div>
-                                @else
-                                    @if(!$hasPaseAlExamen)
+                        @if($asignacionesPublicadas)
+                            @if($hasAsignacion)
+                                <div class="card-body">
+                                    <h3>¡FELICIDADES {{ Auth::user()->nombre }}!</h3>
+                                    <h4>¡Fuiste asignado en tu opción {{ get_numero_opcion() }}!</h4>
+                                </div>
+                                <div class="card-body table-responsive p-0">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Subsistema</th>
+                                                <th>Plantel</th>
+                                                <th>Especialidad</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>{{ get_aspirante()->asignacion->ofertaEducativa->plantel->subsistema->referencia }}</td>
+                                                <td>{{ get_aspirante()->asignacion->ofertaEducativa->plantel->descripcion }}</td>
+                                                <td>{{ get_aspirante()->asignacion->ofertaEducativa->especialidad->referencia }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            @else
+                                <div class="card-body">
+                                    <h4>¡Hola {{ Auth::user()->nombre }}!</h4>
+                                    <p>No fuiste asignado a ningún plantel.</p>
+                                    <p>Preséntate a alguno de los Servicios Educativos de los municipios listados en la tabla siguiente:</p><br/>
+                                    <img src="{{ asset('img/enlaces.png') }}" alt="Enlaces" class="img-fluid">
+                                </div>
+                            @endif
+                        @else
+                            <div class="card-body">
+                                @if($hasRevision)
+                                    @if(!$revision->efectuado)
                                         <div class="alert alert-success" role="alert">
-                                            Genera tu pase al examen
+                                            Descarga tu ficha de pago, paga en banco y espera 72hrs para ver reflejado tu depósito.
                                         </div>
                                     @else
-                                        <div class="alert alert-success" role="alert">
-                                            <strong>¡ HAS FINALIZADO TU REGISTRO !</strong>
-                                            Tu pase al examen ha sido generado correctamente, ahora procede a descargar tu pase al examen
-                                        </div>
+                                        @if(!$hasPaseAlExamen)
+                                            <div class="alert alert-success" role="alert">
+                                                Genera tu pase al examen
+                                            </div>
+                                        @else
+                                            <div class="alert alert-success" role="alert">
+                                                <strong>¡ HAS FINALIZADO TU REGISTRO !</strong>
+                                                Tu pase al examen ha sido generado correctamente, ahora procede a descargar tu pase al examen
+                                            </div>
+                                        @endif
                                     @endif
                                 @endif
-                            @endif
-                            <h4>Pasos a seguir para obtener tu pase al examen.</h4>
+                                <h4>Pasos a seguir para obtener tu pase al examen.</h4>
 
-                            <ol>
-                                <li>
-                                    <strong>Editar perfil:</strong> Responde cada pregunta, guarda todos los datos  y da clic en “REGRESAR”  al portal de bienvenido para continuar.
-                                </li>
-                                <li>
-                                    <strong>Cuestionario Ceneval:</strong> Responde cada pregunta de las 3 páginas, da siguiente y guarda todos los datos,  hasta que el sistema indique  “El cuestionario ceneval, fue respondido exitosamente”  da clic en “REGRESAR”.
-                                </li>
-                                <li>
-                                    <strong>Opciones Educativas:</strong> Inicia seleccionando el municipio donde se encuentra el plantel donde quieres estudiar, la localidad, plantel, especialidad y agrega. Así lo harás con cada opción a elegir, hasta que hayan sido la cantidad de opciones que indica en opciones a elegir “GUARDA” y “REGRESA” da clic en “ENVIAR REGISTRO” ( si no aparece esta opción, te hace falta información de las pasos 1 y 2, o ambas).
-                                </li>
-                            </ol>
+                                <ol>
+                                    <li>
+                                        <strong>Editar perfil:</strong> Responde cada pregunta, guarda todos los datos y da clic en “REGRESAR” al portal de bienvenido para
+                                        continuar.
+                                    </li>
+                                    <li>
+                                        <strong>Cuestionario Ceneval:</strong> Responde cada pregunta de las 3 páginas, da siguiente y guarda todos los datos, hasta que el
+                                        sistema
+                                        indique “El cuestionario ceneval, fue respondido exitosamente” da clic en “REGRESAR”.
+                                    </li>
+                                    <li>
+                                        <strong>Opciones Educativas:</strong> Inicia seleccionando el municipio donde se encuentra el plantel donde quieres estudiar, la
+                                        localidad,
+                                        plantel, especialidad y agrega. Así lo harás con cada opción a elegir, hasta que hayan sido la cantidad de opciones que indica en
+                                        opciones a
+                                        elegir “GUARDA” y “REGRESA” da clic en “ENVIAR REGISTRO” ( si no aparece esta opción, te hace falta información de las pasos 1 y 2, o
+                                        ambas).
+                                    </li>
+                                </ol>
                                 <p><strong>**Genera y descarga tu boleta pago de derecho a examen.</strong></p>
 
-                                Después del pago efectuado, de 2 a 3 días hábiles, ingresa al portal de registro <a href="http://paenms.seq.gob.mx">http://paenms.seq.gob.mx</a>  y entra con tu usuario, que es el correo electrónico que diste de alta, cuando creaste tu cuenta PAENMS, para descargar e imprimir el pase al examen,  esté indicará el  plantel,  fecha,  hora y aula del día del examen.
+                                Después del pago efectuado, de 2 a 3 días hábiles, ingresa al portal de registro <a href="http://paenms.seq.gob.mx">http://paenms.seq.gob.mx</a>
+                                y
+                                entra
+                                con tu usuario, que es el correo electrónico que diste de alta, cuando creaste tu cuenta PAENMS, para descargar e imprimir el pase al examen,
+                                esté
+                                indicará el plantel, fecha, hora y aula del día del examen.
 
-                        </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -95,30 +142,7 @@
                 @if(count($ofertas) > 0)
                     <div class="col">
                         <div class="card">
-
-
                             <div id="map" style="width: 100%; height: 400px; border: 1px solid grey" data-datos="{{$ofertas_gral}}"></div>
-                            {{--<div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-                                    <div class="card text-center">
-                                      <gmap-map
-                                            ref="gmap"
-                                            :center="{ lat: {{$ofertas[0]->ofertaEducativa->plantel->latitud}}, lng: {{$ofertas[0]->ofertaEducativa->plantel->longitud}} }"
-                                            :zoom="8"
-                                            style="width:100%;  height: 500px;"
-                                        >
-                                             @foreach($ofertas_gral as $oferta)
-                                                <gmap-marker
-                                                    :position="google && new google.maps.LatLng({{ $oferta->latitud}}, {{ $oferta->longitud}})"
-                                                    @click="showInfoWindow()"
-                                                >
-                                                    <gmap-info-window :opened="visInfoWindow">{{ $oferta->plantel_desc }}</gmap-info-window>
-                                                </gmap-marker>
-                                            @endforeach
-                                        </gmap-map>
-                                    </div>
-                                </div>
-                            </div> --}}
                             <div class="row p-3">
                                 @foreach($ofertas as $oferta)
                                     <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 d-flex">
@@ -127,17 +151,6 @@
                                                     marginheight="0" marginwidth="0"
                                                     src="https://www.openstreetmap.org/export/embed.html?bbox={{ $oferta->ofertaEducativa->plantel->longitud + .0009}}%2C{{ $oferta->ofertaEducativa->plantel->latitud + .0009}}%2C{{ $oferta->ofertaEducativa->plantel->longitud}}%2C{{ $oferta->ofertaEducativa->plantel->latitud}}&amp;layer=mapnik&amp;marker={{ $oferta->ofertaEducativa->plantel->latitud}}%2C{{ $oferta->ofertaEducativa->plantel->longitud}}"
                                             ></iframe>
-
-                                            {{--<gmap-map
-                                                ref="gmap"
-                                                :center="{ lat: {{ $oferta->ofertaEducativa->plantel->latitud}}, lng: {{ $oferta->ofertaEducativa->plantel->longitud}} }"
-                                                :zoom="17"
-                                                style="width:100%;  height: 300px;"
-                                            >
-                                                <gmap-marker
-                                                    :position="google && new google.maps.LatLng({{ $oferta->ofertaEducativa->plantel->latitud}}, {{ $oferta->ofertaEducativa->plantel->longitud}})"
-                                                ></gmap-marker>
-                                            </gmap-map> --}}
                                             <div class="card-body">
                                                 <h2>
                                                     <span class="badge badge-pill badge-success">{{$oferta->preferencia}}</span>

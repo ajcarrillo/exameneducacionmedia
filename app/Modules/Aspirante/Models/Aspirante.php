@@ -16,6 +16,7 @@ use ExamenEducacionMedia\Models\Geodatabase\Pais;
 use ExamenEducacionMedia\Traits\FilterByTrait;
 use ExamenEducacionMedia\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Subsistema\Models\SedeAlterna;
 
 class Aspirante extends Model
@@ -37,6 +38,11 @@ class Aspirante extends Model
     protected $appends  = [
         'is_aspirante_externo',
     ];
+
+    public function asignacion(): HasOne
+    {
+        return $this->hasOne(Asignacion::class, 'folio', 'folio');
+    }
 
     public function controlEscolar()
     {
