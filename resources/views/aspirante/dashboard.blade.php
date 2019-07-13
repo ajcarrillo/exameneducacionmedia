@@ -64,6 +64,7 @@
                                                 <th>Subsistema</th>
                                                 <th>Plantel</th>
                                                 <th>Especialidad</th>
+                                                <th>Descargar reporte</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -71,6 +72,11 @@
                                                 <td>{{ get_aspirante()->asignacion->ofertaEducativa->plantel->subsistema->referencia }}</td>
                                                 <td>{{ get_aspirante()->asignacion->ofertaEducativa->plantel->descripcion }}</td>
                                                 <td>{{ get_aspirante()->asignacion->ofertaEducativa->especialidad->referencia }}</td>
+                                                <td>
+                                                    <a href="{{ route('aspirante.descargar.reporte.individual') }}" class="btn btn-link">
+                                                        Descargar
+                                                    </a>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>

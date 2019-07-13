@@ -8,6 +8,8 @@
  * path: /aspirantes
  */
 
+use Aspirante\Http\Controllers\DescargarReporteIndividualController;
+
 Route::post('/buscar-matricula', 'BuscarMatriculaController@index')->name('buscar.matricula');
 
 Route::get('/registro-externo', 'RegistroExternoController@index')
@@ -64,6 +66,8 @@ Route::middleware([ 'auth', 'role:aspirante' ])
         Route::get('/paseExamen/{id}', 'DescargaPaseExamenController@reportePaseExamen')->name('paseExamen');
         Route::get('/fichaPago/{id}', 'DescargaPaseExamenController@fichaPago')->name('fichaPago');
         //end
+
+        Route::get('/descargar-resultados', [ DescargarReporteIndividualController::class, 'index' ])->name('descargar.reporte.individual');
     });
 
 
