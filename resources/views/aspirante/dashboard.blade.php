@@ -85,7 +85,14 @@
                                 <div class="card-body">
                                     <h4>¡Hola {{ Auth::user()->nombre }}!</h4>
                                     <p>No fuiste asignado a ningún plantel.</p>
-                                    <p>Preséntate a alguno de los Servicios Educativos de los municipios listados en la tabla siguiente:</p><br/>
+                                    <p>Preséntate a alguno de los Servicios Educativos de los municipios listados en la tabla siguiente:</p>
+                                    @if(get_aspirante()->asignacion()->exists())
+                                        <p>
+                                            <a href="{{ route('aspirante.descargar.reporte.individual') }}" class="btn btn-link">
+                                                Descargar resultados
+                                            </a>
+                                        </p>
+                                    @endif
                                     <img src="{{ asset('img/enlaces.png') }}" alt="Enlaces" class="img-fluid">
                                 </div>
                             @endif
