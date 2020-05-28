@@ -23,7 +23,7 @@
         "cross-env": "^5.1",
         "gsap": "^2.0.2",
         "ionicons": "^4.4.4",
-        "jquery": "^3.2",
+        "jquery": "^3.5",
         "laravel-mix": "^2.0",
         "lodash": "^4.17.5",
         "moment": "^2.22.2",
