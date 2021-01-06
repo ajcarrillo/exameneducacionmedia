@@ -15,7 +15,7 @@
         "@fortawesome/free-solid-svg-icons": "^5.3.1",
         "@fortawesome/vue-fontawesome": "^0.1.1",
         "admin-lte": "https://github.com/almasaeed2010/AdminLTE#v3-dev",
-        "axios": "^0.18",
+        "axios": "^0.21",
         "bootstrap": "^4.0.0",
         "browser-sync": "^2.24.7",
         "browser-sync-webpack-plugin": "^2.2.2",
