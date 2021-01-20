@@ -21,7 +21,7 @@
         "browser-sync-webpack-plugin": "^2.2.2",
         "collect.js": "^4.0.28",
         "cross-env": "^5.1",
-        "gsap": "^2.0.2",
+        "gsap": "^3.6.0",
         "ionicons": "^4.4.4",
         "jquery": "^3.2",
         "laravel-mix": "^2.0",
